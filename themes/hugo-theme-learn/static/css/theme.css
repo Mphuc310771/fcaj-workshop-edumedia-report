@@ -729,8 +729,8 @@ div.notices p:first-child:after {
 }
 
 div.notices.info p {
-  border-top: 30px solid #f0b37e;
-  background: #fff2db;
+  border-top: 30px solid #2563eb;
+  background: #f8fafc;
 }
 
 div.notices.info p:first-child:after {
@@ -864,12 +864,12 @@ samp {
 }
 
 code {
-  border-radius: 2px;
+  border-radius: 3px;
   white-space: nowrap;
-  color: #5e5e5e;
-  background: #fff7dd;
-  border: 1px solid #fbf0cb;
-  padding: 0px 2px;
+  color: #334155;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 2px 5px;
 }
 
 code+.copy-to-clipboard {

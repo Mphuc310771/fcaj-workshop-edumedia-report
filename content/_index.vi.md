@@ -1,31 +1,31 @@
 ---
 title: "Báo cáo thực tập"
-date: 2024-01-01
+date: 2026-08-03
 weight: 1
 chapter: false
 ---
 
 # Báo cáo thực tập
 ### Thông tin sinh viên:
-&emsp; **Họ và tên:** Nguyễn Văn A
+&emsp; **Họ và tên:** Đỗ Trần Minh Phúc
 
-&emsp; **Số điện thoại:** 0989888999
+&emsp; **Số điện thoại:** 0817137970
 
-&emsp; **Email:** Anguyenvan@gmail.com
+&emsp; **Email:** dtmpk12<span>@</span>gmail.com
 
-&emsp; **Trường:** Đại học Sư phạm Kỹ thuật TP.HCM
+&emsp; **MSSV:** 23120156
+
+&emsp; **Trường:** Đại học Khoa học Tự nhiên, ĐHQG-HCM (HCMUS - VNU)
 
 &emsp; **Ngành:** Công nghệ thông tin
-
-&emsp; **Lớp:** AWS082025
 
 &emsp; **Công ty thực tập:** Công ty TNHH Amazon Web Services Viet Nam
 
 &emsp; **Vị trí thực tập:** Workforce Bootcamp - First Cloud AI Journey
 
-&emsp; **Thời gian thực tập:** Từ ngày 12/08/2025 đến ngày 12/11/2025
+&emsp; **Thời gian thực tập:** Từ ngày 17/08/2026 đến ngày 06/11/2026
 
-![Ảnh đại diện của bạn](/images/avatar.png)
+![Ảnh chân dung sinh viên thực tập Đỗ Trần Minh Phúc](/images/avatar.png)
 
 
 

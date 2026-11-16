@@ -1,22 +1,19 @@
 ---
 title: "Blogs Posted"
-date: 2024-01-01
+date: 2026-11-06
 weight: 3
 chapter: false
 pre: " <b> 3. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+Throughout the First Cloud AI Journey (FCAJ) 2026 internship and the engineering of the AgentSys platform, comprehensive technical articles were authored and published to the [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj):
 
-This section will list and introduce the blogs you have posted to [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). For example:
+---
 
-###  [Blog 1 - SESSION POLICIES IN AMAZON EKS POD IDENTITY](3.1-Blog1/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+### [Blog 1 - Serverless Media Processing: Why I Avoid Direct S3 Lambda Triggers](3.1-blog1/)
+Deconstructs the three critical failure modes of push-based S3 direct Lambda triggers: internal unmonitored queues, concurrency exhaustion cascading downstream, and silent event drops. Details the pull-based SQS + DLQ Claim Check architecture with `ScalingConfig: MaximumConcurrency = 5` and `ReportBatchItemFailures`.
 
-###  [Blog 2 - ...](3.2-Blog2/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+---
 
-###  [Blog 3 - ...](3.3-Blog3/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+### [Blog 2 - DynamoDB Query Optimization: Limitations of FilterExpression and the Global Secondary Index Solution](3.2-blog2/)
+Provides an in-depth mechanical teardown of DynamoDB storage layers: explaining why `Scan` with `FilterExpression` incurs 100% RCU disk consumption prior to RAM filtering and causes Empty Page Pagination on AWS Lambda. Demonstrates an O(1) GSI partition routing design (`category-index`) reducing RCUs by 99.98% and latencies to under 15ms.

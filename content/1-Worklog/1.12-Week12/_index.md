@@ -1,57 +1,36 @@
 ---
-title: "Week 12 Worklog"
-date: 2024-01-01
-weight: 2
+title: "Week 12"
+date: 2026-11-06
+weight: 12
 chapter: false
 pre: " <b> 1.12. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+# Week 12: Workshop Documentation Packaging & Technical Verification
+*Internship Period: 02/11/2026 – 06/11/2026*
 
-### Week 12 Objectives:
+### 1. Week 12 Objectives:
+* Author and package comprehensive 7-chapter Hands-on Workshop guide (5.1 through 5.7) matching FCAJ standards.
+* Validate automated resource teardown runbook and script (`cleanup.sh`) ensuring thorough environment purging to avoid unforeseen costs.
+* Verify FinOps cost projections against AWS Pricing Calculator and actual expenses in AWS Cost Explorer / Budgets ($0.00 USD).
+* Review GitHub codebase repository, complete final internship documentation, and complete technical verification of AgentSys.
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### 2. Daily Tasks & Schedule:
+| Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
+|:---:|---|:---:|:---:|---|
+| **Mon** | - Authored Workshop Chapter 5.1 (Architecture & FinOps overview) and Chapter 5.2 (Prerequisites & AWS SAM CLI).<br>- Detailed AWS credentials configuration and development toolchain setup. | 02/11/2026 | 02/11/2026 | [AWS SAM Developer Guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) |
+| **Tue** | - Authored Workshop Chapter 5.3 (SAM Infrastructure Deployment) and Chapter 5.4 (Media Extraction Testing).<br>- Captured screenshots of CloudFormation stack status and automated Rekognition/Transcribe data flows. | 03/11/2026 | 03/11/2026 | [Amazon Rekognition Docs](https://docs.aws.amazon.com/rekognition/) |
+| **Wed** | - Authored Workshop Chapter 5.5 (Bedrock Search & Web Gallery) and Chapter 5.7 (Technical Trade-offs & Roadmap).<br>- Guided users through semantic search queries and evidence playback exploration. | 04/11/2026 | 04/11/2026 | [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/) |
+| **Thu** | - Engineered Workshop Chapter 5.6 (CloudWatch Monitoring & Clean-up Runbook).<br>- Tested automated script `cleanup.sh` purging S3 buckets, DynamoDB tables, and CloudFormation stacks in under 3 minutes. | 05/11/2026 | 05/11/2026 | [AWS CLI S3 cleanup](https://docs.aws.amazon.com/cli/latest/reference/s3/rm.html) |
+| **Fri** | - Audited actual incurred costs via AWS Budgets / Cost Explorer; performed final technical verification.<br>- Polished GitHub codebase documentation and finalized the internship report. | 06/11/2026 | 06/11/2026 | [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/) |
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Week 12 Achievements:
+* Delivered complete 7-part Workshop guide (5.1 through 5.7) with step-by-step technical instructions and actual screenshots.
+* Validated `cleanup.sh` script and runbook, guaranteeing complete environment teardown within 3 minutes to avoid idle costs.
+* Confirmed $0.00 USD actual incurred spend on AWS Cost Explorer, validating the serverless Scale-to-Zero model.
+* Packaged complete source code, tests, and documentation on GitHub, successfully completing the FCAJ internship.
 
-
-### Week 12 Achievements:
-
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+### 4. References:
+* [AWS CloudFormation Stack Deletion](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html)
+* [AWS Well-Architected Operational Excellence Pillar](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/)
+* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)

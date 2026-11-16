@@ -1,59 +1,37 @@
 ---
-title: "Worklog Tuần 5"
-date: 2024-01-01
-weight: 1
+title: "Tuần 5"
+date: 2026-09-18
+weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+# Tuần 5: Thiết Kế Kiến Trúc AgentSys & Hoàn Thiện Proposal
+*Thời gian thực hiện: 14/09/2026 – 18/09/2026*
 
-### Mục tiêu tuần 5:
+### 1. Mục tiêu tuần 5:
+* Hoàn thiện sơ đồ kiến trúc tổng thể của AgentSys trên Draw.io theo chuẩn AWS Architecture Icons 2026.
+* Soạn thảo bản Đề xuất Dự án (Proposal) 7 phần đầy đủ theo hướng dẫn của ban tổ chức FCAJ.
+* Lập mô hình dự toán chi phí chi tiết bằng công cụ chính thức AWS Pricing Calculator (calculator.aws).
+* Đánh giá kiến trúc đối chiếu với 6 trụ cột của AWS Well-Architected Framework.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### 2. Các công việc triển khai trong tuần:
+| Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+|:---:|---|:---:|:---:|---|
+| **2** | - Thiết kế sơ đồ kiến trúc hệ thống AgentSys trên Draw.io.<br>- Sử dụng bộ icon AWS Architecture 2026 mới nhất, chuẩn hóa các luồng dữ liệu 5 tầng. | 14/09/2026 | 14/09/2026 | [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) |
+| **3** | - Soạn thảo các phần bối cảnh, bài toán thực tế (Problem Statement) và phạm vi triển khai.<br>- Định nghĩa rõ các tiêu chuẩn hoàn thành cho từng dịch vụ AWS. | 15/09/2026 | 15/09/2026 | Mẫu Proposal FCAJ |
+| **4** | - Lập bảng dự toán chi phí chi tiết trên AWS Pricing Calculator tại region us-east-1.<br>- Chứng minh hệ thống đạt chi phí 0 USD khi ở trạng thái nghỉ (Scale-to-Zero). | 16/09/2026 | 16/09/2026 | [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934) |
+| **5** | - Viết phần phân tích đối chiếu 6 trụ cột AWS Well-Architected Framework: Security, Reliability, Performance, Cost, Operations, Sustainability.<br>- Bổ sung cơ chế bảo mật IAM Least Privilege và S3 SSE-S3. | 17/09/2026 | 17/09/2026 | [AWS Well-Architected](https://aws.amazon.com/architecture/well-architected/) |
+| **6** | - Hoàn thiện tài liệu Proposal song ngữ và lưu trữ vào repository báo cáo tại content/2-Proposal/.<br>- Rà soát các tiêu chí kỹ thuật chuẩn bị cho giai đoạn xây dựng mã nguồn. | 18/09/2026 | 18/09/2026 | Quy định Proposal FCAJ |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Kết quả đạt được tuần 5:
+* Hoàn thiện sơ đồ kiến trúc AgentSys chi tiết trên Draw.io thể hiện rõ 5 tầng: Upload, Ingestion, AI Extraction, Storage & Querying.
+* Soạn thảo bản Đề xuất Dự án (Proposal) song ngữ hoàn chỉnh tại content/2-Proposal/ với đầy đủ 8 mục nội dung.
+* Xây dựng bảng dự toán chi phí trên AWS Pricing Calculator: chi phí xử lý 1 ảnh khoảng 0.00207 USD (~52 VNĐ) và 1 phút audio khoảng 0.02435 USD (~610 VNĐ); mô hình Pay-as-you-go giúp tối ưu ngân sách theo nhu cầu thực tế và tự co về 0 khi không có tải.
+* Phân tích thấu đáo 6 trụ cột Well-Architected: bảo vệ dữ liệu với S3 Block Public Access, chống nghẽn với SQS load leveling, tối ưu vector 256 chiều và Scale-to-Zero khi không có truy cập.
+* Sẵn sàng các tài liệu thiết kế kiến trúc để bước vào giai đoạn hiện thực hóa mã nguồn ở tuần tiếp theo.
 
-
-### Kết quả đạt được tuần 5:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+### 4. Tài liệu tham khảo:
+* [AWS Architecture Center & Official Icons](https://aws.amazon.com/architecture/icons/)
+* [AWS Well-Architected Framework Whitepapers](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)

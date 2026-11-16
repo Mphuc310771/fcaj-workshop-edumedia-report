@@ -1,59 +1,37 @@
 ---
-title: "Worklog Tuần 10"
-date: 2024-01-01
-weight: 2
+title: "Tuần 10"
+date: 2026-10-23
+weight: 10
 chapter: false
 pre: " <b> 1.10. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+# Tuần 10: Phát Triển Giao Diện Web Gallery & Tích Hợp Client
+*Thời gian thực hiện: 19/10/2026 – 23/10/2026*
 
-### Mục tiêu tuần 10:
+### 1. Mục tiêu tuần 10:
+* Khởi tạo và thiết kế giao diện Web Gallery hiện đại (React, Tailwind CSS, Vite) kết nối trực tiếp với backend REST API của AgentSys.
+* Hiện thực hóa tính năng Media Player tương tác: Click-to-Seek đồng bộ trực tiếp theo timestamp câu thoại trong bản ghi transcript bài giảng.
+* Thiết lập các chốt chặn kiểm soát và bảo vệ dữ liệu hệ thống (System Guardrails): cơ chế chặn xóa tệp gốc được bảo vệ (HTTP 403), giới hạn dung lượng tải lên (<= 25MB) và cấu hình chính sách CORS trên API Gateway.
+* Tích hợp bộ lọc tìm kiếm theo danh mục (category chips), môn học và kết nối endpoint tra cứu thông minh `POST /api/v1/media/agent/query`.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### 2. Các công việc triển khai trong tuần:
+| Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+|:---:|---|:---:|:---:|---|
+| **2** | - Khởi tạo dự án Web Frontend với Vite, React và Tailwind CSS.<br>- Thiết kế layout dạng lưới thẻ media trực quan và responsive trên các thiết bị. | 19/10/2026 | 19/10/2026 | [Vite & React Guide](https://vitejs.dev/) |
+| **3** | - Tích hợp API Gateway Client, kết nối endpoint GET /api/v1/media để tải danh mục.<br>- Hiển thị thumbnail ảnh, thông tin trích xuất nhãn và văn bản OCR từ Rekognition. | 20/10/2026 | 20/10/2026 | [Amazon API Gateway Guide](https://docs.aws.amazon.com/apigateway/) |
+| **4** | - Xây dựng tính năng Click-to-Seek Media Player.<br>- Bấm vào từng đoạn transcript sẽ tự động nhảy đến đúng mốc thời gian âm thanh/video phát trong bài giảng. | 21/10/2026 | 21/10/2026 | [HTML5 Media Audio and Video API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) |
+| **5** | - Thiết lập các cơ chế kiểm soát và bảo vệ hệ thống (System Guardrails & Input Validation).<br>- Ràng buộc cờ bảo vệ tài nguyên (chặn xóa dữ liệu gốc trả về HTTP 403), giới hạn dung lượng tải lên (<= 25MB) và cấu hình CORS FrontendOriginUrl. | 22/10/2026 | 22/10/2026 | [API Gateway CORS Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html) |
+| **6** | - Kiểm thử trải nghiệm người dùng trên máy cục bộ, tối ưu tốc độ render component.<br>- Kết nối giao diện tìm kiếm với API Bedrock Agent Query trả về Search Plan trực quan. | 23/10/2026 | 23/10/2026 | [React Hooks Documentation](https://react.dev/) |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Kết quả đạt được tuần 10:
+* Hoàn thiện ứng dụng Web Gallery hoàn chỉnh kết nối mượt mà với các API Serverless của AgentSys.
+* Tính năng Click-to-Seek media player đồng bộ mốc thời gian bài giảng hoạt động chính xác, nâng cao trải nghiệm tra cứu tư liệu học tập.
+* Các chốt chặn bảo vệ và kiểm duyệt input giúp hệ thống ngăn chặn hiệu quả thao tác xóa ngoài ý muốn và chống tràn tải dữ liệu lớn.
+* Giao diện tìm kiếm thông minh hiển thị kết quả phân loại môn học và trích dẫn bằng chứng rõ ràng.
 
-
-### Kết quả đạt được tuần 10:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+### 4. Tài liệu tham khảo:
+* [Vite Getting Started Guide](https://vitejs.dev/guide/)
+* [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+* [Amazon API Gateway Enabling CORS](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html)
+* [HTML5 Media Audio and Video DOM Reference](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement)

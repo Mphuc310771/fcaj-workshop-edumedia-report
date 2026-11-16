@@ -1,57 +1,37 @@
 ---
-title: "Week 2 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Week 2"
+date: 2026-08-28
+weight: 2
 chapter: false
 pre: " <b> 1.2. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+# Week 2: S3 Storage Design, IAM Least-Privilege & SAM Baseline
+*Internship Period: 24/08/2026 – 28/08/2026*
 
-### Week 2 Objectives:
+### 1. Week 2 Objectives:
+* Design object storage topology on Amazon S3 featuring Block Public Access and default SSE-S3 encryption.
+* Architect a prefix-separation model to eliminate the risk of recursive invocation loops.
+* Define IAM Execution Roles for Lambda functions following least-privilege principles.
+* Initialize infrastructure template (infra/template.yaml) using AWS SAM and request foundation model access on Amazon Bedrock.
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### 2. Daily Tasks & Schedule:
+| Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
+|:---:|---|:---:|:---:|---|
+| **Mon** | - Designed S3 bucket agentsys-mediabucket.<br>- Enforced Block All Public Access and default Server-Side Encryption (SSE-S3 AES-256). | 24/08/2026 | 24/08/2026 | [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/) |
+| **Tue** | - Defined S3 prefix partitions: uploads/ (incoming files) and transcripts/ (ASR outputs).<br>- Configured S3 Event Notification prefix filters to prevent recursive trigger loops. | 25/08/2026 | 25/08/2026 | [S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventNotifications.html) |
+| **Wed** | - Authored IAM Execution Roles in SAM template.<br>- Decoupled permissions between background ingestion worker (agentsys-ingest-role) and query API (agentsys-api-role). | 26/08/2026 | 26/08/2026 | [AWS IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) |
+| **Thu** | - Drafted infra/template.yaml, declaring environment parameters.<br>- Verified template integrity using sam validate --lint. | 27/08/2026 | 27/08/2026 | [AWS SAM Specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) |
+| **Fri** | - Requested Foundation Model Access on AWS Bedrock Console for Titan Text Embeddings V2 and Nova Lite.<br>- Reviewed technical guides in preparation for AI integration. | 28/08/2026 | 28/08/2026 | [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/) |
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Week 2 Achievements:
+* Established S3 bucket baseline with 100% Block Public Access and SSE-S3 AES-256 encryption.
+* Enforced prefix-filtering on uploads/, guaranteeing zero risk of recursive invocation cascades when writing transcripts back to storage.
+* Successfully segregated execution permissions between ingestion and query layers under least-privilege standards.
+* SAM template validated cleanly with 0 syntax or linting errors via sam validate --lint.
+* Foundation model access granted on Amazon Bedrock for both embedding generation and query planning models.
 
-
-### Week 2 Achievements:
-
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+### 4. References:
+* [Amazon S3 Security Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
+* [AWS Lambda Execution Role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html)
+* [Amazon Bedrock Model Access Documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html)

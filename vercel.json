@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "hugo --minify",
+  "outputDirectory": "public",
+  "framework": "hugo",
+  "cleanUrls": true,
+  "trailingSlash": true
+}

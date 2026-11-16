@@ -1,59 +1,36 @@
 ---
-title: "Worklog Tuần 4"
-date: 2024-01-01
-weight: 1
+title: "Tuần 4"
+date: 2026-09-11
+weight: 4
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+# Tuần 4: Khám Phá Amazon Rekognition & Transcribe
+*Thời gian thực hiện: 07/09/2026 – 11/09/2026*
 
-### Mục tiêu tuần 4:
+### 1. Mục tiêu tuần 4:
+* Khảo sát các API Computer Vision của Amazon Rekognition (DetectLabels, DetectText) trên tập ảnh slide bài giảng và ảnh chụp bảng viết tay.
+* Đánh giá độ chính xác bóc tách giọng nói tiếng Việt (vi-VN) bằng Amazon Transcribe qua API StartTranscriptionJob.
+* Đo lường thời gian xử lý và kích thước payload của các định dạng media để chuẩn bị dữ liệu thực tế cho bảng tính chi phí FinOps.
+* Khắc phục giới hạn kích thước tệp khi truyền dữ liệu trực tiếp vào Amazon Rekognition.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### 2. Các công việc triển khai trong tuần:
+| Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+|:---:|---|:---:|:---:|---|
+| **2** | - Viết script Python Boto3 gọi thử nghiệm API DetectLabels của Amazon Rekognition.<br>- Đánh giá độ chính xác phân loại đối tượng trên 20 ảnh slide bài giảng CNTT. | 07/09/2026 | 07/09/2026 | [Rekognition Labels](https://docs.aws.amazon.com/rekognition/latest/dg/labels.html) |
+| **3** | - Thử nghiệm API DetectText bóc tách ký tự tiếng Việt và chữ viết bảng.<br>- Khảo sát ngưỡng độ tin cậy để loại bỏ các từ bị nhận diện sai lệch. | 08/09/2026 | 08/09/2026 | [Rekognition Text](https://docs.aws.amazon.com/rekognition/latest/dg/text-detection.html) |
+| **4** | - Gọi thử nghiệm Amazon Transcribe qua API StartTranscriptionJob với mã ngôn ngữ vi-VN.<br>- Bóc băng 5 đoạn ghi âm bài giảng (3–5 phút) và đo đếm thời gian chuyển đổi văn bản. | 09/09/2026 | 09/09/2026 | [Amazon Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/) |
+| **5** | - Phân tích giới hạn kích thước tệp: phát hiện Rekognition từ chối ảnh > 5MB nếu truyền qua tham số Bytes.<br>- Chuyển sang truyền tham số S3Object để hỗ trợ ảnh dung lượng lên đến 15MB. | 10/09/2026 | 10/09/2026 | [Rekognition Limits](https://docs.aws.amazon.com/rekognition/latest/dg/limits.html) |
+| **6** | - Tổng hợp bảng số liệu thực nghiệm về thời gian xử lý và kích thước payload của các định dạng media.<br>- Chuẩn bị dữ liệu thực tế cho bảng tính chi phí FinOps. | 11/09/2026 | 11/09/2026 | [AWS Architecture Center](https://aws.amazon.com/architecture/) |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Kết quả đạt được tuần 4:
+* Nắm vững các API cốt lõi của Rekognition và Transcribe vi-VN, đánh giá khách quan độ chính xác nhận diện chữ viết bảng và giọng nói chuyên ngành kỹ thuật.
+* Khắc phục triệt để lỗi giới hạn kích thước tệp: phát hiện Rekognition giới hạn 5MB khi truyền payload dạng Bytes base64; chuyển sang truyền đối tượng tham chiếu S3 (S3Object) giúp hỗ trợ ảnh lên đến 15MB an toàn.
+* Thiết lập mốc độ tin cậy tối ưu: Confidence >= 65.0 cho nhãn hình ảnh và >= 70.0 cho văn bản OCR, loại bỏ hoàn toàn các ký tự rác.
+* Xây dựng xong bảng số liệu thực nghiệm đo đạc độ trễ và chi phí làm cơ sở thiết kế hệ thống.
 
-
-### Kết quả đạt được tuần 4:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+### 4. Tài liệu tham khảo:
+* [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html)
+* [Amazon Transcribe Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html)
+* [Amazon Rekognition Service Quotas](https://docs.aws.amazon.com/general/latest/gr/rekognition.html)

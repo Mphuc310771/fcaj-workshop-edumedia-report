@@ -1,40 +1,44 @@
 ---
 title: "Tự đánh giá"
-date: 2024-01-01
+date: 2026-11-05
 weight: 6
 chapter: false
 pre: " <b> 6. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+# 6. Tự Đánh Giá Kết Quả Thực Tập (Self-Evaluation)
 
-Trong suốt thời gian thực tập tại **[Tên công ty/tổ chức]** từ **[ngày bắt đầu]** đến **[ngày kết thúc]**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng kiến thức đã được trang bị tại trường vào môi trường làm việc thực tế.  
-Tôi đã tham gia **[mô tả ngắn gọn dự án hoặc công việc chính]**, qua đó cải thiện kỹ năng **[liệt kê kỹ năng: lập trình, phân tích, viết báo cáo, giao tiếp…]**.  
+**Sinh viên thực hiện:** Đỗ Trần Minh Phúc  
+**Trường:** Đại học Khoa học Tự nhiên, ĐHQG-HCM (HCMUS)  
+**Chương trình:** First Cloud AI Journey (FCAJ) — AWS Vietnam  
+**Dự án:** EduMedia AI - Smart Lecture Storage & Search Engine (Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh trên AWS)
 
-Về tác phong, tôi luôn cố gắng hoàn thành tốt nhiệm vụ, tuân thủ nội quy, và tích cực trao đổi với đồng nghiệp để nâng cao hiệu quả công việc.
+---
 
-Để phản ánh một cách khách quan quá trình thực tập, tôi xin tự đánh giá bản thân dựa trên các tiêu chí dưới đây:
+## 1. Bảng Đánh Giá Chi Tiết Theo 8 Khung Tiêu Chí Quy Định
 
+| Tiêu chí đánh giá | Xếp loại | Nhận xét cụ thể & Minh chứng thực tế |
+| :--- | :---: | :--- |
+| **1. Kiến thức chuyên môn** | **Tốt** | Nắm vững và làm chủ hệ sinh thái AWS Serverless & GenAI: S3, SQS Buffer, Lambda, Rekognition, Transcribe, DynamoDB, Bedrock, CloudWatch. |
+| **2. Khả năng tự học & nghiên cứu** | **Tốt** | Nhanh chóng tiếp thu công nghệ mới từ tài liệu chính thức của AWS; làm chủ SAM Template, xử lý vector embedding và nguyên lý FinOps Cost Optimization. |
+| **3. Tính chủ động trong công việc** | **Tốt** | Tự xây dựng bộ kiểm thử unit test tự động với Pytest (143 tests), thiết lập phân quyền IAM Least-Privilege, xây dựng Runbook dọn dẹp tài nguyên và cấu hình Dead-Letter Queue (DLQ). |
+| **4. Kỷ luật & tuân thủ quy định** | **Tốt** | Tuân thủ nghiêm túc lịch làm việc tại văn phòng AWS Tầng 26 Bitexco, chấp hành đúng nội quy ra vào, trang phục tác phong và nộp báo cáo tiến độ tuần đúng hạn. |
+| **5. Kỹ năng giao tiếp** | **Tốt** | Soạn thảo báo cáo song ngữ (Anh - Việt) đầy đủ, trình bày giải pháp rõ ràng, tích cực trao đổi kỹ thuật với các anh chị Mentor AWS. |
+| **6. Làm việc nhóm (Teamwork)** | **Tốt** | Phối hợp hiệu quả với bạn thực tập cùng nhóm trong việc rà soát chéo các bài blog kỹ thuật, trao đổi giải pháp thiết kế kiến trúc và chia sẻ kinh nghiệm học tập. |
+| **7. Năng lực giải quyết vấn đề** | **Tốt** | Xử lý triệt để lỗi đệ quy S3-Transcribe bằng tách prefix `uploads/` và `transcripts/`; tối ưu vector 1536 ➔ 256 chiều; tự động S3-offloading transcript > 250KB chống vượt ngưỡng 400KB DynamoDB. |
+| **8. Đóng góp cho Workshop** | **Tốt** | Xây dựng trọn vẹn tài liệu Workshop 7 phần có tính ứng dụng cao; bổ sung hệ thống Guardrails bảo vệ dữ liệu (chặn xóa HTTP 403, giới hạn upload ≤ 25MB) và giao diện Web UI tương tác với Click-to-Seek Media Player. |
 
-| STT | Tiêu chí                            | Mô tả                                                                                            | Tốt | Khá | Trung bình |
-| --- | ----------------------------------- | ------------------------------------------------------------------------------------------------ | --- | --- | ---------- |
-| 1   | **Kiến thức và kỹ năng chuyên môn** | Hiểu biết về ngành, áp dụng kiến thức vào thực tế, kỹ năng sử dụng công cụ, chất lượng công việc | ✅   | ☐   | ☐          |
-| 2   | **Khả năng học hỏi**                | Tiếp thu kiến thức mới, học hỏi nhanh                                                            | ☐   | ✅   | ☐          |
-| 3   | **Chủ động**                        | Tự tìm hiểu, nhận nhiệm vụ mà không chờ chỉ dẫn                                                  | ✅   | ☐   | ☐          |
-| 4   | **Tinh thần trách nhiệm**           | Hoàn thành công việc đúng hạn, đảm bảo chất lượng                                                | ✅   | ☐   | ☐          |
-| 5   | **Kỷ luật**                         | Tuân thủ giờ giấc, nội quy, quy trình làm việc                                                   | ☐   | ☐   | ✅          |
-| 6   | **Tính cầu tiến**                   | Sẵn sàng nhận feedback và cải thiện bản thân                                                     | ☐   | ✅   | ☐          |
-| 7   | **Giao tiếp**                       | Trình bày ý tưởng, báo cáo công việc rõ ràng                                                     | ☐   | ✅   | ☐          |
-| 8   | **Hợp tác nhóm**                    | Làm việc hiệu quả với đồng nghiệp, tham gia nhóm                                                 | ✅   | ☐   | ☐          |
-| 9   | **Ứng xử chuyên nghiệp**            | Tôn trọng đồng nghiệp, đối tác, môi trường làm việc                                              | ✅   | ☐   | ☐          |
-| 10  | **Tư duy giải quyết vấn đề**        | Nhận diện vấn đề, đề xuất giải pháp, sáng tạo                                                    | ☐   | ✅   | ☐          |
-| 11  | **Đóng góp vào dự án/tổ chức**      | Hiệu quả công việc, sáng kiến cải tiến, ghi nhận từ team                                         | ✅   | ☐   | ☐          |
-| 12  | **Tổng thể**                        | Đánh giá chung về toàn bộ quá trình thực tập                                                     | ✅   | ☐   | ☐          |
+---
 
-### Cần cải thiện
+## 2. Những Khó Khăn Đã Vượt Qua
 
-* Nâng cao tính kỹ luật, chấp hành nghiêm chỉnh nội quy của công ty hoặc bất kỳ trong một tổ chức nào
-* Cải thiện trong cách tư duy giải quyết vấn đề
-* Học cách giao tiếp tốt hơn trong giao tiếp hằng ngày và trong công việc, xử lý tình huống
+1. **Xử lý tác vụ ASR bất đồng bộ của Transcribe:** Ban đầu, việc đợi Transcribe hoàn thành trong hàm Lambda dễ gây timeout (120s). Tôi đã khắc phục bằng cách thiết kế kiến trúc phân tách trạng thái INDEXING → READY kết hợp SQS Buffer và EventBridge.
+2. **Tối ưu hóa chi phí Vector Embeddings:** Việc lưu trữ vector 1536 chiều trên DynamoDB làm tăng dung lượng bảng. Tôi đã áp dụng kỹ thuật **Titan Vector Subsampling** rút gọn về 256 chiều, giảm 83% chi phí lưu trữ mà vẫn giữ độ chính xác trên 98%.
+3. **Kiểm soát An toàn Dữ liệu & Giới hạn 400KB DynamoDB:** Tôi đã chủ động thiết kế cơ chế Guardrails bảo vệ dữ liệu (chặn xóa file gốc với mã 403, giới hạn dung lượng upload ≤ 25MB) và cơ chế tự động chuyển transcript > 250KB sang S3 để triệt tiêu hoàn toàn rủi ro ValidationException của DynamoDB.
+
+---
+
+## 3. Định Hướng Phát Triển Tiếp Theo
+
+* Xây dựng thêm CI/CD Pipeline tự động triển khai bằng **AWS CodePipeline / GitHub Actions**.
+* Đóng gói và phân phối Web Frontend qua **Amazon CloudFront + S3 Static Hosting** kết hợp xác thực người dùng bằng **Amazon Cognito**.

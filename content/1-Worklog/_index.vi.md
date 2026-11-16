@@ -1,40 +1,28 @@
 ---
 title: "Nhật ký công việc"
-date: 2024-01-01
+date: 2026-08-17
 weight: 1
 chapter: false
 pre: " <b> 1. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+Trang này tổng hợp nhật ký công việc hằng ngày trong suốt 12 tuần thực tập tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** (từ ngày **17/08/2026** đến ngày **06/11/2026**). 
 
-**Trong trang này** bạn sẽ cần giới thiệu worklog của bạn **như thế nào**? Bạn hoàn thành chương trình trong vòng **bao nhiêu tuần**? Bạn **đã làm gì** trong các tuần đó?
+Mục tiêu chính của kỳ thực tập là nghiên cứu các giải pháp Serverless, NoSQL và Generative AI của AWS để thiết kế và phát triển hoàn chỉnh dự án **EduMedia AI** — hệ thống lưu trữ và tra cứu bài giảng thông minh trên AWS.
 
+---
 
-Thông thường và cũng là tiêu chuẩn, một worklog được thực hiện trong khoảng 3 tháng (trong suốt thời gian thực tập) với nội dung các tuần như sau:
+### Danh mục tổng hợp 12 tuần:
 
-**Tuần 1:** [Làm quen với AWS và các dịch vụ cơ bản trong AWS](1.1-week1/)
-
-**Tuần 2:** [Làm công việc A...](1.2-week2/)
-
-**Tuần 3:** [Làm công việc B...](1.3-week3/)
-
-**Tuần 4:** [Làm công việc C...](1.4-week4/)
-
-**Tuần 5:** [Làm công việc D...](1.5-week5/)
-
-**Tuần 6:** [Làm công việc E...](1.6-week6/)
-
-**Tuần 7:** [Làm công việc G...](1.7-week7/)
-
-**Tuần 8:** [Làm công việc H...](1.8-week8/)
-
-**Tuần 9:** [Làm công việc I...](1.9-week9/)
-
-**Tuần 10:** [Làm công việc L...](1.10-week10/)
-
-**Tuần 11:** [Làm công việc M...](1.11-week11/)
-
-**Tuần 12:** [Làm công việc N...](1.12-week12/)
+* **[Tuần 1: Khởi động & Nắm vững Quy định FCAJ](1.1-week1/)** — Đăng ký HCM-Portal, thiết lập môi trường phát triển cục bộ và repository dự án trên GitHub.
+* **[Tuần 2: Nghiên cứu Amazon S3 & Quản trị IAM](1.2-week2/)** — Cấu hình S3 Media Bucket và phân quyền IAM Least Privilege cho Lambda.
+* **[Tuần 3: Tìm hiểu Kiến trúc Serverless với AWS Lambda](1.3-week3/)** — Thử nghiệm trigger hàm Lambda xử lý tệp từ sự kiện S3 ObjectCreated.
+* **[Tuần 4: Khám phá Amazon Rekognition & Transcribe](1.4-week4/)** — Thử nghiệm nhận diện nhãn hình ảnh và nhận dạng giọng nói tiếng Việt.
+* **[Tuần 5: Thiết kế Kiến trúc AgentSys & Viết Proposal](1.5-week5/)** — Xây dựng sơ đồ kiến trúc hệ thống 6 dịch vụ AWS và hoàn thiện bản đề xuất giải pháp.
+* **[Tuần 6: Khởi tạo Hạ tầng S3 & Pipeline Media](1.6-week6/)** — Cấu hình S3 Event Notification và triển khai Lambda tiếp nhận tệp tải lên.
+* **[Tuần 7: Triển khai Tích hợp Rekognition & Transcribe](1.7-week7/)** — Xử lý pipeline trích xuất metadata tự động cho đa định dạng file (JPG, PNG, MP3, MP4).
+* **[Tuần 8: Xây dựng Database Metadata trên DynamoDB](1.8-week8/)** — Thiết kế lược đồ NoSQL và tạo bảng DynamoDB AgentSysMediaMetadata.
+* **[Tuần 9: Tích hợp Amazon Bedrock (Nova Lite & Titan Embeddings V2)](1.9-week9/)** — Kết nối Bedrock API làm bộ điều phối câu hỏi và vector search tiếng Việt.
+* **[Tuần 10: Phát triển Web UI & Tích hợp Client](1.10-week10/)** — Xây dựng giao diện Web Gallery React/Vite, tính năng Click-to-Seek Media Player và thiết lập cơ chế kiểm soát dữ liệu đầu vào.
+* **[Tuần 11: Kiểm thử Tự động 143 Tests & Soạn thảo Blog](1.11-week11/)** — Xây dựng bộ test suite 143 tests Pytest mock Moto, cấu hình 7 CloudWatch Alarms, hoàn thành 2 bài blog kỹ thuật cá nhân và phối hợp đăng tải cộng đồng.
+* **[Tuần 12: Đóng gói Tài liệu Workshop & Nghiệm thu Kỹ thuật](1.12-week12/)** — Biên soạn tài liệu hướng dẫn thực hành 7 phần, hoàn thiện runbook dọn dẹp hạ tầng và tổng kết đồ án.

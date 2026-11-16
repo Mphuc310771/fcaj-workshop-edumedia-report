@@ -1,57 +1,37 @@
 ---
-title: "Week 11 Worklog"
-date: 2024-01-01
-weight: 2
+title: "Week 11"
+date: 2026-10-30
+weight: 11
 chapter: false
 pre: " <b> 1.11. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+# Week 11: Automated Testing Suite, CloudWatch Alarms & Technical Blogs
+*Internship Period: 26/10/2026 – 30/10/2026*
 
-### Week 11 Objectives:
+### 1. Week 11 Objectives:
+* Construct an automated unit test suite in Pytest mocking AWS SDK operations using moto and unittest.mock, achieving 143 passing tests with 83.69% codebase coverage.
+* Execute a burst stress benchmark simulating 50 concurrent uploads to validate load leveling resilience and SQS buffer queuing.
+* Configure 7 CloudWatch Alarms linked to SNS Topic agentsys-alerts-topic satisfying production operational criteria.
+* Author 2 deep-dive technical blogs (S3-SQS-Lambda, DynamoDB GSI) and publish them to the AWS Study Group community.
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### 2. Daily Tasks & Schedule:
+| Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
+|:---:|---|:---:|:---:|---|
+| **Mon** | - Configured tests/ directory structure.<br>- Authored unit tests for SQS consumption and format routing mocking S3 and DynamoDB via moto. | 26/10/2026 | 26/10/2026 | [Moto Library](http://docs.getmoto.org/) |
+| **Tue** | - Expanded test suite across edge scenarios: corrupt payloads, Bedrock latency timeouts, and S3-offloading.<br>- Reached 143 passing tests (83.69% coverage). | 27/10/2026 | 27/10/2026 | [Pytest-cov Guide](https://pytest-cov.readthedocs.io/) |
+| **Wed** | - Authored 7 CloudWatch Alarms in SAM template and enabled SNS alert topic.<br>- Emitted custom metrics (MediaIngested, MediaIngestFailed) and executed 50-file burst stress benchmark. | 28/10/2026 | 28/10/2026 | [CloudWatch Alarms Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html) |
+| **Thu** | - Authored Blog 1: Analyzing S3 to SQS to Lambda buffering pattern (Claim Check, DLQ).<br>- Authored Blog 2: DynamoDB Query Optimization: Why replace Scan with GSI category-index? | 29/10/2026 | 29/10/2026 | blog_1/bai_viet.txt, blog_2/bai_viet.txt |
+| **Fri** | - Finalized article formatting and published technical blogs to the AWS Study Group community.<br>- Engaged in discussions and answered feedback from community peers. | 30/10/2026 | 30/10/2026 | [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj) |
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Week 11 Achievements:
+* Delivered complete automated test suite comprising 143 unit tests achieving 83.69% coverage, guaranteeing zero regressions across the codebase.
+* Provisioned 7 CloudWatch Alarms and SNS alert routing on AWS for real-time fault detection and DLQ monitoring.
+* Validated system elasticity under a 50-file burst test confirming zero data loss and smooth queue drainage.
+* Authored and published 2 high-impact personal technical blogs (Blog 1 & 2) to the AWS Study Group community.
 
-
-### Week 11 Achievements:
-
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+### 4. References:
+* [Testing AWS Lambda with Moto](http://docs.getmoto.org/en/latest/)
+* [Amazon CloudWatch Using Amazon CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)
+* [AWS Study Group Facebook Community](https://www.facebook.com/groups/awsstudygroupfcj)
+* [Amazon DynamoDB Core Components](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html)

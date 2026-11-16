@@ -1,44 +1,43 @@
 ---
 title: "Chia sẻ, đóng góp ý kiến"
-date: 2024-01-01
+date: 2026-11-06
 weight: 7
 chapter: false
 pre: " <b> 7. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
->Tại đây bạn có thể tự do đóng góp ý kiến cá nhân về những trải nghiệm khi tham gia chương trình First Cloud AI Journey, giúp team FCAJ cải thiện những vấn đề còn thiếu sót dựa trên các hạng mục sau:
+# 7. Cảm Nhận & Đóng Góp Ý Kiến Về Chương Trình FCAJ — AWS Vietnam
 
-### Đánh giá chung
+**Sinh viên thực hiện:** Đỗ Trần Minh Phúc  
+**Trường:** Đại học Khoa học Tự nhiên, ĐHQG-HCM (HCMUS)  
+**Đơn vị thực tập:** Công ty TNHH Amazon Web Services Vietnam (Văn phòng Bitexco, TP.HCM)
 
-**1. Môi trường làm việc**  
-Môi trường làm việc rất thân thiện và cởi mở. Các thành viên trong FCAJ luôn sẵn sàng hỗ trợ khi mình gặp khó khăn, kể cả ngoài giờ làm việc. Không gian làm việc gọn gàng, thoải mái, giúp mình tập trung tốt hơn. Tuy nhiên, mình nghĩ có thể bổ sung thêm một số buổi giao lưu hoặc team bonding để mọi người hiểu nhau hơn.
+---
 
-**2. Sự hỗ trợ của mentor / team admin**  
-Mentor hướng dẫn rất chi tiết, giải thích rõ ràng khi mình chưa hiểu và luôn khuyến khích mình đặt câu hỏi. Team admin hỗ trợ các thủ tục, tài liệu và tạo điều kiện để mình làm việc thuận lợi. Mình đánh giá cao việc mentor cho phép mình thử và tự xử lý vấn đề thay vì chỉ đưa đáp án.
+### 1. Cảm nhận về chương trình thực tập FCAJ
+Kỳ thực tập 12 tuần tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** là một trải nghiệm thực tế vô cùng quý báu đối với em. Được làm việc và sinh hoạt tại văn phòng AWS (Tầng 26 Bitexco Financial Tower), em được đắm mình trong văn hóa làm việc chuyên nghiệp chuẩn quốc tế và trải nghiệm tinh thần "Day 1" của Amazon. 
+Chương trình không chỉ trang bị kiến thức nền tảng vững chắc về điện toán đám mây (Cloud Computing) và trí tuệ nhân tạo (Generative AI) mà còn rèn luyện tư duy thiết kế giải pháp theo chuẩn AWS Well-Architected Framework, kỹ năng giải quyết bài toán thực tế và tính kỷ luật cao.
 
-**3. Sự phù hợp giữa công việc và chuyên ngành học**  
-Công việc mình được giao phù hợp với kiến thức mình đã học ở trường, đồng thời mở rộng thêm những mảng mới mà mình chưa từng được tiếp cận. Nhờ vậy, mình vừa củng cố kiến thức nền tảng, vừa học thêm kỹ năng thực tế.
+---
 
-**4. Cơ hội học hỏi & phát triển kỹ năng**  
-Trong quá trình thực tập, mình học được nhiều kỹ năng mới như sử dụng công cụ quản lý dự án, kỹ năng làm việc nhóm, và cả cách giao tiếp chuyên nghiệp trong môi trường công ty. Mentor cũng chia sẻ nhiều kinh nghiệm thực tế giúp mình định hướng tốt hơn cho sự nghiệp.
+### 2. Mức độ hài lòng
+* **Đánh giá chung:** **Rất hài lòng (5/5 sao)**.
+* **Môi trường & Cơ sở vật chất:** Văn phòng hiện đại, chuyên nghiệp, tạo điều kiện tối đa để sinh viên sáng tạo và tập trung nghiên cứu.
+* **Sự hỗ trợ từ Mentors & Ban tổ chức:** Các anh chị Solution Architects và đội ngũ Admin luôn nhiệt tình giải đáp thắc mắc kỹ thuật, định hướng giải pháp từ góc nhìn thực chiến của kỹ sư đám mây thay vì chỉ viết code bài tập lớn.
+* **Nội dung đào tạo:** Lộ trình bài bản từ cơ bản đến nâng cao, kết hợp hài hòa giữa lý thuyết, workshop thực hành và các sự kiện chia sẻ cộng đồng (Community Day, Immersion Day).
 
-**5. Văn hóa & tinh thần đồng đội**  
-Văn hóa công ty rất tích cực: mọi người tôn trọng lẫn nhau, làm việc nghiêm túc nhưng vẫn vui vẻ. Khi có dự án gấp, mọi người cùng nhau cố gắng, hỗ trợ không phân biệt vị trí. Điều này giúp mình cảm thấy mình là một phần của tập thể, dù chỉ là thực tập sinh.
+---
 
-**6. Chính sách / phúc lợi cho thực tập sinh**  
-Công ty có hỗ trợ phụ cấp thực tập và tạo điều kiện về thời gian linh hoạt khi cần thiết. Ngoài ra, việc được tham gia các buổi đào tạo nội bộ là một điểm cộng lớn.
+### 3. Những điểm cần cải thiện
+Để chương trình các khóa tiếp theo ngày càng hoàn thiện và mang lại nhiều giá trị hơn nữa cho sinh viên, em xin phép đóng góp một vài gợi ý:
+1. **Mở rộng Sandbox / Quota cho dịch vụ AI mới:** Cung cấp thêm hạn mức thực nghiệm (quota credits) cho các model GenAI cao cấp trên Amazon Bedrock (như Claude 3.5 Sonnet, Nova Premier) để sinh viên có thể thử nghiệm sâu hơn các kịch bản RAG phức tạp.
+2. **Bổ sung các buổi Mini-Hackathon:** Tổ chức thêm các thử thách nhỏ giải quyết bài toán thực tế theo nhóm (2-3 bạn) trong vòng 24 - 48 giờ để tăng cường kỹ năng phối hợp đồng đội và thực chiến thiết kế hạ tầng nhanh.
 
+---
 
-### Một số câu hỏi khác
-- Điều bạn **hài lòng nhất** trong thời gian thực tập?  
-- Điều bạn nghĩ công ty **cần cải thiện** cho các thực tập sinh sau?  
-- Nếu giới thiệu cho bạn bè, bạn có **khuyên họ thực tập ở đây không**? Vì sao?  
-
-
-### Đề xuất & mong muốn
-- Bạn có đề xuất gì để cải thiện trải nghiệm trong kỳ thực tập?  
-- Bạn có muốn tiếp tục chương trình này trong tương lai?
-- Góp ý khác (tự do chia sẻ):
+### 4. Có giới thiệu chương trình cho bạn bè không? Vì sao?
+* **Câu trả lời:** **Chắc chắn có (100% Yes)**.
+* **Lý do:**
+  * **Thu hẹp khoảng cách học thuật và thực tế:** FCAJ là cầu nối tuyệt vời giúp sinh viên CNTT thu hẹp khoảng cách giữa lý thuyết ở trường đại học và thực tế ngành công nghiệp Cloud/AI.
+  * **Cơ hội cọ xát đỉnh cao:** Trực tiếp làm việc cùng các chuyên gia hàng đầu từ AWS, tiếp cận hệ sinh thái dịch vụ đám mây tân tiến nhất.
+  * **Hành trang sự nghiệp vững chắc:** Sau 12 tuần, sinh viên không chỉ hoàn thành một sản phẩm thực tế (AgentSys) với hạ tầng chuẩn IaC SAM mà còn rèn giũa được tư duy kỹ sư, tác phong làm việc chuyên nghiệp và sẵn sàng cho các vị trí Cloud / DevOps / Solutions Architect trong tương lai.

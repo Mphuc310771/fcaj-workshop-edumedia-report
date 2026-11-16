@@ -1,59 +1,36 @@
 ---
-title: "Worklog Tuần 7"
-date: 2024-01-01
-weight: 1
+title: "Tuần 7"
+date: 2026-10-02
+weight: 7
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+# Tuần 7: Tích Hợp Rekognition & Xử Lý Async Transcribe
+*Thời gian thực hiện: 28/09/2026 – 02/10/2026*
 
-### Mục tiêu tuần 7:
+### 1. Mục tiêu tuần 7:
+* Tích hợp Amazon Rekognition (DetectLabels, DetectText) vào hàm Lambda Ingest để tự động bóc tách nhãn và văn bản tiếng Việt từ ảnh bài giảng.
+* Thiết kế mô hình xử lý bất đồng bộ (Asynchronous Orchestration) cho Amazon Transcribe: worker đẩy job và gán trạng thái INDEXING.
+* Cấu hình Amazon EventBridge Rule bắt sự kiện Transcribe Job State Change (COMPLETED) để kích hoạt Lambda hoàn tất bóc băng.
+* Xây dựng thuật toán băm nhỏ bài giảng âm thanh thành các phân đoạn (chunks) có gắn mốc thời gian (start_time, end_time).
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### 2. Các công việc triển khai trong tuần:
+| Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+|:---:|---|:---:|:---:|---|
+| **2** | - Tích hợp logic gọi Rekognition OCR và trích xuất nhãn trong apps/workers/ingestion.py.<br>- Áp dụng ngưỡng độ tin cậy tối thiểu Confidence >= 65.0 để lọc bỏ các từ nhiễu. | 28/09/2026 | 28/09/2026 | [Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/) |
+| **3** | - Xây dựng cơ chế phân tách trạng thái cho file âm thanh/video.<br>- Worker khởi tạo start_transcription_job và lưu bản ghi DynamoDB ở trạng thái INDEXING rồi thoát ngay. | 29/09/2026 | 29/09/2026 | [Transcribe Job Status](https://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html) |
+| **4** | - Cấu hình EventBridge Rule trên SAM template.<br>- Lắng nghe sự kiện Transcribe Job State Change với trạng thái COMPLETED và định tuyến về Lambda xử lý. | 30/09/2026 | 30/09/2026 | [EventBridge with Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/monitoring-events.html) |
+| **5** | - Hiện thực thuật toán băm nhỏ transcript thành các phân đoạn 30–60 giây.<br>- Gắn kèm mốc start_time và end_time cho từng phân đoạn để hỗ trợ tính năng đồng bộ media player. | 01/10/2026 | 01/10/2026 | Python Text Chunking Patterns |
+| **6** | - Chạy kiểm thử end-to-end với file bài giảng âm thanh 10 phút.<br>- Kiểm tra việc tự động chuyển đổi trạng thái từ INDEXING sang READY khi EventBridge nhận tín hiệu. | 02/10/2026 | 02/10/2026 | [AWS EventBridge Rules](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html) |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Kết quả đạt được tuần 7:
+* Hoàn thiện pipeline bóc tách nhãn và chữ viết tiếng Việt tự động cho toàn bộ hình ảnh tải lên, tổng hợp thành trường mô tả phục vụ tìm kiếm.
+* Thiết lập thành công cơ chế Asynchronous EventBridge cho Transcribe: worker ban đầu chỉ mất ~1.2 giây compute để khởi tạo job rồi thoát ngay, tiết kiệm 95% chi phí thời gian chờ compute của Lambda.
+* Thuật toán băm transcript kèm mốc thời gian hoạt động ổn định trên các bài giảng dài 10–30 phút, tạo tiền đề cho tính năng nghe đúng đoạn giảng viên đang nói.
+* Trạng thái tệp chuyển đổi mượt mà từ INDEXING sang READY khi EventBridge nhận tín hiệu COMPLETED.
 
-
-### Kết quả đạt được tuần 7:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+### 4. Tài liệu tham khảo:
+* [Amazon EventBridge Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html)
+* [Monitoring Transcribe with Amazon EventBridge](https://docs.aws.amazon.com/transcribe/latest/dg/monitoring-events.html)
+* [Amazon Rekognition Text Detection Guide](https://docs.aws.amazon.com/rekognition/latest/dg/text-detection.html)

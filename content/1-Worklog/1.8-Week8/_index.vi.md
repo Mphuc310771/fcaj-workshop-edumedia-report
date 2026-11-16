@@ -1,59 +1,36 @@
 ---
-title: "Worklog Tuần 8"
-date: 2024-01-01
-weight: 1
+title: "Tuần 8"
+date: 2026-10-09
+weight: 8
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+# Tuần 8: Xây Dựng Database Metadata & Tối Ưu DynamoDB GSI
+*Thời gian thực hiện: 05/10/2026 – 09/10/2026*
 
-### Mục tiêu tuần 8:
+### 1. Mục tiêu tuần 8:
+* Thiết kế lược đồ cơ sở dữ liệu NoSQL trên Amazon DynamoDB (AgentSysMediaMetadata) với khóa chính đơn file_id.
+* Phát hiện và giải quyết triệt để vấn đề chi phí và độ trễ khi sử dụng Scan kèm FilterExpression để lọc tệp theo danh mục (category).
+* Triển khai Global Secondary Index (category-index) chuyển đổi độ phức tạp từ quét toàn bảng O(N) sang truy vấn phân vùng O(1).
+* Xây dựng cơ chế S3-Offloading tự động chuyển toàn văn transcript > 250KB sang S3 để triệt tiêu nguy cơ vượt ngưỡng 400KB của DynamoDB.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### 2. Các công việc triển khai trong tuần:
+| Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+|:---:|---|:---:|:---:|---|
+| **2** | - Khởi tạo bảng DynamoDB AgentSysMediaMetadata trên SAM template.<br>- Cấu hình Partition Key file_id (String) và thiết lập chế độ On-Demand (Pay-Per-Request). | 05/10/2026 | 05/10/2026 | [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/) |
+| **3** | - Thử nghiệm API lấy danh sách file theo danh mục.<br>- Phân tích hiện tượng Scan + FilterExpression bị trừ RCU toàn bộ bảng và gây lỗi Empty Page Pagination. | 06/10/2026 | 06/10/2026 | [DynamoDB Scan vs Query](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html) |
+| **4** | - Thêm Global Secondary Index (GSI) category-index (PK: category, SK: created_at, Projection: INCLUDE) vào infra/template.yaml. | 07/10/2026 | 07/10/2026 | [DynamoDB GSI Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html) |
+| **5** | - Viết cơ chế S3-Offloading trong worker.<br>- Tự động đẩy transcript thô vượt quá 250KB sang s3://MediaBucket/transcripts/raw/{file_id}.json chống tràn ngưỡng 400KB. | 08/10/2026 | 08/10/2026 | [DynamoDB Item Sizes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items) |
+| **6** | - Đo đếm và so sánh số liệu hiệu năng thực tế.<br>- Ghi nhận GSI giảm 99.98% RCU tiêu thụ và giảm thời gian phản hồi từ hàng giây xuống dưới 30ms. | 09/10/2026 | 09/10/2026 | [DynamoDB Best Practices](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html) |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Kết quả đạt được tuần 8:
+* Khởi tạo thành công bảng DynamoDB AgentSysMediaMetadata với kiến trúc NoSQL chuẩn hóa.
+* Thay thế hoàn toàn thao tác Scan bằng Query trên GSI category-index, cắt giảm 99.98% chi phí đọc RCU.
+* Triệt tiêu hiện tượng Empty Page Pagination, giảm độ trễ phản hồi của API lọc từ vài giây xuống dưới 30ms.
+* Triển khai cơ chế S3-Offloading bảo vệ bảng an toàn trước giới hạn kích thước tối đa 400KB/item của DynamoDB.
 
-
-### Kết quả đạt được tuần 8:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+### 4. Tài liệu tham khảo:
+* [DynamoDB Secondary Indexes Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html)
+* [DynamoDB Best Practices for Querying and Scanning](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html)
+* [Handling Large Items and Attributes in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-use-s3-too.html)

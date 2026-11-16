@@ -1,58 +1,37 @@
 ---
-title: "Worklog Tuần 6"
-date: 2024-01-01
-weight: 1
+title: "Tuần 6"
+date: 2026-09-25
+weight: 6
 chapter: false
 pre: " <b> 1.6. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+# Tuần 6: Khởi Tạo Hạ Tầng S3 & Pipeline Tiếp Nhận Media
+*Thời gian thực hiện: 21/09/2026 – 25/09/2026*
 
-### Mục tiêu tuần 6:
+### 1. Mục tiêu tuần 6:
+* Triển khai mã nguồn hàm Lambda xử lý tiếp nhận media (apps/workers/ingestion.py) bằng Python 3.12.
+* Tối ưu hóa hiệu năng Lambda thông qua kỹ thuật tái sử dụng Boto3 connection pool và TLS handshake ngoài handler.
+* Xây dựng bộ định tuyến (router) phân loại định dạng media an toàn dựa trên MIME type và phần mở rộng tệp.
+* Đóng gói và triển khai stack hạ tầng lên môi trường AWS thông qua sam build và sam deploy.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### 2. Các công việc triển khai trong tuần:
+| Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+|:---:|---|:---:|:---:|---|
+| **2** | - Khởi tạo cấu trúc thư mục dự án agent_sys/.<br>- Viết module apps/workers/ingestion.py tiếp nhận thông điệp từ hàng đợi SQS. | 21/09/2026 | 21/09/2026 | [AWS Lambda Programming Model](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model.html) |
+| **3** | - Tối ưu hóa container warm-up.<br>- Khởi tạo các Boto3 clients (S3, Rekognition, Transcribe) bên ngoài hàm handler để tái sử dụng connection pool. | 22/09/2026 | 22/09/2026 | [Lambda Best Practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html) |
+| **4** | - Viết hàm phân loại media detect_media_type.<br>- Phân biệt chính xác giữa ảnh (JPG, PNG, WEBP), âm thanh (MP3, WAV, M4A) và video (MP4, MOV). | 23/09/2026 | 23/09/2026 | Python mimetypes Module |
+| **5** | - Viết bộ unit test đầu tiên kiểm thử logic router định dạng file bằng pytest.<br>- Kiểm tra các tình huống tệp không có phần mở rộng hoặc sai định dạng. | 24/09/2026 | 24/09/2026 | [Pytest Documentation](https://docs.pytest.org/) |
+| **6** | - Chạy sam build và thực hiện deployment stack lên tài khoản AWS tại us-east-1.<br>- Kiểm tra log luồng SQS sang Lambda trên CloudWatch xác nhận nhận file thành công. | 25/09/2026 | 25/09/2026 | [SAM CLI Deploy](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html) |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Kết quả đạt được tuần 6:
+* Xây dựng hoàn chỉnh mô-đun tiếp nhận dữ liệu apps/workers/ingestion.py chạy trên runtime Python 3.12.
+* Tối ưu hóa hiệu năng container: khai báo Boto3 client toàn cục giúp tái sử dụng kết nối TCP và TLS session, giảm 50–120ms độ trễ trên mỗi lần kích hoạt hàm warm.
+* Bộ định tuyến phân loại media xử lý chính xác cả 3 nhóm định dạng (Ảnh, Âm thanh, Video), ngăn ngừa việc gửi nhầm định dạng tới các dịch vụ AI.
+* Viết thành công bộ unit tests cơ bản cho router, đảm bảo tệp lạ hoặc không rõ nguồn gốc được cách ly an toàn.
+* Stack hạ tầng SAM agentsys-stack được deploy thành công lên AWS us-east-1; kiểm tra CloudWatch Logs xác nhận luồng sự kiện từ S3 qua SQS vào Lambda chạy thông suốt.
 
-
-### Kết quả đạt được tuần 6:
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+### 4. Tài liệu tham khảo:
+* [Optimizing AWS Lambda performance](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+* [Building Serverless Applications with SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html)
+* [Boto3 Documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)

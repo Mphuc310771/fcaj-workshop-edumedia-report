@@ -1,57 +1,36 @@
 ---
-title: "Week 8 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Week 8"
+date: 2026-10-09
+weight: 8
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+# Week 8: Metadata Database & DynamoDB GSI Optimization
+*Internship Period: 05/10/2026 – 09/10/2026*
 
-### Week 8 Objectives:
+### 1. Week 8 Objectives:
+* Design a NoSQL catalog schema on Amazon DynamoDB (AgentSysMediaMetadata) with a single primary partition key file_id.
+* Analyze and eliminate high-latency, costly Scan + FilterExpression operations when filtering media items by category.
+* Implement a Global Secondary Index (category-index) transitioning operational complexity from O(N) full-table scans to O(1) partition queries.
+* Construct an automated S3-Offloading pattern routing transcripts > 250KB to S3, neutralizing DynamoDB's 400KB item size limit.
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### 2. Daily Tasks & Schedule:
+| Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
+|:---:|---|:---:|:---:|---|
+| **Mon** | - Provisioned AgentSysMediaMetadata on SAM.<br>- Configured Partition Key file_id (String) under On-Demand (Pay-Per-Request) billing. | 05/10/2026 | 05/10/2026 | [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/) |
+| **Tue** | - Benchmarked category-based filtering APIs.<br>- Observed Scan + FilterExpression consuming unneeded RCUs across entire table partitions and causing Empty Pages. | 06/10/2026 | 06/10/2026 | [DynamoDB Scan vs Query](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html) |
+| **Wed** | - Added Global Secondary Index (GSI) category-index (PK: category, SK: created_at, Projection: INCLUDE) to infra/template.yaml. | 07/10/2026 | 07/10/2026 | [DynamoDB GSI Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html) |
+| **Thu** | - Built S3-Offloading logic in worker.<br>- Automatically redirected raw transcripts exceeding 250KB to s3://MediaBucket/transcripts/raw/{file_id}.json. | 08/10/2026 | 08/10/2026 | [DynamoDB Item Sizes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items) |
+| **Fri** | - Measured performance metrics.<br>- Confirmed GSI reduced RCU consumption by 99.98% and reduced latency from seconds to under 30ms. | 09/10/2026 | 09/10/2026 | [DynamoDB Best Practices](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html) |
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Week 8 Achievements:
+* Established AgentSysMediaMetadata table following NoSQL architectural best practices.
+* Replaced full-table scans with GSI partition queries, decreasing read RCU costs by 99.98%.
+* Eliminated Empty Page Pagination loops, reducing category query latencies to sub-30ms.
+* Validated S3-Offloading logic, ensuring item sizes never breach the 400KB limit.
 
-
-### Week 8 Achievements:
-
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+### 4. References:
+* [DynamoDB Secondary Indexes Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html)
+* [DynamoDB Best Practices for Querying and Scanning](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html)
+* [Handling Large Items and Attributes in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-use-s3-too.html)

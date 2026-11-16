@@ -1,31 +1,38 @@
 ---
 title: "Workshop"
-date: 2024-01-01
+date: 2026-10-01
 weight: 5
 chapter: false
 pre: " <b> 5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# EduMedia AI: Smart Lecture Storage & Search Engine on AWS
 
-#### Overview
+This hands-on workshop guides you step-by-step through architecting and deploying **EduMedia AI** using the **AWS Serverless Application Model (AWS SAM)**.
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
+Upon completing this workshop, you will operate an end-to-end cloud-native system:
+* Secure media uploads (images, audio, video) to **Amazon S3** via **Presigned URLs**.
+* Asynchronous ingestion buffering with **Amazon SQS & Dead-Letter Queue (DLQ)** triggering **AWS Lambda**.
+* Automated computer vision object detection & Vietnamese OCR via **Amazon Rekognition**; Vietnamese speech-to-text (*vi-VN*) via **Amazon Transcribe**.
+* Vector embeddings using **Amazon Bedrock (Amazon Titan Text Embeddings V2)** and persistence in **Amazon DynamoDB**.
+* Conversational Vietnamese semantic retrieval powered by **Amazon Bedrock (Nova Lite)**.
+* Automated observability with **Amazon CloudWatch Logs & Alarms**.
 
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
+---
 
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+### Hands-on Lab Modules:
 
-#### Content
+1. **[5.1. Problem Overview, Serverless Architecture & FinOps Estimation](5.1-Workshop-overview/)**
+2. **[5.2. Environment Setup, AWS CLI, SAM, IAM Least-Privilege & Bedrock Model Access](5.2-Prerequisite/)**
+3. **[5.3. Configuring Amazon S3, SQS Buffer Queue, Dead-Letter Queue (DLQ) & Event Notifications](5.3-S3-Storage/)**
+4. **[5.4. Deploying Lambda Ingestion Engine with Amazon Rekognition & Transcribe vi-VN](5.4-AI-Pipeline/)**
+5. **[5.5. Building Search Agent with Amazon Bedrock & DynamoDB GSI Catalog](5.5-Bedrock-Search/)**
+6. **[5.6. Setting up CloudWatch Monitoring, Alarms and Resource Cleanup Runbook](5.6-Monitoring-Cleanup/)**
+7. **[5.7. Discussion: Architecture Trade-offs & Enterprise Roadmap](5.7-Architecture-Tradeoffs/)**
 
-1. [Workshop overview](5.1-Workshop-overview)
-2. [Prerequiste](5.2-Prerequiste/)
-3. [Access S3 from VPC](5.3-S3-vpc/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
-5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+---
+
+* **Estimated Time:** 90 – 120 minutes.
+* **Target AWS Region:** us-east-1 (N. Virginia).
+* **Estimated Lab Cost:** **<$0.05 USD** (Serverless pay-per-request model; running the lab test workload incurs negligible cost).
+* **Attached Assets:** [Official SAM Template (template.yaml)](/files/agentsys-sam-template.yaml)

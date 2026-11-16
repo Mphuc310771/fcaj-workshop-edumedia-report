@@ -1,59 +1,37 @@
 ---
-title: "Worklog Tuần 3"
-date: 2024-01-01
-weight: 1
+title: "Tuần 3"
+date: 2026-09-04
+weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
+# Tuần 3: Xử Lý Bất Đồng Bộ Với SQS & AWS Lambda
+*Thời gian thực hiện: 31/08/2026 – 04/09/2026*
 
-### Mục tiêu tuần 3:
+### 1. Mục tiêu tuần 3:
+* Xây dựng nguyên mẫu hàm Lambda bằng Python 3.12 để tiếp nhận sự kiện tải tệp lên từ S3.
+* Đánh giá rủi ro cạn kiệt Concurrency của tài khoản khi S3 kích hoạt Lambda trực tiếp (Push-based model).
+* Tích hợp Amazon SQS làm bộ đệm điều tiết tải (Load Leveling) với MaximumConcurrency và ReportBatchItemFailures.
+* Cấu hình Dead-Letter Queue (DLQ) và khắc phục lỗi lệch thời gian chờ (Visibility Timeout mismatch) giữa SQS và Lambda.
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+### 2. Các công việc triển khai trong tuần:
+| Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+|:---:|---|:---:|:---:|---|
+| **2** | - Viết nguyên mẫu hàm Lambda bằng Python 3.12 nhận sự kiện s3:ObjectCreated:*.<br>- Kiểm tra log ghi nhận payload trên CloudWatch Logs. | 31/08/2026 | 31/08/2026 | [AWS Lambda with Python](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html) |
+| **3** | - Chạy kịch bản thử nghiệm dồn tải giả lập 50 file tải lên đồng thời.<br>- Phân tích hiện tượng Lambda scale ồ ạt làm ảnh hưởng hạn mức concurrency của tài khoản. | 01/09/2026 | 01/09/2026 | [Lambda Concurrency](https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html) |
+| **4** | - Đưa Amazon SQS vào giữa làm bộ đệm điều tiết dòng chảy dữ liệu.<br>- Cấu hình MaximumConcurrency = 5 trên Event Source Mapping để khóa trần scaling. | 02/09/2026 | 02/09/2026 | [SQS as Event Source](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html) |
+| **5** | - Kích hoạt cơ chế ReportBatchItemFailures để chỉ retry các tin nhắn bị lỗi trong batch.<br>- Thiết lập SQS Dead-Letter Queue (DLQ) với maxReceiveCount = 3. | 03/09/2026 | 03/09/2026 | [Batch Item Failures](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#services-sqs-batchfailurereporting) |
+| **6** | - Phát hiện lỗi tin nhắn bị xử lý lặp do thời gian chờ SQS ngắn hơn thời gian chạy của Lambda.<br>- Điều chỉnh SQS Visibility Timeout lên 360 giây (gấp 6 lần Lambda timeout 60s). | 04/09/2026 | 04/09/2026 | [SQS Visibility Timeout](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html) |
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Kết quả đạt được tuần 3:
+* Chuyển đổi thành công pipeline tiếp nhận từ mô hình Đẩy (Push) sang mô hình Kéo (Pull) qua SQS, xử lý an toàn đợt tải 50 file đồng thời mà không làm tăng vọt concurrency.
+* Khóa trần concurrency của hàm Ingestion ở mức tối đa 5 workers song song thông qua MaximumConcurrency, bảo vệ downstream services khỏi nguy cơ quá tải.
+* Ứng dụng ReportBatchItemFailures giúp xóa ngay các item thành công và chỉ retry đúng item bị lỗi, tiết kiệm tài nguyên xử lý.
+* Xử lý triệt để lỗi duplicate processing: phân tích nguyên nhân do Visibility Timeout mặc định 30s ngắn hơn Lambda timeout 60s khiến tin nhắn bị requeue sớm; nâng Visibility Timeout lên 360s giải quyết dứt điểm vấn đề.
+* Lưới an toàn Dead-Letter Queue (DLQ) được thiết lập với thời gian lưu trữ tin nhắn lỗi tối đa 14 ngày.
 
-
-### Kết quả đạt được tuần 3:
-
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+### 4. Tài liệu tham khảo:
+* [Using AWS Lambda with Amazon SQS](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html)
+* [Amazon SQS Visibility Timeout Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html)
+* [AWS Lambda Concurrency Management](https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html)

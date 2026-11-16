@@ -217,12 +217,79 @@ a.ui-button:active,
 .hljs {
   background-color: none;
 }
-
 pre {
-  background-color: var(--MENU-SECTIONS-BG-color) !important;
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  border-radius: 8px !important;
+  padding: 1rem 1.25rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+pre code {
+  background: transparent !important;
+  border: none !important;
+  color: #f1f5f9 !important;
+  padding: 0 !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+}
+
+:not(pre) > code {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+  font-size: 0.9em !important;
 }
 
 div.notices.info p {
-  border-top: 30px solid #fd9827;
-  background: #fff2db;
+  border-top: 30px solid #4881cd;
+  background: #f8fafc;
 }
+
+div.notices.warning p {
+  border-top: 30px solid #64748b;
+  background: #f8fafc;
+}
+
+.copy-to-clipboard {
+  display: none !important;
+}
+
+/* ==================== ENHANCED IMAGE DISPLAY ==================== */
+#body-inner p img,
+#body-inner img:not(.inline) {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 1.5rem auto 0.5rem auto !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e2e8f0 !important;
+  background-color: #ffffff !important;
+}
+
+#body-inner p a[data-featherlight] {
+  display: block !important;
+  width: 100% !important;
+  margin: 1.5rem auto 0.5rem auto !important;
+}
+
+#body-inner p a[data-featherlight] img {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+#body-inner p > em {
+  display: block !important;
+  text-align: center !important;
+  font-size: 0.88rem !important;
+  color: #64748b !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 2rem !important;
+  font-style: italic !important;
+}
+

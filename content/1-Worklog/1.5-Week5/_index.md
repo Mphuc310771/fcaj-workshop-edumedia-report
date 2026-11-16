@@ -1,57 +1,37 @@
 ---
-title: "Week 5 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Week 5"
+date: 2026-09-18
+weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+# Week 5: System Architecture & Proposal Finalization
+*Internship Period: 14/09/2026 – 18/09/2026*
 
-### Week 5 Objectives:
+### 1. Week 5 Objectives:
+* Complete comprehensive AgentSys system architecture diagram in Draw.io using official AWS Architecture Icons 2026.
+* Author 7-section Project Proposal document adhering to FCAJ guidelines.
+* Build an empirical FinOps cost model utilizing official AWS Pricing Calculator (calculator.aws).
+* Evaluate architectural design against 6 pillars of AWS Well-Architected Framework.
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+### 2. Daily Tasks & Schedule:
+| Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
+|:---:|---|:---:|:---:|---|
+| **Mon** | - Modeled AgentSys system architecture in Draw.io.<br>- Applied official AWS Architecture Icons 2026 to standardize end-to-end data flows across 5 layers. | 14/09/2026 | 14/09/2026 | [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) |
+| **Tue** | - Drafted Problem Statement, objectives, and scope.<br>- Defined clear acceptance criteria across each integrated AWS service. | 15/09/2026 | 15/09/2026 | FCAJ Proposal Guidelines |
+| **Wed** | - Calculated monthly operational expenses on AWS Pricing Calculator in us-east-1.<br>- Validated that the workload scales to 0 USD at idle. | 16/09/2026 | 16/09/2026 | [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934) |
+| **Thu** | - Authored technical analysis across 6 Well-Architected pillars: Security, Reliability, Performance, Cost, Operations, Sustainability.<br>- Documented IAM least privilege and S3 SSE-S3 configurations. | 17/09/2026 | 17/09/2026 | [AWS Well-Architected](https://aws.amazon.com/architecture/well-architected/) |
+| **Fri** | - Finalized bilingual Proposal documentation and committed files to report repository at content/2-Proposal/.<br>- Reviewed technical specifications ahead of codebase implementation. | 18/09/2026 | 18/09/2026 | Proposal Evaluation Guidelines |
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### 3. Week 5 Achievements:
+* Completed detailed AgentSys architecture diagram in Draw.io spanning 5 layers: Upload, Ingestion, AI Extraction, Storage & Querying.
+* Authored bilingual Project Proposal published in content/2-Proposal/ fulfilling all 8 required sections.
+* Established AWS Pricing Calculator estimate: processing 1 image costs ~0.00207 USD and 1 minute of audio costs ~0.02435 USD; the Pay-as-you-go model ensures costs scale proportionally to actual usage and drop to zero when idle.
+* Conducted structured 6-pillar Well-Architected evaluation: securing storage via S3 Block Public Access, smoothing bursts with SQS load-leveling, and compressing vectors to 256-d.
+* Finalized architectural blueprints ready for immediate pipeline coding in the following week.
 
-
-### Week 5 Achievements:
-
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+### 4. References:
+* [AWS Architecture Center & Official Icons](https://aws.amazon.com/architecture/icons/)
+* [AWS Well-Architected Framework Whitepapers](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
