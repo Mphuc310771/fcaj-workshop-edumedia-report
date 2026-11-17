@@ -15,27 +15,27 @@ pre: " <b> 7. </b> "
 ---
 
 ### 1. Cảm nhận về chương trình thực tập FCAJ
-Kỳ thực tập 12 tuần tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** giúp em có cơ hội tiếp cận trực tiếp với các dịch vụ điện toán đám mây và Generative AI trong môi trường thực tế. Quá trình làm việc tại văn phòng Bitexco cùng việc tự xây dựng dự án cá nhân (EduMedia AI) từ đầu giúp em nâng cao khả năng tự đọc và tra cứu tài liệu kỹ thuật của AWS, hiểu rõ hơn về cách thiết kế hạ tầng Serverless bằng AWS SAM, cũng như cách tối ưu chi phí và xử lý lỗi khi vận hành hệ thống.
+Kỳ thực tập 12 tuần tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** mang lại cho em cơ hội tiếp cận trực tiếp với các dịch vụ điện toán đám mây và Generative AI trong môi trường doanh nghiệp. Quá trình học tập và làm việc tại văn phòng Bitexco cùng việc triển khai dự án thực hành (EduMedia AI) giúp em củng cố kiến thức nền tảng về hạ tầng đám mây, nâng cao kỹ năng tra cứu tài liệu kỹ thuật, hiểu rõ cách thiết kế hệ thống Serverless với AWS SAM cũng như nguyên lý tối ưu chi phí và vận hành hệ thống.
 
 ---
 
 ### 2. Mức độ hài lòng
-* **Đánh giá chung:** **Hài lòng (4/5 sao)**.
-* **Môi trường & Cơ sở vật chất:** Văn phòng Bitexco khang trang, sạch sẽ, trang thiết bị và mạng Internet ổn định, không gian yên tĩnh, thuận tiện cho việc tập trung tự học và nghiên cứu đồ án.
-* **Sự hỗ trợ từ Ban tổ chức:** Ban tổ chức hỗ trợ cấp tài khoản AWS để thực hành và quản lý các thủ tục hành chính, điểm danh. Do chương trình đề cao tính tự lập nên hầu hết thời gian sinh viên phải tự nghiên cứu tài liệu, tự debug và tự xoay xở giải quyết các vấn đề kỹ thuật phát sinh trong quá trình triển khai dự án.
-* **Nội dung chương trình:** Cung cấp định hướng ban đầu về các dịch vụ AWS và tạo điều kiện cho sinh viên tham gia các sự kiện công nghệ thực tế (AWS Community Day, GenAI Hackathon), giúp mở rộng hiểu biết về hệ sinh thái đám mây.
+* **Đánh giá chung:** **Hài lòng (5/5 sao)**.
+* **Môi trường & Cơ sở vật chất:** Văn phòng Bitexco hiện đại, khang trang, trang thiết bị và đường truyền Internet ổn định, tạo điều kiện thuận lợi cho việc học tập, nghiên cứu và phát triển dự án.
+* **Sự hỗ trợ từ Ban tổ chức:** Ban tổ chức luôn hỗ trợ kịp thời trong công tác hành chính, quản lý điểm danh và cung cấp môi trường tài khoản AWS phục vụ quá trình thực hành dự án.
+* **Nội dung chương trình:** Lộ trình đào tạo cung cấp định hướng rõ ràng về các dịch vụ đám mây AWS, kết hợp thực hành dự án và tạo điều kiện cho sinh viên tham gia các sự kiện công nghệ lớn (AWS Community Day, GenAI Hackathon), giúp mở rộng kiến thức thực tế.
 
 ---
 
 ### 3. Những điểm cần cải thiện
 Để chương trình các khóa tiếp theo ngày càng hoàn thiện và mang lại nhiều giá trị thiết thực hơn cho sinh viên, em xin phép đóng góp một vài gợi ý:
-1. **Tăng cường hỗ trợ kỹ thuật và định hướng dự án:** Ban tổ chức nên có các buổi review kỹ thuật định kỳ hoặc bố trí thời gian để các kỹ sư AWS hỗ trợ giải đáp, phản biện các vướng mắc về mặt kiến trúc cho sinh viên, tránh tình trạng sinh viên phải hoàn toàn tự xoay xở khi gặp các vấn đề kỹ thuật phức tạp trên AWS.
-2. **Cơ chế cấp Quota / Sandbox linh hoạt hơn:** Cần hỗ trợ cấp quota hoặc hướng dẫn rõ ràng hơn về hạn mức chi phí cho các dịch vụ Generative AI (như Amazon Bedrock, Amazon Transcribe) để sinh viên yên tâm thử nghiệm mà không lo phát sinh lỗi giới hạn dịch vụ hay vượt ngưỡng chi phí tài khoản.
+1. **Mở rộng các phiên chia sẻ chuyên đề (Tech Sharing):** Mong muốn chương trình có thêm các buổi chia sẻ chuyên sâu về kinh nghiệm thiết kế kiến trúc và giải pháp tối ưu từ các kỹ sư AWS, giúp sinh viên có thêm góc nhìn thực tế từ các bài toán doanh nghiệp lớn.
+2. **Cơ chế hạn mức tài khoản thực hành (Sandbox Quota):** Hỗ trợ thêm hạn mức thực nghiệm (quota credits) cho các dịch vụ AI mới trên Amazon Bedrock để sinh viên có thể thử nghiệm sâu hơn các mô hình ngôn ngữ lớn và giải pháp đa phương tiện.
 
 ---
 
 ### 4. Có giới thiệu chương trình cho bạn bè không? Vì sao?
 * **Câu trả lời:** **Có**.
 * **Lý do:**
-  * **Môi trường rèn luyện tính tự học cao:** Chương trình là cơ hội tốt để sinh viên tự rèn luyện tính độc lập, tự tìm tòi tài liệu của hãng và tự hoàn thành một sản phẩm thực tế từ thiết kế đến triển khai hạ tầng.
-  * **Trải nghiệm thực tế:** Được trải nghiệm môi trường văn phòng doanh nghiệp và tham gia các sự kiện công nghệ lớn trong cộng đồng AWS, giúp chuẩn bị tốt hơn cho công việc sau khi ra trường.
+  * **Cầu nối giữa lý thuyết và thực tiễn:** Chương trình tạo môi trường thực hành bài bản, giúp sinh viên củng cố kiến thức học đường thông qua việc xây dựng một sản phẩm thực tế trên nền tảng AWS.
+  * **Trải nghiệm môi trường doanh nghiệp:** Được làm việc tại văn phòng chuyên nghiệp, rèn luyện tác phong kỷ luật và có cơ hội tham gia các sự kiện công nghệ thực tế trong cộng đồng AWS.
