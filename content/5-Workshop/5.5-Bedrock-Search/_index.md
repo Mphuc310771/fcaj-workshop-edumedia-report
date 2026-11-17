@@ -16,12 +16,12 @@ In traditional media catalogs, search queries fail when users cannot recall exac
 
 {{< mermaid >}}
 flowchart TD
-    UserQuery[User Query: 'find derivative formulas and math notes'] --> BedrockAgent[Amazon Bedrock: Nova Lite Planner]
-    BedrockAgent --> ExtractPlan["JSON Search Plan:<br>• Category: 'study'<br>• Subject: 'math'<br>• Keywords: ['derivative', 'math']"]
-    ExtractPlan --> DDB_Query[(DynamoDB GSI: category-index<br>Query: category='study')]
-    DDB_Query --> Candidates[Candidate Items (Candidate Pool)]
-    Candidates --> Scorer[Hybrid Scoring Engine<br>• Cosine Vector Similarity: 60%<br>• Lexical OCR/Transcript Match: 40%]
-    Scorer --> Output[Ranked Relevant Results]
+    UserQuery["User Query: find derivative formulas and math notes"] --> BedrockAgent["Amazon Bedrock: Nova Lite Planner"]
+    BedrockAgent --> ExtractPlan["JSON Search Plan:<br>• Category: study<br>• Subject: math<br>• Keywords: derivative, math"]
+    ExtractPlan --> DDB_Query[("DynamoDB GSI: category-index<br>Query: category=study")]
+    DDB_Query --> Candidates["Candidate Items Pool"]
+    Candidates --> Scorer["Hybrid Scoring Engine<br>• Cosine Vector: 60%<br>• Lexical Match: 40%"]
+    Scorer --> Output["Ranked Relevant Results"]
 {{< /mermaid >}}
 
 ---

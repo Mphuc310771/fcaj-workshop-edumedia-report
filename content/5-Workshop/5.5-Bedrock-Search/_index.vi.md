@@ -16,12 +16,12 @@ Trong các hệ thống tìm kiếm đa phương tiện truyền thống, việc
 
 {{< mermaid >}}
 flowchart TD
-    UserQuery[Người dùng hỏi: 'tìm bài tập đạo hàm và toán học'] --> BedrockAgent[Amazon Bedrock: Nova Lite Planner]
-    BedrockAgent --> ExtractPlan["JSON Search Plan:<br>• Category: 'study'<br>• Subject: 'math'<br>• Keywords: ['đạo hàm', 'toán học']"]
-    ExtractPlan --> DDB_Query[(DynamoDB GSI: category-index<br>Query: category='study')]
-    DDB_Query --> Candidates[Tập bản ghi ứng viên (Candidate Pool)]
-    Candidates --> Scorer[Bộ tính điểm Hybrid Search<br>• Cosine Vector Embedding: 60%<br>• Khớp từ khóa OCR/Transcript: 40%]
-    Scorer --> Output[Trả về danh sách kết quả khớp nhất]
+    UserQuery["Người dùng hỏi: tìm bài tập đạo hàm và toán học"] --> BedrockAgent["Amazon Bedrock: Nova Lite Planner"]
+    BedrockAgent --> ExtractPlan["JSON Search Plan:<br>• Category: study<br>• Subject: math<br>• Keywords: đạo hàm, toán học"]
+    ExtractPlan --> DDB_Query[("DynamoDB GSI: category-index<br>Query: category=study")]
+    DDB_Query --> Candidates["Tập bản ghi ứng viên (Candidate Pool)"]
+    Candidates --> Scorer["Bộ tính điểm Hybrid Search<br>• Cosine Vector: 60%<br>• Khớp từ khóa: 40%"]
+    Scorer --> Output["Trả về danh sách kết quả khớp nhất"]
 {{< /mermaid >}}
 
 ---
