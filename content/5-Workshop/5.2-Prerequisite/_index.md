@@ -43,7 +43,7 @@ To guarantee zero unexpected charges during development:
 Under the latest AWS Bedrock operational policies, access management for foundation models has been streamlined into fully serverless automated enablement:
 
 1. **Model Access Retirement Notice & Instant Availability:**
-   * For Amazon Serverless Foundation Models (including **Amazon Titan Text Embeddings V2** and **Amazon Nova Lite/Micro/Pro**), AWS has officially retired manual model access application workflows.
+   * For Amazon Serverless Foundation Models (including **Amazon Titan Text Embeddings V2** and **Amazon Nova Lite / Nova Pro**), AWS has officially retired manual model access application workflows.
    * Models are now **automatically enabled on-demand** across all AWS commercial regions upon first invocation (`InvokeModel` or `Converse API`). Developers no longer need to submit manual use-case forms or await approval badges.
 
 ![Official AWS Bedrock notification: Model access page retired in favor of automated on-demand enablement](/images/5-Workshop/evidence/bedrock-model-access.png)

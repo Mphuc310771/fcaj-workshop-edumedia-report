@@ -12,7 +12,7 @@ pre: " <b> 5.5. </b> "
 
 ## 1. Cơ chế Hoạt động của AI Search Agent
 
-Trong các hệ thống tìm kiếm đa phương tiện truyền thống, việc tìm kiếm dựa trên từ khóa đơn thuần thường thất bại vì người dùng không nhớ chính xác từ ngữ. **EduMedia AI** sử dụng **Amazon Bedrock (Amazon Nova Lite / Claude 3)** làm **Query Planner** kết hợp với **DynamoDB GSI Hybrid Search**:
+Trong các hệ thống tìm kiếm đa phương tiện truyền thống, việc tìm kiếm dựa trên từ khóa đơn thuần thường thất bại vì người dùng không nhớ chính xác từ ngữ. **EduMedia AI** sử dụng **Amazon Bedrock (Amazon Nova Pro / Nova Lite)** làm **Query Planner** kết hợp với **DynamoDB GSI Hybrid Search**:
 
 {{< rawhtml >}}
 <div class="pipeline-container">

@@ -56,7 +56,7 @@ Khối lượng phục vụ: 1.500 ảnh bài giảng/slide, 250 phút ghi âm b
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 1.500 ảnh × 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
 | **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **$1.50 USD** *(giá cũ: $6.00)* | **$1.50 USD** *(giá cũ: $6.00)* |
-| **Amazon Bedrock** | 2.000 queries Nova Pro (1K in + 300 out) + Embed | **$3.56 USD** *(Haiku: $4.04)* | **$3.56 USD** *(Haiku: $4.04)* |
+| **Amazon Bedrock** | 2.000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
 | **Amazon S3** | 20 GB Standard tích lũy + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Năm đầu: $0.35)* |
 | **AWS Lambda & SQS** | 15.000 invocations (22.500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
 | **Amazon DynamoDB** | On-Demand (15.000 writes + 60.000 reads) | **$0.02 USD** | **$0.02 USD** *(Lưu trữ < 25 GB Always Free)* |

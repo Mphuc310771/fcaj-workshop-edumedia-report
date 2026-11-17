@@ -23,7 +23,7 @@ Trước khi đi vào chi tiết cấu hình giám sát và dọn dẹp, bảng 
 | **Amazon SQS & DLQ** | Hàng đợi đệm `agentsys-ingest-queue` và 3 Dead-Letter Queues bảo vệ pipeline | Batch size 5, retry tối đa 3 lần chống nghẽn |
 | **Amazon DynamoDB** | Bảng `AgentSysMediaMetadata` (PAY_PER_REQUEST), GSI `category-index`, Streams kích hoạt | Query GSI < 40ms, trạng thái READY |
 | **Amazon Rekognition & Transcribe** | Tự động nhận diện nhãn, OCR công thức bảng viết tay và bóc băng tiếng Việt vi-VN | Dữ liệu OCR đạo hàm & Transcript Triết học thực tế |
-| **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Claude 3 xử lý Search Planner | Tạo Search Plan chính xác, Hybrid Vector Match |
+| **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Nova Pro xử lý Search Planner | Tạo Search Plan chính xác, Hybrid Vector Match |
 | **Amazon CloudWatch** | 7 Alarms chủ động ở trạng thái OK, Metric Custom `MediaIngested`, Structured Logs | Dashboard và Log Streams đầy đủ |
 | **Amazon SNS** | Topic `agentsys-alerts-topic` sẵn sàng phát cảnh báo tức thì qua Email | SNS Topic kết nối trực tiếp 7 Alarms |
 | **AWS Budgets & FinOps** | Thiết lập ngân sách giám sát gói $180 Promotional Credits từ FCAJ. Trong giai đoạn thử nghiệm (do Amazon Transcribe đang chờ AWS Support kích hoạt subscription trên tài khoản mới), các tệp kiểm thử tập trung vào Rekognition, Lambda và DynamoDB nên chi phí tiêu hao cực thấp, nằm trọn trong hạn mức Credits được tài trợ | Cảnh báo chi phí theo ngưỡng credit FCAJ (Tránh phát sinh cước ngoài ý muốn) |

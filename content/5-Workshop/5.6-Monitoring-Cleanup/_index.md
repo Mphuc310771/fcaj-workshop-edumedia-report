@@ -23,7 +23,7 @@ Before delving into monitoring details and cleanup procedures, the table below m
 | **Amazon SQS & DLQ** | Ingestion buffer queue and 3 Dead-Letter Queues protecting pipeline resilience | Batch size 5, max 3 retries against traffic spikes |
 | **Amazon DynamoDB** | Table `AgentSysMediaMetadata` (PAY_PER_REQUEST), GSI `category-index`, Streams enabled | GSI Query < 40ms, status READY |
 | **Amazon Rekognition & Transcribe** | Automatic object labeling, handwritten math board OCR, and Vietnamese ASR vi-VN | Derivatives OCR & Philosophy speech transcripts |
-| **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Claude 3 Search Planner | Accurate JSON Search Plan, Hybrid vector scoring |
+| **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Nova Pro Search Planner | Accurate JSON Search Plan, Hybrid vector scoring |
 | **Amazon CloudWatch** | 7 core alarms active in OK state, custom metric `MediaIngested`, structured JSON logs | CloudWatch Dashboard & Log Streams |
 | **Amazon SNS** | Topic `agentsys-alerts-topic` configured for immediate email notifications | Direct notification integration across 7 alarms |
 | **AWS Budgets & FinOps** | Configured budget threshold alerts tracking the $180 Promotional Credit allocation from FCAJ. During initial validation (while Amazon Transcribe service access was pending AWS support clearance), ingestion tests focused on Rekognition, Lambda, S3, and DynamoDB, keeping actual spend well within Free Tier and granted promotional credits | Cost threshold alerts configured against FCAJ credit limits (Proactive billing safeguard) |
