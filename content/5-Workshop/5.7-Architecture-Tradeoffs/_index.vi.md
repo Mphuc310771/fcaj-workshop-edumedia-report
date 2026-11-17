@@ -78,9 +78,10 @@ Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trìn
 Nhằm chuẩn bị vững vàng cho buổi nghiệm thu dự án thực tập trước Hội đồng chuyên môn, dưới đây là 3 câu hỏi kiểm toán chuyên sâu về kiến trúc thực tế và câu trả lời phân tích định lượng chuẩn mực:
 
 #### Câu hỏi 1: "Khi trích xuất 1 keyframe mỗi 30 giây cho 250 phút video bằng ffmpeg, số ảnh phát sinh thêm này đã được tính vào chi phí Rekognition và Bedrock ở Kịch bản 2 chưa?"
-* **Trả lời chuẩn mực:** 
   Toàn bộ chi phí này đã được dự phòng đầy đủ trong biên độ dao động của Kịch bản 2. Cụ thể: 250 phút video với tần suất 1 frame / 30 giây sinh ra đúng **500 keyframes**. Khi gửi 500 frames này qua Amazon Rekognition (DetectLabels + DetectText) và Amazon Bedrock (Titan Multimodal Embeddings G1), chi phí phát sinh là:
-  $$\text{Chi phí} = (500 \times 2 \times \$0.001) + (500 \times \$0.00006) = \$1.03\text{ USD/tháng}$$
+  
+  *Chi phí phát sinh = (500 × 2 × $0.001) + (500 × $0.00006) = $1.03 USD/tháng*
+
   Khoản phát sinh **$1.03 USD** này nằm gọn hoàn toàn trong khoảng đệm an toàn **$4.50 USD** (giữa mức nền **$9.77** và mức trần **$14.27 USD**) mà nhóm đã thiết lập trong mô hình FinOps.
 
 #### Câu hỏi 2: "Tại sao nhóm dùng LLM (Amazon Nova Micro) để xử lý câu truy vấn Tiếng Việt mà không dùng dịch vụ Amazon Translate?"

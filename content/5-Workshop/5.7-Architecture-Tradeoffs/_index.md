@@ -80,7 +80,9 @@ To prepare rigorously for oral defense before the academic and industry review c
 #### Question 1: "When extracting 1 keyframe every 30 seconds across 250 video minutes using ffmpeg, has this additional image volume been accounted for in the Scenario 2 Rekognition and Bedrock budget?"
 * **Authoritative Answer:** 
   Yes, this cost is fully absorbed within Scenario 2's variance buffer. Specifically: 250 minutes of video sampled at 1 frame / 30 seconds yields exactly **500 keyframes**. Routing these 500 frames through Amazon Rekognition (DetectLabels + DetectText) and Amazon Bedrock (Titan Multimodal Embeddings G1) incurs:
-  $$\text{Incremental Cost} = (500 \times 2 \times \$0.001) + (500 \times \$0.00006) = \$1.03\text{ USD/month}$$
+
+  *Incremental Cost = (500 × 2 × $0.001) + (500 × $0.00006) = $1.03 USD/month*
+
   This **$1.03 USD** expense fits comfortably within the **$4.50 USD contingency margin** (between the **$9.77** base and **$14.27 USD** ceiling) defined in our FinOps model.
 
 #### Question 2: "Why did the architecture adopt an LLM (Amazon Nova Micro) for Vietnamese query translation rather than the dedicated Amazon Translate service?"

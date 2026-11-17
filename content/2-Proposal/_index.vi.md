@@ -131,7 +131,7 @@ Khối lượng kiểm thử: 50 ảnh slide, 5–10 clip video ngắn (tổng 1
 
 | Dịch vụ AWS | Khối lượng kiểm thử | Chi phí Gốc (Gross Cost - Không Free Tier) | Hóa đơn Thực tế (Net Cost - Có Free Tier) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 50 ảnh $\times$ 2 APIs = 100 API calls | $0.1000 USD | **$0.0000 USD** (Hạn mức 1.000 ảnh/tháng) |
+| **Amazon Rekognition** | 50 ảnh × 2 APIs = 100 API calls | $0.1000 USD | **$0.0000 USD** (Hạn mức 1.000 ảnh/tháng) |
 | **Amazon Transcribe** | 15–20 phút audio vi-VN (Batch) | $0.0900 – $0.1200 USD *(Rate card: $0.36 – $0.48)* | **$0.0000 USD** (Hạn mức 60 phút/tháng) |
 | **Amazon Bedrock** | 100 queries Nova Pro/Micro + Titan Embed | $0.1780 USD *(Haiku: $0.2020)* | **$0.1780 USD** *(Không có Free Tier)* |
 | **Amazon S3** | 1 GB Standard + PUT/GET requests | $0.0240 USD | **$0.0000 USD** (Hạn mức 5 GB Free Tier) |
@@ -147,7 +147,7 @@ Khối lượng vận hành 1 tháng: 1.500 ảnh bài giảng/slide, 250 phút 
 
 | Dịch vụ AWS | Khối lượng vận hành (100 - 200 sinh viên) | Gross Cost (Không Free Tier) | Hóa đơn Chuẩn dài hạn (Áp dụng Always Free) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 1.500 ảnh $\times$ 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
+| **Amazon Rekognition** | 1.500 ảnh × 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
 | **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **$1.50 USD** *(Rate Card trần: $6.00)* | **$1.50 USD** *(Rate Card trần: $6.00)* |
 | **Amazon Bedrock** | 2.000 queries Nova Pro/Micro (1K in + 300 out) + Embed | **$3.56 USD** *(Haiku: $4.04)* | **$3.56 USD** *(Haiku: $4.04)* |
 | **Amazon S3** | 20 GB Standard tích lũy + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Năm đầu: $0.35)* |
