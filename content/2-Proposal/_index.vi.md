@@ -67,13 +67,17 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 
 ## 5. Đánh giá theo AWS Well-Architected Framework (6 Trụ cột)
 
-* **Workload chính thức trên AWS Well-Architected Tool:** [EduMedia AI - Workload ID: `13f51f4fbcb8f084f550fe07020d295e`](https://us-east-1.console.aws.amazon.com/wellarchitected/home?region=us-east-1#/workloads/13f51f4fbcb8f084f550fe07020d295e) (Region: `us-east-1`)
-* **Báo cáo kiểm toán kiến trúc AWS chính thức (PDF 90 trang):** [Tải về Báo cáo Well-Architected Review (PDF)](/files/EduMedia_AI_Well_Architected_Report.pdf)
+Kiến trúc hệ thống được rà soát và đánh giá toàn diện theo 6 trụ cột của **AWS Well-Architected Framework** và **Serverless Lens**:
 
-> **Lưu ý kiểm tra:** Đường dẫn AWS Console yêu cầu đăng nhập tài khoản AWS sở hữu (`Account ID: 181040156515`). Để hội đồng giám khảo và người xem công khai kiểm tra độc lập mà không cần đăng nhập tài khoản AWS, toàn bộ bản kiểm toán chi tiết 57/57 câu hỏi được trích xuất trực tiếp từ AWS Well-Architected Tool và đính kèm đầy đủ trong tài liệu PDF cùng minh chứng bên dưới:
-
-![Thông tin Workload EduMedia AI được khởi tạo trên AWS Well-Architected Tool](/images/2-Proposal/well-architected-workload-properties.png)
-*Hình: Bằng chứng thẩm định kiến trúc EduMedia AI trên AWS Well-Architected Tool (Workload ID: 13f51f4fbcb8f084f550fe07020d295e, Sinh viên: Đỗ Trần Minh Phúc - 23120156).*
+| Hạng mục kiểm toán | Chi tiết thẩm định trên AWS |
+| :--- | :--- |
+| **Công cụ đánh giá** | AWS Well-Architected Tool |
+| **Workload Name** | `EduMedia AI` |
+| **Workload ID** | `13f51f4fbcb8f084f550fe07020d295e` (Region: `us-east-1`) |
+| **Chủ tài khoản (Owner)** | Đỗ Trần Minh Phúc (MSSV: `23120156` · Account: `181040156515`) |
+| **Bộ khung thẩm định (Lenses)** | AWS Well-Architected Framework & Serverless Lens |
+| **Rủi ro mức độ cao (High Risks)** | **0 rủi ro** (100% tuân thủ Best Practices) |
+| **Báo cáo kiểm toán chính thức** | [Tải về Báo cáo Well-Architected Review chi tiết (PDF 90 trang)](/files/EduMedia_AI_Well_Architected_Report.pdf) |
 
 ### 1. Bảo mật (Security)
 * **IAM Least-Privilege**: Tách biệt hoàn toàn IAM Role của hàm Ingestion (chỉ đọc S3 uploads/, gọi Rekognition/Transcribe) và API Lambda (chỉ đọc DynamoDB GSI, gọi Bedrock).
