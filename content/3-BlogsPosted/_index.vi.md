@@ -17,3 +17,8 @@ Phân tích 3 cạm bẫy chí mạng của kiến trúc Push-based (S3 gọi tr
 
 ### [Blog 2 - Tối ưu truy vấn Amazon DynamoDB: Hạn chế của FilterExpression và giải pháp Global Secondary Index](3.2-blog2/)
 Bài viết phân tích chuyên sâu cơ chế tầng vật lý của Amazon DynamoDB: tại sao FilterExpression trong thao tác Scan tiêu tốn 100% RCU trước khi lọc và gây hiện tượng Empty Page Pagination trên AWS Lambda, đồng thời đề xuất giải pháp định tuyến O(1) bằng Global Secondary Index (category-index) giúp giảm 99.98% RCU và hạ độ trễ từ vài giây xuống dưới 15ms.
+
+---
+
+### [Blog 3 - Tìm kiếm Ngữ nghĩa với Bedrock Titan Embeddings: Tối ưu 256 chiều vector](3.3-blog3/)
+Phân tích cạm bẫy kỹ thuật khi đưa vector 1536 chiều vào kiến trúc Serverless NoSQL (chạm ngưỡng cứng 400KB của DynamoDB, tăng chi phí WCU/RCU và kéo dài độ trễ tính Cosine Similarity trên Lambda). Đề xuất giải pháp khai thác tính năng Sub-vector 256 chiều của Amazon Titan Text Embeddings V2 kết hợp chuẩn hóa Unit Vector giúp giảm 76% dung lượng, tăng tốc tính toán 6 lần và cơ chế Graceful Degradation tự động fallback khi Bedrock chạm quota.
