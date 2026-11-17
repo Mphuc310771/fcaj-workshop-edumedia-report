@@ -27,10 +27,8 @@ The 12-week internship at the **First Cloud AI Journey (FCAJ) — AWS Vietnam** 
 
 ---
 
-### 3. Areas for Further Optimization in Future Cohorts
-Overall, the FCAJ program is exceptionally well-structured and comprehensive, providing excellent office facilities at Bitexco alongside active participation in premier AWS community events. To assist future student cohorts in accelerating project onboarding and technical execution, I offer a couple of constructive observations:
-1. **Early Reference Architecture Guidelines:** Providing a curated set of AWS Well-Architected reference blueprints for common project patterns (such as Serverless event-driven architectures, RAG pipelines, or media ingestion workflows) during the initial planning weeks would help students scope their projects faster and streamline early service selection.
-2. **Peer-to-Peer Technical Exchange:** Encouraging informal internal knowledge-sharing sessions (such as brief lightning talks or technical demos) among interns in the cohort to discuss real-world debugging experiences and cloud cost optimization (FinOps) best practices within sandbox constraints, enabling students to learn diverse approaches from their peers' projects.
+### 3. Areas for Improvement
+The FCAJ program was thoughtfully organized from the office facilities at Bitexco to the structured 12-week internship curriculum. From my personal experience, the program was well-executed and I have no complaints. As a small suggestion for future cohorts, introducing a few sample project topics from previous batches during the first week could help incoming interns more quickly visualize the expected scope and deliverable standards.
 
 ---
 
