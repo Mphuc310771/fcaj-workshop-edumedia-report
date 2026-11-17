@@ -21,7 +21,7 @@ pre: " <b> 1.2. </b> "
 | **Mon** | - Designed S3 bucket agentsys-mediabucket.<br>- Enforced Block All Public Access and default Server-Side Encryption (SSE-S3 AES-256). | 24/08/2026 | 24/08/2026 | [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/) |
 | **Tue** | - Defined S3 prefix partitions: uploads/ (incoming files) and transcripts/ (ASR outputs).<br>- Configured S3 Event Notification prefix filters to prevent recursive trigger loops. | 25/08/2026 | 25/08/2026 | [S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventNotifications.html) |
 | **Wed** | - Authored IAM Execution Roles in SAM template.<br>- Decoupled permissions between background ingestion worker (agentsys-ingest-role) and query API (agentsys-api-role). | 26/08/2026 | 26/08/2026 | [AWS IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) |
-| **Thu** | - Drafted infra/template.yaml, declaring environment parameters.<br>- Verified template integrity using sam validate --lint. | 27/08/2026 | 27/08/2026 | [AWS SAM Specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) |
+| **Thu** | - **Attendance Record:** Excused medical absence at dorm due to viral fever and acute abdominal pain (diagnosed as ICD-10 B34.9).<br>- Self-studied AWS SAM technical documentation and drafted infra/template.yaml remotely from dorm room. | 27/08/2026 | 27/08/2026 | [AWS SAM Specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) |
 | **Fri** | - Requested Foundation Model Access on AWS Bedrock Console for Titan Text Embeddings V2 and Nova Lite.<br>- Reviewed technical guides in preparation for AI integration. | 28/08/2026 | 28/08/2026 | [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/) |
 
 ### 3. Week 2 Achievements:
@@ -31,7 +31,19 @@ pre: " <b> 1.2. </b> "
 * SAM template validated cleanly with 0 syntax or linting errors via sam validate --lint.
 * Foundation model access granted on Amazon Bedrock for both embedding generation and query planning models.
 
-### 4. References:
+### 4. Attendance Record & Medical Excuse Documentation (27/08/2026):
+
+* **Context:** On the evening of 26/08/2026, the student developed a fever, followed by severe abdominal pain on the morning of 27/08/2026, preventing travel to the Bitexco office. The student visited the **Health Care & Medical Services Clinic — VNU-HCM Dormitory Management Center** for clinical examination.
+* **Clinical Diagnosis:** The physician diagnosed **`ICD-10 B34.9 - Viral infection, unspecified`**, prescribed Paracetamol (Efferalgan 500mg) and antihistamine (Clopheniramin 4mg), and mandated rest and monitoring at the dormitory room.
+* **Portal Attendance Status:** Due to the sudden medical emergency, the student was unable to cancel the office slot booking prior to the cutoff window, resulting in the FCAJ Portal automated record of **`1 Absent`** for 27/08/2026. Official medical records and portal logs are documented below to maintain full integrity and substantiate this excused absence:
+
+![August 2026 FCAJ Portal Attendance Calendar Record](/images/1-Worklog/attendance-portal-august-2026.png)
+*Figure: FCAJ Portal August 2026 calendar reflecting 1 Absent on 27/08/2026.*
+
+![Official Medical Examination Slip and Prescription from VNU-HCM Health Clinic](/images/1-Worklog/medical-prescription-2026-08-27.png)
+*Figure: Official medical prescription and diagnosis issued to Do Tran Minh Phuc (Student ID: 23120156) for ICD-10 B34.9 viral infection.*
+
+### 5. References:
 * [Amazon S3 Security Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
 * [AWS Lambda Execution Role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html)
 * [Amazon Bedrock Model Access Documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html)
