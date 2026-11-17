@@ -13,8 +13,7 @@ home = [ "HTML", "RSS", "JSON"]
 [params]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "workshop"
-  # Git hub repo link
-  editURL = "https://github.com/Mphuc310771/fcaj-workshop-edumedia-report/tree/main/content/"
+  # editURL disabled to hide 'Edit this page' link
   description = "Internship report - Do Tran Minh Phuc"
   author = "dtmpk12@gmail.com"
   showVisitedLinks = true

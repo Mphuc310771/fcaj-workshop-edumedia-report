@@ -33,15 +33,14 @@ pre: " <b> 1.2. </b> "
 
 ### 4. Attendance Record & Medical Excuse Documentation (27/08/2026):
 
-* **Context:** On the evening of 26/08/2026, the student developed a fever, followed by severe abdominal pain on the morning of 27/08/2026, preventing travel to the Bitexco office. The student visited the **Health Care & Medical Services Clinic — VNU-HCM Dormitory Management Center** for clinical examination.
-* **Clinical Diagnosis:** The physician diagnosed **`ICD-10 B34.9 - Viral infection, unspecified`**, prescribed Paracetamol (Efferalgan 500mg) and antihistamine (Clopheniramin 4mg), and mandated rest and monitoring at the dormitory room.
-* **Portal Attendance Status:** Due to the sudden medical emergency, the student was unable to cancel the office slot booking prior to the cutoff window, resulting in the FCAJ Portal automated record of **`1 Absent`** for 27/08/2026. Official medical records and portal logs are documented below to maintain full integrity and substantiate this excused absence:
+* **Absence Context:** On the morning of 27/08/2026, the student developed a sudden high fever and persistent abdominal pain, preventing on-site work at the Bitexco office. The student visited the **Health Care & Medical Services Clinic — VNU-HCM Dormitory** (diagnosed with ICD-10 B34.9 viral infection) and was prescribed rest.
+* **Portal Attendance:** Due to the sudden illness, the student was unable to cancel the office slot booking prior to the cutoff window, resulting in an automated **`1 Absent`** record on the FCAJ Portal. Supporting documentation is attached below:
 
 ![August 2026 FCAJ Portal Attendance Calendar Record](/images/1-Worklog/attendance-portal-august-2026.png)
-*Figure: FCAJ Portal August 2026 calendar reflecting 1 Absent on 27/08/2026.*
+*Figure: FCAJ Portal attendance record for 27/08/2026.*
 
 ![Official Medical Examination Slip and Prescription from VNU-HCM Health Clinic](/images/1-Worklog/medical-prescription-2026-08-27.png)
-*Figure: Official medical prescription and diagnosis issued to Do Tran Minh Phuc (Student ID: 23120156) for ICD-10 B34.9 viral infection.*
+*Figure: Medical prescription issued by VNU-HCM Dormitory Health Clinic.*
 
 ### 5. References:
 * [Amazon S3 Security Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)

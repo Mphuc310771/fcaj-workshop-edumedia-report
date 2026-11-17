@@ -31,17 +31,16 @@ pre: " <b> 1.2. </b> "
 * Template hạ tầng infra/template.yaml vượt qua kiểm tra sam validate --lint với 0 lỗi.
 * Kích hoạt thành công Model Access trên Bedrock cho cả mô hình sinh vector và mô hình lập kế hoạch truy vấn.
 
-### 4. Báo cáo Chuyên cần & Minh chứng Nghỉ ốm (Ngày 27/08/2026):
+### 4. Ghi chú Chuyên cần & Minh chứng Nghỉ ốm (Ngày 27/08/2026):
 
-* **Tình huống phát sinh:** Vào chiều tối ngày 26/08/2026, sinh viên bắt đầu phát sốt nhẹ và đến rạng sáng ngày 27/08/2026 thì bị đau bụng dữ dội kèm sốt cao liên tục, không thể di chuyển lên văn phòng làm việc Bitexco. Sinh viên đã đến khám trực tiếp tại **Phòng Dịch vụ và Chăm sóc Sức khỏe — Trung tâm Quản lý Ký túc xá & ĐTĐH (ĐHQG TP.HCM)**.
-* **Chẩn đoán y tế:** Bác sĩ chỉ định chẩn đoán mã bệnh **`01. B34.9 - Nhiễm virus, không xác định`**, kê đơn thuốc hạ sốt (Efferalgan 500mg) và chống dị ứng/kháng viêm (Clopheniramin 4mg), yêu cầu nghỉ ngơi theo dõi tại phòng KTX.
-* **Tình trạng điểm danh Portal:** Do phát bệnh đột xuất lúc rạng sáng nên sinh viên không kịp thao tác hủy slot booking trước giờ quy định, hệ thống Portal FCAJ tự động ghi nhận trạng thái **`1 Absent`** cho ngày 27/08/2026. Sinh viên chủ động đính kèm đầy đủ hồ sơ bệnh án và lịch Portal bên dưới để chứng minh tính trung thực và lý do y tế bất khả kháng (không phải vắng trái quy định):
+* **Lý do vắng:** Rạng sáng ngày 27/08/2026, sinh viên bị phát sốt cao và đau bụng liên tục, không thể đến văn phòng Bitexco. Sinh viên đã đến khám tại **Phòng Dịch vụ và Chăm sóc Sức khỏe — KTX ĐHQG-HCM** (chẩn đoán: Nhiễm virus B34.9) và được bác sĩ kê đơn thuốc, yêu cầu nghỉ ngơi theo dõi tại phòng.
+* **Điểm danh Portal:** Do phát bệnh đột xuất lúc rạng sáng nên sinh viên không kịp hủy lịch booking trước giờ quy định, dẫn đến hệ thống Portal tự động ghi nhận trạng thái **`1 Absent`**. Sinh viên đính kèm minh chứng lịch điểm danh Portal và toa thuốc bên dưới:
 
 ![Lịch điểm danh tháng 8/2026 trên Portal FCAJ ghi nhận buổi vắng 27/08](/images/1-Worklog/attendance-portal-august-2026.png)
-*Hình: Lịch điểm danh Portal tháng 8/2026 ghi nhận ngày 27/08/2026 ở trạng thái 1 Absent.*
+*Hình: Lịch điểm danh Portal tháng 8/2026 ghi nhận ngày 27/08/2026.*
 
-![Phiếu hướng dẫn sử dụng thuốc và xác nhận y tế tại KTX ĐHQG-HCM](/images/1-Worklog/medical-prescription-2026-08-27.png)
-*Hình: Toa thuốc và phiếu hướng dẫn sử dụng thuốc của Phòng Dịch vụ & Chăm sóc Sức khỏe KTX ĐHQG (Họ tên: Đỗ Trần Minh Phúc - 23120156, Chẩn đoán: B34.9 Nhiễm virus).*
+![Toa thuốc và phiếu hướng dẫn sử dụng thuốc tại KTX ĐHQG-HCM](/images/1-Worklog/medical-prescription-2026-08-27.png)
+*Hình: Toa thuốc khám tại Phòng Dịch vụ và Chăm sóc Sức khỏe KTX ĐHQG.*
 
 ### 5. Tài liệu tham khảo:
 * [Amazon S3 Security Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
