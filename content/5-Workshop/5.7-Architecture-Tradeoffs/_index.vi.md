@@ -10,7 +10,7 @@ pre: " <b> 5.7. </b> "
 
 Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trình First Cloud AI Journey (FCAJ), mục tiêu cốt lõi của EduMedia AI là hiện thực hóa một hệ thống tìm kiếm đa phương tiện thông minh bằng AI, tuân thủ kiến trúc Serverless với tiêu chí **tối ưu chi phí tối đa (Zero-Idle-Cost)** và **triển khai tinh gọn (Lean Architecture)**. 
 
-Để đạt được sự cân bằng giữa chi phí học tập/thực nghiệm và tính năng, một số quyết định đánh đổi kiến trúc (architectural trade-offs) có chủ đích đã được áp dụng. Dưới đây là phân tích phản biện kỹ thuật về 4 giới hạn hiện tại của hệ thống và giải pháp mở rộng chuẩn AWS Enterprise khi đưa vào môi trường sản xuất quy mô lớn.
+Để đạt được sự cân bằng giữa chi phí học tập/thực nghiệm và tính năng, một số quyết định đánh đổi kiến trúc (architectural trade-offs) có chủ đích đã được áp dụng. Dưới đây là phân tích phản biện kỹ thuật về 5 giới hạn kiến trúc hiện tại của hệ thống và giải pháp mở rộng chuẩn AWS Enterprise khi đưa vào môi trường sản xuất quy mô lớn.
 
 ---
 
@@ -73,34 +73,7 @@ Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trìn
 
 ---
 
-### 6. Cẩm nang Phản biện Kỹ thuật & Tối ưu Chi phí Chuyên sâu (Defense Q&A Guide)
-
-Nhằm chuẩn bị vững vàng cho buổi nghiệm thu dự án thực tập trước Hội đồng chuyên môn, dưới đây là 3 câu hỏi kiểm toán chuyên sâu về kiến trúc thực tế và câu trả lời phân tích định lượng chuẩn mực:
-
-#### Câu hỏi 1: "Khi trích xuất 1 keyframe mỗi 30 giây cho 250 phút video bằng ffmpeg, số ảnh phát sinh thêm này đã được tính vào chi phí Rekognition và Bedrock ở Kịch bản 2 chưa?"
-  Toàn bộ chi phí này đã được dự phòng đầy đủ trong biên độ dao động của Kịch bản 2. Cụ thể: 250 phút video với tần suất 1 frame / 30 giây sinh ra đúng **500 keyframes**. Khi gửi 500 frames này qua Amazon Rekognition (DetectLabels + DetectText) và Amazon Bedrock (Titan Multimodal Embeddings G1), chi phí phát sinh là:
-  
-  *Chi phí phát sinh = (500 × 2 × $0.001) + (500 × $0.00006) = $1.03 USD/tháng*
-
-  Khoản phát sinh **$1.03 USD** này nằm gọn hoàn toàn trong khoảng đệm an toàn **$4.50 USD** (giữa mức nền **$9.77** và mức trần **$14.27 USD**) mà nhóm đã thiết lập trong mô hình FinOps.
-
-#### Câu hỏi 2: "Tại sao nhóm dùng LLM (Amazon Nova Micro) để xử lý câu truy vấn Tiếng Việt mà không dùng dịch vụ Amazon Translate?"
-* **Trả lời chuẩn mực:** 
-  Việc lựa chọn Amazon Nova Micro thay vì Amazon Translate xuất phát từ 2 lợi thế vượt trội về FinOps và Kiến trúc:
-  1. **Hiệu quả kinh tế (Tiết kiệm gấp ~1.500 lần):** Amazon Translate có giá niêm yết là **$15.00 USD / 1 triệu ký tự**. Trong khi đó, `Amazon Nova Micro` trên Bedrock có giá chỉ **$0.035 USD / 1 triệu input tokens** (tương đương ~3.5 – 4 triệu ký tự). Do đó, sử dụng Nova Micro giúp tiết kiệm hơn 1.500 lần chi phí dịch thuật.
-  2. **Mô hình xử lý tích hợp (Single-Pass Multi-Tasking):** Trong duy nhất 1 lệnh gọi prompt tới Nova Micro, mô hình vừa thực hiện phân tích ý định người dùng (Intent Routing), vừa trích xuất bộ lọc thời gian/môn học (Metadata Filtering), vừa chuyển ngữ câu mô tả sang Tiếng Anh chuẩn thị giác cho Titan Embeddings. Điều này loại bỏ hoàn toàn độ trễ mạng (network latency) của việc gọi nối tiếp hai dịch vụ riêng biệt.
-
-#### Câu hỏi 3: "Hàm Lambda dùng ffmpeg cắt frame từ video lớn (hàng trăm MB). Bộ nhớ tạm /tmp mặc định chỉ có 512MB, liệu có nguy cơ tràn đĩa hoặc phát sinh phí nâng cấp /tmp không?"
-* **Trả lời chuẩn mực:** 
-  Hệ thống áp dụng kỹ thuật **Streaming Frame Extraction qua S3 Presigned URL**: Thay vì tải toàn bộ file video `.mp4` về ổ đĩa tạm `/tmp`, Lambda truyền trực tiếp đường dẫn S3 Presigned URL vào câu lệnh ffmpeg:
-  ```bash
-  ffmpeg -ss <timestamp> -i "https://<bucket>.s3.amazonaws.com/<key>?<presigned_params>" -frames:v 1 -f image2 pipe:1
-  ```
-  Nhờ giao thức **HTTP Byte-Range Requests** được hỗ trợ nguyên bản trên Amazon S3, `ffmpeg` chỉ đọc phần tiêu đề metadata (moov atom) rồi nhảy trực tiếp tới đúng byte dữ liệu tại giây cần lấy và xuất frame ảnh tĩnh thẳng vào bộ nhớ RAM. Nhờ đó, Lambda không tiêu tốn dung lượng `/tmp`, hoàn toàn miễn nhiễm với lỗi tràn đĩa (`No space left on device`) và hoàn thành tác vụ chỉ trong 1–2 giây.
-
----
-
-### Bảng so sánh tổng hợp: Kiến trúc PoC vs Kiến trúc Enterprise Production
+### 6. Bảng so sánh tổng hợp: Kiến trúc PoC vs Kiến trúc Enterprise Production
 
 | Tiêu chí kỹ thuật | Kiến trúc PoC hiện tại (EduMedia AI) | Kiến trúc Enterprise AWS đề xuất |
 | :--- | :--- | :--- |

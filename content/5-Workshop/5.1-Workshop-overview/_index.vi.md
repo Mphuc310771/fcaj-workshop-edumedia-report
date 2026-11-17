@@ -67,7 +67,7 @@ Khối lượng phục vụ: 1.500 ảnh bài giảng/slide, 250 phút ghi âm b
 
 > **Đối chiếu Công cụ AWS Pricing Calculator và Biểu giá Niêm yết (Rate Card):**
 > * Trên công cụ thực tế [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), tổng chi phí cơ sở là **$4.96 USD / tháng** (bao gồm Rekognition $3.00, Transcribe Batch $1.50 theo đơn giá batch $0.0001/giây, S3 20GB $0.46, Lambda $0.00 Always Free).
-> * Khi tính theo **Biểu giá Niêm yết tối đa (Worst-case Rate Card $0.024/phút cho Transcribe)** cộng thêm tầng suy luận Bedrock Nova Micro / Nova Pro ($3.56 – $4.04), S3 API requests và CloudWatch Logs, tổng ngân sách dài hạn nằm trong khoảng **$9.77 – $14.27 USD / tháng** (~1.200 – 2.500 VNĐ / sinh viên / tháng).
+> * Khi tính theo **Biểu giá Niêm yết tối đa (Worst-case Rate Card $0.024/phút cho Transcribe)** cộng thêm tầng suy luận Bedrock Nova Lite / Nova Pro ($3.56 – $4.04), S3 API requests và CloudWatch Logs, tổng ngân sách dài hạn nằm trong khoảng **$9.77 – $14.27 USD / tháng** (~1.200 – 2.500 VNĐ / sinh viên / tháng).
 > * Hơn **82% chi phí hệ thống tập trung ở tầng AI Inference**. Toàn bộ hạ tầng Serverless (Lambda, SQS, S3, DynamoDB, CloudFront) chỉ tốn dưới **$1.50 USD / tháng**, tự động co về $0.00 USD khi ở trạng thái nghỉ.
 
 ---

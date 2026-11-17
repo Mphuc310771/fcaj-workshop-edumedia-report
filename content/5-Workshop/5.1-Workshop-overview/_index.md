@@ -67,7 +67,7 @@ Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries
 
 > **AWS Pricing Calculator vs Rate Card Reconciliation:**
 > * On the official live [AWS Pricing Calculator Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), base monthly cost totals **$4.96 USD / month** (Rekognition $3.00, Transcribe Batch $1.50 at $0.0001/sec, S3 20GB $0.46, Lambda $0.00 Always Free).
-> * Calculated against the **Worst-Case Public Rate Card ($0.024/min for Transcribe)** plus Bedrock Inference (Nova Micro + Titan Embeddings) and S3 API / CloudWatch Logs, monthly production spend ranges between **$9.77 – $14.27 USD / month** (~1,200 – 2,500 VND / student / month).
+> * Calculated against the **Worst-Case Public Rate Card ($0.024/min for Transcribe)** plus Bedrock Inference (Nova Lite / Nova Pro + Titan Embeddings) and S3 API / CloudWatch Logs, monthly production spend ranges between **$9.77 – $14.27 USD / month** (~1,200 – 2,500 VND / student / month).
 > * Over **82% of operational spend resides in AI Inference**. The entire Serverless compute/storage tier (Lambda, SQS, S3, DynamoDB, CloudFront) costs under **$1.50 USD / month**, automatically scaling to $0.00 USD when idle.
 
 ---
