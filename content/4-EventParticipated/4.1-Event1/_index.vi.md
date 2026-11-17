@@ -104,8 +104,21 @@ Anh Kiệt chia sẻ cấu trúc project chuẩn đang vận hành tại doanh n
 
 ### 2.7. Phần hỏi đáp (Q&A)
 
-> **Người hỏi (Bạn Trung Kiên - Software Engineer):** *Tại sao lại dùng Serverless để đánh giá/tối ưu chi phí thay vì kiến trúc truyền thống?*  
-> **Anh Lâm Tuấn Kiệt:** *Hãy lấy ví dụ hệ thống nội bộ (internal portal) của ngân hàng: Ứng dụng chỉ có nhân viên truy cập trong 8 tiếng giờ hành chính từ thứ 2 đến thứ 6. Nếu chạy server truyền thống 24/7 thì 16 tiếng ban đêm và 2 ngày cuối tuần bị lãng phí hoàn toàn tiền hạ tầng. Sử dụng Serverless với tính năng scale-to-zero giúp tiết kiệm 100% chi phí ngoài giờ. Khi nào lượng người dùng tăng đột biến và trải đều cả ngày lẫn đêm thì mới cân nhắc chuyển về Container.*
+{{< rawhtml >}}
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-comments text-blue-500"></i> Trao đổi trực tiếp tại Hội thảo
+  </div>
+  <div class="qa-question">
+    <strong>🙋 Người hỏi (Bạn Trung Kiên - Software Engineer):</strong><br>
+    Tại sao lại dùng Serverless để đánh giá/tối ưu chi phí thay vì kiến trúc truyền thống?
+  </div>
+  <div class="qa-answer">
+    <strong>👨‍🏫 Diễn giả (Anh Lâm Tuấn Kiệt):</strong><br>
+    Hãy lấy ví dụ hệ thống nội bộ (internal portal) của ngân hàng: Ứng dụng chỉ có nhân viên truy cập trong 8 tiếng giờ hành chính từ thứ 2 đến thứ 6. Nếu chạy server truyền thống 24/7 thì 16 tiếng ban đêm và 2 ngày cuối tuần bị lãng phí hoàn toàn tiền hạ tầng. Sử dụng Serverless với tính năng scale-to-zero giúp tiết kiệm 100% chi phí ngoài giờ. Khi nào lượng người dùng tăng đột biến và trải đều cả ngày lẫn đêm thì mới cân nhắc chuyển về Container.
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ---
 
@@ -177,14 +190,43 @@ Anh Nguyễn Tuấn Kiệt trình diễn trực tiếp kịch bản thực tế:
 
 ### 3.7. Phần hỏi đáp chuyên sâu (Q&A)
 
-> **Câu hỏi 1 (Đồng bộ Multi-Region / Multi-AZ):** *Làm sao để đảm bảo tính nhất quán dữ liệu và tránh downtime khi migrate dữ liệu lớn trên hệ thống phân tán?*  
-> **Trả lời:** AWS DMS hỗ trợ cấu hình Multi-AZ sẵn sàng cao. Việc trích xuất dữ liệu lịch sử được thực hiện dựa trên trường mốc thời gian (timestamp cutoff) nên không gây xung đột ghi (write conflict) với các giao dịch nóng hiện tại.
->
-> **Câu hỏi 2 (Tối ưu tốc độ query dữ liệu Cold Data):** *Khi cần tra cứu Cold Data gấp thì làm sao để tốc độ đạt nhanh nhất?*  
-> **Trả lời:** Phân vùng (Partitioning) sâu theo các trường thường xuyên lọc (Year/Month/Day/Customer ID) giúp Athena chỉ quét đúng thư mục cần thiết. Đối với các hệ thống lớn đòi hỏi chuẩn ACID và Time-travel query, có thể triển khai các định dạng bảng mở như **Apache Iceberg** hoặc **Apache Hudi** trên S3 Data Lake.
->
-> **Câu hỏi 3 (Ứng dụng Amazon Redshift tại VPBank):** *VPBank có use-case nào sử dụng Amazon Redshift không?*  
-> **Trả lời:** Redshift được sử dụng như Data Transformation Engine. Nhóm nạp dữ liệu từ Data Lake lên Redshift và dùng câu lệnh SQL quen thuộc để xử lý, biến đổi dữ liệu phân tích mà không cần phải xây dựng và vận hành cụm Apache Spark phức tạp.
+{{< rawhtml >}}
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 1: Đồng bộ Multi-Region / Multi-AZ
+  </div>
+  <div class="qa-question">
+    <strong>❓ Người hỏi:</strong> Làm sao để đảm bảo tính nhất quán dữ liệu và tránh downtime khi migrate dữ liệu lớn trên hệ thống phân tán?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Trả lời:</strong> AWS DMS hỗ trợ cấu hình Multi-AZ sẵn sàng cao. Việc trích xuất dữ liệu lịch sử được thực hiện dựa trên trường mốc thời gian (timestamp cutoff) nên không gây xung đột ghi (write conflict) với các giao dịch nóng hiện tại.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 2: Tối ưu tốc độ query dữ liệu Cold Data
+  </div>
+  <div class="qa-question">
+    <strong>❓ Người hỏi:</strong> Khi cần tra cứu Cold Data gấp thì làm sao để tốc độ đạt nhanh nhất?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Trả lời:</strong> Phân vùng (Partitioning) sâu theo các trường thường xuyên lọc (Year/Month/Day/Customer ID) giúp Athena chỉ quét đúng thư mục cần thiết. Đối với các hệ thống lớn đòi hỏi chuẩn ACID và Time-travel query, có thể triển khai các định dạng bảng mở như <strong>Apache Iceberg</strong> hoặc <strong>Apache Hudi</strong> trên S3 Data Lake.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 3: Ứng dụng Amazon Redshift tại VPBank
+  </div>
+  <div class="qa-question">
+    <strong>❓ Người hỏi:</strong> VPBank có use-case nào sử dụng Amazon Redshift không?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Trả lời:</strong> Redshift được sử dụng như Data Transformation Engine. Nhóm nạp dữ liệu từ Data Lake lên Redshift và dùng câu lệnh SQL quen thuộc để xử lý, biến đổi dữ liệu phân tích mà không cần phải xây dựng và vận hành cụm Apache Spark phức tạp.
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ---
 
