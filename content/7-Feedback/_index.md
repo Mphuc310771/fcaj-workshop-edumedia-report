@@ -15,29 +15,27 @@ pre: " <b> 7. </b> "
 ---
 
 ### 1. Overall Impressions of the FCAJ Internship Program
-The 12-week internship at the **First Cloud AI Journey (FCAJ) — AWS Vietnam** program was an immensely rewarding journey. Working at the AWS office (26th Floor, Bitexco Financial Tower) immersed me in a world-class professional environment and Amazon's "Day 1" customer-centric culture.
-The program not only provided deep technical mastery across Cloud Computing and Generative AI, but also cultivated a Well-Architected engineering mindset, rigorous problem-solving skills, and high professional discipline.
+The 12-week internship at the **First Cloud AI Journey (FCAJ) — AWS Vietnam** program offered practical exposure to cloud computing and Generative AI services in a real-world setting. Working at the Bitexco office while independently building a project (EduMedia AI) from scratch enhanced my ability to navigate official AWS technical documentation, deepened my understanding of Serverless architectures using AWS SAM, and provided hands-on experience in cost optimization and system troubleshooting.
 
 ---
 
 ### 2. Satisfaction Level
-* **Overall Rating:** **Highly Satisfied (5/5 Stars)**.
-* **Environment & Facilities:** State-of-the-art office infrastructure offering an open, inspiring space for creative research and engineering.
-* **Mentorship & Program Support:** AWS Solutions Architects and Program Admins provided invaluable hands-on guidance, reviewing architectural designs from a production cloud-native perspective.
-* **Curriculum & Practical Exposure:** Thoughtfully structured progression from foundational services to advanced Serverless & GenAI workloads, enriched by Community Days and Immersion Days.
+* **Overall Rating:** **Satisfied (4/5 Stars)**.
+* **Environment & Facilities:** The Bitexco office is spacious, well-equipped, and quiet with stable network connectivity, providing a conducive setting for focused self-study and development.
+* **Program Support:** The program administration supported student AWS accounts and handled administrative attendance procedures. Because the program strongly emphasizes self-reliance, students spent most of their time independently researching documentation, debugging, and resolving technical hurdles throughout project implementation.
+* **Program Content:** Provided useful initial orientation on AWS cloud services and enabled participation in practical community events (AWS Community Day, GenAI Hackathon), broadening perspective on the cloud ecosystem.
 
 ---
 
 ### 3. Areas for Improvement
 To further enhance future cohorts of the First Cloud AI Journey program, I offer a few constructive suggestions:
-1. **Broader GenAI Sandbox Quotas:** Allocate experimental credits for premium Bedrock foundation models (e.g., Claude 3.5 Sonnet, Nova Premier) to enable deeper experimentation with complex agentic RAG workflows.
-2. **Incorporate Team Mini-Hackathons:** Host 24-48 hour collaborative hackathons tackling real-world problem statements to strengthen rapid architectural prototyping and team collaboration on the cloud.
+1. **Strengthen Technical Guidance & Project Reviews:** The program could organize periodic technical review sessions or designate time with AWS engineers to help review architecture and address complex technical roadblocks, rather than leaving students to navigate intricate cloud challenges entirely on their own.
+2. **More Flexible Sandbox & Quota Provisioning:** Provide clearer quota allocations and guidance for Generative AI services (such as Amazon Bedrock and Amazon Transcribe) so students can experiment without running into unexpected service limits or account billing concerns.
 
 ---
 
 ### 4. Would You Recommend the Program to Friends? Why?
-* **Answer:** **Resoundingly Yes (100% Yes)**.
+* **Answer:** **Yes**.
 * **Reasons:**
-  * **Bridging Theory and Practice:** FCAJ provides the premier bridge connecting academic computer science education with production cloud-native engineering standards.
-  * **Elite Industry Exposure:** Direct mentorship from leading AWS cloud experts and hands-on access to the latest generative AI and serverless technologies.
-  * **Strong Career Foundations:** Over 12 weeks, students deliver an end-to-end production-grade system (EduMedia AI) with Infrastructure as Code, establishing a robust portfolio for future Cloud, DevOps, or Solutions Architect careers.
+  - **Cultivates Strong Self-Learning Discipline:** An effective opportunity for students to build independent problem-solving habits, practice navigating vendor documentation, and deliver a functioning solution from design to deployment.
+  - **Real-World Office & Industry Exposure:** Hands-on experience working in an enterprise office setting and attending tech community events, providing a solid foundation for post-graduation careers.
