@@ -27,10 +27,10 @@ Kỳ thực tập 12 tuần tại chương trình **First Cloud AI Journey (FCAJ
 
 ---
 
-### 3. Những điểm cần cải thiện
-Để chương trình các khóa tiếp theo ngày càng hoàn thiện và mang lại nhiều giá trị thiết thực hơn cho sinh viên, em xin phép đóng góp một vài gợi ý:
-1. **Mở rộng các phiên chia sẻ chuyên đề (Tech Sharing):** Mong muốn chương trình có thêm các buổi chia sẻ chuyên sâu về kinh nghiệm thiết kế kiến trúc và giải pháp tối ưu từ các kỹ sư AWS, giúp sinh viên có thêm góc nhìn thực tế từ các bài toán doanh nghiệp lớn.
-2. **Cơ chế hạn mức tài khoản thực hành (Sandbox Quota):** Hỗ trợ thêm hạn mức thực nghiệm (quota credits) cho các dịch vụ AI mới trên Amazon Bedrock để sinh viên có thể thử nghiệm sâu hơn các mô hình ngôn ngữ lớn và giải pháp đa phương tiện.
+### 3. Những điểm có thể tối ưu thêm cho các khóa sau
+Nhìn chung, chương trình đã được Ban tổ chức xây dựng rất bài bản, chu đáo và tạo điều kiện tối đa cho sinh viên từ không gian làm việc tại Bitexco cho đến việc tham gia các sự kiện công nghệ lớn trong cộng đồng AWS. Để hỗ trợ các khóa sinh viên tiếp theo tiếp cận dự án nhanh và hiệu quả hơn, em xin phép đóng góp một vài góc nhìn nhỏ mang tính xây dựng:
+1. **Gợi ý kiến trúc tham khảo sớm (Reference Architecture Guidelines):** Trong các tuần đầu lên ý tưởng đề tài, Ban tổ chức có thể gợi ý thêm một số mô hình kiến trúc tham khảo chuẩn AWS Well-Architected cho các bài toán phổ biến (như Serverless Event-driven, RAG, Ingestion Pipeline). Điều này giúp sinh viên nhanh chóng định hình phạm vi dự án, chuẩn hóa cấu trúc thư mục và giảm bớt thời gian bỡ ngỡ ban đầu khi lựa chọn dịch vụ.
+2. **Trao đổi kinh nghiệm kỹ thuật chéo giữa các thực tập sinh (Peer-to-Peer Sharing):** Khuyến khích các buổi chia sẻ kỹ thuật ngắn nội bộ giữa các bạn sinh viên trong cùng đợt thực tập để trao đổi kinh nghiệm xử lý lỗi thực tế và các phương pháp thực hành tối ưu chi phí (FinOps) trong phạm vi tài khoản thực hành, giúp các bạn học hỏi đa dạng bài toán từ chính đề tài của nhau.
 
 ---
 
