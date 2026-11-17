@@ -152,13 +152,45 @@ Anh Trường trình diễn kịch bản chạy thực tế giữa hai màn hìn
 
 ## 5. Phiên 4: Hỏi Đáp (Q&A) & Hands-on Minigame
 
-### 5.1. Các câu hỏi kỹ thuật nổi bật trong phần Q&A:
-1. **Làm sao để bot hiểu ngữ cảnh dự án?**
-   - *Trả lời:* Sử dụng **Model Context Protocol (MCP)** để kết nối bot với kho tài liệu Confluence nội bộ. Bot tra cứu chuẩn phân loại bug và quy trình vận hành trực tiếp từ wiki của công ty.
-2. **Làm sao tránh AI bị ảo giác (hallucination) chọn nhầm channel Slack?**
-   - *Trả lời:* Áp dụng nguyên tắc: **Cái gì cần độ chính xác 100% thì cấu hình cứng (hard-code/config file)**; phần nào cần linh hoạt xử lý ngôn ngữ tự nhiên mới giao cho LLM.
-3. **Phân quyền và bảo mật khi bot có quyền chạy lệnh?**
-   - *Trả lời:* Cấp quyền tối thiểu (Least Privilege), chạy bot trong môi trường sandbox cô lập, và dùng các Hook script để kiểm tra chặt chẽ input/output trước khi thực thi.
+### 5.1. Các câu hỏi kỹ thuật nổi bật trong phần Q&A
+
+{{< rawhtml >}}
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 1: Ngữ cảnh dự án nội bộ
+  </div>
+  <div class="qa-question">
+    <strong>❓ Người hỏi:</strong> Làm sao để bot hiểu ngữ cảnh dự án và quy trình nội bộ của công ty?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Diễn giả (Anh Trường):</strong> Sử dụng <strong>Model Context Protocol (MCP)</strong> để kết nối bot với kho tài liệu Confluence nội bộ. Bot tra cứu chuẩn phân loại bug và quy trình vận hành trực tiếp từ wiki của công ty một cách tự động.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 2: Kiểm soát hiện tượng AI ảo giác (Hallucination)
+  </div>
+  <div class="qa-question">
+    <strong>❓ Người hỏi:</strong> Làm sao tránh AI bị ảo giác (hallucination) chọn nhầm channel Slack khi bắn thông báo khẩn?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Diễn giả (Anh Trường):</strong> Áp dụng nguyên tắc cốt lõi: <strong>Cái gì cần độ chính xác 100% thì cấu hình cứng (hard-code/config file)</strong>; phần nào cần linh hoạt xử lý ngôn ngữ tự nhiên mới giao cho LLM phân tích.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 3: Phân quyền và an toàn thực thi lệnh
+  </div>
+  <div class="qa-question">
+    <strong>❓ Người hỏi:</strong> Phân quyền và bảo mật như thế nào khi bot có quyền chạy các câu lệnh trên hệ thống?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Diễn giả (Anh Trường):</strong> Cấp quyền tối thiểu (Least Privilege), chạy bot trong môi trường sandbox cô lập hoàn toàn, và dùng các Hook script để kiểm tra chặt chẽ input/output trước khi thực thi.
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ### 5.2. Hands-on Mini Game: Thiết kế Cấu trúc file SOUL.md
 Các bạn sinh viên xung phong lên bảng chia sẻ tư duy định hình "linh hồn" cho một con bot. Anh Trường tổng kết template chuẩn của một file SOUL.md phục vụ doanh nghiệp:

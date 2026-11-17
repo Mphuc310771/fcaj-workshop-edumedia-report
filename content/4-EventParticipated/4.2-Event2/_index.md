@@ -151,13 +151,45 @@ Mr. Truong demonstrated the bot's workflow through real-time multi-account testi
 
 ## 5. Session 4: Q&A Panel & Hands-on Minigame
 
-### 5.1. Highlighted Technical Inquiries:
-1. **How does the bot acquire enterprise project context?**
-   - *Answer:* Via **Model Context Protocol (MCP)** integrated with internal Confluence documentation, ensuring triage decisions align with standard corporate operating procedures.
-2. **How to prevent AI hallucinations from misrouting channel messages?**
-   - *Answer:* Maintain a dual design: **deterministic rules (channel mappings, credentials) are strictly hard-coded in configuration files**, while natural language reasoning is delegated to the LLM.
-3. **Managing permissions for command-line execution:**
-   - *Answer:* Enforce the Principle of Least Privilege, execute agents within isolated sandbox containers, and employ strict hook validators on all inputs and outputs.
+### 5.1. Highlighted Technical Inquiries
+
+{{< rawhtml >}}
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Question 1: Enterprise Project Context
+  </div>
+  <div class="qa-question">
+    <strong>❓ Question:</strong> How does the bot acquire enterprise project context and internal policies?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Speaker (Mr. Truong):</strong> Via <strong>Model Context Protocol (MCP)</strong> integrated with internal Confluence documentation, ensuring triage decisions align with standard corporate operating procedures automatically.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Question 2: Preventing LLM Hallucinations
+  </div>
+  <div class="qa-question">
+    <strong>❓ Question:</strong> How to prevent AI hallucinations from misrouting emergency channel messages?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Speaker (Mr. Truong):</strong> Maintain a dual design: <strong>deterministic rules (channel mappings, credentials) are strictly hard-coded in configuration files</strong>, while natural language reasoning is delegated to the LLM.
+  </div>
+</div>
+
+<div class="qa-card">
+  <div class="qa-header">
+    <i class="fas fa-question-circle text-blue-500"></i> Question 3: Secure Command Execution
+  </div>
+  <div class="qa-question">
+    <strong>❓ Question:</strong> How to manage permissions and safety when the bot has rights to execute commands?
+  </div>
+  <div class="qa-answer">
+    <strong>💡 Speaker (Mr. Truong):</strong> Enforce the Principle of Least Privilege, execute agents within isolated sandbox containers, and employ strict hook validators on all inputs and outputs.
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ### 5.2. Hands-on Minigame: Structuring SOUL.md
 Participants drafted specifications for agent behavior. Mr. Truong presented the standard template for enterprise AI agents:
