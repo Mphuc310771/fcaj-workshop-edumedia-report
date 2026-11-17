@@ -15,13 +15,13 @@ pre: " <b> 7. </b> "
 ---
 
 ### 1. Cảm nhận về chương trình thực tập FCAJ
-Kỳ thực tập 12 tuần tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** mang lại cho em cơ hội tiếp cận trực tiếp với các dịch vụ điện toán đám mây và Generative AI trong môi trường doanh nghiệp. Quá trình học tập và làm việc tại văn phòng Bitexco cùng việc triển khai dự án thực hành (EduMedia AI) giúp em củng cố kiến thức nền tảng về hạ tầng đám mây, nâng cao kỹ năng tra cứu tài liệu kỹ thuật, hiểu rõ cách thiết kế hệ thống Serverless với AWS SAM cũng như nguyên lý tối ưu chi phí và vận hành hệ thống.
+Kỳ thực tập 12 tuần tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** mang lại cho em cơ hội tiếp cận trực tiếp với các dịch vụ điện toán đám mây và Generative AI trong môi trường doanh nghiệp. Quá trình thực tập kết hợp các buổi làm việc tại văn phòng Bitexco cùng việc tự nghiên cứu và triển khai dự án thực hành (EduMedia AI) giúp em củng cố kiến thức nền tảng về hạ tầng đám mây, nâng cao kỹ năng tra cứu tài liệu kỹ thuật, hiểu rõ cách thiết kế hệ thống Serverless với AWS SAM cũng như nguyên lý tối ưu chi phí và vận hành hệ thống.
 
 ---
 
 ### 2. Mức độ hài lòng
 * **Đánh giá chung:** **Hài lòng (5/5 sao)**.
-* **Môi trường & Cơ sở vật chất:** Văn phòng Bitexco hiện đại, khang trang, trang thiết bị và đường truyền Internet ổn định, tạo điều kiện thuận lợi cho việc học tập, nghiên cứu và phát triển dự án.
+* **Môi trường & Cơ sở vật chất:** Văn phòng Bitexco hiện đại, khang trang, trang thiết bị và đường truyền Internet ổn định trong các buổi lên làm việc trực tiếp.
 * **Sự hỗ trợ từ Ban tổ chức:** Ban tổ chức luôn hỗ trợ kịp thời trong công tác hành chính, quản lý điểm danh và cung cấp môi trường tài khoản AWS phục vụ quá trình thực hành dự án.
 * **Nội dung chương trình:** Lộ trình đào tạo cung cấp định hướng rõ ràng về các dịch vụ đám mây AWS, kết hợp thực hành dự án và tạo điều kiện cho sinh viên tham gia các sự kiện công nghệ lớn (AWS Community Day, GenAI Hackathon), giúp mở rộng kiến thức thực tế.
 
