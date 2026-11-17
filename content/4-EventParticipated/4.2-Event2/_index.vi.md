@@ -157,37 +157,37 @@ Anh Trường trình diễn kịch bản chạy thực tế giữa hai màn hìn
 {{< rawhtml >}}
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 1: Ngữ cảnh dự án nội bộ
+    Câu hỏi 1: Ngữ cảnh dự án nội bộ
   </div>
   <div class="qa-question">
-    <strong>❓ Người hỏi:</strong> Làm sao để bot hiểu ngữ cảnh dự án và quy trình nội bộ của công ty?
+    <strong>Người hỏi:</strong> Làm sao để bot hiểu ngữ cảnh dự án và quy trình nội bộ của công ty?
   </div>
   <div class="qa-answer">
-    <strong>💡 Diễn giả (Anh Trường):</strong> Sử dụng <strong>Model Context Protocol (MCP)</strong> để kết nối bot với kho tài liệu Confluence nội bộ. Bot tra cứu chuẩn phân loại bug và quy trình vận hành trực tiếp từ wiki của công ty một cách tự động.
+    <strong>Diễn giả (Anh Trường):</strong> Sử dụng <strong>Model Context Protocol (MCP)</strong> để kết nối bot với kho tài liệu Confluence nội bộ. Bot tra cứu chuẩn phân loại bug và quy trình vận hành trực tiếp từ wiki của công ty một cách tự động.
   </div>
 </div>
 
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 2: Kiểm soát hiện tượng AI ảo giác (Hallucination)
+    Câu hỏi 2: Kiểm soát hiện tượng AI ảo giác (Hallucination)
   </div>
   <div class="qa-question">
-    <strong>❓ Người hỏi:</strong> Làm sao tránh AI bị ảo giác (hallucination) chọn nhầm channel Slack khi bắn thông báo khẩn?
+    <strong>Người hỏi:</strong> Làm sao tránh AI bị ảo giác (hallucination) chọn nhầm channel Slack khi bắn thông báo khẩn?
   </div>
   <div class="qa-answer">
-    <strong>💡 Diễn giả (Anh Trường):</strong> Áp dụng nguyên tắc cốt lõi: <strong>Cái gì cần độ chính xác 100% thì cấu hình cứng (hard-code/config file)</strong>; phần nào cần linh hoạt xử lý ngôn ngữ tự nhiên mới giao cho LLM phân tích.
+    <strong>Diễn giả (Anh Trường):</strong> Áp dụng nguyên tắc cốt lõi: <strong>Cái gì cần độ chính xác 100% thì cấu hình cứng (hard-code/config file)</strong>; phần nào cần linh hoạt xử lý ngôn ngữ tự nhiên mới giao cho LLM phân tích.
   </div>
 </div>
 
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Câu hỏi 3: Phân quyền và an toàn thực thi lệnh
+    Câu hỏi 3: Phân quyền và an toàn thực thi lệnh
   </div>
   <div class="qa-question">
-    <strong>❓ Người hỏi:</strong> Phân quyền và bảo mật như thế nào khi bot có quyền chạy các câu lệnh trên hệ thống?
+    <strong>Người hỏi:</strong> Phân quyền và bảo mật như thế nào khi bot có quyền chạy các câu lệnh trên hệ thống?
   </div>
   <div class="qa-answer">
-    <strong>💡 Diễn giả (Anh Trường):</strong> Cấp quyền tối thiểu (Least Privilege), chạy bot trong môi trường sandbox cô lập hoàn toàn, và dùng các Hook script để kiểm tra chặt chẽ input/output trước khi thực thi.
+    <strong>Diễn giả (Anh Trường):</strong> Cấp quyền tối thiểu (Least Privilege), chạy bot trong môi trường sandbox cô lập hoàn toàn, và dùng các Hook script để kiểm tra chặt chẽ input/output trước khi thực thi.
   </div>
 </div>
 {{< /rawhtml >}}

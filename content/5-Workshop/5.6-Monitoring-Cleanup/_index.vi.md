@@ -54,41 +54,39 @@ SAM Template tự động cấu hình **7 CloudWatch Alarms** cốt lõi và k�
 {{< rawhtml >}}
 <div class="pipeline-container">
   <div class="pipeline-header">
-    <i class="fas fa-bell"></i>
     <span>Danh sách 7 CloudWatch Alarms giám sát hệ thống EduMedia AI</span>
   </div>
   <div class="alarm-cards-grid">
     <div class="alarm-card-item">
-      <div class="alarm-card-name">🚨 agentsys-api-errors</div>
+      <div class="alarm-card-name">agentsys-api-errors</div>
       <div class="alarm-card-desc">Lỗi runtime Lambda API (HTTP 500/502/504) vượt ngưỡng ≥ 1 trong 1 phút.</div>
     </div>
     <div class="alarm-card-item">
-      <div class="alarm-card-name">🚨 agentsys-ingest-errors</div>
+      <div class="alarm-card-name">agentsys-ingest-errors</div>
       <div class="alarm-card-desc">Lỗi unhandled exception khi Lambda Ingest đọc batch từ SQS vượt ngưỡng ≥ 1.</div>
     </div>
     <div class="alarm-card-item">
-      <div class="alarm-card-name">🚨 agentsys-aggregator-errors</div>
+      <div class="alarm-card-name">agentsys-aggregator-errors</div>
       <div class="alarm-card-desc">Lỗi Lambda Aggregator khi xử lý DynamoDB Streams hoặc gọi Bedrock tóm tắt.</div>
     </div>
     <div class="alarm-card-item">
-      <div class="alarm-card-name">⚠️ agentsys-ingest-failed</div>
+      <div class="alarm-card-name">agentsys-ingest-failed</div>
       <div class="alarm-card-desc">Custom metric ghi nhận tệp media bị hỏng hoặc thất bại trích xuất AI.</div>
     </div>
     <div class="alarm-card-item">
-      <div class="alarm-card-name">🛡️ agentsys-ingest-dlq</div>
+      <div class="alarm-card-name">agentsys-ingest-dlq</div>
       <div class="alarm-card-desc">Phát hiện tin nhắn rơi vào Dead-Letter Queue sau 3 lần retry thất bại.</div>
     </div>
     <div class="alarm-card-item">
-      <div class="alarm-card-name">🛡️ agentsys-aggregator-stream-dlq</div>
+      <div class="alarm-card-name">agentsys-aggregator-stream-dlq</div>
       <div class="alarm-card-desc">Sự kiện DynamoDB Stream bị discard và chuyển vào DLQ của Aggregator.</div>
     </div>
     <div class="alarm-card-item">
-      <div class="alarm-card-name">🛡️ agentsys-transcribe-dlq</div>
+      <div class="alarm-card-name">agentsys-transcribe-dlq</div>
       <div class="alarm-card-desc">Sự kiện EventBridge của Transcribe chuyển trạng thái FAILED rơi vào DLQ.</div>
     </div>
   </div>
   <div style="margin-top: 14px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; font-size: 12.5px; color: #166534; display: flex; align-items: center; gap: 8px;">
-    <i class="fas fa-paper-plane" style="color: #16a34a;"></i>
     <span>Tất cả 7 Alarms trên tự động liên kết với <strong>Amazon SNS Topic: agentsys-alerts-topic</strong> để gửi email cảnh báo sự cố ngay lập tức.</span>
   </div>
 </div>

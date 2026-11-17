@@ -107,14 +107,14 @@ Mr. Kiet shared the production project layout used at FPT Software:
 {{< rawhtml >}}
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-comments text-blue-500"></i> Live Workshop Discussion
+    Live Workshop Discussion
   </div>
   <div class="qa-question">
-    <strong>🙋 Question (Trung Kien - Software Engineer):</strong><br>
+    <strong>Question (Trung Kien - Software Engineer):</strong><br>
     Why evaluate Serverless for cost optimization instead of traditional architectures?
   </div>
   <div class="qa-answer">
-    <strong>👨‍🏫 Speaker (Lam Tuan Kiet):</strong><br>
+    <strong>Speaker (Lam Tuan Kiet):</strong><br>
     Consider internal banking portals: Staff only use them during business hours (8 hours/day, Mon-Fri). Running traditional servers 24/7 wastes money during the remaining 16 hours and weekends. Serverless scales to zero during idle periods, saving 100% of off-hour compute costs. Only when traffic becomes steady around the clock should container migration be considered.
   </div>
 </div>
@@ -192,37 +192,37 @@ Mr. Nguyen Tuan Kiet demonstrated the workflow live:
 {{< rawhtml >}}
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Q1: Multi-AZ / Multi-Region Replication
+    Q1: Multi-AZ / Multi-Region Replication
   </div>
   <div class="qa-question">
-    <strong>❓ Question:</strong> How to ensure consistency and prevent downtime when migrating large datasets across regions?
+    <strong>Question:</strong> How to ensure consistency and prevent downtime when migrating large datasets across regions?
   </div>
   <div class="qa-answer">
-    <strong>💡 Answer:</strong> AWS DMS supports Multi-AZ deployment. Migrations filter historical records by timestamp cutoff, preventing write locks or conflicts with live transactions.
+    <strong>Answer:</strong> AWS DMS supports Multi-AZ deployment. Migrations filter historical records by timestamp cutoff, preventing write locks or conflicts with live transactions.
   </div>
 </div>
 
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Q2: Accelerating Cold Data Queries
+    Q2: Accelerating Cold Data Queries
   </div>
   <div class="qa-question">
-    <strong>❓ Question:</strong> How to maximize query speed on cold S3 data?
+    <strong>Question:</strong> How to maximize query speed on cold S3 data?
   </div>
   <div class="qa-answer">
-    <strong>💡 Answer:</strong> Define fine-grained partition keys (Year/Month/Day/Client ID) for Athena partition pruning. For enterprise environments requiring ACID guarantees and time-travel queries, implement Open Table Formats like <strong>Apache Iceberg</strong> or <strong>Apache Hudi</strong> on S3 Data Lake.
+    <strong>Answer:</strong> Define fine-grained partition keys (Year/Month/Day/Client ID) for Athena partition pruning. For enterprise environments requiring ACID guarantees and time-travel queries, implement Open Table Formats like <strong>Apache Iceberg</strong> or <strong>Apache Hudi</strong> on S3 Data Lake.
   </div>
 </div>
 
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Q3: Amazon Redshift at VPBank
+    Q3: Amazon Redshift at VPBank
   </div>
   <div class="qa-question">
-    <strong>❓ Question:</strong> What is the primary use case for Amazon Redshift at VPBank?
+    <strong>Question:</strong> What is the primary use case for Amazon Redshift at VPBank?
   </div>
   <div class="qa-answer">
-    <strong>💡 Answer:</strong> Redshift is utilized as an SQL Data Transformation Engine. The team loads data from Data Lake to Redshift and uses standard SQL for complex analytical transformations without having to manage Apache Spark clusters.
+    <strong>Answer:</strong> Redshift is utilized as an SQL Data Transformation Engine. The team loads data from Data Lake to Redshift and uses standard SQL for complex analytical transformations without having to manage Apache Spark clusters.
   </div>
 </div>
 {{< /rawhtml >}}

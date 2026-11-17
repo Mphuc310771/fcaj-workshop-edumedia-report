@@ -17,7 +17,6 @@ Trong các hệ thống tìm kiếm đa phương tiện truyền thống, việc
 {{< rawhtml >}}
 <div class="pipeline-container">
   <div class="pipeline-header">
-    <i class="fas fa-search"></i>
     <span>Quy trình 5 bước: Tra cứu ngữ nghĩa & Xếp hạng bài giảng</span>
   </div>
   <div class="pipeline-steps steps-5">

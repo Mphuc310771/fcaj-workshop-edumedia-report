@@ -77,19 +77,19 @@ Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trìn
 
 Nhằm chuẩn bị vững vàng cho buổi nghiệm thu dự án thực tập trước Hội đồng chuyên môn, dưới đây là 3 câu hỏi kiểm toán chuyên sâu về kiến trúc thực tế và câu trả lời phân tích định lượng chuẩn mực:
 
-#### ❓ Câu hỏi 1: "Khi trích xuất 1 keyframe mỗi 30 giây cho 250 phút video bằng ffmpeg, số ảnh phát sinh thêm này đã được tính vào chi phí Rekognition và Bedrock ở Kịch bản 2 chưa?"
+#### Câu hỏi 1: "Khi trích xuất 1 keyframe mỗi 30 giây cho 250 phút video bằng ffmpeg, số ảnh phát sinh thêm này đã được tính vào chi phí Rekognition và Bedrock ở Kịch bản 2 chưa?"
 * **Trả lời chuẩn mực:** 
   Toàn bộ chi phí này đã được dự phòng đầy đủ trong biên độ dao động của Kịch bản 2. Cụ thể: 250 phút video với tần suất 1 frame / 30 giây sinh ra đúng **500 keyframes**. Khi gửi 500 frames này qua Amazon Rekognition (DetectLabels + DetectText) và Amazon Bedrock (Titan Multimodal Embeddings G1), chi phí phát sinh là:
   $$\text{Chi phí} = (500 \times 2 \times \$0.001) + (500 \times \$0.00006) = \$1.03\text{ USD/tháng}$$
   Khoản phát sinh **$1.03 USD** này nằm gọn hoàn toàn trong khoảng đệm an toàn **$4.50 USD** (giữa mức nền **$9.77** và mức trần **$14.27 USD**) mà nhóm đã thiết lập trong mô hình FinOps.
 
-#### ❓ Câu hỏi 2: "Tại sao nhóm dùng LLM (Amazon Nova Micro) để xử lý câu truy vấn Tiếng Việt mà không dùng dịch vụ Amazon Translate?"
+#### Câu hỏi 2: "Tại sao nhóm dùng LLM (Amazon Nova Micro) để xử lý câu truy vấn Tiếng Việt mà không dùng dịch vụ Amazon Translate?"
 * **Trả lời chuẩn mực:** 
   Việc lựa chọn Amazon Nova Micro thay vì Amazon Translate xuất phát từ 2 lợi thế vượt trội về FinOps và Kiến trúc:
   1. **Hiệu quả kinh tế (Tiết kiệm gấp ~1.500 lần):** Amazon Translate có giá niêm yết là **$15.00 USD / 1 triệu ký tự**. Trong khi đó, `Amazon Nova Micro` trên Bedrock có giá chỉ **$0.035 USD / 1 triệu input tokens** (tương đương ~3.5 – 4 triệu ký tự). Do đó, sử dụng Nova Micro giúp tiết kiệm hơn 1.500 lần chi phí dịch thuật.
   2. **Mô hình xử lý tích hợp (Single-Pass Multi-Tasking):** Trong duy nhất 1 lệnh gọi prompt tới Nova Micro, mô hình vừa thực hiện phân tích ý định người dùng (Intent Routing), vừa trích xuất bộ lọc thời gian/môn học (Metadata Filtering), vừa chuyển ngữ câu mô tả sang Tiếng Anh chuẩn thị giác cho Titan Embeddings. Điều này loại bỏ hoàn toàn độ trễ mạng (network latency) của việc gọi nối tiếp hai dịch vụ riêng biệt.
 
-#### ❓ Câu hỏi 3: "Hàm Lambda dùng ffmpeg cắt frame từ video lớn (hàng trăm MB). Bộ nhớ tạm /tmp mặc định chỉ có 512MB, liệu có nguy cơ tràn đĩa hoặc phát sinh phí nâng cấp /tmp không?"
+#### Câu hỏi 3: "Hàm Lambda dùng ffmpeg cắt frame từ video lớn (hàng trăm MB). Bộ nhớ tạm /tmp mặc định chỉ có 512MB, liệu có nguy cơ tràn đĩa hoặc phát sinh phí nâng cấp /tmp không?"
 * **Trả lời chuẩn mực:** 
   Hệ thống áp dụng kỹ thuật **Streaming Frame Extraction qua S3 Presigned URL**: Thay vì tải toàn bộ file video `.mp4` về ổ đĩa tạm `/tmp`, Lambda truyền trực tiếp đường dẫn S3 Presigned URL vào câu lệnh ffmpeg:
   ```bash
