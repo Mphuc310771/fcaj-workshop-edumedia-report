@@ -31,21 +31,69 @@ The **agentsys-ingest** Lambda function (located in apps/lambda\_handlers/ingest
 
 ## 2. Ingestion Processing Flowchart
 
-{{< mermaid >}}
-flowchart TD
-    SQS[SQS Batch Message] --> IngestLambda[Lambda: agentsys-ingest]
-    IngestLambda --> CheckType{File Type?}
-    
-    CheckType -->|Image| Rekognition[Amazon Rekognition]
-    Rekognition -->|DetectLabels| Labels[Labels: Mathematical equation, Scoreboard, Symbol...]
-    Rekognition -->|DetectText| OCR[OCR: Calculus derivatives (k.x.)'=k, (sin x)'=cos x...]
-    
-    CheckType -->|Audio / Video| Transcribe[Amazon Transcribe vi-VN]
-    Transcribe -->|ASR Processing| Transcript[Transcript: Marxist-Leninist Philosophy lecture on dialectical materialism...]
-    
-    Labels & OCR & Transcript --> Embed[Bedrock Titan V2 256-d Embedding]
-    Embed --> DynamoDB[(DynamoDB: AgentSysMediaMetadata<br>Status: READY)]
-{{< /mermaid >}}
+{{< rawhtml >}}
+<div class="pipeline-container">
+  <div class="pipeline-header">
+    <i class="fas fa-brain"></i>
+    <span>Multimodal Ingestion Pipeline: Vision (Rekognition) & Speech (Transcribe)</span>
+  </div>
+
+  <div class="pipeline-steps steps-3" style="margin-bottom: 16px;">
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-sqs">Step 1 • Ingest</span>
+        <div class="step-title">Receive & Route</div>
+        <div class="step-desc">Lambda Ingest consumes batch messages from SQS, inspecting MIME type to route to image or audio pipelines.</div>
+      </div>
+      <div class="step-code">Lambda: agentsys-ingest<br>Routing: Content-Type check</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-bedrock">Step 2 • Multimodal AI</span>
+        <div class="step-title">AI Knowledge Extraction</div>
+        <div class="step-desc">Dispatches to Rekognition (Labels + OCR) or Amazon Transcribe (Vietnamese Speech-to-Text).</div>
+      </div>
+      <div class="step-code">Rekognition: DetectLabels / DetectText<br>Transcribe: vi-VN Speech-to-Text</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-ddb">Step 3 • Embedding & DB</span>
+        <div class="step-title">Vector Embedding & Storage</div>
+        <div class="step-desc">Titan V2 embeds unified contextual metadata into 256 dimensions, storing directly to DynamoDB ready for retrieval.</div>
+      </div>
+      <div class="step-code">Bedrock: Titan Embeddings V2 (256-d)<br>DynamoDB: Status = READY</div>
+    </div>
+  </div>
+
+  <div class="pipeline-branch-grid">
+    <div class="branch-card">
+      <div class="branch-title">
+        <i class="fas fa-image" style="color: #3b82f6;"></i>
+        <span>Image Pipeline (Amazon Rekognition)</span>
+      </div>
+      <div class="step-desc" style="margin-bottom: 8px;">Applied to lecture slides, whiteboard photos, diagrams:</div>
+      <div class="step-code">
+        • <strong>DetectLabels:</strong> Mathematical equation, Classroom, Blackboard, Symbol<br>
+        • <strong>DetectText (OCR):</strong> "(k.x)' = k", "(sin x)' = cos x", "Calculus lecture notes"
+      </div>
+    </div>
+
+    <div class="branch-card audio">
+      <div class="branch-title">
+        <i class="fas fa-microphone-alt" style="color: #8b5cf6;"></i>
+        <span>Audio / Video Pipeline (Amazon Transcribe)</span>
+      </div>
+      <div class="step-desc" style="margin-bottom: 8px;">Applied to recorded classroom lectures (MP3/WAV/MP4):</div>
+      <div class="step-code">
+        • <strong>Transcribe vi-VN:</strong> "Marxist-Leninist Philosophy lecture on dialectical materialism..."<br>
+        • <strong>EventBridge Rule:</strong> Captures COMPLETED event, chunks into timestamped intervals
+      </div>
+    </div>
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ![DynamoDB Streams Event Trigger and SQS DLQ Destination for Aggregator Lambda](/images/5-Workshop/evidence/07-dynamodb-streams.png)
 *Figure: DynamoDB Streams event source mapping triggering asynchronous chunk aggregation.*

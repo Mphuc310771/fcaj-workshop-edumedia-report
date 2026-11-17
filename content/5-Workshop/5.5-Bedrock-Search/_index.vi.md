@@ -14,15 +14,60 @@ pre: " <b> 5.5. </b> "
 
 Trong các hệ thống tìm kiếm đa phương tiện truyền thống, việc tìm kiếm dựa trên từ khóa đơn thuần thường thất bại vì người dùng không nhớ chính xác từ ngữ. **AgentSys** sử dụng **Amazon Bedrock (Amazon Nova Lite / Claude 3)** làm **Query Planner** kết hợp với **DynamoDB GSI Hybrid Search**:
 
-{{< mermaid >}}
-flowchart TD
-    UserQuery["Người dùng hỏi: tìm bài tập đạo hàm và toán học"] --> BedrockAgent["Amazon Bedrock: Nova Lite Planner"]
-    BedrockAgent --> ExtractPlan["JSON Search Plan:<br>• Category: study<br>• Subject: math<br>• Keywords: đạo hàm, toán học"]
-    ExtractPlan --> DDB_Query[("DynamoDB GSI: category-index<br>Query: category=study")]
-    DDB_Query --> Candidates["Tập bản ghi ứng viên (Candidate Pool)"]
-    Candidates --> Scorer["Bộ tính điểm Hybrid Search<br>• Cosine Vector: 60%<br>• Khớp từ khóa: 40%"]
-    Scorer --> Output["Trả về danh sách kết quả khớp nhất"]
-{{< /mermaid >}}
+{{< rawhtml >}}
+<div class="pipeline-container">
+  <div class="pipeline-header">
+    <i class="fas fa-search"></i>
+    <span>Quy trình 5 bước: Tra cứu ngữ nghĩa & Xếp hạng bài giảng</span>
+  </div>
+  <div class="pipeline-steps steps-5">
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-client">Bước 1 • Client</span>
+        <div class="step-title">Câu hỏi người dùng</div>
+        <div class="step-desc">Người dùng gõ câu hỏi tự nhiên bằng tiếng Việt vào ô tìm kiếm.</div>
+      </div>
+      <div class="step-code">"tìm bài tập đạo hàm & toán học"</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-bedrock">Bước 2 • Bedrock AI</span>
+        <div class="step-title">Query Planner</div>
+        <div class="step-desc">Amazon Nova phân tích ý định, chuẩn hóa thực thể và xuất cấu trúc Search Plan.</div>
+      </div>
+      <div class="step-code">category: study<br>subject: math<br>keywords: đạo hàm</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-ddb">Bước 3 • DynamoDB</span>
+        <div class="step-title">GSI Candidate Pool</div>
+        <div class="step-desc">Query trực tiếp trên chỉ mục phân vùng <code>category-index</code> (thay vì Scan toàn bảng).</div>
+      </div>
+      <div class="step-code">Độ trễ: &lt; 40ms<br>RCU tiết kiệm: 90%</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-engine">Bước 4 • Hybrid Scorer</span>
+        <div class="step-title">Bộ tính điểm kết hợp</div>
+        <div class="step-desc">Kết hợp đồng thời Vector Cosine Similarity và khớp từ khóa Lexical.</div>
+      </div>
+      <div class="step-code">Vector Titan V2: 60%<br>Khớp OCR/ASR: 40%</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-result">Bước 5 • Results</span>
+        <div class="step-title">Kết quả xếp hạng</div>
+        <div class="step-desc">Trả về danh sách bài giảng khớp nhất kèm trích dẫn mốc thời gian tua video chính xác.</div>
+      </div>
+      <div class="step-code">HTTP 200 OK<br>Top-K matches</div>
+    </div>
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ---
 

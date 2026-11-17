@@ -36,35 +36,6 @@ Build and deploy **AgentSys** following an **Event-Driven Serverless** architect
 
 ![EduMedia AI AWS Architecture](/images/5-Workshop/architecture.png)
 
-{{< mermaid >}}
-flowchart TD
-    user[Client Web Browser] -->|1. Presigned Upload| s3[Amazon S3 Bucket]
-    user -->|Semantic Search| apigw[HTTP API Gateway]
-    
-    s3 -->|s3:ObjectCreated| sqs[SQS Ingest Queue]
-    sqs -->|MaxReceive 3| dlq1[SQS Ingest DLQ]
-    sqs --> ingest[Lambda: agentsys-ingest]
-    
-    ingest -->|DetectLabels & DetectText| rek[Amazon Rekognition]
-    ingest -->|StartTranscriptionJob| tr[Amazon Transcribe]
-    tr -.->|Job State Change| eb[EventBridge Rule]
-    eb --> ingest
-    eb -.-> dlq3[Transcribe Event DLQ]
-    
-    ingest -->|Write Metadata & Chunks| ddb[(DynamoDB: AgentSysMediaMetadata)]
-    
-    ddb -->|DynamoDB Stream| agg[Lambda: agentsys-aggregator]
-    agg -->|Chunk Summarization| bedrock[Amazon Bedrock]
-    agg -->|Write Aggregated Summary| ddb
-    agg -.-> dlq2[Stream DLQ]
-    
-    apigw --> api[Lambda: agentsys-api]
-    api -->|Semantic RAG & Embeddings| bedrock
-    api -->|Query GSI & Fetch Records| ddb
-    
-    ingest & agg & api --> cw[CloudWatch 7 Alarms & Metrics]
-    cw --> sns[SNS Topic: agentsys-alerts-topic]
-{{< /mermaid >}}
 
 ---
 

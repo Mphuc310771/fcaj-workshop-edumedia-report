@@ -47,13 +47,51 @@ In the AgentSys architecture, **Amazon S3** acts as the central multimodal Data 
 
 Instead of binding S3 events directly to Lambda, AgentSys introduces **Amazon SQS** as a resilient buffer:
 
-{{< mermaid >}}
-flowchart LR
-    S3[Amazon S3<br>Prefix: uploads/] -->|s3:ObjectCreated| SQS[Amazon SQS<br>agentsys-ingest-queue]
-    SQS -->|Batch Size: 5<br>Visibility: 720s| Lambda[AWS Lambda<br>agentsys-ingest]
-    SQS -.->|After 3 failed retries| DLQ[Amazon SQS DLQ<br>agentsys-ingest-dlq]
-    DLQ --> Alarm[CloudWatch Alarm<br>DLQMessagesVisible > 0]
-{{< /mermaid >}}
+{{< rawhtml >}}
+<div class="pipeline-container">
+  <div class="pipeline-header">
+    <i class="fas fa-layer-group"></i>
+    <span>SQS Buffer Queue & Dead-Letter Queue (DLQ) Architecture</span>
+  </div>
+  <div class="pipeline-steps steps-4">
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-s3">1 • Amazon S3</span>
+        <div class="step-title">Upload Event</div>
+        <div class="step-desc">Media files uploaded to prefix <code>uploads/</code> via Presigned URL trigger <code>s3:ObjectCreated</code>.</div>
+      </div>
+      <div class="step-code">Prefix: uploads/<br>Event: s3:ObjectCreated:*</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-sqs">2 • Amazon SQS</span>
+        <div class="step-title">Buffer Queue</div>
+        <div class="step-desc">Buffers incoming upload events, smoothing traffic spikes and preventing Lambda concurrency exhaustion.</div>
+      </div>
+      <div class="step-code">Queue: agentsys-ingest-queue<br>Batch: 5 | Visibility: 720s</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-lambda">3 • AWS Lambda</span>
+        <div class="step-title">Ingest Worker</div>
+        <div class="step-desc">Consumes messages in batches to trigger Rekognition label/text detection or Transcribe jobs.</div>
+      </div>
+      <div class="step-code">Function: agentsys-ingest<br>Timeout: 120s | Memory: 512MB</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-alarm">4 • SQS DLQ & Alarm</span>
+        <div class="step-title">Poison Pill DLQ & Alarm</div>
+        <div class="step-desc">Isolates malformed media after 3 failed retries, firing immediate CloudWatch alerts to SNS.</div>
+      </div>
+      <div class="step-code">maxReceiveCount: 3<br>Alarm: DLQMessagesVisible &gt; 0</div>
+    </div>
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ![Amazon SQS Queues and Dead-Letter Queues (DLQ) in AWS Console](/images/5-Workshop/evidence/10-sqs-queues.png)
 *Figure: SQS ingestion buffer queue and failure-isolation Dead-Letter Queues.*

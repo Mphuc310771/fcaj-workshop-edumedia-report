@@ -47,13 +47,51 @@ Trong kiến trúc của AgentSys, **Amazon S3** đóng vai trò là Data Lake t
 
 Thay vì kết nối trực tiếp sự kiện S3 vào Lambda, AgentSys sử dụng **Amazon SQS** làm tầng đệm:
 
-{{< mermaid >}}
-flowchart LR
-    S3[Amazon S3<br>Prefix: uploads/] -->|s3:ObjectCreated| SQS[Amazon SQS<br>agentsys-ingest-queue]
-    SQS -->|Batch Size: 5<br>Visibility: 720s| Lambda[AWS Lambda<br>agentsys-ingest]
-    SQS -.->|Sau 3 lần thử lại thất bại| DLQ[Amazon SQS DLQ<br>agentsys-ingest-dlq]
-    DLQ --> Alarm[CloudWatch Alarm<br>DLQMessagesVisible > 0]
-{{< /mermaid >}}
+{{< rawhtml >}}
+<div class="pipeline-container">
+  <div class="pipeline-header">
+    <i class="fas fa-layer-group"></i>
+    <span>Kiến trúc Hàng đợi Buffer SQS & Dead-Letter Queue (DLQ)</span>
+  </div>
+  <div class="pipeline-steps steps-4">
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-s3">1 • Amazon S3</span>
+        <div class="step-title">Sự kiện Tải lên</div>
+        <div class="step-desc">Tệp media được tải lên prefix <code>uploads/</code> qua Presigned URL, phát sự kiện <code>s3:ObjectCreated</code>.</div>
+      </div>
+      <div class="step-code">Prefix: uploads/<br>Event: s3:ObjectCreated:*</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-sqs">2 • Amazon SQS</span>
+        <div class="step-title">Hàng đợi Đệm Buffer</div>
+        <div class="step-desc">Lưu trữ tin nhắn, điều tiết lưu lượng (rate limiting) và chống quá tải Lambda khi có traffic đột biến.</div>
+      </div>
+      <div class="step-code">Queue: agentsys-ingest-queue<br>Batch: 5 | Visibility: 720s</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-lambda">3 • AWS Lambda</span>
+        <div class="step-title">Ingest Worker</div>
+        <div class="step-desc">Kéo tin nhắn theo đợt để xử lý phân tích hình ảnh (Rekognition) hoặc khởi chạy bóc băng (Transcribe).</div>
+      </div>
+      <div class="step-code">Function: agentsys-ingest<br>Timeout: 120s | Memory: 512MB</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-alarm">4 • SQS DLQ & Alarm</span>
+        <div class="step-title">Cách ly lỗi & Cảnh báo</div>
+        <div class="step-desc">Tự động cô lập thông điệp hỏng sau 3 lần retry thất bại, kích hoạt CloudWatch Alarm tức thì.</div>
+      </div>
+      <div class="step-code">maxReceiveCount: 3<br>Alarm: DLQMessagesVisible &gt; 0</div>
+    </div>
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ![Danh sách các hàng đợi Amazon SQS và Dead-Letter Queues (DLQ) trên AWS Console](/images/5-Workshop/evidence/10-sqs-queues.png)
 *Hình: Hàng đợi đệm SQS và các Dead-Letter Queues cách ly lỗi.*

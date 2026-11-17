@@ -67,18 +67,6 @@
     <script src="{{"js/learn.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
     <script src="{{"js/hugo-learn.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        if (window.mermaid) {
-          mermaid.initialize({
-            startOnLoad: true,
-            securityLevel: 'loose',
-            theme: 'default'
-          });
-        }
-      });
-    </script>
     {{ partial "custom-footer.html" . }}
   </body>
 </html>

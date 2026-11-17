@@ -31,21 +31,69 @@ Hàm Lambda **agentsys-ingest** (mã nguồn: apps/lambda\_handlers/ingest.py v�
 
 ## 2. Luồng Xử Lý Chi Tiết Hình Ảnh & Giọng Nói
 
-{{< mermaid >}}
-flowchart TD
-    SQS[SQS Batch Message] --> IngestLambda[Lambda: agentsys-ingest]
-    IngestLambda --> CheckType{Loại tệp?}
-    
-    CheckType -->|Image| Rekognition[Amazon Rekognition]
-    Rekognition -->|DetectLabels| Labels[Labels: Mathematical equation, Scoreboard, Symbol...]
-    Rekognition -->|DetectText| OCR[OCR: Bảng đạo hàm (k.x.)'=k, (sin x)'=cos x...]
-    
-    CheckType -->|Audio / Video| Transcribe[Amazon Transcribe vi-VN]
-    Transcribe -->|ASR Processing| Transcript[Transcript: Triết học Mác - Lênin là hệ thống duy vật biện chứng...]
-    
-    Labels & OCR & Transcript --> Embed[Bedrock Titan V2 256-d Embedding]
-    Embed --> DynamoDB[(DynamoDB: AgentSysMediaMetadata<br>Status: READY)]
-{{< /mermaid >}}
+{{< rawhtml >}}
+<div class="pipeline-container">
+  <div class="pipeline-header">
+    <i class="fas fa-brain"></i>
+    <span>Luồng Xử Lý Chi Tiết: Thị Giác (Rekognition) & Thính Giác (Transcribe)</span>
+  </div>
+
+  <div class="pipeline-steps steps-3" style="margin-bottom: 16px;">
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-sqs">Bước 1 • Ingest</span>
+        <div class="step-title">Tiếp nhận & Định tuyến</div>
+        <div class="step-desc">Lambda Ingest nhận đợt tin từ SQS, đọc header để phân nhánh định dạng tệp (Image vs Audio/Video).</div>
+      </div>
+      <div class="step-code">Lambda: agentsys-ingest<br>Routing: Content-Type check</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-bedrock">Bước 2 • Multimodal AI</span>
+        <div class="step-title">Trích xuất Tri thức AI</div>
+        <div class="step-desc">Đẩy song song vào Rekognition (Labels + OCR) hoặc Amazon Transcribe (ASR Tiếng Việt).</div>
+      </div>
+      <div class="step-code">Rekognition: DetectLabels / DetectText<br>Transcribe: vi-VN Speech-to-Text</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-ddb">Bước 3 • Embedding & DB</span>
+        <div class="step-title">Nhúng Vector & Lưu Trữ</div>
+        <div class="step-desc">Titan V2 nhúng vector 256 chiều toàn bộ ngữ cảnh, lưu vào DynamoDB sẵn sàng tìm kiếm.</div>
+      </div>
+      <div class="step-code">Bedrock: Titan Embeddings V2 (256-d)<br>DynamoDB: Status = READY</div>
+    </div>
+  </div>
+
+  <div class="pipeline-branch-grid">
+    <div class="branch-card">
+      <div class="branch-title">
+        <i class="fas fa-image" style="color: #3b82f6;"></i>
+        <span>Nhánh Hình Ảnh (Image Pipeline)</span>
+      </div>
+      <div class="step-desc" style="margin-bottom: 8px;">Áp dụng cho ảnh chụp slide, bảng viết tay giảng đường:</div>
+      <div class="step-code">
+        • <strong>DetectLabels:</strong> Mathematical equation, Classroom, Blackboard, Symbol<br>
+        • <strong>DetectText (OCR):</strong> "(k.x)' = k", "(sin x)' = cos x", "Đạo hàm cơ bản"
+      </div>
+    </div>
+
+    <div class="branch-card audio">
+      <div class="branch-title">
+        <i class="fas fa-microphone-alt" style="color: #8b5cf6;"></i>
+        <span>Nhánh Giọng Nói / Video (Audio Pipeline)</span>
+      </div>
+      <div class="step-desc" style="margin-bottom: 8px;">Áp dụng cho bài giảng ghi âm MP3/WAV/MP4:</div>
+      <div class="step-code">
+        • <strong>Transcribe vi-VN:</strong> "Triết học Mác - Lênin là hệ thống quan điểm duy vật..."<br>
+        • <strong>EventBridge Rule:</strong> Bắt sự kiện COMPLETED, chia nhỏ chunk theo mốc giây
+      </div>
+    </div>
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ![Kiến trúc Event Trigger DynamoDB Streams và SQS Destination của Lambda Aggregator](/images/5-Workshop/evidence/07-dynamodb-streams.png)
 *Hình: Cấu hình DynamoDB Streams kết nối Lambda Aggregator xử lý tóm tắt bất đồng bộ.*

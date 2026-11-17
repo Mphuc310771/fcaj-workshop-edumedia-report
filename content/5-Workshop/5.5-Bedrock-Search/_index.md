@@ -14,15 +14,60 @@ pre: " <b> 5.5. </b> "
 
 In traditional media catalogs, search queries fail when users cannot recall exact keywords. **AgentSys** utilizes **Amazon Bedrock (Amazon Nova Lite / Claude 3)** as an intelligent **Query Planner** coupled with **DynamoDB GSI Hybrid Search**:
 
-{{< mermaid >}}
-flowchart TD
-    UserQuery["User Query: find derivative formulas and math notes"] --> BedrockAgent["Amazon Bedrock: Nova Lite Planner"]
-    BedrockAgent --> ExtractPlan["JSON Search Plan:<br>• Category: study<br>• Subject: math<br>• Keywords: derivative, math"]
-    ExtractPlan --> DDB_Query[("DynamoDB GSI: category-index<br>Query: category=study")]
-    DDB_Query --> Candidates["Candidate Items Pool"]
-    Candidates --> Scorer["Hybrid Scoring Engine<br>• Cosine Vector: 60%<br>• Lexical Match: 40%"]
-    Scorer --> Output["Ranked Relevant Results"]
-{{< /mermaid >}}
+{{< rawhtml >}}
+<div class="pipeline-container">
+  <div class="pipeline-header">
+    <i class="fas fa-search"></i>
+    <span>5-Step Pipeline: Semantic Retrieval & Lecture Ranking</span>
+  </div>
+  <div class="pipeline-steps steps-5">
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-client">Step 1 • Client</span>
+        <div class="step-title">User Query</div>
+        <div class="step-desc">User enters a natural language query in Vietnamese into the search interface.</div>
+      </div>
+      <div class="step-code">"find derivative formulas and math notes"</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-bedrock">Step 2 • Bedrock AI</span>
+        <div class="step-title">Query Planner</div>
+        <div class="step-desc">Amazon Nova analyzes intent, normalizes entities, and generates a structured Search Plan.</div>
+      </div>
+      <div class="step-code">category: study<br>subject: math<br>keywords: derivative, math</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-ddb">Step 3 • DynamoDB</span>
+        <div class="step-title">GSI Candidate Pool</div>
+        <div class="step-desc">Queries partitioned index <code>category-index</code> (avoiding expensive full-table scans).</div>
+      </div>
+      <div class="step-code">Latency: &lt; 40ms<br>RCU Saved: 90%</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-engine">Step 4 • Hybrid Scorer</span>
+        <div class="step-title">Hybrid Scoring Engine</div>
+        <div class="step-desc">Combines semantic vector cosine similarity with exact keyword lexical matching.</div>
+      </div>
+      <div class="step-code">Titan V2 Vector: 60%<br>OCR/ASR Lexical: 40%</div>
+    </div>
+
+    <div class="step-card">
+      <div>
+        <span class="step-badge badge-result">Step 5 • Results</span>
+        <div class="step-title">Ranked Results</div>
+        <div class="step-desc">Returns ranked lecture materials with precise jump-to timestamps and OCR bounding boxes.</div>
+      </div>
+      <div class="step-code">HTTP 200 OK<br>Top-K matches</div>
+    </div>
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ---
 
