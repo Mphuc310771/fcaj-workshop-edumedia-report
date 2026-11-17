@@ -10,7 +10,7 @@ pre: " <b> 5.7. </b> "
 
 During the initial Proof of Concept (PoC) phase for the First Cloud AI Journey (FCAJ), the core engineering objective for EduMedia AI was to build a production-grade multimodal AI media catalog while adhering strictly to a **Zero-Idle-Cost, Lean Serverless architecture**.
 
-To strike the right balance between rapid experimental learning and cost-effectiveness, deliberate architectural trade-offs were made. Below is a rigorous technical evaluation of the 4 key limitations of the current architecture along with target enterprise-grade AWS solutions for production scale.
+To strike the right balance between rapid experimental learning and cost-effectiveness, deliberate architectural trade-offs were made. Below is a rigorous technical evaluation of the 5 key limitations of the current architecture along with target enterprise-grade AWS solutions for production scale.
 
 ---
 
@@ -73,35 +73,7 @@ To strike the right balance between rapid experimental learning and cost-effecti
 
 ---
 
-### 6. Technical Defense & FinOps Q&A Guide
-
-To prepare rigorously for oral defense before the academic and industry review committee, the following 3 deep architectural questions and quantitative answers are compiled:
-
-#### Question 1: "When extracting 1 keyframe every 30 seconds across 250 video minutes using ffmpeg, has this additional image volume been accounted for in the Scenario 2 Rekognition and Bedrock budget?"
-* **Authoritative Answer:** 
-  Yes, this cost is fully absorbed within Scenario 2's variance buffer. Specifically: 250 minutes of video sampled at 1 frame / 30 seconds yields exactly **500 keyframes**. Routing these 500 frames through Amazon Rekognition (DetectLabels + DetectText) and Amazon Bedrock (Titan Multimodal Embeddings G1) incurs:
-
-  *Incremental Cost = (500 × 2 × $0.001) + (500 × $0.00006) = $1.03 USD/month*
-
-  This **$1.03 USD** expense fits comfortably within the **$4.50 USD contingency margin** (between the **$9.77** base and **$14.27 USD** ceiling) defined in our FinOps model.
-
-#### Question 2: "Why did the architecture adopt an LLM (Amazon Nova Micro) for Vietnamese query translation rather than the dedicated Amazon Translate service?"
-* **Authoritative Answer:** 
-  Selecting Amazon Nova Micro over Amazon Translate provides two decisive FinOps and architectural advantages:
-  1. **Cost Efficiency (~1,500x Cheaper):** Amazon Translate costs **$15.00 USD / 1M characters**. In contrast, `Amazon Nova Micro` on Bedrock is priced at just **$0.035 USD / 1M input tokens** (~3.5–4M characters), delivering a ~1,500x cost reduction for translation.
-  2. **Single-Pass Multi-Tasking:** Within a single unified prompt invocation, Nova Micro performs user intent classification (Intent Routing), temporal/subject metadata filtering, and visual-context query translation into English for Titan Embeddings. This eliminates cross-service network latency compared to serial pipeline calls.
-
-#### Question 3: "Lambda uses ffmpeg to extract frames from large video files (hundreds of MBs). Lambda's default free /tmp storage is only 512MB; is there a risk of disk overflow or extra /tmp provisioning fees?"
-* **Authoritative Answer:** 
-  The system utilizes **Streaming Frame Extraction via S3 Presigned URLs**. Rather than downloading entire `.mp4` video files to Lambda's local `/tmp` disk, Lambda streams the presigned URL directly into the ffmpeg execution command:
-  ```bash
-  ffmpeg -ss <timestamp> -i "https://<bucket>.s3.amazonaws.com/<key>?<presigned_params>" -frames:v 1 -f image2 pipe:1
-  ```
-  Leveraging S3's native **HTTP Byte-Range Requests**, `ffmpeg` reads only the container metadata header (moov atom), seeks directly to the target byte timestamp, and streams the static frame into memory (RAM). This consumes zero `/tmp` disk space, completely prevents `No space left on device` exceptions, and completes within 1–2 seconds.
-
----
-
-### Comparison Summary: PoC vs. Enterprise Production Architecture
+### 6. Comparison Summary: PoC vs. Enterprise Production Architecture
 
 | Technical Criteria | EduMedia AI PoC (Current) | Enterprise Production Target |
 | :--- | :--- | :--- |
