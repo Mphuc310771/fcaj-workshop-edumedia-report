@@ -20,7 +20,7 @@ Modern learners and researchers manage thousands of unstructured multimodal asse
 
 ## 2. Workshop Objectives
 
-Build and deploy **AgentSys** following an **Event-Driven Serverless** architecture on AWS:
+Build and deploy **EduMedia AI** following an **Event-Driven Serverless** architecture on AWS:
 1. Upload files directly to **Amazon S3** (Private Bucket, SSE-S3 encryption).
 2. Buffer upload events via **Amazon SQS** with an automated **Dead-Letter Queue (DLQ)**.
 3. Orchestrate **AWS Lambda** processing:
@@ -42,7 +42,7 @@ Build and deploy **AgentSys** following an **Event-Driven Serverless** architect
 ## 4. FinOps Cost Modeling & Production Workload Estimates (AWS Region: us-east-1)
 
 Within the FCAJ project framework, operational expenditures are engineered following **FinOps (Cloud Financial Management)** principles based on two realistic deployment scenarios modeled via the **AWS Pricing Calculator**:
-* **Official AWS Public Estimate:** [Official AgentSys Public Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
+* **Official AWS Public Estimate:** [Official EduMedia AI Public Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
 
 ### 4.1. Scenario 1: Self-hosted Workshop & POC Evaluation (1 Tester)
 * **Evaluation Workload:** 50 slide images, 5 audio files (20 total minutes), 100 Bedrock AI queries, 1 GB S3 storage, 2,000 Lambda & DynamoDB invocations.

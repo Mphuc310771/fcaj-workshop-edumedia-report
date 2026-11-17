@@ -40,4 +40,4 @@ Chương trình không chỉ trang bị kiến thức nền tảng vững chắc
 * **Lý do:**
   * **Thu hẹp khoảng cách học thuật và thực tế:** FCAJ là cầu nối tuyệt vời giúp sinh viên CNTT thu hẹp khoảng cách giữa lý thuyết ở trường đại học và thực tế ngành công nghiệp Cloud/AI.
   * **Cơ hội cọ xát đỉnh cao:** Trực tiếp làm việc cùng các chuyên gia hàng đầu từ AWS, tiếp cận hệ sinh thái dịch vụ đám mây tân tiến nhất.
-  * **Hành trang sự nghiệp vững chắc:** Sau 12 tuần, sinh viên không chỉ hoàn thành một sản phẩm thực tế (AgentSys) với hạ tầng chuẩn IaC SAM mà còn rèn giũa được tư duy kỹ sư, tác phong làm việc chuyên nghiệp và sẵn sàng cho các vị trí Cloud / DevOps / Solutions Architect trong tương lai.
+  * **Hành trang sự nghiệp vững chắc:** Sau 12 tuần, sinh viên không chỉ hoàn thành một sản phẩm thực tế (EduMedia AI) với hạ tầng chuẩn IaC SAM mà còn rèn giũa được tư duy kỹ sư, tác phong làm việc chuyên nghiệp và sẵn sàng cho các vị trí Cloud / DevOps / Solutions Architect trong tương lai.

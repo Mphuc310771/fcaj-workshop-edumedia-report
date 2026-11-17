@@ -45,7 +45,7 @@ In the EduMedia AI architecture, **Amazon S3** acts as the central multimodal Da
 
 ## 2. SQS Buffer & Dead-Letter Queue (DLQ) Architecture
 
-Instead of binding S3 events directly to Lambda, AgentSys introduces **Amazon SQS** as a resilient buffer:
+Instead of binding S3 events directly to Lambda, EduMedia AI introduces **Amazon SQS** as a resilient buffer:
 
 {{< rawhtml >}}
 <div class="pipeline-container">

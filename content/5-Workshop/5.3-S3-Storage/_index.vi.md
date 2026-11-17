@@ -12,7 +12,7 @@ pre: " <b> 5.3. </b> "
 
 ## 1. Thiết lập & Bảo mật Kho lưu trữ Amazon S3
 
-Trong kiến trúc của AgentSys, **Amazon S3** đóng vai trò là Data Lake trung tâm lưu trữ hai nhóm dữ liệu:
+Trong kiến trúc của EduMedia AI, **Amazon S3** đóng vai trò là Data Lake trung tâm lưu trữ hai nhóm dữ liệu:
 * `uploads/`: Tệp media gốc (ảnh chụp slide bài giảng, file ghi âm giọng nói `.m4a`, `.mp3`).
 * `transcripts/raw/`: Văn bản bóc băng chi tiết định dạng JSON cho các file âm thanh có độ dài lớn nhằm chống tràn giới hạn 400KB của DynamoDB.
 
@@ -45,7 +45,7 @@ Trong kiến trúc của AgentSys, **Amazon S3** đóng vai trò là Data Lake t
 
 ## 2. Kiến trúc Hàng đợi Buffer SQS & Dead-Letter Queue (DLQ)
 
-Thay vì kết nối trực tiếp sự kiện S3 vào Lambda, AgentSys sử dụng **Amazon SQS** làm tầng đệm:
+Thay vì kết nối trực tiếp sự kiện S3 vào Lambda, EduMedia AI sử dụng **Amazon SQS** làm tầng đệm:
 
 {{< rawhtml >}}
 <div class="pipeline-container">
@@ -106,7 +106,7 @@ Thay vì kết nối trực tiếp sự kiện S3 vào Lambda, AgentSys sử d�
 
 **Quy tắc FinOps quan trọng:** Nếu cấu hình S3 Event Notification cho toàn bộ bucket s3:\*, khi Amazon Transcribe tạo file kết quả .json, S3 sẽ lại phát sự kiện gọi Lambda → Lambda lại gọi Transcribe → Gây ra vòng lặp vô tận đốt cháy ngân sách!
 
-**Giải pháp trong AgentSys:**
+**Giải pháp trong EduMedia AI:**
 * S3 Event Notification chỉ kích hoạt khi có tệp tạo mới với tiền tố **Prefix: uploads/**.
 * Amazon Transcribe chỉ được phép ghi kết quả vào tiền tố **Prefix: transcripts/**.
 

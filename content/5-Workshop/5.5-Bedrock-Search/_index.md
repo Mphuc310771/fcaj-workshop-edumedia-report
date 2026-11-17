@@ -12,7 +12,7 @@ pre: " <b> 5.5. </b> "
 
 ## 1. How the Multi-modal AI Search Agent Works
 
-In traditional media catalogs, search queries fail when users cannot recall exact keywords. **AgentSys** utilizes **Amazon Bedrock (Amazon Nova Lite / Claude 3)** as an intelligent **Query Planner** coupled with **DynamoDB GSI Hybrid Search**:
+In traditional media catalogs, search queries fail when users cannot recall exact keywords. **EduMedia AI** utilizes **Amazon Bedrock (Amazon Nova Lite / Claude 3)** as an intelligent **Query Planner** coupled with **DynamoDB GSI Hybrid Search**:
 
 {{< rawhtml >}}
 <div class="pipeline-container">
@@ -86,14 +86,18 @@ Table AgentSysMediaMetadata is configured with **GSI category-index**:
 
 ## 3. Hands-on Lab: System Validation & Natural Language Query Testing
 
-### 3.1. CloudFront CDN Distribution & API Gateway Routing
-The system leverages Amazon CloudFront as a global HTTPS entry point and API Gateway HTTP API to route requests into Lambda functions:
+### 3.1. CloudFront CDN Distribution & Production Web Gallery (Live Demo)
+The system deploys an interactive Web UI and production-ready backend APIs:
+
+* **Production Live Demo Web Gallery URL:** [https://d27yx88v3wm0yt.cloudfront.net](https://d27yx88v3wm0yt.cloudfront.net)
+* **Backend API Gateway Endpoint:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com`
+* **Swagger UI Documentation:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com/docs`
 
 ![Amazon CloudFront CDN Distribution for Web Frontend](/images/5-Workshop/evidence/01-cloudfront-distributions.png)
 *Figure: CloudFront distribution delivering the web gallery interface with HTTPS.*
 
 ![EduMedia AI Web Frontend Single Page Application Hosted via CloudFront CDN](/images/5-Workshop/evidence/web-gallery.png)
-*Figure: AgentSys interactive multi-modal media library web application served globally via CloudFront CDN.*
+*Figure: EduMedia AI interactive multi-modal media library web application served globally via CloudFront CDN.*
 
 ![API Gateway Route /{proxy+} ANY and Lambda Integration](/images/5-Workshop/evidence/04-api-gateway-routes.png)
 *Figure: API Gateway route /{proxy+} ANY forwarding requests to the Lambda API handler.*
@@ -103,13 +107,13 @@ The system leverages Amazon CloudFront as a global HTTPS entry point and API Gat
 ### 3.2. Endpoint Health Check & OpenAPI Documentation (Swagger UI)
 The FastAPI runtime on AWS Lambda automatically hosts interactive OpenAPI documentation and a `/health` probe verifying system components:
 
-![AgentSys Live Healthcheck Endpoint](/images/5-Workshop/evidence/15-api-health.png)
+![EduMedia AI Live Healthcheck Endpoint](/images/5-Workshop/evidence/15-api-health.png)
 *Figure: Live API Health Check endpoint returning HTTP 200 confirming S3, DynamoDB, and Bedrock readiness.*
 
-![AgentSys API Swagger Documentation](/images/5-Workshop/evidence/13-swagger-ui-1.png)
+![EduMedia AI API Swagger Documentation](/images/5-Workshop/evidence/13-swagger-ui-1.png)
 *Figure: Interactive Swagger UI documentation for media catalog and search endpoints.*
 
-![AgentSys API Endpoints Overview](/images/5-Workshop/evidence/14-swagger-ui-2.png)
+![EduMedia AI API Endpoints Overview](/images/5-Workshop/evidence/14-swagger-ui-2.png)
 *Figure: Overview of deployed API routes and metadata schemas.*
 
 ---

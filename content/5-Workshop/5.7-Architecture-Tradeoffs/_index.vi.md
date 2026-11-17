@@ -8,7 +8,7 @@ pre: " <b> 5.7. </b> "
 
 # 5.7. Thảo luận: Kiến trúc Đánh đổi & Lộ trình Nâng cấp Enterprise (Architecture Trade-offs & Enterprise Roadmap)
 
-Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trình First Cloud AI Journey (FCAJ), mục tiêu cốt lõi của AgentSys là hiện thực hóa một hệ thống tìm kiếm đa phương tiện thông minh bằng AI, tuân thủ kiến trúc Serverless với tiêu chí **tối ưu chi phí tối đa (Zero-Idle-Cost)** và **triển khai tinh gọn (Lean Architecture)**. 
+Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trình First Cloud AI Journey (FCAJ), mục tiêu cốt lõi của EduMedia AI là hiện thực hóa một hệ thống tìm kiếm đa phương tiện thông minh bằng AI, tuân thủ kiến trúc Serverless với tiêu chí **tối ưu chi phí tối đa (Zero-Idle-Cost)** và **triển khai tinh gọn (Lean Architecture)**. 
 
 Để đạt được sự cân bằng giữa chi phí học tập/thực nghiệm và tính năng, một số quyết định đánh đổi kiến trúc (architectural trade-offs) có chủ đích đã được áp dụng. Dưới đây là phân tích phản biện kỹ thuật về 4 giới hạn hiện tại của hệ thống và giải pháp mở rộng chuẩn AWS Enterprise khi đưa vào môi trường sản xuất quy mô lớn.
 
@@ -16,7 +16,7 @@ Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trìn
 
 ### 1. Giới hạn In-Memory Vector Search trên RAM Lambda
 * **Hiện trạng PoC:** 
-  DynamoDB là cơ sở dữ liệu NoSQL dạng tài liệu/khóa-giá trị, không hỗ trợ tính toán vector similarity (ANN). Để thực hiện Hybrid Search, AgentSys áp dụng kỹ thuật Two-Stage Search: Bedrock đóng vai trò Query Planner trích xuất category để lọc nhanh qua DynamoDB GSI (category-index), sau đó kéo một nhóm ứng viên (Candidate Pool giới hạn tối đa 100 bản ghi mới nhất) về bộ nhớ RAM của Lambda API để tính Cosine Similarity bằng Python.
+  DynamoDB là cơ sở dữ liệu NoSQL dạng tài liệu/khóa-giá trị, không hỗ trợ tính toán vector similarity (ANN). Để thực hiện Hybrid Search, EduMedia AI áp dụng kỹ thuật Two-Stage Search: Bedrock đóng vai trò Query Planner trích xuất category để lọc nhanh qua DynamoDB GSI (category-index), sau đó kéo một nhóm ứng viên (Candidate Pool giới hạn tối đa 100 bản ghi mới nhất) về bộ nhớ RAM của Lambda API để tính Cosine Similarity bằng Python.
 * **Đánh giá hạn chế:** 
   Giải pháp này hoàn toàn miễn phí duy trì cơ sở hạ tầng (không tốn chi phí cụm vector database chạy liên tục). Tuy nhiên, khi quy mô catalog vượt quá hàng chục nghìn bản ghi, việc giới hạn 100 ứng viên sẽ gây ra hiện tượng bỏ sót dữ liệu (recall drop) đối với các file cũ hơn. Nếu quét toàn bộ bảng (Full Table Scan), chi phí RCU của DynamoDB và thời gian thực thi của Lambda sẽ tăng tuyến tính `O(N)`.
 * **Giải pháp Enterprise chuẩn AWS:**
@@ -65,7 +65,7 @@ Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trìn
 
 ### 5. Cơ chế S3-Offloading chống tràn 400KB DynamoDB & Tối ưu Container Hiệu năng cao
 * **Hiện trạng & Kỹ thuật đã giải quyết:**
-  - **S3-Offloading (>250KB):** DynamoDB giới hạn cứng 400KB cho mỗi document. Đối với các file ghi âm bài giảng dài hoặc video thuyết trình, văn bản bóc băng (transcript) thô có thể vượt quá 400KB–1MB. Để triệt tiêu rủi ro lỗi ValidationException: Item size has exceeded 400KB, AgentSys tự động nhận diện transcript vượt ngưỡng 250KB và chuyển toàn văn bản sang S3 (transcripts/raw/{file\_id}.json). Bảng DynamoDB chỉ lưu trích đoạn xem trước (15.000 ký tự đầu) cùng URI định danh transcript\_s3\_uri và cờ has\_extended\_transcript: true. Frontend React hỗ trợ tải xuống toàn văn (Raw JSON) và hiển thị modal xem trực tiếp.
+  - **S3-Offloading (>250KB):** DynamoDB giới hạn cứng 400KB cho mỗi document. Đối với các file ghi âm bài giảng dài hoặc video thuyết trình, văn bản bóc băng (transcript) thô có thể vượt quá 400KB–1MB. Để triệt tiêu rủi ro lỗi ValidationException: Item size has exceeded 400KB, EduMedia AI tự động nhận diện transcript vượt ngưỡng 250KB và chuyển toàn văn bản sang S3 (transcripts/raw/{file\_id}.json). Bảng DynamoDB chỉ lưu trích đoạn xem trước (15.000 ký tự đầu) cùng URI định danh transcript\_s3\_uri và cờ has\_extended\_transcript: true. Frontend React hỗ trợ tải xuống toàn văn (Raw JSON) và hiển thị modal xem trực tiếp.
   - **Tái sử dụng Lambda Warm Container:** Giữ nguyên connection pool và TLS handshake của Boto3 giữa các lần kích hoạt Lambda, loại bỏ lệnh reset runtime ở đầu handler, giúp giảm 50–120ms độ trễ cho mỗi message SQS hoặc request API.
   - **Bộ đệm truy vấn LRU (_PLAN_CACHE):** Lưu trữ trong RAM Lambda tối đa 256 kế hoạch truy vấn đã phân tích từ Bedrock trong 1 giờ. Khi chịu tải 50 requests đồng thời, bộ đệm mang lại hệ số tăng tốc **3.74x** (từ ~3,194ms xuống ~855ms) và tiết kiệm 100% chi phí token Bedrock cho các câu hỏi lặp lại.
 * **Giải pháp Enterprise chuẩn AWS:**
