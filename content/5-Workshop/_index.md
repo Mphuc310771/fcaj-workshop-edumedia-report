@@ -35,4 +35,4 @@ Upon completing this workshop, you will operate an end-to-end cloud-native syste
 * **Estimated Time:** 90 – 120 minutes.
 * **Target AWS Region:** us-east-1 (N. Virginia).
 * **Estimated Lab Cost:** **<$0.05 USD** (Serverless pay-per-request model; running the lab test workload incurs negligible cost).
-* **Attached Assets:** [Official SAM Template (template.yaml)](/files/agentsys-sam-template.yaml)
+* **Attached Assets:** [Official SAM Template (template.yaml)](/files/edumedia-sam-template.yaml)

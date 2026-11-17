@@ -9,13 +9,13 @@ pre: " <b> 3.1. </b> "
 {{% notice info %}}
 * **Author:** Do Tran Minh Phuc (Student ID: 23120156 — VNUHCM University of Science)
 * **Program:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
-* **Associated Project:** AgentSys — Multi-modal Media Retrieval System on Serverless AWS
+* **Associated Project:** EduMedia AI — Multi-modal Media Retrieval System on Serverless AWS
 * **Publication Channel:** [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
 {{% /notice %}}
 
 # Serverless Media Processing in EduMedia AI: Why I Avoid Direct S3 Lambda Triggers
 
-When designing media ingestion for AgentSys, my initial instinct was: whenever an object lands on S3, directly invoke the Lambda ingest worker. Files trigger code instantaneously without an extra queue, matching conventional serverless tutorials.
+When designing media ingestion for EduMedia AI, my initial instinct was: whenever an object lands on S3, directly invoke the Lambda ingest worker. Files trigger code instantaneously without an extra queue, matching conventional serverless tutorials.
 
 However, during high-volume load testing simulating peak classroom submissions (50–100 slide decks and audio recordings uploaded simultaneously), this push-based direct trigger architecture exposed three critical pitfalls:
 
@@ -36,8 +36,8 @@ However, during high-volume load testing simulating peak classroom submissions (
 
 ### 2. Architecture Comparison: Push-Based vs. Decoupled SQS + DLQ
 
-![Serverless Media Processing: S3 Direct Trigger vs SQS + DLQ (AgentSys)](/images/3-BlogsPosted/blog1-sqs-dlq.png)
-*Figure: Comparison between the Push-based Anti-pattern and the Pull-based SQS + DLQ Claim Check Best Practice implemented in AgentSys.*
+![Serverless Media Processing: S3 Direct Trigger vs SQS + DLQ (EduMedia AI)](/images/3-BlogsPosted/blog1-sqs-dlq.png)
+*Figure: Comparison between the Push-based Anti-pattern and the Pull-based SQS + DLQ Claim Check Best Practice implemented in EduMedia AI.*
 
 ---
 

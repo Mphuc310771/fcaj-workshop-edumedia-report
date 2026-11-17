@@ -36,8 +36,8 @@ Nhưng khi chạy script thử nghiệm dồn tải (load test) giả lập kị
 
 ### 2. Sơ đồ kiến trúc đối chiếu: Push-based vs Decoupled SQS + DLQ
 
-![Xử lý Media Serverless: S3 Direct Trigger vs SQS + DLQ (AgentSys)](/images/3-BlogsPosted/blog1-sqs-dlq.png)
-*Hình: So sánh kiến trúc Anti-pattern (S3 Push-based Direct Trigger) và Best Practice (Pull-based qua SQS + DLQ Claim Check) áp dụng trong AgentSys.*
+![Xử lý Media Serverless: S3 Direct Trigger vs SQS + DLQ (EduMedia AI)](/images/3-BlogsPosted/blog1-sqs-dlq.png)
+*Hình: So sánh kiến trúc Anti-pattern (S3 Push-based Direct Trigger) và Best Practice (Pull-based qua SQS + DLQ Claim Check) áp dụng trong EduMedia AI.*
 
 ---
 

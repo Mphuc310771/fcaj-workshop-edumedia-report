@@ -62,7 +62,7 @@ Dưới đây là sơ đồ chi tiết minh họa sự khác biệt giữa hai c
 
 * **Partition Key:** category - Gom toàn bộ các bản ghi có cùng danh mục về chung một phân vùng logic.
 * **Sort Key:** created\_at - Sắp xếp sẵn các bản ghi theo thời gian tạo (chuẩn ISO-8601) ngay trên đĩa. Khi lấy danh sách media mới nhất, code không cần tốn công sort lại trên RAM.
-* **Projection:** INCLUDE - Bảng chính của AgentSys lưu nhiều trường nặng (như transcript bóc băng phục vụ AI search). Nếu chọn Projection: ALL, DynamoDB sẽ nhân bản toàn bộ sang GSI gây tốn dung lượng và WCU. Do đó mình chỉ INCLUDE thêm các trường nhẹ phục vụ hiển thị ngoài giao diện: filename, thumbnail\_url, status, duration (còn khóa chính file\_id của bảng gốc đã được DynamoDB tự động chiếu sẵn sang GSI).
+* **Projection:** INCLUDE - Bảng chính của EduMedia AI lưu nhiều trường nặng (như transcript bóc băng phục vụ AI search). Nếu chọn Projection: ALL, DynamoDB sẽ nhân bản toàn bộ sang GSI gây tốn dung lượng và WCU. Do đó mình chỉ INCLUDE thêm các trường nhẹ phục vụ hiển thị ngoài giao diện: filename, thumbnail\_url, status, duration (còn khóa chính file\_id của bảng gốc đã được DynamoDB tự động chiếu sẵn sang GSI).
 
 Khi đã có GSI, code trên AWS Lambda được chuyển hẳn từ Scan sang Query:
 
@@ -105,7 +105,7 @@ def get_media_by_category(category_name: str, limit: int = 20, cursor: dict = No
 
 ### 5. Phép tính so sánh thực tế: Scan vs. GSI Query
 
-Lấy ví dụ cụ thể trên dữ liệu thực tế của AgentSys, giả sử bảng có **100.000 bản ghi**, trung bình 4 KB/bản ghi (tổng dung lượng bảng **400 MB**). Khi người dùng bấm xem **20 tài liệu mới nhất** của mục study (với chế độ Eventually Consistent Read, mỗi 4 KB tốn 0.5 RCU):
+Lấy ví dụ cụ thể trên dữ liệu thực tế của EduMedia AI, giả sử bảng có **100.000 bản ghi**, trung bình 4 KB/bản ghi (tổng dung lượng bảng **400 MB**). Khi người dùng bấm xem **20 tài liệu mới nhất** của mục study (với chế độ Eventually Consistent Read, mỗi 4 KB tốn 0.5 RCU):
 
 | Tiêu chí | Dùng Scan + FilterExpression | Dùng Query trên GSI (category-index) |
 | :--- | :--- | :--- |

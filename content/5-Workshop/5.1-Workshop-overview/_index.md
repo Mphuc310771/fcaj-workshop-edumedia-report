@@ -78,7 +78,7 @@ Before proceeding to evaluation or resource cleanup, the workshop implementation
 
 | No | Test Deliverable | Verification Method | Expected Engineering Outcome | AWS Services |
 | :---: | :--- | :--- | :--- | :--- |
-| **1** | Infrastructure as Code | `sam deploy` or CloudFormation Console | Stack `agentsys` reaches `CREATE_COMPLETE` or `UPDATE_COMPLETE`, exporting all Outputs (ApiEndpoint, S3 Bucket, TableName). | AWS SAM, CloudFormation |
+| **1** | Infrastructure as Code | `sam deploy` or CloudFormation Console | Stack `edumedia-ai` (or `agentsys`) reaches `CREATE_COMPLETE` or `UPDATE_COMPLETE`, exporting all Outputs (ApiEndpoint, S3 Bucket, TableName). | AWS SAM, CloudFormation |
 | **2** | Health Check API | `GET /health` | Returns HTTP 200 with discrete health diagnostics for S3, DynamoDB, Rekognition, and Bedrock. | API Gateway, Lambda |
 | **3** | Visual Document Processing | Upload study slide via Web / API | SQS buffers event, triggers Lambda Ingest to call Rekognition Labels and OCR text extraction; classifies subject and category. | S3, SQS, Rekognition, DynamoDB |
 | **4** | Audio Lecture Ingestion | Upload lecture audio (`.m4a`, `.mp3`) | Triggers Speech Processing, tracks job state through EventBridge, and writes transcript to S3 / DynamoDB. | S3, SQS, Transcribe, EventBridge |

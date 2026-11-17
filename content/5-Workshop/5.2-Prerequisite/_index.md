@@ -85,13 +85,18 @@ The SAM template (infra/template.yaml) defines three strictly segregated executi
 Run the local unit test suite with Pytest to verify core modules (ingestion pipeline, API authentication, and Bedrock query handling) before deploying to AWS:
 
 ```bash
-cd agent_sys
+# 1. Clone the EduMedia AI repository
+git clone https://github.com/Mphuc310771/edumedia-ai.git
+cd edumedia-ai
+
+# 2. Create and activate Python virtual environment
 python -m venv venv
 # Windows:
 .\venv\Scripts\activate
 # Linux/macOS:
 source venv/bin/activate
 
+# 3. Install dependencies and run 143 unit test cases
 pip install -r requirements.txt
 pytest -v
 ```
@@ -101,8 +106,9 @@ pytest -v
 
 ## 6. Building and Deploying with AWS SAM
 
+From the `edumedia-ai` project directory:
+
 ```bash
-cd agent_sys
 sam build -t infra/template.yaml
 sam deploy --guided
 ```
@@ -110,7 +116,7 @@ sam deploy --guided
 ### Guided Deployment Parameters:
 | Parameter | Recommended Value | Purpose |
 | :--- | :--- | :--- |
-| **Stack Name** | agentsys | CloudFormation Stack Name |
+| **Stack Name** | edumedia-ai | CloudFormation Stack Name (or agentsys) |
 | **AWS Region** | us-east-1 | Target AWS Region |
 | **Parameter ApiKey** | dev-local-api-key | API Protection Key (X-API-Key header) |
 | **Parameter FrontendOriginUrl** | \* (or your Vercel/CloudFront domain) | Allowed Origin for CORS |

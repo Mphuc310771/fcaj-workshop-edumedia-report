@@ -56,13 +56,13 @@ Here is the architectural comparison between the two approaches:
 
 ---
 
-### 4. The AgentSys Solution: Switching to Query on Global Secondary Index (GSI)
+### 4. The EduMedia AI Solution: Switching to Query on Global Secondary Index (GSI)
 
 To eliminate full table scans without modifying the primary key file\_id on the base table AgentSysMediaMetadata, I configured a Global Secondary Index (GSI) named category-index:
 
 * **Partition Key:** category - Groups all records sharing the same category into a single logical partition.
 * **Sort Key:** created\_at - Pre-sorts records chronologically on disk (ISO-8601 UTC). When fetching latest media, code doesn't need application-tier sorting.
-* **Projection:** INCLUDE - Base items in AgentSys carry heavy payloads (such as long lecture transcripts used for AI search). Setting Projection: ALL would duplicate all heavy attributes to the GSI, doubling storage and WCU footprint. We only INCLUDE the lightweight fields needed for UI grid rendering: filename, thumbnail\_url, status, duration (the base table's partition key file\_id is automatically projected to the GSI by DynamoDB).
+* **Projection:** INCLUDE - Base items in EduMedia AI carry heavy payloads (such as long lecture transcripts used for AI search). Setting Projection: ALL would duplicate all heavy attributes to the GSI, doubling storage and WCU footprint. We only INCLUDE the lightweight fields needed for UI grid rendering: filename, thumbnail\_url, status, duration (the base table's partition key file\_id is automatically projected to the GSI by DynamoDB).
 
 With the GSI created, Lambda code switches from Scan to a direct Query:
 
@@ -105,7 +105,7 @@ def get_media_by_category(category_name: str, limit: int = 20, cursor: dict = No
 
 ### 5. Practical Benchmark: Scan vs. GSI Query
 
-Looking at concrete production metrics from AgentSys, assume AgentSysMediaMetadata holds **100,000 items** averaging 4 KB per item (total table size: **400 MB**). When a user browses the **20 newest items** in category study (using Eventually Consistent Read, where each 4 KB consumes 0.5 RCU):
+Looking at concrete production metrics from EduMedia AI, assume AgentSysMediaMetadata holds **100,000 items** averaging 4 KB per item (total table size: **400 MB**). When a user browses the **20 newest items** in category study (using Eventually Consistent Read, where each 4 KB consumes 0.5 RCU):
 
 | Evaluation Criteria | Scan + FilterExpression | Query on GSI (category-index) |
 | :--- | :--- | :--- |

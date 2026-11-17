@@ -10,7 +10,7 @@ pre: " <b> 1.10. </b> "
 *Internship Period: 19/10/2026 – 23/10/2026*
 
 ### 1. Week 10 Objectives:
-* Bootstrap and design a modern Web Gallery interface (React, Tailwind CSS, Vite) directly integrated with AgentSys REST backend APIs.
+* Bootstrap and design a modern Web Gallery interface (React, Tailwind CSS, Vite) directly integrated with EduMedia AI REST backend APIs.
 * Implement an interactive Media Player with Click-to-Seek capability synchronized to timestamp evidence extracted from lecture transcripts.
 * Establish system guardrails and input validation: enforce deletion protection on system media (HTTP 403), upload size restriction (<= 25MB), and API Gateway CORS policy.
 * Integrate category chips and subject filtering calling the semantic query endpoint `POST /api/v1/media/agent/query`.
@@ -25,7 +25,7 @@ pre: " <b> 1.10. </b> "
 | **Fri** | - Conducted local client testing and component render optimization.<br>- Connected UI search bar to Bedrock Agent Query API rendering structured Search Plans. | 23/10/2026 | 23/10/2026 | [React Hooks Documentation](https://react.dev/) |
 
 ### 3. Week 10 Achievements:
-* Delivered complete Web Gallery frontend seamlessly connected to AgentSys Serverless APIs.
+* Delivered complete Web Gallery frontend seamlessly connected to EduMedia AI Serverless APIs.
 * Click-to-Seek player operates accurately across audio and video lectures, enhancing study material retrieval.
 * Input validation and resource guardrails safeguard system integrity against accidental deletion and oversized payloads.
 * Search interface clearly visualizes query classifications, subjects, and timestamped evidence citations.

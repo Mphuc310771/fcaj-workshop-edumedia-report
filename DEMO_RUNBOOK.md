@@ -20,9 +20,9 @@
 Hệ thống cung cấp script tự động đóng gói dependencies, tạo `samconfig.toml`, đồng bộ `.env` và cập nhật S3 bucket:
 
 ```bash
-cd /media/mewmewangriii/NewVolume/Code/Thuc_Tap/agent_sys
+cd edumedia-ai
 
-# Cấu hình biến môi trường tối thiểu trong agent_sys/.env
+# Cấu hình biến môi trường tối thiểu trong edumedia-ai/.env
 # ADMIN_API_KEY=your-secret-api-key-2026
 # FRONTEND_ORIGIN_URL=* (hoặc domain frontend thật của bạn)
 # ALERT_EMAIL=your-email@example.com (tùy chọn)
@@ -32,7 +32,7 @@ python scripts/deploy_stack.py
 
 ### Cách 2: Lệnh SAM CLI trực tiếp
 ```bash
-cd /media/mewmewangriii/NewVolume/Code/Thuc_Tap/agent_sys
+cd edumedia-ai
 
 # 1. Đóng gói mã nguồn Lambda vào thư mục pack/
 rm -rf pack && mkdir pack
@@ -78,7 +78,7 @@ Sau khi hoàn tất, lưu lại các giá trị tại phần **Outputs**:
 Frontend `gallery_web` được phát triển bằng React + Vite + TailwindCSS.
 
 ### Bước 2.1: Cấu hình biến môi trường
-Tạo file `agent_sys/gallery_web/.env.production` (hoặc cấu hình trong Dashboard Vercel):
+Tạo file `edumedia-ai/gallery_web/.env.production` (hoặc cấu hình trong Dashboard Vercel):
 ```bash
 # URL lấy từ ApiEndpoint output của SAM (không có trailing slash)
 VITE_API_BASE_URL=https://a1b2c3d4.execute-api.us-east-1.amazonaws.com
@@ -89,15 +89,15 @@ VITE_API_KEY=your-secret-api-key-2026
 
 ### Bước 2.2: Build kiểm tra cục bộ
 ```bash
-cd /media/mewmewangriii/NewVolume/Code/Thuc_Tap/agent_sys/gallery_web
+cd edumedia-ai/gallery_web
 npm install
 npm run build
 ```
 
 ### Bước 2.3: Deploy lên Vercel (1-Click)
-Repository đã tích hợp sẵn file cấu hình SPA `agent_sys/gallery_web/vercel.json` (chuyển tiếp mọi route về `index.html`):
+Repository đã tích hợp sẵn file cấu hình SPA `edumedia-ai/gallery_web/vercel.json` (chuyển tiếp mọi route về `index.html`):
 ```bash
-cd /media/mewmewangriii/NewVolume/Code/Thuc_Tap/agent_sys/gallery_web
+cd edumedia-ai/gallery_web
 npx vercel --prod
 ```
 *Khi được hỏi root directory, chọn `./` (trong thư mục `gallery_web`) và thiết lập các biến `VITE_API_BASE_URL`, `VITE_API_KEY` trong Vercel Project Settings.*
@@ -109,7 +109,7 @@ npx vercel --prod
 > **Xác minh Bộ Kiểm Thử Tự Động (143/143 Tests Passed - 84% Coverage):**  
 > Trước khi thực hiện các lệnh curl, giám khảo có thể chạy xác thực toàn bộ logic hệ thống Backend:
 > ```bash
-> pytest agent_sys/tests/ -q
+> cd edumedia-ai && pytest tests/ -q
 > # Kết quả: 143 passed, 3 warnings in ~28s (Total Coverage: 84%)
 > ```
 

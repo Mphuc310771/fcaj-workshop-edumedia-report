@@ -13,7 +13,7 @@ pre: " <b> 1.12. </b> "
 * Author and package comprehensive 7-chapter Hands-on Workshop guide (5.1 through 5.7) matching FCAJ standards.
 * Validate automated resource teardown runbook and script (`cleanup.sh`) ensuring thorough environment purging to avoid unforeseen costs.
 * Verify FinOps cost projections against AWS Pricing Calculator and actual expenses in AWS Cost Explorer / Budgets ($0.00 USD).
-* Review GitHub codebase repository, complete final internship documentation, and complete technical verification of AgentSys.
+* Review GitHub codebase repository, complete final internship documentation, and complete technical verification of EduMedia AI.
 
 ### 2. Daily Tasks & Schedule:
 | Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
@@ -33,4 +33,4 @@ pre: " <b> 1.12. </b> "
 ### 4. References:
 * [AWS CloudFormation Stack Deletion](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html)
 * [AWS Well-Architected Operational Excellence Pillar](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/)
-* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
+* [AWS Pricing Calculator - EduMedia AI Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)

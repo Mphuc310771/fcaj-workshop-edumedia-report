@@ -35,4 +35,4 @@ Sau khi hoàn thành workshop, bạn sẽ sở hữu một hệ thống hoàn ch
 * **Thời lượng ước tính:** 90 – 120 phút.
 * **Khu vực triển khai (AWS Region):** us-east-1 (N. Virginia).
 * **Ước tính chi phí thực hành:** **<$0.05 USD** (Kiến trúc Serverless tính theo lượt dùng; với số lượng tệp lab mẫu, chi phí phát sinh hầu như không đáng kể).
-* **File đính kèm:** [SAM Template chính thức (template.yaml)](/files/agentsys-sam-template.yaml)
+* **File đính kèm:** [SAM Template chính thức (template.yaml)](/files/edumedia-sam-template.yaml)
