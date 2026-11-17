@@ -25,7 +25,7 @@ pre: " <b> 1.5. </b> "
 | **Fri** | - Finalized bilingual Proposal documentation and committed files to report repository at content/2-Proposal/.<br>- Reviewed technical specifications ahead of codebase implementation. | 18/09/2026 | 18/09/2026 | Proposal Evaluation Guidelines |
 
 ### 3. Week 5 Achievements:
-* Completed detailed AgentSys architecture diagram in Draw.io spanning 5 layers: Upload, Ingestion, AI Extraction, Storage & Querying.
+* Completed detailed EduMedia AI architecture diagram in Draw.io spanning 5 layers: Upload, Ingestion, AI Extraction, Storage & Querying.
 * Authored bilingual Project Proposal published in content/2-Proposal/ fulfilling all 8 required sections.
 * Established AWS Pricing Calculator estimate: processing 1 image costs ~0.00207 USD and 1 minute of audio costs ~0.02435 USD; the Pay-as-you-go model ensures costs scale proportionally to actual usage and drop to zero when idle.
 * Conducted structured 6-pillar Well-Architected evaluation: securing storage via S3 Block Public Access, smoothing bursts with SQS load-leveling, and compressing vectors to 256-d.

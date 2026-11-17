@@ -18,7 +18,7 @@ The core focus of the internship was researching AWS Serverless, NoSQL, and Gene
 * **[Week 2: Amazon S3 & IAM Access Security](1.2-week2/)** — Configured S3 Media Bucket and enforced IAM Least Privilege permissions for Lambda.
 * **[Week 3: Serverless Architecture with AWS Lambda](1.3-week3/)** — Evaluated Lambda event-driven execution triggered by S3 ObjectCreated events.
 * **[Week 4: Amazon Rekognition & Transcribe Exploration](1.4-week4/)** — Tested image label detection and Vietnamese speech-to-text APIs.
-* **[Week 5: AgentSys Architecture & Proposal Writing](1.5-week5/)** — Designed 6-service system architecture diagram and completed workshop proposal.
+* **[Week 5: EduMedia AI Architecture & Proposal Writing](1.5-week5/)** — Designed 6-service system architecture diagram and completed workshop proposal.
 * **[Week 6: S3 Ingestion Infrastructure Setup](1.6-week6/)** — Configured S3 Event Notifications and deployed ingestion Lambda handlers.
 * **[Week 7: Rekognition & Transcribe Integration](1.7-week7/)** — Built automated metadata extraction pipelines across JPG, PNG, MP3, and MP4 media assets.
 * **[Week 8: Metadata Store on Amazon DynamoDB](1.8-week8/)** — Designed NoSQL schemas and provisioned AgentSysMediaMetadata DynamoDB table.

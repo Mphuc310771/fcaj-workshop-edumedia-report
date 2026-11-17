@@ -9,13 +9,13 @@ pre: " <b> 3.1. </b> "
 {{% notice info %}}
 * **Tác giả:** Đỗ Trần Minh Phúc (MSSV: 23120156 — Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM)
 * **Chương trình:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
-* **Dự án liên quan:** AgentSys — Hệ thống Catalog & Truy vấn Media Đa phương tiện Serverless
+* **Dự án liên quan:** EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh với AWS Serverless & GenAI
 * **Kênh công bố:** [Cộng đồng AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
 {{% /notice %}}
 
-# Xử lý Media Serverless trong dự án AgentSys: Tại sao mình không để Amazon S3 trigger trực tiếp Lambda?
+# Xử lý Media Serverless trong dự án EduMedia AI: Tại sao mình không để Amazon S3 trigger trực tiếp Lambda?
 
-Lúc làm tính năng xử lý media cho đồ án AgentSys, phản xạ đầu tiên của mình là: cứ có file đẩy lên S3 thì trigger thẳng Lambda Ingest luôn. Vừa upload xong là code chạy ngay, không cần dựng thêm queue trung gian cho đỡ cồng kềnh, đúng kiểu "chuẩn Serverless" mà các bài tutorial hay hướng dẫn.
+Lúc làm tính năng xử lý media cho dự án thực tập EduMedia AI, phản xạ đầu tiên của mình là: cứ có file đẩy lên S3 thì trigger thẳng Lambda Ingest luôn. Vừa upload xong là code chạy ngay, không cần dựng thêm queue trung gian cho đỡ cồng kềnh, đúng kiểu "chuẩn Serverless" mà các bài tutorial hay hướng dẫn.
 
 Nhưng khi chạy script thử nghiệm dồn tải (load test) giả lập kịch bản cao điểm — khoảng 50–100 file slide và ghi âm đổ vào cùng lúc — mô hình S3 gọi trực tiếp Lambda (Push-based) bắt đầu lộ ra 3 cái bẫy chí mạng:
 

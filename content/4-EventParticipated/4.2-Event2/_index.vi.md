@@ -214,14 +214,14 @@ out_of_scope:
 
 ---
 
-## 6. Bài học Rút ra & Ứng dụng Thực tế vào Dự án AgentSys
+## 6. Bài học Rút ra & Ứng dụng Thực tế vào Dự án EduMedia AI
 
-Tham dự sự kiện đã mang lại cho em những góc nhìn thực chiến quý giá để hoàn thiện đồ án **AgentSys**:
+Tham dự sự kiện đã mang lại cho em những góc nhìn thực chiến quý giá để hoàn thiện dự án thực tập **EduMedia AI**:
 
 1. **Ứng dụng triết lý Soul & Scope vào Multi-Agent:**
-   - Trong agent\_sys, em sẽ áp dụng kiến trúc tách bạch vai trò tương tự: hàm Lambda Ingest (agentsys-ingest) chỉ làm nhiệm vụ trích xuất đặc trưng; hàm API (agentsys-api) làm nhiệm vụ giao tiếp; và Amazon Bedrock đóng vai trò Planner với scope prompt được rào chắn cẩn thận.
+   - Trong hệ thống EduMedia AI, em áp dụng kiến trúc tách bạch vai trò tương tự: hàm Lambda Ingest (`agentsys-ingest`) chỉ làm nhiệm vụ trích xuất đặc trưng; hàm API (`agentsys-api`) làm nhiệm vụ giao tiếp; và Amazon Bedrock đóng vai trò Planner với scope prompt được rào chắn cẩn thận.
 2. **Tối ưu hóa FinOps & Định tuyến Mô hình (Model Routing):**
-   - Bài học về Response Gate của anh Trường giúp em củng cố quyết định kiến trúc trong AgentSys: Sử dụng **Amazon Titan Embeddings V2 (256 chiều)** và **Nova Lite** cho các tác vụ phân tích phổ thông để giữ chi phí ở mức gần như bằng $0, thay vì gọi các model lớn tốn kém.
+   - Bài học về Response Gate của anh Trường giúp em củng cố quyết định kiến trúc trong EduMedia AI: Sử dụng **Amazon Titan Embeddings V2 (256 chiều)** và **Nova Lite** cho các tác vụ phân tích phổ thông để giữ chi phí ở mức gần như bằng $0, thay vì gọi các model lớn tốn kém.
 3. **Tư duy xây dựng sản phẩm bền vững:**
    - Thấm thía lời dặn của anh Hưng về tinh thần "Lì đòn", sự chủ động hands-on trên môi trường thật và tính kỷ luật khi theo đuổi ngành Điện toán Đám mây.
 

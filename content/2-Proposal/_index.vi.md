@@ -29,7 +29,7 @@ Hệ thống giải quyết triệt để bài toán tìm kiếm tệp truyền 
 
 ## 2. Bối cảnh & Vấn đề thực tế (Problem Statement)
 
-Trong môi trường học tập và làm việc hiện đại, sinh viên và nghiên cứu sinh tích lũy hàng nghìn tệp đa phương tiện: ảnh chụp bảng viết, ảnh slide thuyết trình, file ghi âm bài giảng dài hàng giờ, video demo đồ án.
+Trong môi trường học tập và làm việc hiện đại, sinh viên và nghiên cứu sinh tích lũy hàng nghìn tệp đa phương tiện: ảnh chụp bảng viết, ảnh slide thuyết trình, file ghi âm bài giảng dài hàng giờ, video demo dự án.
 
 ### Những bất cập lớn của giải pháp hiện tại:
 1. **Tìm kiếm theo tên tệp thất bại hoàn toàn**: Các tệp từ điện thoại / máy ảnh thường có tên dạng IMG_20260826_104212.jpg hoặc Voice_001.m4a, không chứa bất kỳ ngữ nghĩa nào về nội dung bên trong.

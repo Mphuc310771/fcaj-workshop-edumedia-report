@@ -101,7 +101,7 @@ To prepare rigorously for oral defense before the academic and industry review c
 
 ### Comparison Summary: PoC vs. Enterprise Production Architecture
 
-| Technical Criteria | AgentSys PoC (Current) | Enterprise Production Target |
+| Technical Criteria | EduMedia AI PoC (Current) | Enterprise Production Target |
 | :--- | :--- | :--- |
 | **Vector Search Engine** | Candidate Pool (100) + In-Memory Cosine | Amazon OpenSearch Serverless / pgvector (HNSW) |
 | **Embedding Space** | Titan v2 (256-d native) + v1 Fallback | Titan Multimodal Embeddings V2 (256-d / 1024-d) |

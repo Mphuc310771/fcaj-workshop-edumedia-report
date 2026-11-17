@@ -93,7 +93,7 @@ Hệ thống sử dụng Amazon CloudFront làm điểm truy cập HTTPS toàn c
 ![Phân phối Amazon CloudFront CDN cho Web Frontend](/images/5-Workshop/evidence/01-cloudfront-distributions.png)
 *Hình: Phân phối CloudFront CDN phân phối Web Frontend với HTTPS bảo mật.*
 
-![Giao diện Web Frontend AgentSys chạy trên CloudFront CDN hiển thị thư viện tài liệu đa phương thức](/images/5-Workshop/evidence/web-gallery.png)
+![Giao diện Web Frontend EduMedia AI chạy trên CloudFront CDN hiển thị thư viện tài liệu đa phương thức](/images/5-Workshop/evidence/web-gallery.png)
 *Hình: Giao diện Single Page Application (SPA) trực quan của AgentSys phân phối qua CloudFront CDN.*
 
 ![Cấu hình Route /{proxy+} ANY và Lambda Integration trên Amazon API Gateway](/images/5-Workshop/evidence/04-api-gateway-routes.png)

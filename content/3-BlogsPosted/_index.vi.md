@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 3. </b> "
 ---
 
-Trong suốt quá trình thực tập tại chương trình First Cloud AI Journey (FCAJ) 2026 và phát triển dự án AgentSys, sinh viên đã nghiên cứu sâu, giải quyết các bài toán kỹ thuật phức tạp và chia sẻ các bài viết chuyên sâu lên cộng đồng [AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj):
+Trong suốt quá trình thực tập tại chương trình First Cloud AI Journey (FCAJ) 2026 và phát triển dự án EduMedia AI, sinh viên đã nghiên cứu sâu, giải quyết các bài toán kỹ thuật phức tạp và chia sẻ các bài viết chuyên sâu lên cộng đồng [AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj):
 
 ---
 

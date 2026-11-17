@@ -179,16 +179,16 @@ Mr. Khoa mirrored his screen to walk the audience through 4 real-world operation
 
 ---
 
-## 7. Key Takeaways & Direct Implementation in Project AgentSys
+## 7. Key Takeaways & Direct Implementation in Project EduMedia AI
 
 Attending the **First Cloud AI Journey Meetup** offered invaluable practical architectural principles that directly shaped and hardened our internship capstone project **EduMedia AI (Smart Lecture Storage & Search Engine on AWS)**:
 
-| Key Meetup Principle | Architectural Parallel | Direct Implementation in Project AgentSys |
+| Key Meetup Principle | Architectural Parallel | Direct Implementation in Project EduMedia AI |
 | :--- | :--- | :--- |
-| **Defensive Guardrails & Human-in-the-Loop** *(Session 5 - Kiro Crew)* | Protective layers preventing autonomous agents from performing destructive actions or data deletions. | Engineered **Demo Guardrails** into AgentSys: flag is\_demo\_protected blocks deletion requests with an HTTP 403 error, enforces a maximum payload limit of 25MB, and validates MIME types to protect public evaluation sessions. |
+| **Defensive Guardrails & Human-in-the-Loop** *(Session 5 - Kiro Crew)* | Protective layers preventing autonomous agents from performing destructive actions or data deletions. | Engineered **Demo Guardrails** into EduMedia AI: flag is\_demo\_protected blocks deletion requests with an HTTP 403 error, enforces a maximum payload limit of 25MB, and validates MIME types to protect public evaluation sessions. |
 | **Tiered Memory Decoupling** *(Session 4 - Bedrock AgentCore)* | Decoupling short-term in-session conversation records from durable semantic knowledge stores to prevent token bloat. | Implemented a two-tier memory design: Amazon DynamoDB persists conversational metadata with automatic S3-offloading when transcripts exceed 250KB; paired with Titan Vector Subsampling (reduced from 1536 to 256 dimensions) for long-term semantic retrieval. |
 | **Shift-Left IaC Security Review** *(Session 3 - AWS Security Agent)* | Validating infrastructure configurations and code within CI/CD pipelines to catch misconfigurations early. | Audited the SAM Template under IAM Least-Privilege principles: eliminated all wildcard \* permissions and segregated Lambda execution roles between Ingestion pipelines and Search query handlers. |
-| **FinOps & Serverless Scale-to-Zero** *(Session 1 & Session 2)* | Centralizing resource governance, avoiding cross-AZ billing traps, and optimizing cost models. | Built AgentSys on a pure Serverless Scale-to-Zero architecture leveraging AWS Lambda and DynamoDB On-Demand. When idle, the system consumes no resources, maintaining fixed baseline expenses at **$0.00 USD**. |
+| **FinOps & Serverless Scale-to-Zero** *(Session 1 & Session 2)* | Centralizing resource governance, avoiding cross-AZ billing traps, and optimizing cost models. | Built EduMedia AI on a pure Serverless Scale-to-Zero architecture leveraging AWS Lambda and DynamoDB On-Demand. When idle, the system consumes no resources, maintaining fixed baseline expenses at **$0.00 USD**. |
 
 ---
 

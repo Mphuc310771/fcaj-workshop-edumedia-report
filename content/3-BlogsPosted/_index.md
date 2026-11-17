@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 3. </b> "
 ---
 
-Throughout the First Cloud AI Journey (FCAJ) 2026 internship and the engineering of the AgentSys platform, comprehensive technical articles were authored and published to the [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj):
+Throughout the First Cloud AI Journey (FCAJ) 2026 internship and the engineering of the EduMedia AI platform, comprehensive technical articles were authored and published to the [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj):
 
 ---
 

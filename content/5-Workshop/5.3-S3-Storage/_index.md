@@ -12,7 +12,7 @@ pre: " <b> 5.3. </b> "
 
 ## 1. Amazon S3 Storage Architecture & Security
 
-In the AgentSys architecture, **Amazon S3** acts as the central multimodal Data Lake managing two key object spaces:
+In the EduMedia AI architecture, **Amazon S3** acts as the central multimodal Data Lake managing two key object spaces:
 * `uploads/`: Raw uploaded media assets (classroom slide captures, lecture voice recordings in `.m4a` / `.mp3`).
 * `transcripts/raw/`: Full-text JSON transcription payloads offloaded from DynamoDB to prevent exceeding the 400KB item size limit.
 
@@ -107,7 +107,7 @@ Instead of binding S3 events directly to Lambda, AgentSys introduces **Amazon SQ
 
 **Crucial FinOps Rule:** Subscribing S3 Event Notifications to the entire bucket wildcard s3:\* triggers an infinite recursion when Amazon Transcribe outputs a .json transcript → S3 emits an event → Lambda triggers Transcribe → Infinite billing loop!
 
-**Enforced Mitigation in AgentSys:**
+**Enforced Mitigation in EduMedia AI:**
 * Ingestion events are strictly filtered to the prefix **Prefix: uploads/**.
 * Transcribe outputs are strictly scoped to the prefix **Prefix: transcripts/**.
 

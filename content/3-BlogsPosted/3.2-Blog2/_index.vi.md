@@ -9,15 +9,15 @@ pre: " <b> 3.2. </b> "
 {{% notice info %}}
 * **Tác giả:** Đỗ Trần Minh Phúc (MSSV: 23120156 — Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM)
 * **Chương trình:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
-* **Dự án liên quan:** AgentSys — Hệ thống Catalog & Truy vấn Media Đa phương tiện Serverless
+* **Dự án liên quan:** EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh với AWS Serverless & GenAI
 * **Kênh công bố:** [Cộng đồng AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
 {{% /notice %}}
 
-# Tối ưu truy vấn DynamoDB trong dự án AgentSys: Tại sao mình bỏ Scan + FilterExpression để chuyển sang GSI?
+# Tối ưu truy vấn DynamoDB trong dự án EduMedia AI: Tại sao mình bỏ Scan + FilterExpression để chuyển sang GSI?
 
-Trong quá trình xây dựng AgentSys (hệ thống quản lý và truy vấn media đa phương tiện Serverless trên AWS), một trong những tính năng cơ bản nhất mình cần xử lý là lọc danh sách file theo danh mục (category như study, music, video, docs, raw...).
+Trong quá trình xây dựng EduMedia AI (hệ thống quản lý và truy vấn media đa phương tiện Serverless trên AWS), một trong những tính năng cơ bản nhất mình cần xử lý là lọc danh sách file theo danh mục (category như study, music, video, docs, raw...).
 
-Lúc mới bắt đầu chuyển từ SQL sang NoSQL như DynamoDB, mình (và khá nhiều bạn làm đồ án cùng đợt) từng mắc một sai lầm kinh điển: dùng hàm Scan kèm theo FilterExpression vì nghĩ rằng nó hoạt động giống mệnh đề WHERE trong MySQL hay PostgreSQL. 
+Lúc mới bắt đầu chuyển từ SQL sang NoSQL như DynamoDB, mình (và khá nhiều bạn thực tập cùng đợt) từng mắc một sai lầm kinh điển: dùng hàm Scan kèm theo FilterExpression vì nghĩ rằng nó hoạt động giống mệnh đề WHERE trong MySQL hay PostgreSQL. 
 
 Khi bảng dữ liệu còn ít (vài trăm dòng), API chạy rất mượt nên khó phát hiện vấn đề. Nhưng khi tìm hiểu sâu vào cơ chế đọc vật lý và tính phí của DynamoDB, việc dùng Scan + FilterExpression cho các API tìm kiếm thời gian thực thực sự là một giải pháp rất tệ về cả chi phí lẫn thời gian phản hồi.
 
@@ -131,7 +131,7 @@ Dùng GSI giải quyết êm được bài toán đọc, nhưng lúc đưa vào 
 
 ### 7. Tổng kết
 
-Từ trải nghiệm tối ưu này trong dự án **AgentSys**, bài học thực tế lớn nhất mình rút ra khi làm việc với DynamoDB là:
+Từ trải nghiệm tối ưu này trong dự án **EduMedia AI**, bài học thực tế lớn nhất mình rút ra khi làm việc với DynamoDB là:
 
 * Tuyệt đối không bê tư duy SELECT \* ... WHERE của SQL sang dùng cho Scan + FilterExpression ở các API phục vụ người dùng cuối.
 * FilterExpression chỉ lọc dữ liệu sau khi bạn đã bị trừ tiền RCU.

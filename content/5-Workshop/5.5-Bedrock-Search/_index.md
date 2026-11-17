@@ -93,7 +93,7 @@ The system leverages Amazon CloudFront as a global HTTPS entry point and API Gat
 ![Amazon CloudFront CDN Distribution for Web Frontend](/images/5-Workshop/evidence/01-cloudfront-distributions.png)
 *Figure: CloudFront distribution delivering the web gallery interface with HTTPS.*
 
-![AgentSys Web Frontend Single Page Application Hosted via CloudFront CDN](/images/5-Workshop/evidence/web-gallery.png)
+![EduMedia AI Web Frontend Single Page Application Hosted via CloudFront CDN](/images/5-Workshop/evidence/web-gallery.png)
 *Figure: AgentSys interactive multi-modal media library web application served globally via CloudFront CDN.*
 
 ![API Gateway Route /{proxy+} ANY and Lambda Integration](/images/5-Workshop/evidence/04-api-gateway-routes.png)

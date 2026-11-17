@@ -13,7 +13,7 @@ pre: " <b> 1.12. </b> "
 * Biên soạn và đóng gói trọn vẹn bộ tài liệu hướng dẫn thực hành Workshop 7 phần (từ Chương 5.1 đến 5.7) theo tiêu chuẩn FCAJ.
 * Xây dựng và kiểm thử hoàn chỉnh kịch bản dọn dẹp tài nguyên (Clean-up runbook và script `cleanup.sh`) đảm bảo xóa sạch môi trường phòng ngừa phát sinh chi phí ngoài ý muốn.
 * Đối chiếu bảng dự toán FinOps trên AWS Pricing Calculator và số liệu thực tế trên AWS Cost Explorer / Budgets ($0.00 USD).
-* Rà soát toàn bộ mã nguồn trên GitHub, hoàn thiện báo cáo thực tập tổng kết và tiến hành nghiệm thu kỹ thuật dự án AgentSys.
+* Rà soát toàn bộ mã nguồn trên GitHub, hoàn thiện báo cáo thực tập tổng kết và tiến hành nghiệm thu kỹ thuật dự án EduMedia AI.
 
 ### 2. Các công việc triển khai trong tuần:
 | Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
@@ -22,7 +22,7 @@ pre: " <b> 1.12. </b> "
 | **3** | - Biên soạn Workshop Chương 5.3 (Triển khai Hạ tầng IaC SAM) và Chương 5.4 (Kiểm thử chức năng trích xuất Media Rekognition & Transcribe).<br>- Chụp ảnh minh họa từng bước triển khai CloudFormation và luồng trích xuất dữ liệu. | 03/11/2026 | 03/11/2026 | [Amazon Rekognition Docs](https://docs.aws.amazon.com/rekognition/) |
 | **4** | - Biên soạn Workshop Chương 5.5 (Tra cứu thông minh Bedrock & Web Gallery) và Chương 5.7 (Phân tích đánh đổi kỹ thuật & Định hướng mở rộng).<br>- Hướng dẫn thao tác trải nghiệm tìm kiếm ngữ nghĩa và tra cứu tài liệu học tập. | 04/11/2026 | 04/11/2026 | [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/) |
 | **5** | - Xây dựng nội dung Chương 5.6 (Giám sát CloudWatch & Kịch bản dọn dẹp Cleanup).<br>- Viết và kiểm thử script tự động `cleanup.sh` xóa sạch S3 bucket, DynamoDB table và SAM stack trong 3 phút. | 05/11/2026 | 05/11/2026 | [AWS CLI S3 cleanup](https://docs.aws.amazon.com/cli/latest/reference/s3/rm.html) |
-| **6** | - Đối chiếu chi phí thực tế trên AWS Budgets / Cost Explorer; rà soát toàn bộ tài liệu báo cáo.<br>- Kiểm tra lại kho mã nguồn trên GitHub và hoàn tất nghiệm thu kỹ thuật đồ án AgentSys. | 06/11/2026 | 06/11/2026 | [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/) |
+| **6** | - Đối chiếu chi phí thực tế trên AWS Budgets / Cost Explorer; rà soát toàn bộ tài liệu báo cáo.<br>- Kiểm tra lại kho mã nguồn trên GitHub và hoàn tất nghiệm thu kỹ thuật dự án thực tập EduMedia AI. | 06/11/2026 | 06/11/2026 | [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/) |
 
 ### 3. Kết quả đạt được tuần 12:
 * Hoàn thiện 100% tài liệu Workshop 7 phần từ 5.1 đến 5.7 với hướng dẫn từng bước chi tiết, mạch lạc và kèm ảnh minh họa thực tế.

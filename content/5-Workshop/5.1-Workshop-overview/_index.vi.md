@@ -12,7 +12,7 @@ pre: " <b> 5.1. </b> "
 
 ## 1. Bài toán thực tế (Problem Statement)
 
-Người dùng (học sinh, sinh viên, kỹ sư) lưu trữ hàng nghìn hình ảnh bài giảng, ảnh chụp bảng viết tay, tệp ghi âm giọng nói dài và video đồ án trong thiết bị. 
+Người dùng (học sinh, sinh viên, kỹ sư) lưu trữ hàng nghìn hình ảnh bài giảng, ảnh chụp bảng viết tay, tệp ghi âm giọng nói dài và video bài học trong thiết bị. 
 * Tên file mặc định (IMG\_091522.jpg, voice\_record\_01.m4a) không chứa bất kỳ ngữ nghĩa nào.
 * Việc tìm lại nội dung như *"Đoạn thầy nhắc làm bài tập ma trận"* hay *"Công thức tính tích phân trên bảng"* thường mất hàng giờ xem lại thủ công.
 
@@ -20,7 +20,7 @@ Người dùng (học sinh, sinh viên, kỹ sư) lưu trữ hàng nghìn hình 
 
 ## 2. Mục tiêu Workshop (Workshop Objectives)
 
-Xây dựng hệ thống **AgentSys** xử lý tự động theo mô hình **Event-Driven Serverless**:
+Xây dựng hệ thống **EduMedia AI** xử lý tự động theo mô hình **Event-Driven Serverless**:
 1. Upload tệp trực tiếp lên **Amazon S3** (Private Bucket, mã hóa SSE-S3).
 2. Tự động đệm sự kiện qua **Amazon SQS** và **Dead-Letter Queue (DLQ)**.
 3. **AWS Lambda** điều phối phân tích:

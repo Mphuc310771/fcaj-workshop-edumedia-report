@@ -13,7 +13,7 @@ pre: " <b> 1.1. </b> "
 * Complete onboarding for the FCAJ 2026 program, register HCM-Portal account, and review office guidelines.
 * Install local development toolchain on Ubuntu 24.04: Python 3.12, AWS CLI v2, AWS SAM CLI, and Docker Engine.
 * Set up AWS account with MFA enabled and configure AWS CLI named profile using dedicated IAM user credentials.
-* Initialize AgentSys project repository structure on GitHub and outline serverless event-driven architecture approach.
+* Initialize EduMedia AI project repository structure on GitHub and outline serverless event-driven architecture approach.
 
 ### 2. Daily Tasks & Schedule:
 | Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
@@ -21,8 +21,8 @@ pre: " <b> 1.1. </b> "
 | **Mon** | - Attended FCAJ 2026 internship orientation session.<br>- Activated HCM-Portal account and reviewed program milestones, attendance, and office conduct regulations. | 17/08/2026 | 17/08/2026 | [FCAJ HCM Rules & Guidelines](https://hcm-rules.awsfcaj.com/) |
 | **Tue** | - Installed development toolchain on Ubuntu 24.04: Python 3.12, AWS CLI v2, AWS SAM CLI, and Docker.<br>- Verified Docker daemon execution for local Lambda testing. | 18/08/2026 | 18/08/2026 | [AWS CLI Installation Guide](https://docs.aws.amazon.com/cli/latest/userguide/) |
 | **Wed** | - Configured AWS account security, enabled MFA, and created dedicated IAM User (avoiding Root Account).<br>- Configured named profile in ~/.aws/credentials and verified connectivity via aws sts get-caller-identity. | 19/08/2026 | 19/08/2026 | [AWS Named Profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) |
-| **Thu** | - Initialized AgentSys repository on GitHub with baseline directory layout (infra, src, tests).<br>- Structured bilingual project documentation outlines. | 20/08/2026 | 20/08/2026 | [AWS SAM Developer Guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/) |
-| **Fri** | - Evaluated AWS services for multimodal ingestion: S3, Lambda, Rekognition, Transcribe, DynamoDB, and Bedrock.<br>- Drafted initial asynchronous event-driven workflow for project AgentSys. | 21/08/2026 | 21/08/2026 | [AWS Serverless Architecture](https://aws.amazon.com/serverless/) |
+| **Thu** | - Initialized EduMedia AI repository on GitHub with baseline directory layout (infra, src, tests).<br>- Structured bilingual project documentation outlines. | 20/08/2026 | 20/08/2026 | [AWS SAM Developer Guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/) |
+| **Fri** | - Evaluated AWS services for multimodal ingestion: S3, Lambda, Rekognition, Transcribe, DynamoDB, and Bedrock.<br>- Drafted initial asynchronous event-driven workflow for project EduMedia AI. | 21/08/2026 | 21/08/2026 | [AWS Serverless Architecture](https://aws.amazon.com/serverless/) |
 
 ### 3. Week 1 Achievements:
 * Activated HCM-Portal account and clarified internship milestones and evaluation criteria.

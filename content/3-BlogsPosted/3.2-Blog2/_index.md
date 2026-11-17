@@ -9,13 +9,13 @@ pre: " <b> 3.2. </b> "
 {{% notice info %}}
 * **Author:** Do Tran Minh Phuc (Student ID: 23120156 — VNUHCM-University of Science)
 * **Program:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
-* **Related Project:** AgentSys — Serverless Multimodal Media Intelligence & Retrieval Platform
+* **Related Project:** EduMedia AI — Smart Lecture Storage & Retrieval Platform on AWS
 * **Published Community:** [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
 {{% /notice %}}
 
-# Optimizing DynamoDB Queries in AgentSys: Why I Ditched Scan + FilterExpression for GSI
+# Optimizing DynamoDB Queries in EduMedia AI: Why I Ditched Scan + FilterExpression for GSI
 
-While building **AgentSys** (a serverless multimodal media catalog and semantic retrieval platform on AWS), one of the most fundamental requirements was filtering media records by category (category values like study, music, video, docs, raw...).
+While building **EduMedia AI** (a serverless multimodal media catalog and semantic retrieval platform on AWS), one of the most fundamental requirements was filtering media records by category (category values like study, music, video, docs, raw...).
 
 Coming from a relational SQL background to NoSQL with DynamoDB, I initially made a textbook mistake: using Scan with a FilterExpression, assuming it behaves like a WHERE clause in MySQL or PostgreSQL.
 

@@ -213,12 +213,12 @@ out_of_scope:
 
 ---
 
-## 6. Personal Takeaways & Practical Applications to AgentSys
+## 6. Personal Takeaways & Practical Applications to EduMedia AI
 
-Attending this kick-off provided concrete technical enhancements directly applicable to my **AgentSys** project:
+Attending this kick-off provided concrete technical enhancements directly applicable to my **EduMedia AI** internship project:
 
 1. **Adopting the Soul & Scope Paradigm in Multi-Modal Pipelines:**
-   - In agent\_sys, I will reinforce role boundaries: the Ingest Lambda (agentsys-ingest) focuses solely on feature extraction; the API Lambda (agentsys-api) handles user routing; and Amazon Bedrock operates with well-scoped system prompts.
+   - In the EduMedia AI system, I will reinforce role boundaries: the Ingest Lambda (`agentsys-ingest`) focuses solely on feature extraction; the API Lambda (`agentsys-api`) handles user routing; and Amazon Bedrock operates with well-scoped system prompts.
 2. **FinOps Awareness & Model Routing:**
    - The Response Gate architecture reinforces my strategy of pairing **Amazon Titan Embeddings V2 (256-dimension)** with **Nova Lite** for general catalog search, achieving near-zero idle and inference costs.
 3. **Cultivating Engineering Resilience:**

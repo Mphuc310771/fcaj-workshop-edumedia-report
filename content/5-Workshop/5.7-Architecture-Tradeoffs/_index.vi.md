@@ -75,7 +75,7 @@ Trong giai đoạn xây dựng PoC (Proof of Concept) phục vụ chương trìn
 
 ### 6. Cẩm nang Phản biện Kỹ thuật & Tối ưu Chi phí Chuyên sâu (Defense Q&A Guide)
 
-Nhằm chuẩn bị vững vàng cho buổi bảo vệ đồ án trước Hội đồng chuyên môn, dưới đây là 3 câu hỏi kiểm toán chuyên sâu về kiến trúc thực tế và câu trả lời phân tích định lượng chuẩn mực:
+Nhằm chuẩn bị vững vàng cho buổi nghiệm thu dự án thực tập trước Hội đồng chuyên môn, dưới đây là 3 câu hỏi kiểm toán chuyên sâu về kiến trúc thực tế và câu trả lời phân tích định lượng chuẩn mực:
 
 #### ❓ Câu hỏi 1: "Khi trích xuất 1 keyframe mỗi 30 giây cho 250 phút video bằng ffmpeg, số ảnh phát sinh thêm này đã được tính vào chi phí Rekognition và Bedrock ở Kịch bản 2 chưa?"
 * **Trả lời chuẩn mực:** 
@@ -101,7 +101,7 @@ Nhằm chuẩn bị vững vàng cho buổi bảo vệ đồ án trước Hội 
 
 ### Bảng so sánh tổng hợp: Kiến trúc PoC vs Kiến trúc Enterprise Production
 
-| Tiêu chí kỹ thuật | Kiến trúc PoC hiện tại (AgentSys) | Kiến trúc Enterprise AWS đề xuất |
+| Tiêu chí kỹ thuật | Kiến trúc PoC hiện tại (EduMedia AI) | Kiến trúc Enterprise AWS đề xuất |
 | :--- | :--- | :--- |
 | **Cơ chế Vector Search** | Candidate Pool (100 items) + Cosine RAM Lambda | Amazon OpenSearch Serverless / pgvector (HNSW Index) |
 | **Không gian Embeddings** | Titan V2 (256-d) + Fallback Titan V1 Striding | Titan Multimodal Embeddings V2 Native (256-d / 1024-d) |

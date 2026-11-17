@@ -13,7 +13,7 @@ pre: " <b> 3.1. </b> "
 * **Publication Channel:** [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
 {{% /notice %}}
 
-# Serverless Media Processing in AgentSys: Why I Avoid Direct S3 Lambda Triggers
+# Serverless Media Processing in EduMedia AI: Why I Avoid Direct S3 Lambda Triggers
 
 When designing media ingestion for AgentSys, my initial instinct was: whenever an object lands on S3, directly invoke the Lambda ingest worker. Files trigger code instantaneously without an extra queue, matching conventional serverless tutorials.
 
