@@ -27,10 +27,10 @@ The 12-week internship at the **First Cloud AI Journey (FCAJ) — AWS Vietnam** 
 
 ---
 
-### 3. Areas for Improvement
-To further enhance future cohorts of the First Cloud AI Journey program, I offer a few constructive suggestions:
-1. **Expand Specialized Technical Sessions (Tech Sharing):** Incorporate more deep-dive sessions with AWS engineers sharing architectural design experiences and production best practices, providing students with practical insights into large-scale enterprise solutions.
-2. **Flexible Sandbox Quota Provisioning:** Provide expanded experimentation credits for new Generative AI foundation models on Amazon Bedrock to support deeper testing of complex multimodal and Retrieval-Augmented Generation (RAG) architectures.
+### 3. Areas for Further Optimization in Future Cohorts
+Overall, the FCAJ program is exceptionally well-structured and comprehensive, providing excellent office facilities at Bitexco alongside active participation in premier AWS community events. To assist future student cohorts in accelerating project onboarding and technical execution, I offer a couple of constructive observations:
+1. **Early Reference Architecture Guidelines:** Providing a curated set of AWS Well-Architected reference blueprints for common project patterns (such as Serverless event-driven architectures, RAG pipelines, or media ingestion workflows) during the initial planning weeks would help students scope their projects faster and streamline early service selection.
+2. **Peer-to-Peer Technical Exchange:** Encouraging informal internal knowledge-sharing sessions (such as brief lightning talks or technical demos) among interns in the cohort to discuss real-world debugging experiences and cloud cost optimization (FinOps) best practices within sandbox constraints, enabling students to learn diverse approaches from their peers' projects.
 
 ---
 
