@@ -56,7 +56,7 @@ Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 1,500 images × 2 APIs = 3,000 calls | **$3.00 USD** | **$3.00 USD** *(Year 1: $2.00)* |
 | **Amazon Transcribe** | 250 lecture minutes vi-VN | **$1.50 USD** *(legacy: $6.00)* | **$1.50 USD** *(legacy: $6.00)* |
-| **Amazon Bedrock** | 2,000 queries Nova Pro (1K in + 300 out) + Embed | **$3.56 USD** *(Haiku: $4.04)* | **$3.56 USD** *(Haiku: $4.04)* |
+| **Amazon Bedrock** | 2,000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
 | **Amazon S3** | 20 GB Standard storage + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Year 1: $0.35)* |
 | **AWS Lambda & SQS** | 15,000 invocations (22,500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
 | **Amazon DynamoDB** | On-Demand (15,000 writes + 60,000 reads) | **$0.02 USD** | **$0.02 USD** *(< 25 GB Always Free)* |

@@ -12,7 +12,7 @@ pre: " <b> 5.5. </b> "
 
 ## 1. How the Multi-modal AI Search Agent Works
 
-In traditional media catalogs, search queries fail when users cannot recall exact keywords. **EduMedia AI** utilizes **Amazon Bedrock (Amazon Nova Lite / Claude 3)** as an intelligent **Query Planner** coupled with **DynamoDB GSI Hybrid Search**:
+In traditional media catalogs, search queries fail when users cannot recall exact keywords. **EduMedia AI** utilizes **Amazon Bedrock (Amazon Nova Pro / Nova Lite)** as an intelligent **Query Planner** coupled with **DynamoDB GSI Hybrid Search**:
 
 {{< rawhtml >}}
 <div class="pipeline-container">

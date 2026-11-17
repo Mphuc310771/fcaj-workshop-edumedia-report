@@ -118,7 +118,7 @@ Hệ thống được thiết kế theo tiêu chí **Scale-to-Zero**, toàn bộ
 ### 6.1. Đơn giá vi mô từng đơn vị (Unit Economics - Region: us-east-1)
 * **Xử lý 1 ảnh slide học tập:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / ảnh** (~51 VNĐ/ảnh).
 * **Xử lý 1 phút âm thanh bài giảng:** Amazon Transcribe Standard Batch vi-VN = **$0.0060 USD / phút** (~153 VNĐ/phút theo giá chuẩn AWS Calculator $0.0001/giây, hoặc $0.0240 USD / phút theo biểu giá trần niêm yết).
-* **1 lượt truy vấn AI thông minh:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1.000 in + 300 out tokens) = **~$0.00178 USD / lượt** (~45,4 VNĐ/lượt). (Nếu dùng Claude 3.5 Haiku: ~$0.00202 USD / lượt).
+* **1 lượt truy vấn AI thông minh:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1.000 in + 300 out tokens) = **~$0.00178 USD / lượt** (~45,4 VNĐ/lượt).
 * **Tầng suy luận AI Agent & dịch thuật (Reasoning & Intent Parsing):** Amazon Nova Lite ($0.06/1M input tokens + $0.24/1M output tokens) đóng vai trò Agent phân tích câu hỏi tiếng Việt, chuyển ngữ và gọi công cụ = **~$0.08 – $0.15 USD / tháng** cho 2.000 queries.
 * **Lưu trữ Amazon S3 Standard:** **$0.0230 USD / GB / tháng** (~586,5 VNĐ/GB). (Yêu cầu API: PUT $0.005 / 1k reqs, GET $0.0004 / 1k reqs).
 * **Phân phối nội dung Amazon CloudFront:** Miễn phí **1 TB (1.000 GB) Data Transfer Out** và **10.000.000 requests/tháng** vĩnh viễn (Always Free Tier).
@@ -133,7 +133,7 @@ Khối lượng kiểm thử: 50 ảnh slide, 5–10 clip video ngắn (tổng 1
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 50 ảnh × 2 APIs = 100 API calls | $0.1000 USD | **$0.0000 USD** (Hạn mức 1.000 ảnh/tháng) |
 | **Amazon Transcribe** | 15–20 phút audio vi-VN (Batch) | $0.0900 – $0.1200 USD *(Rate card: $0.36 – $0.48)* | **$0.0000 USD** (Hạn mức 60 phút/tháng) |
-| **Amazon Bedrock** | 100 queries Nova Pro/Micro + Titan Embed | $0.1780 USD *(Haiku: $0.2020)* | **$0.1780 USD** *(Không có Free Tier)* |
+| **Amazon Bedrock** | 100 queries Nova Pro / Nova Lite + Titan Embed | $0.1780 USD | **$0.1780 USD** *(Không có Free Tier)* |
 | **Amazon S3** | 1 GB Standard + PUT/GET requests | $0.0240 USD | **$0.0000 USD** (Hạn mức 5 GB Free Tier) |
 | **AWS Lambda & SQS** | 2.000 invocations (1024MB, 1.5s = 3.000 GB-s) | $0.0528 USD | **$0.0000 USD** (Always Free 1M req, 400k GB-s) |
 | **Amazon DynamoDB** | On-Demand (2.000 writes + 2.000 reads) | $0.0015 USD | **$0.0015 USD** (25 GB Storage Always Free) |
@@ -149,7 +149,7 @@ Khối lượng vận hành 1 tháng: 1.500 ảnh bài giảng/slide, 250 phút 
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 1.500 ảnh × 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
 | **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **$1.50 USD** *(Rate Card trần: $6.00)* | **$1.50 USD** *(Rate Card trần: $6.00)* |
-| **Amazon Bedrock** | 2.000 queries Nova Pro/Micro (1K in + 300 out) + Embed | **$3.56 USD** *(Haiku: $4.04)* | **$3.56 USD** *(Haiku: $4.04)* |
+| **Amazon Bedrock** | 2.000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
 | **Amazon S3** | 20 GB Standard tích lũy + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Năm đầu: $0.35)* |
 | **AWS Lambda & SQS** | 15.000 invocations (22.500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
 | **Amazon DynamoDB** | On-Demand (15.000 writes + 60.000 reads) | **$0.02 USD** | **$0.02 USD** *(Lưu trữ < 25 GB Always Free)* |

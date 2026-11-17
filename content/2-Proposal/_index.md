@@ -119,7 +119,7 @@ The system adheres to a strict **Scale-to-Zero** FinOps model. All operational c
 ### 6.1. Unit Economics (AWS Region: us-east-1)
 * **1 Lecture Slide Image Processing:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / image** (~51 VND).
 * **1 Audio Minute Transcription:** Amazon Transcribe Standard Batch vi-VN = **$0.0060 USD / minute** (~153 VND/min current AWS Calculator rate at $0.0001/sec, or $0.0240 USD / min ceiling list price).
-* **1 Intelligent AI Query:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1,000 in + 300 out tokens) = **~$0.00178 USD / query** (~45.4 VND). (With Claude 3.5 Haiku: ~$0.00202 USD).
+* **1 Intelligent AI Query:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1,000 in + 300 out tokens) = **~$0.00178 USD / query** (~45.4 VND).
 * **AI Agent Reasoning & Intent Parsing:** Amazon Nova Lite ($0.06/1M in + $0.24/1M out tokens) acts as the autonomous Agent orchestrator parsing queries, translating Vietnamese intent, and invoking tools = **~$0.08 – $0.15 USD / month** for 2,000 queries.
 * **Amazon S3 Standard Storage:** **$0.0230 USD / GB / month** (~586.5 VND/GB). (API Requests: PUT $0.005 / 1k reqs, GET $0.0004 / 1k reqs).
 * **Amazon CloudFront Distribution:** **1 TB (1,000 GB) Data Transfer Out** and **10,000,000 requests/month** free forever (Always Free Tier).
@@ -134,7 +134,7 @@ Workload: 50 slide images, 5–10 short demo video clips (15–20 total audio mi
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 50 images × 2 APIs = 100 calls | $0.1000 USD | **$0.0000 USD** (1,000 calls/mo Free Tier) |
 | **Amazon Transcribe** | 15–20 minutes vi-VN audio (Batch) | $0.0900 – $0.1200 USD *(Rate card: $0.36 – $0.48)* | **$0.0000 USD** (60 minutes/mo Free Tier) |
-| **Amazon Bedrock** | 100 queries Nova Pro/Micro + Titan Embed | $0.1780 USD *(Haiku: $0.2020)* | **$0.1780 USD** *(No quantity Free Tier)* |
+| **Amazon Bedrock** | 100 queries Nova Pro / Nova Lite + Titan Embed | $0.1780 USD | **$0.1780 USD** *(No quantity Free Tier)* |
 | **Amazon S3** | 1 GB Standard + PUT/GET requests | $0.0240 USD | **$0.0000 USD** (5 GB Free Tier allowance) |
 | **AWS Lambda & SQS** | 2,000 invocations (1024MB, 1.5s = 3,000 GB-s) | $0.0528 USD | **$0.0000 USD** (Always Free 1M req, 400k GB-s) |
 | **Amazon DynamoDB** | On-Demand (2,000 writes + 2,000 reads) | $0.0015 USD | **$0.0015 USD** (25 GB Storage Always Free) |
@@ -150,7 +150,7 @@ Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 1,500 images × 2 APIs = 3,000 calls | **$3.00 USD** | **$3.00 USD** *(Year 1: $2.00)* |
 | **Amazon Transcribe** | 250 lecture minutes vi-VN | **$1.50 USD** *(Rate card ceiling: $6.00)* | **$1.50 USD** *(Rate card ceiling: $6.00)* |
-| **Amazon Bedrock** | 2,000 queries Nova Pro/Micro (1K in + 300 out) + Embed | **$3.56 USD** *(Haiku: $4.04)* | **$3.56 USD** *(Haiku: $4.04)* |
+| **Amazon Bedrock** | 2,000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
 | **Amazon S3** | 20 GB Standard storage + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Year 1: $0.35)* |
 | **AWS Lambda & SQS** | 15,000 invocations (22,500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
 | **Amazon DynamoDB** | On-Demand (15,000 writes + 60,000 reads) | **$0.02 USD** | **$0.02 USD** *(< 25 GB Always Free)* |

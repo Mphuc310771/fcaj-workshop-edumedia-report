@@ -43,7 +43,7 @@ aws configure get region
 Theo chính sách mới nhất của AWS Bedrock, quy trình cấp quyền truy cập mô hình nền tảng (Foundation Models) đã được tối ưu hóa:
 
 1. **Thông Báo Miễn Trừ Cấp Quyền Thủ Công (Retired Model Access Page):**
-   * Đối với các Serverless Foundation Models của Amazon (như **Amazon Titan Text Embeddings V2** và **Amazon Nova Lite/Micro/Pro**), AWS đã chính thức chuyển đổi sang cơ chế **kích hoạt tự động (automatically enabled on-demand)**.
+   * Đối với các Serverless Foundation Models của Amazon (như **Amazon Titan Text Embeddings V2** và **Amazon Nova Lite / Nova Pro**), AWS đã chính thức chuyển đổi sang cơ chế **kích hoạt tự động (automatically enabled on-demand)**.
    * Người dùng không còn cần phải nộp form yêu cầu phê duyệt hoặc ấn nút "Modify model access" thủ công như các phiên bản cũ. Các mô hình này sẵn sàng sử dụng ngay lập tức khi tài khoản thực hiện API call đầu tiên (`InvokeModel` hoặc `Converse API`) trong Region thương mại (như `us-east-1`).
 
 ![Thông báo chính thức từ AWS Bedrock: Trang Model Access đã được tinh gọn và kích hoạt tự động theo nhu cầu](/images/5-Workshop/evidence/bedrock-model-access.png)
