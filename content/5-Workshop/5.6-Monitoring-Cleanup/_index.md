@@ -12,7 +12,7 @@ pre: " <b> 5.6. </b> "
 
 ## 1. Infrastructure Evidence Summary
 
-Before delving into monitoring details and cleanup procedures, the table below maps each core AWS infrastructure component of **AgentSys** to its live validation outcome and operational evidence:
+Before delving into monitoring details and cleanup procedures, the table below maps each core AWS infrastructure component of the **EduMedia AI** platform (developed within the **AWS First Cloud AI Journey - FCAJ 2026** internship) to its live validation outcome and operational evidence:
 
 | Component | Live Validation Result | Live Evidence Reference |
 | :--- | :--- | :--- |
@@ -26,13 +26,13 @@ Before delving into monitoring details and cleanup procedures, the table below m
 | **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Claude 3 Search Planner | Accurate JSON Search Plan, Hybrid vector scoring |
 | **Amazon CloudWatch** | 7 core alarms active in OK state, custom metric `MediaIngested`, structured JSON logs | CloudWatch Dashboard & Log Streams |
 | **Amazon SNS** | Topic `agentsys-alerts-topic` configured for immediate email notifications | Direct notification integration across 7 alarms |
-| **AWS Budgets** | Budget `My Zero-Spend Budget` with $1.00 USD limit, verified cost **$0.00 USD** | Zero-spend safeguard active (Scale-to-Zero) |
+| **AWS Budgets & FinOps** | Configured budget threshold alerts tracking the $180 Promotional Credit allocation from FCAJ. During initial validation (while Amazon Transcribe service access was pending AWS support clearance), ingestion tests focused on Rekognition, Lambda, S3, and DynamoDB, keeping actual spend well within Free Tier and granted promotional credits | Cost threshold alerts configured against FCAJ credit limits (Proactive billing safeguard) |
 
 ---
 
 ## 2. System Observability with Amazon CloudWatch
 
-Under official **AWS First Cloud Journey (FCJ)** evaluation standards, cloud-native systems must demonstrate robust **Operational Excellence**:
+Under official **AWS First Cloud AI Journey (FCAJ 2026)** internship evaluation standards, cloud-native systems must demonstrate robust **Operational Excellence**:
 
 ### 2.1. Structured Logging
 Lambda functions (IngestFunction, AggregatorFunction, ApiFunction) emit structured JSON logs to **CloudWatch Logs**:
@@ -55,7 +55,7 @@ The SAM Template provisions **7 core CloudWatch Alarms** connected synchronously
 <div class="pipeline-container">
   <div class="pipeline-header">
     <i class="fas fa-bell"></i>
-    <span>7 CloudWatch Alarms Matrix & Real-time SNS Alert Dispatcher</span>
+    <span>7 Core CloudWatch Alarms for EduMedia AI System Monitoring</span>
   </div>
   <div class="alarm-cards-grid">
     <div class="alarm-card-item">
@@ -89,7 +89,7 @@ The SAM Template provisions **7 core CloudWatch Alarms** connected synchronously
   </div>
   <div style="margin-top: 14px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; font-size: 12.5px; color: #166534; display: flex; align-items: center; gap: 8px;">
     <i class="fas fa-paper-plane" style="color: #16a34a;"></i>
-    <span>All 7 Alarms route directly to <strong>Amazon SNS Topic: agentsys-alerts-topic</strong> for instant DevOps notifications.</span>
+    <span>All 7 Alarms route directly to <strong>Amazon SNS Topic: agentsys-alerts-topic</strong> for instant failure notifications via email.</span>
   </div>
 </div>
 {{< /rawhtml >}}

@@ -12,7 +12,7 @@ pre: " <b> 5.6. </b> "
 
 ## 1. Bảng Tổng Hợp Kiểm Thử & Bằng Chứng Hạ Tầng (Infrastructure Evidence Summary)
 
-Trước khi đi vào chi tiết cấu hình giám sát và dọn dẹp, bảng dưới đây tổng hợp toàn bộ các thành phần hạ tầng trên AWS của **AgentSys** cùng kết quả kiểm thử thực tế và bằng chứng trực quan:
+Trước khi đi vào chi tiết cấu hình giám sát và dọn dẹp, bảng dưới đây tổng hợp toàn bộ các thành phần hạ tầng trên AWS của hệ thống **EduMedia AI** (xây dựng trong khuôn khổ chương trình **AWS First Cloud AI Journey - FCAJ 2026**) cùng kết quả kiểm thử thực tế và bằng chứng trực quan:
 
 | Thành phần (Component) | Kết quả kiểm thử thực tế (Validation Result) | Minh chứng vận hành (Live Evidence) |
 | :--- | :--- | :--- |
@@ -26,13 +26,13 @@ Trước khi đi vào chi tiết cấu hình giám sát và dọn dẹp, bảng 
 | **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Claude 3 xử lý Search Planner | Tạo Search Plan chính xác, Hybrid Vector Match |
 | **Amazon CloudWatch** | 7 Alarms chủ động ở trạng thái OK, Metric Custom `MediaIngested`, Structured Logs | Dashboard và Log Streams đầy đủ |
 | **Amazon SNS** | Topic `agentsys-alerts-topic` sẵn sàng phát cảnh báo tức thì qua Email | SNS Topic kết nối trực tiếp 7 Alarms |
-| **AWS Budgets** | Ngân sách `My Zero-Spend Budget` với hạn mức $1.00 USD, chi phí ghi nhận **$0.00 USD** | Chặn phát sinh cước ngoài ý muốn (Scale-to-Zero) |
+| **AWS Budgets & FinOps** | Thiết lập ngân sách giám sát gói $180 Promotional Credits từ FCAJ. Trong giai đoạn thử nghiệm (do Amazon Transcribe đang chờ AWS Support kích hoạt subscription trên tài khoản mới), các tệp kiểm thử tập trung vào Rekognition, Lambda và DynamoDB nên chi phí tiêu hao cực thấp, nằm trọn trong hạn mức Credits được tài trợ | Cảnh báo chi phí theo ngưỡng credit FCAJ (Tránh phát sinh cước ngoài ý muốn) |
 
 ---
 
 ## 2. Khả năng Quan sát Hệ thống (Observability with Amazon CloudWatch)
 
-Trong quy chuẩn đánh giá của **AWS First Cloud Journey (FCJ)**, một kiến trúc Cloud chuẩn Production bắt buộc phải có khả năng giám sát vận hành (**Operational Excellence**):
+Trong tiêu chí đánh giá kỹ thuật của chương trình thực tập **AWS First Cloud AI Journey (FCAJ 2026)**, một kiến trúc Cloud chuẩn Production bắt buộc phải có khả năng giám sát vận hành (**Operational Excellence**):
 
 ### 2.1. Structured Logging (Ghi log có cấu trúc)
 Tất cả các hàm Lambda (IngestFunction, AggregatorFunction, ApiFunction) đều ghi log dưới dạng JSON có cấu trúc vào **CloudWatch Logs**:
@@ -55,12 +55,12 @@ SAM Template tự động cấu hình **7 CloudWatch Alarms** cốt lõi và k�
 <div class="pipeline-container">
   <div class="pipeline-header">
     <i class="fas fa-bell"></i>
-    <span>Ma trận 7 CloudWatch Alarms bảo vệ hệ thống & Cảnh báo qua SNS</span>
+    <span>Danh sách 7 CloudWatch Alarms giám sát hệ thống EduMedia AI</span>
   </div>
   <div class="alarm-cards-grid">
     <div class="alarm-card-item">
       <div class="alarm-card-name">🚨 agentsys-api-errors</div>
-      <div class="alarm-card-desc">Lỗi runtime 5xx Lambda API (HTTP 500/502/504) vượt ngưỡng ≥ 1 trong 1 phút.</div>
+      <div class="alarm-card-desc">Lỗi runtime Lambda API (HTTP 500/502/504) vượt ngưỡng ≥ 1 trong 1 phút.</div>
     </div>
     <div class="alarm-card-item">
       <div class="alarm-card-name">🚨 agentsys-ingest-errors</div>
@@ -89,7 +89,7 @@ SAM Template tự động cấu hình **7 CloudWatch Alarms** cốt lõi và k�
   </div>
   <div style="margin-top: 14px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; font-size: 12.5px; color: #166534; display: flex; align-items: center; gap: 8px;">
     <i class="fas fa-paper-plane" style="color: #16a34a;"></i>
-    <span>Tất cả 7 Alarms trên tự động xuất tín hiệu sang <strong>Amazon SNS Topic: agentsys-alerts-topic</strong> để gửi thông báo tức thì.</span>
+    <span>Tất cả 7 Alarms trên tự động liên kết với <strong>Amazon SNS Topic: agentsys-alerts-topic</strong> để gửi email cảnh báo sự cố ngay lập tức.</span>
   </div>
 </div>
 {{< /rawhtml >}}
