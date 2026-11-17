@@ -34,7 +34,6 @@ Hàm Lambda **agentsys-ingest** (mã nguồn: apps/lambda\_handlers/ingest.py v�
 {{< rawhtml >}}
 <div class="pipeline-container">
   <div class="pipeline-header">
-    <i class="fas fa-brain"></i>
     <span>Luồng Xử Lý Chi Tiết: Thị Giác (Rekognition) & Thính Giác (Transcribe)</span>
   </div>
 
@@ -70,7 +69,6 @@ Hàm Lambda **agentsys-ingest** (mã nguồn: apps/lambda\_handlers/ingest.py v�
   <div class="pipeline-branch-grid">
     <div class="branch-card">
       <div class="branch-title">
-        <i class="fas fa-image" style="color: #3b82f6;"></i>
         <span>Nhánh Hình Ảnh (Image Pipeline)</span>
       </div>
       <div class="step-desc" style="margin-bottom: 8px;">Áp dụng cho ảnh chụp slide, bảng viết tay giảng đường:</div>
@@ -82,7 +80,6 @@ Hàm Lambda **agentsys-ingest** (mã nguồn: apps/lambda\_handlers/ingest.py v�
 
     <div class="branch-card audio">
       <div class="branch-title">
-        <i class="fas fa-microphone-alt" style="color: #8b5cf6;"></i>
         <span>Nhánh Giọng Nói / Video (Audio Pipeline)</span>
       </div>
       <div class="step-desc" style="margin-bottom: 8px;">Áp dụng cho bài giảng ghi âm MP3/WAV/MP4:</div>

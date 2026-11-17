@@ -34,7 +34,6 @@ The **agentsys-ingest** Lambda function (located in apps/lambda\_handlers/ingest
 {{< rawhtml >}}
 <div class="pipeline-container">
   <div class="pipeline-header">
-    <i class="fas fa-brain"></i>
     <span>Multimodal Ingestion Pipeline: Vision (Rekognition) & Speech (Transcribe)</span>
   </div>
 
@@ -70,7 +69,6 @@ The **agentsys-ingest** Lambda function (located in apps/lambda\_handlers/ingest
   <div class="pipeline-branch-grid">
     <div class="branch-card">
       <div class="branch-title">
-        <i class="fas fa-image" style="color: #3b82f6;"></i>
         <span>Image Pipeline (Amazon Rekognition)</span>
       </div>
       <div class="step-desc" style="margin-bottom: 8px;">Applied to lecture slides, whiteboard photos, diagrams:</div>
@@ -82,7 +80,6 @@ The **agentsys-ingest** Lambda function (located in apps/lambda\_handlers/ingest
 
     <div class="branch-card audio">
       <div class="branch-title">
-        <i class="fas fa-microphone-alt" style="color: #8b5cf6;"></i>
         <span>Audio / Video Pipeline (Amazon Transcribe)</span>
       </div>
       <div class="step-desc" style="margin-bottom: 8px;">Applied to recorded classroom lectures (MP3/WAV/MP4):</div>

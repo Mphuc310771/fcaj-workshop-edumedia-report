@@ -17,7 +17,6 @@ In traditional media catalogs, search queries fail when users cannot recall exac
 {{< rawhtml >}}
 <div class="pipeline-container">
   <div class="pipeline-header">
-    <i class="fas fa-search"></i>
     <span>5-Step Pipeline: Semantic Retrieval & Lecture Ranking</span>
   </div>
   <div class="pipeline-steps steps-5">

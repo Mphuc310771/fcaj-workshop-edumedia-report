@@ -77,19 +77,19 @@ To strike the right balance between rapid experimental learning and cost-effecti
 
 To prepare rigorously for oral defense before the academic and industry review committee, the following 3 deep architectural questions and quantitative answers are compiled:
 
-#### ❓ Question 1: "When extracting 1 keyframe every 30 seconds across 250 video minutes using ffmpeg, has this additional image volume been accounted for in the Scenario 2 Rekognition and Bedrock budget?"
+#### Question 1: "When extracting 1 keyframe every 30 seconds across 250 video minutes using ffmpeg, has this additional image volume been accounted for in the Scenario 2 Rekognition and Bedrock budget?"
 * **Authoritative Answer:** 
   Yes, this cost is fully absorbed within Scenario 2's variance buffer. Specifically: 250 minutes of video sampled at 1 frame / 30 seconds yields exactly **500 keyframes**. Routing these 500 frames through Amazon Rekognition (DetectLabels + DetectText) and Amazon Bedrock (Titan Multimodal Embeddings G1) incurs:
   $$\text{Incremental Cost} = (500 \times 2 \times \$0.001) + (500 \times \$0.00006) = \$1.03\text{ USD/month}$$
   This **$1.03 USD** expense fits comfortably within the **$4.50 USD contingency margin** (between the **$9.77** base and **$14.27 USD** ceiling) defined in our FinOps model.
 
-#### ❓ Question 2: "Why did the architecture adopt an LLM (Amazon Nova Micro) for Vietnamese query translation rather than the dedicated Amazon Translate service?"
+#### Question 2: "Why did the architecture adopt an LLM (Amazon Nova Micro) for Vietnamese query translation rather than the dedicated Amazon Translate service?"
 * **Authoritative Answer:** 
   Selecting Amazon Nova Micro over Amazon Translate provides two decisive FinOps and architectural advantages:
   1. **Cost Efficiency (~1,500x Cheaper):** Amazon Translate costs **$15.00 USD / 1M characters**. In contrast, `Amazon Nova Micro` on Bedrock is priced at just **$0.035 USD / 1M input tokens** (~3.5–4M characters), delivering a ~1,500x cost reduction for translation.
   2. **Single-Pass Multi-Tasking:** Within a single unified prompt invocation, Nova Micro performs user intent classification (Intent Routing), temporal/subject metadata filtering, and visual-context query translation into English for Titan Embeddings. This eliminates cross-service network latency compared to serial pipeline calls.
 
-#### ❓ Question 3: "Lambda uses ffmpeg to extract frames from large video files (hundreds of MBs). Lambda's default free /tmp storage is only 512MB; is there a risk of disk overflow or extra /tmp provisioning fees?"
+#### Question 3: "Lambda uses ffmpeg to extract frames from large video files (hundreds of MBs). Lambda's default free /tmp storage is only 512MB; is there a risk of disk overflow or extra /tmp provisioning fees?"
 * **Authoritative Answer:** 
   The system utilizes **Streaming Frame Extraction via S3 Presigned URLs**. Rather than downloading entire `.mp4` video files to Lambda's local `/tmp` disk, Lambda streams the presigned URL directly into the ffmpeg execution command:
   ```bash

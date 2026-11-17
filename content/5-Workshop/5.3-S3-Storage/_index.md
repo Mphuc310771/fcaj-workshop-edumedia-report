@@ -50,7 +50,6 @@ Instead of binding S3 events directly to Lambda, AgentSys introduces **Amazon SQ
 {{< rawhtml >}}
 <div class="pipeline-container">
   <div class="pipeline-header">
-    <i class="fas fa-layer-group"></i>
     <span>SQS Buffer Queue & Dead-Letter Queue (DLQ) Architecture</span>
   </div>
   <div class="pipeline-steps steps-4">

@@ -50,7 +50,6 @@ Thay vì kết nối trực tiếp sự kiện S3 vào Lambda, AgentSys sử d�
 {{< rawhtml >}}
 <div class="pipeline-container">
   <div class="pipeline-header">
-    <i class="fas fa-layer-group"></i>
     <span>Kiến trúc Hàng đợi Buffer SQS & Dead-Letter Queue (DLQ)</span>
   </div>
   <div class="pipeline-steps steps-4">

@@ -156,37 +156,37 @@ Mr. Truong demonstrated the bot's workflow through real-time multi-account testi
 {{< rawhtml >}}
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Question 1: Enterprise Project Context
+    Question 1: Enterprise Project Context
   </div>
   <div class="qa-question">
-    <strong>❓ Question:</strong> How does the bot acquire enterprise project context and internal policies?
+    <strong>Question:</strong> How does the bot acquire enterprise project context and internal policies?
   </div>
   <div class="qa-answer">
-    <strong>💡 Speaker (Mr. Truong):</strong> Via <strong>Model Context Protocol (MCP)</strong> integrated with internal Confluence documentation, ensuring triage decisions align with standard corporate operating procedures automatically.
+    <strong>Speaker (Mr. Truong):</strong> Via <strong>Model Context Protocol (MCP)</strong> integrated with internal Confluence documentation, ensuring triage decisions align with standard corporate operating procedures automatically.
   </div>
 </div>
 
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Question 2: Preventing LLM Hallucinations
+    Question 2: Preventing LLM Hallucinations
   </div>
   <div class="qa-question">
-    <strong>❓ Question:</strong> How to prevent AI hallucinations from misrouting emergency channel messages?
+    <strong>Question:</strong> How to prevent AI hallucinations from misrouting emergency channel messages?
   </div>
   <div class="qa-answer">
-    <strong>💡 Speaker (Mr. Truong):</strong> Maintain a dual design: <strong>deterministic rules (channel mappings, credentials) are strictly hard-coded in configuration files</strong>, while natural language reasoning is delegated to the LLM.
+    <strong>Speaker (Mr. Truong):</strong> Maintain a dual design: <strong>deterministic rules (channel mappings, credentials) are strictly hard-coded in configuration files</strong>, while natural language reasoning is delegated to the LLM.
   </div>
 </div>
 
 <div class="qa-card">
   <div class="qa-header">
-    <i class="fas fa-question-circle text-blue-500"></i> Question 3: Secure Command Execution
+    Question 3: Secure Command Execution
   </div>
   <div class="qa-question">
-    <strong>❓ Question:</strong> How to manage permissions and safety when the bot has rights to execute commands?
+    <strong>Question:</strong> How to manage permissions and safety when the bot has rights to execute commands?
   </div>
   <div class="qa-answer">
-    <strong>💡 Speaker (Mr. Truong):</strong> Enforce the Principle of Least Privilege, execute agents within isolated sandbox containers, and employ strict hook validators on all inputs and outputs.
+    <strong>Speaker (Mr. Truong):</strong> Enforce the Principle of Least Privilege, execute agents within isolated sandbox containers, and employ strict hook validators on all inputs and outputs.
   </div>
 </div>
 {{< /rawhtml >}}
