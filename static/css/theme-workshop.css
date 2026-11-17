@@ -283,14 +283,19 @@ div.notices.warning p {
   margin: 0 !important;
 }
 
-#body-inner p > em {
+#body-inner p:has(img) + p,
+#body-inner p:has(a[data-featherlight]) + p {
   display: block !important;
   text-align: center !important;
   font-size: 0.88rem !important;
   color: #64748b !important;
-  margin-top: 0.5rem !important;
+  margin-top: -0.25rem !important;
   margin-bottom: 2rem !important;
   font-style: italic !important;
+}
+
+#body-inner p em {
+  font-style: italic;
 }
 
 /* ==========================================================================
