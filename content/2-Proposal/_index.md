@@ -51,7 +51,7 @@ In academic and professional environments, students and researchers accumulate t
 ---
 
 ## 4. Proposed System Architecture
-AgentSys conforms strictly to **AWS Cloud-Native Serverless** blueprints:
+EduMedia AI conforms strictly to **AWS Cloud-Native Serverless** blueprints:
 
 ![EduMedia AI AWS Architecture](/images/2-Proposal/architecture.png)
 

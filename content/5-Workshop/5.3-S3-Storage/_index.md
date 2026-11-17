@@ -115,8 +115,8 @@ Instead of binding S3 events directly to Lambda, EduMedia AI introduces **Amazon
 ## 4. Testing Media Uploads via Presigned URL
 
 ```bash
-# 1. Retrieve API Endpoint and API Key
-API_ENDPOINT=$(aws cloudformation describe-stacks --stack-name agentsys --query "Stacks[0].Outputs[?OutputKey=='ApiEndpoint'].OutputValue" --output text)
+# 1. Retrieve API Endpoint and API Key (edumedia-ai or agentsys)
+API_ENDPOINT=$(aws cloudformation describe-stacks --stack-name edumedia-ai --query "Stacks[0].Outputs[?OutputKey=='ApiEndpoint'].OutputValue" --output text 2>/dev/null || aws cloudformation describe-stacks --stack-name agentsys --query "Stacks[0].Outputs[?OutputKey=='ApiEndpoint'].OutputValue" --output text)
 API_KEY="dev-local-api-key"  # Or your configured Parameter ApiKey from SAM deployment
 
 # 2. Request a Presigned Upload URL

@@ -108,22 +108,22 @@ aws s3 rm s3://$BUCKET_NAME --recursive
 ### Step 2: Delete CloudFormation Stack via SAM CLI
 ```bash
 # Teardown the complete SAM stack (API Gateway, Lambda, DynamoDB, SQS, Alarms)
-cd agent_sys
-sam delete --stack-name agentsys --no-prompts --region us-east-1
+cd edumedia-ai
+sam delete --stack-name edumedia-ai --no-prompts --region us-east-1
 ```
 
-*(Alternatively, run the automated 7-step teardown script:)*
+*(Alternatively, run the automated 7-step teardown script):*
 ```bash
-bash scripts/cleanup.sh us-east-1 agentsys
+bash scripts/cleanup.sh us-east-1 edumedia-ai
 ```
 
-*This command automatically deprovisions API Gateway, Lambda Functions, IAM Execution Roles, DynamoDB Table AgentSysMediaMetadata, SQS Queues, DLQs, and CloudWatch Alarms within 2 minutes.*
+*This command automatically deprovisions API Gateway, Lambda Functions, IAM Execution Roles, DynamoDB Table, SQS Queues, DLQs, and CloudWatch Alarms within 2 minutes.*
 
 ---
 
 ### Step 3: Verify 100% Resource Deprovisioning
 ```bash
 # Verify stack deletion status
-aws cloudformation describe-stacks --stack-name agentsys --region us-east-1
+aws cloudformation describe-stacks --stack-name edumedia-ai --region us-east-1
 ```
-*The response Stack with id agentsys does not exist confirms all cloud resources have been cleanly torn down, returning your monthly bill to **$0.00 USD**!*
+*The response Stack with id edumedia-ai does not exist confirms all cloud resources have been cleanly torn down, returning your monthly bill to **$0.00 USD**!*

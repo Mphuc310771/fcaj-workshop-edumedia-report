@@ -18,7 +18,7 @@ pre: " <b> 1.6. </b> "
 ### 2. Các công việc triển khai trong tuần:
 | Thứ | Công việc cụ thể | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
 |:---:|---|:---:|:---:|---|
-| **2** | - Khởi tạo cấu trúc thư mục dự án agent_sys/.<br>- Viết module apps/workers/ingestion.py tiếp nhận thông điệp từ hàng đợi SQS. | 21/09/2026 | 21/09/2026 | [AWS Lambda Programming Model](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model.html) |
+| **2** | - Khởi tạo cấu trúc thư mục dự án edumedia-ai/.<br>- Viết module apps/workers/ingestion.py tiếp nhận thông điệp từ hàng đợi SQS. | 21/09/2026 | 21/09/2026 | [AWS Lambda Programming Model](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model.html) |
 | **3** | - Tối ưu hóa container warm-up.<br>- Khởi tạo các Boto3 clients (S3, Rekognition, Transcribe) bên ngoài hàm handler để tái sử dụng connection pool. | 22/09/2026 | 22/09/2026 | [Lambda Best Practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html) |
 | **4** | - Viết hàm phân loại media detect_media_type.<br>- Phân biệt chính xác giữa ảnh (JPG, PNG, WEBP), âm thanh (MP3, WAV, M4A) và video (MP4, MOV). | 23/09/2026 | 23/09/2026 | Python mimetypes Module |
 | **5** | - Viết bộ unit test đầu tiên kiểm thử logic router định dạng file bằng pytest.<br>- Kiểm tra các tình huống tệp không có phần mở rộng hoặc sai định dạng. | 24/09/2026 | 24/09/2026 | [Pytest Documentation](https://docs.pytest.org/) |

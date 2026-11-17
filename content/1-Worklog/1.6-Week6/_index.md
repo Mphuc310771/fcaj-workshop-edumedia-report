@@ -18,7 +18,7 @@ pre: " <b> 1.6. </b> "
 ### 2. Daily Tasks & Schedule:
 | Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
 |:---:|---|:---:|:---:|---|
-| **Mon** | - Structured agent_sys/ project hierarchy.<br>- Authored apps/workers/ingestion.py consuming SQS messages. | 21/09/2026 | 21/09/2026 | [AWS Lambda Programming Model](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model.html) |
+| **Mon** | - Structured edumedia-ai/ project hierarchy.<br>- Authored apps/workers/ingestion.py consuming SQS messages. | 21/09/2026 | 21/09/2026 | [AWS Lambda Programming Model](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model.html) |
 | **Tue** | - Optimized container warm-up behavior.<br>- Initialized Boto3 clients (S3, Rekognition, Transcribe) in global scope outside handler. | 22/09/2026 | 22/09/2026 | [Lambda Best Practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html) |
 | **Wed** | - Implemented detect_media_type router.<br>- Differentiated images (JPG, PNG, WEBP), audio (MP3, WAV, M4A), and video (MP4, MOV). | 23/09/2026 | 23/09/2026 | Python mimetypes Module |
 | **Thu** | - Authored initial pytest unit test suites.<br>- Verified media routing logic across diverse and unrecognized file extensions. | 24/09/2026 | 24/09/2026 | [Pytest Documentation](https://docs.pytest.org/) |

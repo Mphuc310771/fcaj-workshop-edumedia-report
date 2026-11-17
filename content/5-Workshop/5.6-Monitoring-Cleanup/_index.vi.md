@@ -108,22 +108,22 @@ aws s3 rm s3://$BUCKET_NAME --recursive
 ### Bước 2: Xóa toàn bộ CloudFormation Stack bằng SAM CLI
 ```bash
 # Go bo toan bo ha tang SAM Stack (API Gateway, Lambda, DynamoDB, SQS, Alarms)
-cd agent_sys
-sam delete --stack-name agentsys --no-prompts --region us-east-1
+cd edumedia-ai
+sam delete --stack-name edumedia-ai --no-prompts --region us-east-1
 ```
 
-*(Hoặc chạy script teardown tự động chuẩn hóa 7 bước:)*
+*(Hoặc chạy script teardown tự động chuẩn hóa 7 bước nếu stack đặt tên agentsys):*
 ```bash
-bash scripts/cleanup.sh us-east-1 agentsys
+bash scripts/cleanup.sh us-east-1 edumedia-ai
 ```
 
-*Lệnh này sẽ tự động xóa sạch toàn bộ: API Gateway, các Lambda Functions, IAM Execution Roles, bảng DynamoDB AgentSysMediaMetadata, SQS Queues, DLQ và CloudWatch Alarms trong vòng 2 phút.*
+*Lệnh này sẽ tự động xóa sạch toàn bộ: API Gateway, các Lambda Functions, IAM Execution Roles, bảng DynamoDB, SQS Queues, DLQ và CloudWatch Alarms trong vòng 2 phút.*
 
 ---
 
 ### Bước 3: Xác minh trạng thái dọn dẹp sạch sẽ
 ```bash
 # Kiem tra trang thai stack sau khi go bo
-aws cloudformation describe-stacks --stack-name agentsys --region us-east-1
+aws cloudformation describe-stacks --stack-name edumedia-ai --region us-east-1
 ```
-*Kết quả thông báo Stack with id agentsys does not exist xác nhận toàn bộ tài nguyên đã được thu hồi hoàn toàn, chi phí về đúng **$0.00 USD**!*
+*Kết quả thông báo Stack with id edumedia-ai does not exist xác nhận toàn bộ tài nguyên đã được thu hồi hoàn toàn, chi phí về đúng **$0.00 USD**!*

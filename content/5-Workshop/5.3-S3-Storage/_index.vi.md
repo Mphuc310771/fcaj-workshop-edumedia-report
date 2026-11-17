@@ -115,8 +115,8 @@ Thay vì kết nối trực tiếp sự kiện S3 vào Lambda, EduMedia AI sử 
 ## 4. Kiểm thử Upload Tệp Bằng Presigned URL Qua CLI
 
 ```bash
-# 1. Lay API Endpoint va API Key tu Stack
-API_ENDPOINT=$(aws cloudformation describe-stacks --stack-name agentsys --query "Stacks[0].Outputs[?OutputKey=='ApiEndpoint'].OutputValue" --output text --region us-east-1)
+# 1. Lay API Endpoint va API Key tu Stack (edumedia-ai hoac agentsys)
+API_ENDPOINT=$(aws cloudformation describe-stacks --stack-name edumedia-ai --query "Stacks[0].Outputs[?OutputKey=='ApiEndpoint'].OutputValue" --output text --region us-east-1 2>/dev/null || aws cloudformation describe-stacks --stack-name agentsys --query "Stacks[0].Outputs[?OutputKey=='ApiEndpoint'].OutputValue" --output text --region us-east-1)
 API_KEY="dev-local-api-key"  # Gia tri mac dinh hoac ApiKey da nhap khi deploy SAM
 
 # 2. Lay Presigned URL tu API

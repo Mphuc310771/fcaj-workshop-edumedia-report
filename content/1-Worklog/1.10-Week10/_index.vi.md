@@ -10,7 +10,7 @@ pre: " <b> 1.10. </b> "
 *Thời gian thực hiện: 19/10/2026 – 23/10/2026*
 
 ### 1. Mục tiêu tuần 10:
-* Khởi tạo và thiết kế giao diện Web Gallery hiện đại (React, Tailwind CSS, Vite) kết nối trực tiếp với backend REST API của AgentSys.
+* Khởi tạo và thiết kế giao diện Web Gallery hiện đại (React, Tailwind CSS, Vite) kết nối trực tiếp với backend REST API của EduMedia AI.
 * Hiện thực hóa tính năng Media Player tương tác: Click-to-Seek đồng bộ trực tiếp theo timestamp câu thoại trong bản ghi transcript bài giảng.
 * Thiết lập các chốt chặn kiểm soát và bảo vệ dữ liệu hệ thống (System Guardrails): cơ chế chặn xóa tệp gốc được bảo vệ (HTTP 403), giới hạn dung lượng tải lên (<= 25MB) và cấu hình chính sách CORS trên API Gateway.
 * Tích hợp bộ lọc tìm kiếm theo danh mục (category chips), môn học và kết nối endpoint tra cứu thông minh `POST /api/v1/media/agent/query`.
@@ -25,7 +25,7 @@ pre: " <b> 1.10. </b> "
 | **6** | - Kiểm thử trải nghiệm người dùng trên máy cục bộ, tối ưu tốc độ render component.<br>- Kết nối giao diện tìm kiếm với API Bedrock Agent Query trả về Search Plan trực quan. | 23/10/2026 | 23/10/2026 | [React Hooks Documentation](https://react.dev/) |
 
 ### 3. Kết quả đạt được tuần 10:
-* Hoàn thiện ứng dụng Web Gallery hoàn chỉnh kết nối mượt mà với các API Serverless của AgentSys.
+* Hoàn thiện ứng dụng Web Gallery hoàn chỉnh kết nối mượt mà với các API Serverless của EduMedia AI.
 * Tính năng Click-to-Seek media player đồng bộ mốc thời gian bài giảng hoạt động chính xác, nâng cao trải nghiệm tra cứu tư liệu học tập.
 * Các chốt chặn bảo vệ và kiểm duyệt input giúp hệ thống ngăn chặn hiệu quả thao tác xóa ngoài ý muốn và chống tràn tải dữ liệu lớn.
 * Giao diện tìm kiếm thông minh hiển thị kết quả phân loại môn học và trích dẫn bằng chứng rõ ràng.

@@ -86,13 +86,18 @@ Trong file SAM Template (infra/template.yaml), hệ thống tự động khởi 
 Thực thi bộ kiểm thử unit test cục bộ với Pytest để xác minh tính đúng đắn của các module chính (pipeline ingest, xác thực API, và xử lý Bedrock) trước khi deploy lên AWS:
 
 ```bash
-cd agent_sys
+# 1. Clone repository mã nguồn dự án EduMedia AI
+git clone https://github.com/Mphuc310771/edumedia-ai.git
+cd edumedia-ai
+
+# 2. Khởi tạo và kích hoạt môi trường ảo Python
 python -m venv venv
 # Windows:
 .\venv\Scripts\activate
 # Linux/macOS:
 source venv/bin/activate
 
+# 3. Cài đặt thư viện phụ thuộc và chạy 143 unit test cases
 pip install -r requirements.txt
 pytest -v
 ```
@@ -102,8 +107,9 @@ pytest -v
 
 ## 6. Đóng Gói & Triển Khai Bằng AWS SAM (Build & Deploy)
 
+Từ thư mục dự án `edumedia-ai`:
+
 ```bash
-cd agent_sys
 sam build -t infra/template.yaml
 sam deploy --guided
 ```
@@ -111,7 +117,7 @@ sam deploy --guided
 ### Các thông số nhập trong SAM Guided Deploy:
 | Tham số | Giá trị đề xuất | Ý nghĩa |
 | :--- | :--- | :--- |
-| **Stack Name** | agentsys | Tên CloudFormation Stack |
+| **Stack Name** | edumedia-ai | Tên CloudFormation Stack (hoặc agentsys) |
 | **AWS Region** | us-east-1 | Khu vực triển khai hỗ trợ đầy đủ Bedrock |
 | **Parameter ApiKey** | dev-local-api-key | Khóa bảo vệ API (Header X-API-Key) |
 | **Parameter FrontendOriginUrl** | \* (hoặc URL Vercel/CloudFront) | Domain được cấp phép CORS |

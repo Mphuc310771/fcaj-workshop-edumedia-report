@@ -29,7 +29,7 @@ pre: " <b> 1.1. </b> "
 * Completed local dev environment configuration with AWS CLI credentials targeting region us-east-1.
 * Secured AWS account with MFA and adopted dedicated IAM user credentials following AWS security best practices.
 * Established GitHub repository with organized source code structure and bilingual documentation hierarchy.
-* Outlined core architecture for AgentSys: adopted a Pay-as-you-go Serverless model (Lambda, S3, DynamoDB On-Demand) that scales to zero during idle periods, eliminating recurring server maintenance expenses.
+* Outlined core architecture for EduMedia AI: adopted a Pay-as-you-go Serverless model (Lambda, S3, DynamoDB On-Demand) that scales to zero during idle periods, eliminating recurring server maintenance expenses.
 
 ### 4. References:
 * [FCAJ HCM Rules & Guidelines Portal](https://hcm-rules.awsfcaj.com/)
