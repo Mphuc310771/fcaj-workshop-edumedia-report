@@ -8,7 +8,7 @@ pre: " <b> 5.7. </b> "
 
 # 5.7. Discussion: Architecture Trade-offs & Enterprise Roadmap
 
-During the initial Proof of Concept (PoC) phase for the First Cloud AI Journey (FCAJ), the core engineering objective for AgentSys was to build a production-grade multimodal AI media catalog while adhering strictly to a **Zero-Idle-Cost, Lean Serverless architecture**.
+During the initial Proof of Concept (PoC) phase for the First Cloud AI Journey (FCAJ), the core engineering objective for EduMedia AI was to build a production-grade multimodal AI media catalog while adhering strictly to a **Zero-Idle-Cost, Lean Serverless architecture**.
 
 To strike the right balance between rapid experimental learning and cost-effectiveness, deliberate architectural trade-offs were made. Below is a rigorous technical evaluation of the 4 key limitations of the current architecture along with target enterprise-grade AWS solutions for production scale.
 
@@ -16,7 +16,7 @@ To strike the right balance between rapid experimental learning and cost-effecti
 
 ### 1. In-Memory Vector Search on Lambda RAM
 * **Current PoC Status:**
-  DynamoDB is a document/key-value NoSQL database without native Approximate Nearest Neighbor (ANN) vector indexing. AgentSys implements a Two-Stage Search strategy: Amazon Bedrock acts as Query Planner extracting metadata categories for sub-15ms DynamoDB GSI queries (category-index), followed by in-memory Cosine Similarity scoring over a capped candidate pool (100 newest items) within Lambda RAM.
+  DynamoDB is a document/key-value NoSQL database without native Approximate Nearest Neighbor (ANN) vector indexing. EduMedia AI implements a Two-Stage Search strategy: Amazon Bedrock acts as Query Planner extracting metadata categories for sub-15ms DynamoDB GSI queries (category-index), followed by in-memory Cosine Similarity scoring over a capped candidate pool (100 newest items) within Lambda RAM.
 * **Limitations:**
   While providing zero idle cost, capping the candidate pool at 100 items causes recall degradation when catalogs exceed tens of thousands of items. Conversely, unbounded table scans incur linear `O(N)` cost and latency penalties.
 * **AWS Enterprise Target:**
@@ -65,7 +65,7 @@ To strike the right balance between rapid experimental learning and cost-effecti
 
 ### 5. DynamoDB 400KB Item Guard (S3-Offloading) & High-Performance Warm Containers
 * **Current PoC Status & Implemented Solution:**
-  - **S3-Offloading (>250KB):** DynamoDB enforces a strict 400KB limit per item. Long audio lectures or multi-speaker presentations can produce transcripts exceeding 400KB–1MB. To eliminate ValidationException: Item size has exceeded the maximum allowed size of 400KB, AgentSys automatically detects transcripts larger than 250KB, writes the raw full transcript to Amazon S3 (transcripts/raw/{file\_id}.json), and stores a 15,000-character preview snippet alongside transcript\_s3\_uri and has\_extended\_transcript: true in DynamoDB. The React frontend supports in-modal viewing and direct raw JSON download.
+  - **S3-Offloading (>250KB):** DynamoDB enforces a strict 400KB limit per item. Long audio lectures or multi-speaker presentations can produce transcripts exceeding 400KB–1MB. To eliminate ValidationException: Item size has exceeded the maximum allowed size of 400KB, EduMedia AI automatically detects transcripts larger than 250KB, writes the raw full transcript to Amazon S3 (transcripts/raw/{file\_id}.json), and stores a 15,000-character preview snippet alongside transcript\_s3\_uri and has\_extended\_transcript: true in DynamoDB. The React frontend supports in-modal viewing and direct raw JSON download.
   - **Lambda Warm Container Reuse:** Preserves Boto3 connection pools and TLS handshakes across invocations, removing cold connection teardowns and saving 50–120ms per SQS message or API request.
   - **In-Memory Query Plan Cache (\_PLAN\_CACHE):** Caches parsed search plans in Lambda RAM (LRU, up to 256 entries, 1-hour TTL). Under 50 concurrent requests, this cache provides a **3.74x** speedup (reducing mean latency from ~3,194ms down to ~855ms) and saves 100% of LLM token costs on repeated queries.
 * **AWS Enterprise Target:**

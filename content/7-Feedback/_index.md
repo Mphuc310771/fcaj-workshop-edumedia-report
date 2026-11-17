@@ -40,4 +40,4 @@ To further enhance future cohorts of the First Cloud AI Journey program, I offer
 * **Reasons:**
   * **Bridging Theory and Practice:** FCAJ provides the premier bridge connecting academic computer science education with production cloud-native engineering standards.
   * **Elite Industry Exposure:** Direct mentorship from leading AWS cloud experts and hands-on access to the latest generative AI and serverless technologies.
-  * **Strong Career Foundations:** Over 12 weeks, students deliver an end-to-end production-grade system (AgentSys) with Infrastructure as Code, establishing a robust portfolio for future Cloud, DevOps, or Solutions Architect careers.
+  * **Strong Career Foundations:** Over 12 weeks, students deliver an end-to-end production-grade system (EduMedia AI) with Infrastructure as Code, establishing a robust portfolio for future Cloud, DevOps, or Solutions Architect careers.

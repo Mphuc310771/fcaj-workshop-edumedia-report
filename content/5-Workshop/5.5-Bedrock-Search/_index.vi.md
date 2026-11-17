@@ -12,7 +12,7 @@ pre: " <b> 5.5. </b> "
 
 ## 1. Cơ chế Hoạt động của AI Search Agent
 
-Trong các hệ thống tìm kiếm đa phương tiện truyền thống, việc tìm kiếm dựa trên từ khóa đơn thuần thường thất bại vì người dùng không nhớ chính xác từ ngữ. **AgentSys** sử dụng **Amazon Bedrock (Amazon Nova Lite / Claude 3)** làm **Query Planner** kết hợp với **DynamoDB GSI Hybrid Search**:
+Trong các hệ thống tìm kiếm đa phương tiện truyền thống, việc tìm kiếm dựa trên từ khóa đơn thuần thường thất bại vì người dùng không nhớ chính xác từ ngữ. **EduMedia AI** sử dụng **Amazon Bedrock (Amazon Nova Lite / Claude 3)** làm **Query Planner** kết hợp với **DynamoDB GSI Hybrid Search**:
 
 {{< rawhtml >}}
 <div class="pipeline-container">
@@ -86,14 +86,18 @@ Bảng AgentSysMediaMetadata được cấu hình **GSI category-index** với:
 
 ## 3. Thực Hành: Kiểm Thử Hệ Thống & Truy Vấn Ngôn Ngữ Tự Nhiên (Validation & Query Lab)
 
-### 3.1. Phân phối CDN CloudFront & Định tuyến API Gateway
-Hệ thống sử dụng Amazon CloudFront làm điểm truy cập HTTPS toàn cầu và API Gateway HTTP API điều hướng request tới các hàm Lambda:
+### 3.1. Phân phối CDN CloudFront & Web Gallery Trực Tuyến (Production Live Demo)
+Hệ thống triển khai giao diện Web trực quan và các API backend sẵn sàng phục vụ người dùng thực tế:
+
+* **Đường dẫn Live Demo Sản phẩm (Web Gallery Production):** [https://d27yx88v3wm0yt.cloudfront.net](https://d27yx88v3wm0yt.cloudfront.net)
+* **Backend API Gateway Endpoint:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com`
+* **Swagger UI Documentation:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com/docs`
 
 ![Phân phối Amazon CloudFront CDN cho Web Frontend](/images/5-Workshop/evidence/01-cloudfront-distributions.png)
 *Hình: Phân phối CloudFront CDN phân phối Web Frontend với HTTPS bảo mật.*
 
 ![Giao diện Web Frontend EduMedia AI chạy trên CloudFront CDN hiển thị thư viện tài liệu đa phương thức](/images/5-Workshop/evidence/web-gallery.png)
-*Hình: Giao diện Single Page Application (SPA) trực quan của AgentSys phân phối qua CloudFront CDN.*
+*Hình: Giao diện Single Page Application (SPA) trực quan của EduMedia AI phân phối qua CloudFront CDN.*
 
 ![Cấu hình Route /{proxy+} ANY và Lambda Integration trên Amazon API Gateway](/images/5-Workshop/evidence/04-api-gateway-routes.png)
 *Hình: Tuyến đường /{proxy+} ANY trên API Gateway điều hướng request vào Lambda API.*
@@ -103,13 +107,13 @@ Hệ thống sử dụng Amazon CloudFront làm điểm truy cập HTTPS toàn c
 ### 3.2. Kiểm tra Endpoint Health Check & Tài liệu OpenAPI (Swagger UI)
 Hệ thống FastAPI trên AWS Lambda tự động tạo tài liệu OpenAPI chuẩn và endpoint `/health` kiểm tra trạng thái các thành phần:
 
-![AgentSys Live Healthcheck Endpoint](/images/5-Workshop/evidence/15-api-health.png)
+![EduMedia AI Live Healthcheck Endpoint](/images/5-Workshop/evidence/15-api-health.png)
 *Hình: Live API Health Check phản hồi HTTP 200 xác nhận trạng thái các dịch vụ S3, DynamoDB, Bedrock.*
 
-![AgentSys API Swagger Documentation](/images/5-Workshop/evidence/13-swagger-ui-1.png)
+![EduMedia AI API Swagger Documentation](/images/5-Workshop/evidence/13-swagger-ui-1.png)
 *Hình: Giao diện Swagger UI trực quan cho các endpoint tìm kiếm và quản lý media.*
 
-![AgentSys API Endpoints Overview](/images/5-Workshop/evidence/14-swagger-ui-2.png)
+![EduMedia AI API Endpoints Overview](/images/5-Workshop/evidence/14-swagger-ui-2.png)
 *Hình: Danh sách các schema dữ liệu và route API được triển khai.*
 
 ---

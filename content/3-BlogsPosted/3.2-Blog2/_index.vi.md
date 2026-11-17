@@ -56,7 +56,7 @@ Dưới đây là sơ đồ chi tiết minh họa sự khác biệt giữa hai c
 
 ---
 
-### 4. Giải pháp trong AgentSys: Chuyển sang Query trên Global Secondary Index (GSI)
+### 4. Giải pháp trong EduMedia AI: Chuyển sang Query trên Global Secondary Index (GSI)
 
 Để xử lý dứt điểm vụ này mà không phải sửa lại khóa chính file\_id của bảng gốc AgentSysMediaMetadata, mình tạo thêm một GSI tên là category-index với cấu hình:
 
@@ -125,7 +125,7 @@ Dùng GSI giải quyết êm được bài toán đọc, nhưng lúc đưa vào 
 
 1. **Chi phí ghi tăng thêm (Write Amplification):** Mỗi khi hàm Lambda Ingest Worker thêm file mới hoặc cập nhật metadata trên bảng chính, DynamoDB sẽ tự động kích hoạt thêm một thao tác ghi bất đồng bộ sang GSI và tính thêm WCU. Việc giới hạn các trường bằng Projection: INCLUDE giúp giảm đáng kể lượng dữ liệu phải ghi sang GSI.
 2. **Độ trễ đồng bộ dữ liệu (Eventual Consistency):** Khi Ingest Worker đẩy dữ liệu vào bảng chính, DynamoDB cần vài chục mili-giây để nhân bản sang GSI theo cơ chế bất đồng bộ (asynchronous replication). Do đó GSI chỉ hỗ trợ Eventually Consistent Read, nhưng độ trễ tích tắc này hoàn toàn đáp ứng tốt trải nghiệm duyệt media trên web.
-3. **Nguy cơ lệch tải phân vùng (Hot Partition):** Một partition vật lý của DynamoDB chịu tải tối đa **3.000 RCU** và **1.000 WCU**. Với quy mô của AgentSys hiện tại thì khóa phân vùng category chạy rất thoải mái. Tuy nhiên với các hệ thống lớn có hàng chục ngàn lượt truy cập mỗi giây dồn vào đúng một danh mục, chúng ta sẽ cần áp dụng thêm kỹ thuật Write Sharding (gắn thêm hậu tố ngẫu nhiên kiểu study#1, study#2...) để chia tải ra nhiều partition vật lý.
+3. **Nguy cơ lệch tải phân vùng (Hot Partition):** Một partition vật lý của DynamoDB chịu tải tối đa **3.000 RCU** và **1.000 WCU**. Với quy mô của EduMedia AI hiện tại thì khóa phân vùng category chạy rất thoải mái. Tuy nhiên với các hệ thống lớn có hàng chục ngàn lượt truy cập mỗi giây dồn vào đúng một danh mục, chúng ta sẽ cần áp dụng thêm kỹ thuật Write Sharding (gắn thêm hậu tố ngẫu nhiên kiểu study#1, study#2...) để chia tải ra nhiều partition vật lý.
 
 ---
 
