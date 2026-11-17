@@ -15,13 +15,13 @@ pre: " <b> 7. </b> "
 ---
 
 ### 1. Overall Impressions of the FCAJ Internship Program
-The 12-week internship at the **First Cloud AI Journey (FCAJ) — AWS Vietnam** program provided valuable practical exposure to cloud computing and Generative AI within an enterprise environment. Working at the Bitexco office and implementing the hands-on project (EduMedia AI) helped reinforce my foundational knowledge of cloud infrastructure, improve technical research capabilities, and deepen my understanding of Serverless architectures with AWS SAM, cost optimization, and operational best practices.
+The 12-week internship at the **First Cloud AI Journey (FCAJ) — AWS Vietnam** program provided valuable practical exposure to cloud computing and Generative AI within an enterprise environment. The hybrid internship model combining scheduled office sessions at Bitexco with independent project development (EduMedia AI) helped reinforce my foundational knowledge of cloud infrastructure, improve technical research capabilities, and deepen my understanding of Serverless architectures with AWS SAM, cost optimization, and operational best practices.
 
 ---
 
 ### 2. Satisfaction Level
 * **Overall Rating:** **Highly Satisfied (5/5 Stars)**.
-* **Environment & Facilities:** The Bitexco office is modern, well-equipped, and quiet with stable Internet connectivity, providing an excellent setting for study, research, and project development.
+* **Environment & Facilities:** The Bitexco office is modern, well-equipped, and quiet with stable Internet connectivity during scheduled on-site working sessions.
 * **Program Support:** The program administration provided timely support regarding administrative procedures, attendance management, and provisioning AWS practice accounts throughout the project lifecycle.
 * **Program Content:** The curriculum provided structured orientation on AWS cloud services, practical project development, and opportunities to participate in major technology events (AWS Community Day, GenAI Hackathon), broadening real-world cloud industry perspectives.
 
