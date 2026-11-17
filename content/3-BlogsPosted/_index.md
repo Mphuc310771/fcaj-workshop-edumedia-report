@@ -17,3 +17,8 @@ Deconstructs the three critical failure modes of push-based S3 direct Lambda tri
 
 ### [Blog 2 - DynamoDB Query Optimization: Limitations of FilterExpression and the Global Secondary Index Solution](3.2-blog2/)
 Provides an in-depth mechanical teardown of DynamoDB storage layers: explaining why `Scan` with `FilterExpression` incurs 100% RCU disk consumption prior to RAM filtering and causes Empty Page Pagination on AWS Lambda. Demonstrates an O(1) GSI partition routing design (`category-index`) reducing RCUs by 99.98% and latencies to under 15ms.
+
+---
+
+### [Blog 3 - Multimodal Semantic Search with Bedrock Titan Embeddings: Optimizing 256-Dimension Vectors](3.3-blog3/)
+Deconstructs the architectural pitfalls of persisting 1536-dimensional vectors in Serverless NoSQL (violating DynamoDB's 400KB item ceiling, driving up WCU/RCU costs, and inflating Lambda Cosine Similarity latency). Implements Amazon Titan Text Embeddings V2 256-dimensional sub-vector truncation with unit vector dot-product optimization—cutting storage by 76%, accelerating vector similarity 6x, and incorporating a graceful fallback to lexical indexing during Bedrock quota throttling.

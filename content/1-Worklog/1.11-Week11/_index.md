@@ -13,7 +13,7 @@ pre: " <b> 1.11. </b> "
 * Construct an automated unit test suite in Pytest mocking AWS SDK operations using moto and unittest.mock, achieving 143 passing tests with 83.69% codebase coverage.
 * Execute a burst stress benchmark simulating 50 concurrent uploads to validate load leveling resilience and SQS buffer queuing.
 * Configure 7 CloudWatch Alarms linked to SNS Topic agentsys-alerts-topic satisfying production operational criteria.
-* Author 2 deep-dive technical blogs (S3-SQS-Lambda, DynamoDB GSI) and publish them to the AWS Study Group community.
+* Author 3 deep-dive technical blogs (S3-SQS-Lambda, DynamoDB GSI, Bedrock Titan 256-d Embeddings) and publish them to the AWS Study Group community.
 
 ### 2. Daily Tasks & Schedule:
 | Day | Detailed Tasks | Start Date | Completion Date | Reference Documentation |
@@ -21,14 +21,14 @@ pre: " <b> 1.11. </b> "
 | **Mon** | - Configured tests/ directory structure.<br>- Authored unit tests for SQS consumption and format routing mocking S3 and DynamoDB via moto. | 26/10/2026 | 26/10/2026 | [Moto Library](http://docs.getmoto.org/) |
 | **Tue** | - Expanded test suite across edge scenarios: corrupt payloads, Bedrock latency timeouts, and S3-offloading.<br>- Reached 143 passing tests (83.69% coverage). | 27/10/2026 | 27/10/2026 | [Pytest-cov Guide](https://pytest-cov.readthedocs.io/) |
 | **Wed** | - Authored 7 CloudWatch Alarms in SAM template and enabled SNS alert topic.<br>- Emitted custom metrics (MediaIngested, MediaIngestFailed) and executed 50-file burst stress benchmark. | 28/10/2026 | 28/10/2026 | [CloudWatch Alarms Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html) |
-| **Thu** | - Authored Blog 1: Analyzing S3 to SQS to Lambda buffering pattern (Claim Check, DLQ).<br>- Authored Blog 2: DynamoDB Query Optimization: Why replace Scan with GSI category-index? | 29/10/2026 | 29/10/2026 | blog_1/bai_viet.txt, blog_2/bai_viet.txt |
-| **Fri** | - Finalized article formatting and published technical blogs to the AWS Study Group community.<br>- Engaged in discussions and answered feedback from community peers. | 30/10/2026 | 30/10/2026 | [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj) |
+| **Thu** | - Authored Blog 1: Analyzing S3 to SQS to Lambda buffering pattern (Claim Check, DLQ).<br>- Authored Blog 2: DynamoDB Query Optimization: Why replace Scan with GSI category-index?<br>- Authored Blog 3: Bedrock Titan 256-d Vector Subsampling & Graceful Fallback. | 29/10/2026 | 29/10/2026 | blog_1/bai_viet.txt, blog_2/bai_viet.txt |
+| **Fri** | - Finalized article formatting and published 3 technical blogs to the AWS Study Group community.<br>- Engaged in discussions and answered feedback from community peers. | 30/10/2026 | 30/10/2026 | [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj) |
 
 ### 3. Week 11 Achievements:
 * Delivered complete automated test suite comprising 143 unit tests achieving 83.69% coverage, guaranteeing zero regressions across the codebase.
 * Provisioned 7 CloudWatch Alarms and SNS alert routing on AWS for real-time fault detection and DLQ monitoring.
 * Validated system elasticity under a 50-file burst test confirming zero data loss and smooth queue drainage.
-* Authored and published 2 high-impact personal technical blogs (Blog 1 & 2) to the AWS Study Group community.
+* Authored and published all 3 high-impact personal technical blogs (Blog 1, 2 & 3) to the AWS Study Group community.
 
 ### 4. References:
 * [Testing AWS Lambda with Moto](http://docs.getmoto.org/en/latest/)
