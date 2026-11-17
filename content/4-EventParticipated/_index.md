@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 4. </b> "
 ---
 
-Professional technology events and workshops attended during the internship at First Cloud Journey (FCJ):
+Professional technology events and workshops attended during the **AWS First Cloud AI Journey (FCAJ 2026)** internship:
 
 - **[Event 1: AWS First Cloud AI Journey - Community Day (August 2026)](4.1-Event1/)**
 - **[Event 2: FCJ Build-a-thon Kick-off 2026 — Code the Future with CMC Global (September 2026)](4.2-Event2/)**
