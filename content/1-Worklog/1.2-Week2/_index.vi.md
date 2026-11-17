@@ -21,7 +21,7 @@ pre: " <b> 1.2. </b> "
 | **2** | - Thiết kế cấu trúc S3 bucket agentsys-mediabucket.<br>- Bật tính năng Block All Public Access và thiết lập mã hóa mặc định Server-Side Encryption (SSE-S3 AES-256). | 24/08/2026 | 24/08/2026 | [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/) |
 | **3** | - Phân tách cấu trúc tiền tố S3: uploads/ (nhận tệp) và transcripts/ (kết quả bóc băng).<br>- Cấu hình S3 Event Notification với bộ lọc prefix để phòng chống trigger loop đệ quy. | 25/08/2026 | 25/08/2026 | [S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventNotifications.html) |
 | **4** | - Định nghĩa IAM Execution Roles trong SAM template.<br>- Phân tách quyền hạn độc lập giữa worker xử lý nền (agentsys-ingest-role) và API truy vấn (agentsys-api-role). | 26/08/2026 | 26/08/2026 | [AWS IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) |
-| **5** | - **Ghi nhận chuyên cần:** Nghỉ ốm bất khả kháng tại phòng KTX theo chỉ định của Trạm y tế (Nhiễm virus B34.9, phát sốt cao & đau bụng).<br>- Tự nghiên cứu tài liệu kỹ thuật AWS SAM và soạn thảo file infra/template.yaml từ xa tại phòng KTX. | 27/08/2026 | 27/08/2026 | [AWS SAM Specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) |
+| **5** | - Nghỉ ốm (có toa thuốc đính kèm).<br>- Tự nghiên cứu tài liệu AWS SAM và soạn thảo file infra/template.yaml từ xa. | 27/08/2026 | 27/08/2026 | [AWS SAM Specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) |
 | **6** | - Truy cập Amazon Bedrock Console xin cấp quyền Model Access cho Amazon Titan Text Embeddings V2 và Amazon Nova Lite.<br>- Rà soát tài liệu kỹ thuật chuẩn bị cho giai đoạn tích hợp AI. | 28/08/2026 | 28/08/2026 | [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/) |
 
 ### 3. Kết quả đạt được tuần 2:
@@ -31,16 +31,15 @@ pre: " <b> 1.2. </b> "
 * Template hạ tầng infra/template.yaml vượt qua kiểm tra sam validate --lint với 0 lỗi.
 * Kích hoạt thành công Model Access trên Bedrock cho cả mô hình sinh vector và mô hình lập kế hoạch truy vấn.
 
-### 4. Ghi chú Chuyên cần & Minh chứng Nghỉ ốm (Ngày 27/08/2026):
+### 4. Minh chứng nghỉ ốm (Ngày 27/08/2026):
 
-* **Lý do vắng:** Rạng sáng ngày 27/08/2026, sinh viên bị phát sốt cao và đau bụng liên tục, không thể đến văn phòng Bitexco. Sinh viên đã đến khám tại **Phòng Dịch vụ và Chăm sóc Sức khỏe — KTX ĐHQG-HCM** (chẩn đoán: Nhiễm virus B34.9) và được bác sĩ kê đơn thuốc, yêu cầu nghỉ ngơi theo dõi tại phòng.
-* **Điểm danh Portal:** Do phát bệnh đột xuất lúc rạng sáng nên sinh viên không kịp hủy lịch booking trước giờ quy định, dẫn đến hệ thống Portal tự động ghi nhận trạng thái **`1 Absent`**. Sinh viên đính kèm minh chứng lịch điểm danh Portal và toa thuốc bên dưới:
+Ngày 27/08/2026, sinh viên bị sốt đột xuất không thể lên văn phòng, đã đi khám tại Trạm Y tế KTX và có toa thuốc xác nhận. Đính kèm lịch điểm danh Portal và toa thuốc bên dưới:
 
 ![Lịch điểm danh tháng 8/2026 trên Portal FCAJ ghi nhận buổi vắng 27/08](/images/1-Worklog/attendance-portal-august-2026.png)
-*Hình: Lịch điểm danh Portal tháng 8/2026 ghi nhận ngày 27/08/2026.*
+*Hình: Lịch điểm danh Portal tháng 8/2026.*
 
-![Toa thuốc và phiếu hướng dẫn sử dụng thuốc tại KTX ĐHQG-HCM](/images/1-Worklog/medical-prescription-2026-08-27.png)
-*Hình: Toa thuốc khám tại Phòng Dịch vụ và Chăm sóc Sức khỏe KTX ĐHQG.*
+![Toa thuốc ngày 27/08/2026](/images/1-Worklog/medical-prescription-2026-08-27.png)
+*Hình: Toa thuốc ngày 27/08/2026.*
 
 ### 5. Tài liệu tham khảo:
 * [Amazon S3 Security Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
