@@ -41,7 +41,7 @@ Tất cả các hàm Lambda (IngestFunction, AggregatorFunction, ApiFunction) đ
 * Log group API: `/aws/lambda/agentsys-api`
 
 ### 2.2. Custom CloudWatch Metrics
-Hệ thống tự động phát các chỉ số vận hành tùy biến (*Custom Metrics*) vào Namespace **AgentSys**:
+Hệ thống tự động phát các chỉ số vận hành tùy biến (Custom Metrics) vào CloudWatch Namespace **AgentSys**:
 * **MediaIngested**: Số lượng tệp đã xử lý và nhúng vector thành công.
 * **MediaIngestFailed**: Số lượng tệp xử lý thất bại cần can thiệp.
 
