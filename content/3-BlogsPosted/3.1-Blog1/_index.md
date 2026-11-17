@@ -43,8 +43,9 @@ However, during high-volume load testing simulating peak classroom submissions (
 
 ### 3. Solution: Pull-Based Flow via SQS + DLQ
 
-In AgentSys, Amazon SQS decouples ingestion and regulates data flow:
-$$\text{S3 (ObjectCreated)} \longrightarrow \text{SQS Ingest Queue} \longrightarrow \text{Lambda Ingest} \longrightarrow \text{DynamoDB \& S3 Output}$$
+```text
+S3 (ObjectCreated) ──> SQS Ingest Queue ──> Lambda Ingest ──> DynamoDB & S3 Output
+```
 
 This architecture addresses each failure mode through four architectural pillars:
 

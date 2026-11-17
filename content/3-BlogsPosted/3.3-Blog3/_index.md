@@ -30,10 +30,10 @@ To resolve this gap, the modern approach is to compute **Vector Embeddings** usi
 Standard embedding models typically generate vectors with 1024 or 1536 dimensions. Each dimension is represented as a 32-bit floating-point number (float32 = 4 bytes).
 
 Evaluating the storage and cost overhead under scale:
-* **One 1536-dimensional vector:** $1536 \times 4 \approx 6.144 \text{ bytes} \approx 6.1 \text{ KB}$ of raw floats.
+* **One 1536-dimensional vector:** 1536 × 4 bytes ≈ 6.144 bytes ≈ 6.1 KB of raw floats.
 * When persisted in DynamoDB as a Number List or JSON structure, attribute serialization increases the size to **10 – 12 KB**.
 * A 45-minute lecture audio file transcribed via Amazon Transcribe produces **30 – 50 chunk segments** for granular timeline navigation.
-* Total vector storage footprint for a single lecture: $40 \text{ chunks} \times 12 \text{ KB} \approx 480 \text{ KB}$.
+* Total vector storage footprint for a single lecture: 40 chunks × 12 KB ≈ 480 KB.
 
 **Technical Bottlenecks:**
 1. **Breaching DynamoDB's Hard 400 KB Limit:** Amazon DynamoDB enforces a strict item size limit of **400 KB**. Storing high-dimensional vectors on a single item causes immediate `ValidationException: Item size has exceeded the maximum allowed size`.
@@ -69,8 +69,12 @@ embedding_256 = json.loads(response["body"].read())["embedding"]
 | **Lambda Cosine Latency** | ~145 ms | **~24 ms** | **6x faster execution** |
 | **Top-5 Semantic Recall Accuracy** | 94.2% | **92.6%** | *Negligible drop (-1.6%)* |
 
-Because `normalize: True` is enforced, returned vectors are pre-normalized unit vectors ($\|\mathbf{v}\| = 1$). Cosine Similarity simplifies to a pure Dot Product:
-$$\text{Similarity} = \mathbf{A} \cdot \mathbf{B} = \sum_{i=1}^{256} A_i B_i$$
+Because `normalize: True` is enforced, returned vectors are pre-normalized unit vectors (length = 1). Cosine Similarity simplifies to a pure Dot Product:
+
+```text
+Similarity = A · B = ∑ (A_i × B_i)   (with i from 1 to 256)
+```
+
 Computing 256 floating-point multiplications and additions runs blazingly fast in native Python within AWS Lambda without requiring heavy C-extensions like NumPy or SciPy, keeping the deployment package under 10 MB and cold start times under 300 ms.
 
 ---

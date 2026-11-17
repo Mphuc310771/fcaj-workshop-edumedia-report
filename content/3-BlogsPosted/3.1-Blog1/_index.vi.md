@@ -43,8 +43,9 @@ Nhưng khi chạy script thử nghiệm dồn tải (load test) giả lập kị
 
 ### 3. Giải pháp: Chuyển sang mô hình Kéo (Pull-based) qua SQS + DLQ
 
-Trong AgentSys, mình đưa SQS vào giữa để làm bộ đệm điều tiết dòng chảy:
-$$\text{S3 (ObjectCreated)} \longrightarrow \text{SQS Ingest Queue} \longrightarrow \text{Lambda Ingest} \longrightarrow \text{DynamoDB \& S3 Output}$$
+```text
+S3 (ObjectCreated) ──> SQS Ingest Queue ──> Lambda Ingest ──> DynamoDB & S3 Output
+```
 
 Mô hình này giải quyết triệt để vấn đề nhờ 4 điểm mấu chốt:
 

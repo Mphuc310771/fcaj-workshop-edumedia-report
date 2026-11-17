@@ -132,7 +132,7 @@ Workload: 50 slide images, 5–10 short demo video clips (15–20 total audio mi
 
 | AWS Service | Evaluation Workload | Gross Cost (Without Free Tier) | Net Invoiced Cost (With Free Tier) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 50 images $\times$ 2 APIs = 100 calls | $0.1000 USD | **$0.0000 USD** (1,000 calls/mo Free Tier) |
+| **Amazon Rekognition** | 50 images × 2 APIs = 100 calls | $0.1000 USD | **$0.0000 USD** (1,000 calls/mo Free Tier) |
 | **Amazon Transcribe** | 15–20 minutes vi-VN audio (Batch) | $0.0900 – $0.1200 USD *(Rate card: $0.36 – $0.48)* | **$0.0000 USD** (60 minutes/mo Free Tier) |
 | **Amazon Bedrock** | 100 queries Nova Pro/Micro + Titan Embed | $0.1780 USD *(Haiku: $0.2020)* | **$0.1780 USD** *(No quantity Free Tier)* |
 | **Amazon S3** | 1 GB Standard + PUT/GET requests | $0.0240 USD | **$0.0000 USD** (5 GB Free Tier allowance) |
@@ -148,7 +148,7 @@ Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries
 
 | AWS Service | Production Workload (100 - 200 Students) | Gross Cost (Without Free Tier) | Standard Production Bill (With Always Free) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 1,500 images $\times$ 2 APIs = 3,000 calls | **$3.00 USD** | **$3.00 USD** *(Year 1: $2.00)* |
+| **Amazon Rekognition** | 1,500 images × 2 APIs = 3,000 calls | **$3.00 USD** | **$3.00 USD** *(Year 1: $2.00)* |
 | **Amazon Transcribe** | 250 lecture minutes vi-VN | **$1.50 USD** *(Rate card ceiling: $6.00)* | **$1.50 USD** *(Rate card ceiling: $6.00)* |
 | **Amazon Bedrock** | 2,000 queries Nova Pro/Micro (1K in + 300 out) + Embed | **$3.56 USD** *(Haiku: $4.04)* | **$3.56 USD** *(Haiku: $4.04)* |
 | **Amazon S3** | 20 GB Standard storage + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Year 1: $0.35)* |

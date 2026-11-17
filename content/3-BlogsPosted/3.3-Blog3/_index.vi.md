@@ -30,10 +30,10 @@ Nếu chỉ sử dụng tìm kiếm từ khóa truyền thống (Lexical Search)
 Các mô hình nhúng văn bản phổ biến thường mặc định xuất ra vector có số chiều rất lớn: **1024 hoặc 1536 chiều**. Mỗi chiều là một số thực dấu phẩy động 32-bit (float32 = 4 bytes).
 
 Hãy làm một phép tính nhanh về mặt chi phí và tài nguyên lưu trữ:
-- **1 vector 1536 chiều:** $1536 \times 4 \approx 6.144 \text{ bytes} \approx 6.1 \text{ KB}$ dữ liệu thô.
+- **1 vector 1536 chiều:** 1536 × 4 bytes ≈ 6.144 bytes ≈ 6.1 KB dữ liệu thô.
 - Khi lưu vào DynamoDB dưới dạng mảng số (Number Set hoặc List), dung lượng bị đội lên khoảng **10 – 12 KB** do overhead định dạng JSON/DynamoDB Attribute.
 - Một bài giảng âm thanh dài 45 phút sau khi bóc băng qua Amazon Transcribe được chia thành **30 – 50 đoạn (chunks)** để tìm kiếm chính xác từng mốc thời gian.
-- Tổng dung lượng vector chỉ riêng cho 1 bài giảng: $40 \text{ chunks} \times 12 \text{ KB} \approx 480 \text{ KB}$!
+- Tổng dung lượng vector chỉ riêng cho 1 bài giảng: 40 chunks × 12 KB ≈ 480 KB!
 
 **Hậu quả kỹ thuật:**
 1. **Đánh sập giới hạn cứng của DynamoDB:** Amazon DynamoDB giới hạn tối đa **400 KB** cho mỗi item. Việc lưu toàn bộ vector độ phân giải cao sẽ lập tức ném lỗi `ValidationException: Item size has exceeded the maximum allowed size`.
@@ -70,7 +70,11 @@ embedding_256 = json.loads(response["body"].read())["embedding"]
 | **Độ chính xác Top-5 Semantic Recall** | 94.2% | **92.6%** | *Chỉ giảm 1.6% (không đáng kể)* |
 
 Nhờ tham số `normalize: True`, các vector trả về đã được chuẩn hóa độ dài về 1 (Unit vector). Khi tính Cosine Similarity, chúng ta chỉ cần thực hiện phép nhân vô hướng (Dot Product) đơn giản:
-$$\text{Similarity} = \mathbf{A} \cdot \mathbf{B} = \sum_{i=1}^{256} A_i B_i$$
+
+```text
+Similarity = A · B = ∑ (A_i × B_i)   (với i chạy từ 1 đến 256)
+```
+
 Phép tính 256 phép nhân và cộng số thực chạy cực nhanh trên runtime Python của AWS Lambda mà không cần phải cài thêm các thư viện C nặng nề như NumPy hay SciPy (giúp giữ dung lượng Lambda Deployment Package siêu nhẹ dưới 10MB).
 
 ---

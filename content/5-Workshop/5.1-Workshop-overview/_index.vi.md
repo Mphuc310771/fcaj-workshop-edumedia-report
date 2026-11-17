@@ -54,7 +54,7 @@ Khối lượng phục vụ: 1.500 ảnh bài giảng/slide, 250 phút ghi âm b
 
 | Dịch vụ AWS | Khối lượng vận hành (100 - 200 sinh viên) | Gross Cost (Không Free Tier) | Hóa đơn Chuẩn dài hạn (Áp dụng Always Free) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 1.500 ảnh $\times$ 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
+| **Amazon Rekognition** | 1.500 ảnh × 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
 | **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **$1.50 USD** *(giá cũ: $6.00)* | **$1.50 USD** *(giá cũ: $6.00)* |
 | **Amazon Bedrock** | 2.000 queries Nova Pro (1K in + 300 out) + Embed | **$3.56 USD** *(Haiku: $4.04)* | **$3.56 USD** *(Haiku: $4.04)* |
 | **Amazon S3** | 20 GB Standard tích lũy + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Năm đầu: $0.35)* |
