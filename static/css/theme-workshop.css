@@ -465,42 +465,7 @@ div.notices.warning p {
   gap: 8px !important;
 }
 
-/* Alarm Grid for Chapter 5.6 */
-.alarm-cards-grid {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-  gap: 12px !important;
-}
-@media (min-width: 640px) {
-  .alarm-cards-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-@media (min-width: 1024px) {
-  .alarm-cards-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-}
-.alarm-card-item {
-  background: #ffffff !important;
-  border: 1px solid #fee2e2 !important;
-  border-left: 4px solid #ef4444 !important;
-  border-radius: 8px !important;
-  padding: 12px 14px !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
-}
-.alarm-card-name {
-  font-family: monospace !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  color: #b91c1c !important;
-  margin-bottom: 4px !important;
-}
-.alarm-card-desc {
-  font-size: 12px !important;
-  color: #475569 !important;
-  line-height: 1.4 !important;
-}
+
 
 /* Site-wide blockquote fix: Replace faint gray text with crisp readable styling */
 blockquote {

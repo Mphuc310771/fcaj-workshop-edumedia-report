@@ -77,7 +77,7 @@ Kiến trúc hệ thống được rà soát và đánh giá toàn diện theo 6
 | **Chủ tài khoản (Owner)** | Đỗ Trần Minh Phúc (MSSV: `23120156` · Account: `181040156515`) |
 | **Bộ khung thẩm định (Lenses)** | AWS Well-Architected Framework & Serverless Lens |
 | **Rủi ro mức độ cao (High Risks)** | **0 rủi ro** (100% tuân thủ Best Practices) |
-| **Báo cáo kiểm toán chính thức** | [Tải về Báo cáo Well-Architected Review chi tiết (PDF 90 trang)](/files/EduMedia_AI_Well_Architected_Report.pdf) |
+
 
 ### 1. Bảo mật (Security)
 * **IAM Least-Privilege**: Tách biệt hoàn toàn IAM Role của hàm Ingestion (chỉ đọc S3 uploads/, gọi Rekognition/Transcribe) và API Lambda (chỉ đọc DynamoDB GSI, gọi Bedrock).

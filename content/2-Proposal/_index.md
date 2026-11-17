@@ -78,7 +78,7 @@ The architecture is comprehensively evaluated against the 6 pillars of the **AWS
 | **Review Owner** | Do Tran Minh Phuc (Student ID: `23120156` · Account: `181040156515`) |
 | **Applied Lenses** | AWS Well-Architected Framework & Serverless Lens |
 | **High-Risk Issues (HRIs)** | **0 High Risks** (100% Best Practice Compliance) |
-| **Official Audit Report** | [Download Official Well-Architected Review Report (90-Page PDF)](/files/EduMedia_AI_Well_Architected_Report.pdf) |
+
 
 ### 1. Security
 * **IAM Least-Privilege**: Ingestion and API Lambda execution roles are strictly decoupled with resource-level scoping.
