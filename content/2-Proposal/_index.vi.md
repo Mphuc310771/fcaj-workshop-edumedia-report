@@ -67,8 +67,13 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 
 ## 5. Đánh giá theo AWS Well-Architected Framework (6 Trụ cột)
 
-* **Workload chính thức trên AWS Well-Architected Tool:** [EduMedia AI - Workload ID: `13f51f4fbcb8f084f550fe07020d295e`](https://us-east-1.console.aws.amazon.com/wellarchitected?region=us-east-1#/workloads/13f51f4fbcb8f084f550fe07020d295e) (Region: `us-east-1`)
-* **Báo cáo kiểm toán kiến trúc AWS (PDF):** [Tải về Báo cáo Well-Architected Review (PDF)](/files/EduMedia_AI_Well_Architected_Report.pdf)
+* **Workload chính thức trên AWS Well-Architected Tool:** [EduMedia AI - Workload ID: `13f51f4fbcb8f084f550fe07020d295e`](https://us-east-1.console.aws.amazon.com/wellarchitected/home?region=us-east-1#/workloads/13f51f4fbcb8f084f550fe07020d295e) (Region: `us-east-1`)
+* **Báo cáo kiểm toán kiến trúc AWS chính thức (PDF 90 trang):** [Tải về Báo cáo Well-Architected Review (PDF)](/files/EduMedia_AI_Well_Architected_Report.pdf)
+
+> **Lưu ý kiểm tra:** Đường dẫn AWS Console yêu cầu đăng nhập tài khoản AWS sở hữu (`Account ID: 181040156515`). Để hội đồng giám khảo và người xem công khai kiểm tra độc lập mà không cần đăng nhập tài khoản AWS, toàn bộ bản kiểm toán chi tiết 57/57 câu hỏi được trích xuất trực tiếp từ AWS Well-Architected Tool và đính kèm đầy đủ trong tài liệu PDF cùng minh chứng bên dưới:
+
+![Thông tin Workload EduMedia AI được khởi tạo trên AWS Well-Architected Tool](/images/2-Proposal/well-architected-workload-properties.png)
+*Hình: Bằng chứng thẩm định kiến trúc EduMedia AI trên AWS Well-Architected Tool (Workload ID: 13f51f4fbcb8f084f550fe07020d295e, Sinh viên: Đỗ Trần Minh Phúc - 23120156).*
 
 ### 1. Bảo mật (Security)
 * **IAM Least-Privilege**: Tách biệt hoàn toàn IAM Role của hàm Ingestion (chỉ đọc S3 uploads/, gọi Rekognition/Transcribe) và API Lambda (chỉ đọc DynamoDB GSI, gọi Bedrock).

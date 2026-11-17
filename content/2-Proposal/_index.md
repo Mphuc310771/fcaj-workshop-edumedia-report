@@ -68,8 +68,13 @@ AgentSys conforms strictly to **AWS Cloud-Native Serverless** blueprints:
 
 ## 5. AWS Well-Architected Framework Evaluation (6 Pillars)
 
-* **Official Workload in AWS Well-Architected Tool:** [EduMedia AI - Workload ID: `13f51f4fbcb8f084f550fe07020d295e`](https://us-east-1.console.aws.amazon.com/wellarchitected?region=us-east-1#/workloads/13f51f4fbcb8f084f550fe07020d295e) (Region: `us-east-1`)
-* **AWS Architectural Review Report (PDF):** [Download Well-Architected Review Report (PDF)](/files/EduMedia_AI_Well_Architected_Report.pdf)
+* **Official Workload in AWS Well-Architected Tool:** [EduMedia AI - Workload ID: `13f51f4fbcb8f084f550fe07020d295e`](https://us-east-1.console.aws.amazon.com/wellarchitected/home?region=us-east-1#/workloads/13f51f4fbcb8f084f550fe07020d295e) (Region: `us-east-1`)
+* **Official AWS Architectural Review Report (90-Page PDF):** [Download Well-Architected Review Report (PDF)](/files/EduMedia_AI_Well_Architected_Report.pdf)
+
+> **Access Note:** The AWS Management Console link requires authenticated session access to the owner AWS Account (`Account ID: 181040156515`). For examiners and public reviewers, the complete 57/57 question review is officially exported from the AWS Well-Architected Tool and provided in the PDF report and verified below:
+
+![EduMedia AI Workload Properties in AWS Well-Architected Tool](/images/2-Proposal/well-architected-workload-properties.png)
+*Figure: Verified Workload Properties on AWS Well-Architected Tool (Workload ID: 13f51f4fbcb8f084f550fe07020d295e, Review Owner: Do Tran Minh Phuc - 23120156).*
 
 ### 1. Security
 * **IAM Least-Privilege**: Ingestion and API Lambda execution roles are strictly decoupled with resource-level scoping.
