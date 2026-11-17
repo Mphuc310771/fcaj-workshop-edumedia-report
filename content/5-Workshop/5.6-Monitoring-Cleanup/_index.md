@@ -49,59 +49,21 @@ Custom operational telemetry is published directly to namespace **AgentSys**:
 
 ## 3. Automated CloudWatch Alarms & SNS Topic
 
-The SAM Template provisions **7 core CloudWatch Alarms** connected synchronously to SNS Topic **agentsys-alerts-topic** for real-time alerting:
+The SAM Template automatically provisions **7 core CloudWatch Alarms** connected synchronously to SNS Topic **`agentsys-alerts-topic`** for real-time alerting via email:
 
-{{< rawhtml >}}
-<div class="pipeline-container">
-  <div class="pipeline-header">
-    <span>7 Core CloudWatch Alarms for EduMedia AI System Monitoring</span>
-  </div>
-  <div class="alarm-cards-grid">
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-api-errors</div>
-      <div class="alarm-card-desc">Monitors Lambda API 5xx runtime errors (HTTP 500/502/504) ≥ 1 within a 1-minute period.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-ingest-errors</div>
-      <div class="alarm-card-desc">Unhandled runtime exceptions when Lambda Ingest processes SQS batches ≥ 1.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-aggregator-errors</div>
-      <div class="alarm-card-desc">Lambda Aggregator failures while reading DynamoDB Streams or invoking Bedrock summarization.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-ingest-failed</div>
-      <div class="alarm-card-desc">Custom CloudWatch metric alert when media processing or AI extraction fails.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-ingest-dlq</div>
-      <div class="alarm-card-desc">Fires immediately when malformed messages land in Ingestion Dead-Letter Queue after 3 retries.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-aggregator-stream-dlq</div>
-      <div class="alarm-card-desc">Alerts when DynamoDB Stream batch failures are discarded into Aggregator DLQ.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-transcribe-dlq</div>
-      <div class="alarm-card-desc">Fires when Transcribe EventBridge state change signals a FAILED job.</div>
-    </div>
-  </div>
-  <div style="margin-top: 14px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; font-size: 12.5px; color: #166534; display: flex; align-items: center; gap: 8px;">
-    <span>All 7 Alarms route directly to <strong>Amazon SNS Topic: agentsys-alerts-topic</strong> for instant failure notifications via email.</span>
-  </div>
-</div>
-{{< /rawhtml >}}
+| Alarm Name | Monitored Metric / Service | Trigger Condition | Protection Scope |
+| :--- | :--- | :--- | :--- |
+| `agentsys-api-errors` | Lambda `Errors` (API Function) | `Errors >= 1` in 1 minute | Catches API Gateway / Lambda 5xx runtime errors |
+| `agentsys-ingest-errors` | Lambda `Errors` (Ingest Function) | `Errors >= 1` in 1 minute | Catches unhandled runtime exceptions during SQS batch ingestion |
+| `agentsys-aggregator-errors` | Lambda `Errors` (Aggregator) | `Errors >= 1` in 1 minute | Catches DynamoDB Streams / Bedrock summary failures |
+| `agentsys-ingest-failed` | Custom Metric `MediaIngestFailed` | `Count >= 1` in 1 minute | Custom alert when media processing or AI extraction fails |
+| `agentsys-ingest-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 1 minute | Alerts when malformed messages land in Ingestion DLQ after 3 retries |
+| `agentsys-aggregator-stream-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 1 minute | Alerts when DynamoDB Stream batch failures are discarded into Aggregator DLQ |
+| `agentsys-transcribe-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 1 minute | Alerts when Transcribe EventBridge state change signals a FAILED job |
 
 ### Verify All 7 Alarms on AWS Console:
-1. Open **Amazon CloudWatch Console** → Navigate to **Alarms** (Region: us-east-1).
-2. Verify all 7 configured alarms:
-   * **agentsys-api-errors**: Lambda API 5xx error rate >= 1.
-   * **agentsys-ingest-errors**: Lambda Ingestion runtime exceptions >= 1.
-   * **agentsys-aggregator-errors**: Lambda Aggregator runtime exceptions >= 1.
-   * **agentsys-ingest-failed**: Custom metric MediaIngestFailed >= 1.
-   * **agentsys-ingest-dlq**: Ingestion SQS Dead-Letter Queue message count >= 1.
-   * **agentsys-aggregator-stream-dlq**: DynamoDB Stream Dead-Letter Queue message count >= 1.
-   * **agentsys-transcribe-dlq**: Transcribe EventBridge Dead-Letter Queue message count >= 1.
+1. Open **Amazon CloudWatch Console** → Navigate to **Alarms** (Region: `us-east-1`).
+2. Verify all 7 configured alarms are active and reporting `OK` status:
 
 ![Verify 7 CloudWatch Alarms in Active OK State](/images/5-Workshop/evidence/08-cloudwatch-7-alarms.png)
 *Figure: CloudWatch Alarms console confirming all 7 alarms operating in OK status.*

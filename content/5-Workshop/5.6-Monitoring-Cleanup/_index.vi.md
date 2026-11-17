@@ -49,59 +49,21 @@ Hệ thống tự động phát các chỉ số vận hành tùy biến (*Custom
 
 ## 3. Thiết lập Cảnh báo Tự động (CloudWatch Alarms & SNS Topic)
 
-SAM Template tự động cấu hình **7 CloudWatch Alarms** cốt lõi và kết nối đồng bộ tới SNS Topic **agentsys-alerts-topic** để cảnh báo thời gian thực:
+SAM Template tự động cấu hình **7 CloudWatch Alarms** cốt lõi và kết nối đồng bộ tới SNS Topic **`agentsys-alerts-topic`** để cảnh báo thời gian thực qua email:
 
-{{< rawhtml >}}
-<div class="pipeline-container">
-  <div class="pipeline-header">
-    <span>Danh sách 7 CloudWatch Alarms giám sát hệ thống EduMedia AI</span>
-  </div>
-  <div class="alarm-cards-grid">
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-api-errors</div>
-      <div class="alarm-card-desc">Lỗi runtime Lambda API (HTTP 500/502/504) vượt ngưỡng ≥ 1 trong 1 phút.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-ingest-errors</div>
-      <div class="alarm-card-desc">Lỗi unhandled exception khi Lambda Ingest đọc batch từ SQS vượt ngưỡng ≥ 1.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-aggregator-errors</div>
-      <div class="alarm-card-desc">Lỗi Lambda Aggregator khi xử lý DynamoDB Streams hoặc gọi Bedrock tóm tắt.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-ingest-failed</div>
-      <div class="alarm-card-desc">Custom metric ghi nhận tệp media bị hỏng hoặc thất bại trích xuất AI.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-ingest-dlq</div>
-      <div class="alarm-card-desc">Phát hiện tin nhắn rơi vào Dead-Letter Queue sau 3 lần retry thất bại.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-aggregator-stream-dlq</div>
-      <div class="alarm-card-desc">Sự kiện DynamoDB Stream bị discard và chuyển vào DLQ của Aggregator.</div>
-    </div>
-    <div class="alarm-card-item">
-      <div class="alarm-card-name">agentsys-transcribe-dlq</div>
-      <div class="alarm-card-desc">Sự kiện EventBridge của Transcribe chuyển trạng thái FAILED rơi vào DLQ.</div>
-    </div>
-  </div>
-  <div style="margin-top: 14px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; font-size: 12.5px; color: #166534; display: flex; align-items: center; gap: 8px;">
-    <span>Tất cả 7 Alarms trên tự động liên kết với <strong>Amazon SNS Topic: agentsys-alerts-topic</strong> để gửi email cảnh báo sự cố ngay lập tức.</span>
-  </div>
-</div>
-{{< /rawhtml >}}
+| Tên CloudWatch Alarm | Nguồn giám sát (Metric / Service) | Điều kiện kích hoạt | Mục đích bảo vệ |
+| :--- | :--- | :--- | :--- |
+| `agentsys-api-errors` | Lambda `Errors` (API Function) | `Errors >= 1` trong 1 phút | Cảnh báo khi API Gateway / Lambda gặp lỗi 5xx |
+| `agentsys-ingest-errors` | Lambda `Errors` (Ingest Function) | `Errors >= 1` trong 1 phút | Cảnh báo lỗi unhandled exception khi xử lý SQS |
+| `agentsys-aggregator-errors` | Lambda `Errors` (Aggregator) | `Errors >= 1` trong 1 phút | Cảnh báo lỗi xử lý DynamoDB Streams hoặc Bedrock |
+| `agentsys-ingest-failed` | Custom Metric `MediaIngestFailed` | `Count >= 1` trong 1 phút | Ghi nhận tệp media bị hỏng hoặc lỗi trích xuất AI |
+| `agentsys-ingest-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 1 phút | Cảnh báo khi có tin nhắn rơi vào Ingest DLQ sau 3 lần retry |
+| `agentsys-aggregator-stream-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 1 phút | Cảnh báo sự kiện Stream bị discard vào DLQ của Aggregator |
+| `agentsys-transcribe-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 1 phút | Cảnh báo sự kiện Transcribe thất bại rơi vào DLQ |
 
 ### Xác minh 7 Alarms trên AWS Console:
-1. Mở **Amazon CloudWatch Console** → Chọn mục **Alarms** (Region: us-east-1).
-2. Xác minh toàn bộ 7 Alarms được kích hoạt sẵn sàng bảo vệ pipeline:
-   * **agentsys-api-errors**: Cảnh báo khi Lambda API gặp lỗi 5xx.
-   * **agentsys-ingest-errors**: Cảnh báo lỗi runtime hàm Lambda Ingestion.
-   * **agentsys-aggregator-errors**: Cảnh báo lỗi runtime hàm Lambda Aggregator.
-   * **agentsys-ingest-failed**: Cảnh báo khi custom metric MediaIngestFailed >= 1.
-   * **agentsys-ingest-dlq**: Cảnh báo khi có tin nhắn rơi vào Ingest DLQ.
-   * **agentsys-aggregator-stream-dlq**: Cảnh báo khi có sự kiện DynamoDB Stream rơi vào Aggregator DLQ.
-   * **agentsys-transcribe-dlq**: Cảnh báo khi sự kiện EventBridge của Transcribe rơi vào DLQ.
+1. Mở **Amazon CloudWatch Console** → Chọn mục **Alarms** (Region: `us-east-1`).
+2. Xác minh toàn bộ 7 Alarms được kích hoạt và hiển thị trạng thái `OK` bảo vệ pipeline:
 
 ![Xác minh 7 CloudWatch Alarms bảo vệ hệ thống ở trạng thái OK](/images/5-Workshop/evidence/08-cloudwatch-7-alarms.png)
 *Hình: Bảng điều khiển CloudWatch Alarms ghi nhận toàn bộ 7 cảnh báo ở trạng thái OK.*
