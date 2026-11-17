@@ -27,10 +27,8 @@ Kỳ thực tập 12 tuần tại chương trình **First Cloud AI Journey (FCAJ
 
 ---
 
-### 3. Những điểm có thể tối ưu thêm cho các khóa sau
-Nhìn chung, chương trình đã được Ban tổ chức xây dựng rất bài bản, chu đáo và tạo điều kiện tối đa cho sinh viên từ không gian làm việc tại Bitexco cho đến việc tham gia các sự kiện công nghệ lớn trong cộng đồng AWS. Để hỗ trợ các khóa sinh viên tiếp theo tiếp cận dự án nhanh và hiệu quả hơn, em xin phép đóng góp một vài góc nhìn nhỏ mang tính xây dựng:
-1. **Gợi ý kiến trúc tham khảo sớm (Reference Architecture Guidelines):** Trong các tuần đầu lên ý tưởng đề tài, Ban tổ chức có thể gợi ý thêm một số mô hình kiến trúc tham khảo chuẩn AWS Well-Architected cho các bài toán phổ biến (như Serverless Event-driven, RAG, Ingestion Pipeline). Điều này giúp sinh viên nhanh chóng định hình phạm vi dự án, chuẩn hóa cấu trúc thư mục và giảm bớt thời gian bỡ ngỡ ban đầu khi lựa chọn dịch vụ.
-2. **Trao đổi kinh nghiệm kỹ thuật chéo giữa các thực tập sinh (Peer-to-Peer Sharing):** Khuyến khích các buổi chia sẻ kỹ thuật ngắn nội bộ giữa các bạn sinh viên trong cùng đợt thực tập để trao đổi kinh nghiệm xử lý lỗi thực tế và các phương pháp thực hành tối ưu chi phí (FinOps) trong phạm vi tài khoản thực hành, giúp các bạn học hỏi đa dạng bài toán từ chính đề tài của nhau.
+### 3. Những điểm cần cải thiện
+Chương trình đã được Ban tổ chức chuẩn bị rất chu đáo từ cơ sở vật chất tại văn phòng Bitexco đến lộ trình thực tập trong suốt 12 tuần. Bản thân em thấy chương trình hiện tại đã rất tốt và không có điểm nào cần phàn nàn. Nếu có một gợi ý nhỏ cho các khóa sau, Ban tổ chức có thể giới thiệu sơ qua một vài đề tài mẫu của các khóa trước trong tuần đầu tiên để các bạn sinh viên mới dễ hình dung quy mô sản phẩm cần làm hơn.
 
 ---
 
