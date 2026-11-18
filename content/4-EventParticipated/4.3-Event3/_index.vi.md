@@ -25,8 +25,6 @@ pre: " <b> 4.3. </b> "
 
 ## Hình ảnh Check-in Tham Gia Sự Kiện & Lan Tỏa Cộng Đồng
 
-> **Ghi nhận sự kiện:** Hoàn thành tham gia đủ 3/3 sự kiện công nghệ thực tế trong kỳ thực tập với ảnh check-in tại văn phòng AWS Tầng 26 Bitexco, kèm bài recap chia sẻ kiến thức trên cộng đồng.
-
 | Toàn cảnh hội trường lầu 26 Bitexco | Check-in cá nhân rõ mặt tại sự kiện |
 | :---: | :---: |
 | ![Ảnh check-in rõ mặt trong hội trường sự kiện](/images/4-EventParticipated/4.3-Event3/checkin-phuc-1.jpg) | ![Ảnh selfie check-in cận cảnh tại sự kiện](/images/4-EventParticipated/4.3-Event3/checkin-phuc-2.jpg) |
