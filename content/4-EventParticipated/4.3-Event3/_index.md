@@ -25,8 +25,6 @@ pre: " <b> 4.3. </b> "
 
 ## Event Check-in & Community Outreach Evidence
 
-> **Event Attendance Summary:** Completed attendance across 3 technical events during the internship period at the AWS Vietnam Office (26th Floor Bitexco Financial Tower), accompanied by community recap sharing.
-
 | Event Hall Overview & Attendee Check-in | Personal Clear-Face Check-in at the Event |
 | :---: | :---: |
 | ![Clear-face check-in photo in the event hall](/images/4-EventParticipated/4.3-Event3/checkin-phuc-1.jpg) | ![Close-up selfie check-in photo at the event](/images/4-EventParticipated/4.3-Event3/checkin-phuc-2.jpg) |
