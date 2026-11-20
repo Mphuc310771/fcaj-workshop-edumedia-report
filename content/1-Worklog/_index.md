@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 1. </b> "
 ---
 
-This section summarizes the daily engineering worklog across the 12-week internship program of **First Cloud AI Journey (FCAJ) — AWS Vietnam** (from **August 17, 2026** to **November 06, 2026**).
+This section summarizes the daily engineering worklog during the internship program of **First Cloud AI Journey (FCAJ) — AWS Vietnam** (from **August 17, 2026** to **December 01, 2026**, featuring a 12-week intensive engineering phase from **August 17, 2026** to **November 06, 2026**).
 
 The core focus of the internship was researching AWS Serverless, NoSQL, and Generative AI services to architect and implement **EduMedia AI** — a smart lecture storage and search engine on AWS.
 

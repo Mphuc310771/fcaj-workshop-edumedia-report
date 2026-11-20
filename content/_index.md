@@ -24,7 +24,7 @@ chapter: false
 
 &emsp; **Internship Position:** Workforce Bootcamp - First Cloud AI Journey
 
-&emsp; **Internship Duration:** From 17/08/2026 to 06/11/2026
+&emsp; **Internship Duration:** From 17/08/2026 to 01/12/2026
 
 ![Intern Student Portrait - Do Tran Minh Phuc](/images/avatar.png)
 
