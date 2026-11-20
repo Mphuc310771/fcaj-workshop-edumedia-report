@@ -114,7 +114,6 @@ The architecture is comprehensively evaluated against the 6 pillars of the **AWS
 
 The system adheres to a strict **Scale-to-Zero** FinOps model. All operational costs have been modeled and calculated using the official **AWS Pricing Calculator**:
 * **Official AWS Public Estimate:** [EduMedia AI Workload Estimate (AWS Pricing Calculator)](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
-* **Official Exported Estimate (PDF):** [Download AWS Pricing Calculator Estimate (PDF)](/files/EduMedia_AI_AWS_Pricing_Calculator_Estimate.pdf)
 
 ### 6.1. Unit Economics (AWS Region: us-east-1)
 * **1 Lecture Slide Image Processing:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / image** (~51 VND).
