@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 1. </b> "
 ---
 
-Trang này tổng hợp nhật ký công việc hằng ngày trong suốt 12 tuần thực tập tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** (từ ngày **17/08/2026** đến ngày **06/11/2026**). 
+Trang này tổng hợp nhật ký công việc hằng ngày trong suốt kỳ thực tập tại chương trình **First Cloud AI Journey (FCAJ) — AWS Vietnam** (từ ngày **17/08/2026** đến ngày **01/12/2026**, với giai đoạn kỹ thuật tập trung 12 tuần từ ngày **17/08/2026** đến ngày **06/11/2026**). 
 
 Mục tiêu chính của kỳ thực tập là nghiên cứu các giải pháp Serverless, NoSQL và Generative AI của AWS để thiết kế và phát triển hoàn chỉnh dự án **EduMedia AI** — hệ thống lưu trữ và tra cứu bài giảng thông minh trên AWS.
 

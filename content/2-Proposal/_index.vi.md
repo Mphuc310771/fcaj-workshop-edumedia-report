@@ -9,7 +9,7 @@ pre: " <b> 2. </b> "
 # Đề xuất Dự án: EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh với AWS Serverless & GenAI
 
 **Sinh viên thực hiện:** Đỗ Trần Minh Phúc · Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM (HCMUS)  
-**Thời gian thực tập:** 17/08/2026 – 06/11/2026 · Công ty TNHH Amazon Web Services Vietnam (FCAJ Bootcamp)
+**Thời gian thực tập:** 17/08/2026 – 01/12/2026 · Công ty TNHH Amazon Web Services Vietnam (FCAJ Bootcamp)
 
 ---
 

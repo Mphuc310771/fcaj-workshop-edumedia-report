@@ -9,7 +9,7 @@ pre: " <b> 2. </b> "
 # Project Proposal: EduMedia AI — Smart Lecture Storage & Search Engine on AWS
 
 **Student:** Do Tran Minh Phuc · VNU-HCM University of Science (HCMUS)  
-**Internship Period:** 17/08/2026 – 06/11/2026 · Amazon Web Services Vietnam LLC (FCAJ Bootcamp)
+**Internship Period:** 17/08/2026 – 01/12/2026 · Amazon Web Services Vietnam LLC (FCAJ Bootcamp)
 
 ---
 
