@@ -109,12 +109,12 @@ Kiến trúc hệ thống được rà soát và đánh giá toàn diện theo 6
 
 ---
 
-## 6. Bảng Phân Tích & Ước Tính Chi Phí FinOps (AWS Pricing Calculator - Region: us-east-1)
+## 6. Bảng Phân Tích & Ước Tính Chi Phí FinOps (AWS Pricing Calculator - Region: US East)
 
-Hệ thống được thiết kế theo tiêu chí **Scale-to-Zero**, toàn bộ chi phí vận hành hàng tháng được lập mô hình và đối chiếu chi tiết thông qua công cụ chính thức **AWS Pricing Calculator**:
+Hệ thống được thiết kế theo tiêu chí **Scale-to-Zero**, toàn bộ chi phí vận hành hàng tháng được lập mô hình và đối chiếu chi tiết thông qua công cụ chính thức **AWS Pricing Calculator** (áp dụng biểu giá chuẩn khu vực US East bao gồm `us-east-1` N. Virginia và `us-east-2` Ohio):
 * **Link dự toán trực tiếp từ AWS:** [EduMedia AI Workload Estimate (AWS Pricing Calculator)](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
 
-### 6.1. Đơn giá vi mô từng đơn vị (Unit Economics - Region: us-east-1)
+### 6.1. Đơn giá vi mô từng đơn vị (Unit Economics - Region: US East)
 * **Xử lý 1 ảnh slide học tập:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / ảnh** (~51 VNĐ/ảnh).
 * **Xử lý 1 phút âm thanh bài giảng:** Amazon Transcribe Standard Batch vi-VN = **$0.0060 USD / phút** (~153 VNĐ/phút theo giá chuẩn AWS Calculator $0.0001/giây, hoặc $0.0240 USD / phút theo biểu giá trần niêm yết).
 * **1 lượt truy vấn AI thông minh:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1.000 in + 300 out tokens) = **~$0.00178 USD / lượt** (~45,4 VNĐ/lượt).

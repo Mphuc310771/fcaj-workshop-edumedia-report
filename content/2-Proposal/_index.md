@@ -110,12 +110,12 @@ The architecture is comprehensively evaluated against the 6 pillars of the **AWS
 
 ---
 
-## 6. AWS FinOps Cost Modeling & Production Workload Estimates (Region: us-east-1)
+## 6. AWS FinOps Cost Modeling & Production Workload Estimates (Region: US East)
 
-The system adheres to a strict **Scale-to-Zero** FinOps model. All operational costs have been modeled and calculated using the official **AWS Pricing Calculator**:
+The system adheres to a strict **Scale-to-Zero** FinOps model. All operational costs have been modeled and calculated using the official **AWS Pricing Calculator** (applying standard US East rate cards spanning `us-east-1` N. Virginia and `us-east-2` Ohio):
 * **Official AWS Public Estimate:** [EduMedia AI Workload Estimate (AWS Pricing Calculator)](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
 
-### 6.1. Unit Economics (AWS Region: us-east-1)
+### 6.1. Unit Economics (AWS Region: US East)
 * **1 Lecture Slide Image Processing:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / image** (~51 VND).
 * **1 Audio Minute Transcription:** Amazon Transcribe Standard Batch vi-VN = **$0.0060 USD / minute** (~153 VND/min current AWS Calculator rate at $0.0001/sec, or $0.0240 USD / min ceiling list price).
 * **1 Intelligent AI Query:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1,000 in + 300 out tokens) = **~$0.00178 USD / query** (~45.4 VND).
