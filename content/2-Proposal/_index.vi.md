@@ -113,7 +113,6 @@ Kiến trúc hệ thống được rà soát và đánh giá toàn diện theo 6
 
 Hệ thống được thiết kế theo tiêu chí **Scale-to-Zero**, toàn bộ chi phí vận hành hàng tháng được lập mô hình và đối chiếu chi tiết thông qua công cụ chính thức **AWS Pricing Calculator**:
 * **Link dự toán trực tiếp từ AWS:** [EduMedia AI Workload Estimate (AWS Pricing Calculator)](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
-* **Bản xuất dự toán chính thức (PDF):** [Tải về Báo cáo Dự toán Chi phí AWS Calculator (PDF)](/files/EduMedia_AI_AWS_Pricing_Calculator_Estimate.pdf)
 
 ### 6.1. Đơn giá vi mô từng đơn vị (Unit Economics - Region: us-east-1)
 * **Xử lý 1 ảnh slide học tập:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / ảnh** (~51 VNĐ/ảnh).
