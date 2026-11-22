@@ -59,24 +59,27 @@ Under the latest AWS Bedrock operational policies, access management for foundat
 
 ## 4. IAM Least-Privilege Architecture
  
-The SAM template (infra/template.yaml) defines three strictly segregated execution roles following least-privilege principles:
+The SAM template (`infra/template.yaml`) defines three strictly segregated execution roles following least-privilege principles, mapped 1:1 to each Lambda function's operational scope:
 
-1. **IngestFunctionRole** (agentsys-ingest):
-   * Scoped to s3:GetObject on uploads/\*.
-   * rekognition:DetectLabels and rekognition:DetectText.
-   * transcribe:StartTranscriptionJob and transcribe:GetTranscriptionJob.
-   * dynamodb:PutItem and dynamodb:UpdateItem on table AgentSysMediaMetadata.
-   * Consumer access to SQS queue agentsys-ingest-queue.
-2. **AggregatorFunctionRole** (agentsys-aggregator):
-   * Consumes events from DynamoDB Stream (GetRecords, GetShardIterator, DescribeStream).
-   * Reads chunk metadata (BatchGetItem, GetItem, UpdateItem) on table AgentSysMediaMetadata.
-   * bedrock:InvokeModel on amazon.nova-lite-v1:0 to synthesize multi-chunk audio transcripts and OCR findings.
-   * Sends failed stream records to AggregatorStreamDLQ.
-   * Emits operational metrics to CloudWatch namespace AgentSys.
-3. **ApiFunctionRole** (agentsys-api):
-   * Generates s3:PutObject Presigned URLs.
-   * dynamodb:GetItem, dynamodb:Query (including GSI category-index), and dynamodb:DeleteItem.
-   * bedrock:InvokeModel on authorized foundation models (Amazon Nova Lite, Titan Embeddings).
+1. **IngestFunctionRole** (`agentsys-ingest` - lines 260-315 in `template.yaml`):
+   * **S3 Access (`ReadMediaObjects`)**: `s3:GetObject` on `uploads/*` to retrieve raw media; `s3:PutObject` on `thumbs/*` and `transcripts/*` to store generated thumbnails and full Transcribe outputs.
+   * **AI / ML Ingestion**: Slide label and text/formula extraction (`rekognition:DetectLabels`, `rekognition:DetectText`); speech transcription pipeline control (`transcribe:StartTranscriptionJob`, `transcribe:GetTranscriptionJob`).
+   * **DynamoDB Access (`DynamoWrite`)**: Status persistence and chunk writes (`dynamodb:PutItem`, `dynamodb:GetItem`, `dynamodb:UpdateItem`, `dynamodb:Scan`, `dynamodb:Query`, `dynamodb:BatchWriteItem`, `dynamodb:DescribeTable`) on table `AgentSysMediaMetadata` and GSI `category-index`.
+   * **Amazon Bedrock (`BedrockInvoke`)**: Foundation model invocation (`bedrock:InvokeModel`) for `amazon.nova-lite-v1:0`, `amazon.nova-pro-v1:0`, and `amazon.titan-embed-text-v2:0`.
+   * **CloudWatch Custom Metrics (`CustomMetrics`)**: Operational telemetry publishing (`cloudwatch:PutMetricData`) strictly conditioned on `cloudwatch:namespace: AgentSys`.
+   * **SQS Ingestion Event**: SQS consumer permissions on `agentsys-ingest-queue`.
+2. **AggregatorFunctionRole** (`agentsys-aggregator` - lines 355-402 in `template.yaml`):
+   * **DynamoDB Streams & Table (`DynamoDBStreamAndTableAccess`)**: Stream event processing (`dynamodb:DescribeStream`, `dynamodb:GetRecords`, `dynamodb:GetShardIterator`, `dynamodb:ListStreams`); keyed chunk reading and updates (`dynamodb:GetItem`, `dynamodb:BatchGetItem`, `dynamodb:UpdateItem`, `dynamodb:Query`, `dynamodb:Scan`, `dynamodb:DescribeTable`) on table `AgentSysMediaMetadata`.
+   * **Amazon Bedrock (`BedrockInvocation`)**: Summary synthesis invocation (`bedrock:InvokeModel`) on `amazon.nova-lite-v1:0` and `amazon.nova-pro-v1:0`.
+   * **SQS Stream DLQ (`SQSStreamDLQAccess`)**: Forwarding unrecoverable stream events (`sqs:SendMessage`) to `AggregatorStreamDLQ`.
+   * **CloudWatch Custom Metrics (`CustomMetrics`)**: Emitting operational metrics (`cloudwatch:PutMetricData`) to namespace `AgentSys`.
+3. **ApiFunctionRole** (`agentsys-api` - lines 435-502 in `template.yaml`):
+   * **S3 Presigned Access (`PresignUploads`)**: Generating Presigned PUT URLs for direct uploads (`uploads/*`, `direct/*`), Presigned GET URLs for secure media/thumbnail delivery (`thumbs/*`, `uploads/*`), and `s3:DeleteObject` for asset cleanup.
+   * **DynamoDB Access (`DynamoAccess`)**: Media metadata CRUD and catalog querying (`dynamodb:GetItem`, `dynamodb:PutItem`, `dynamodb:DeleteItem`, `dynamodb:Scan`, `dynamodb:Query`, `dynamodb:BatchWriteItem`) across `AgentSysMediaMetadata` and GSI `category-index`.
+   * **Amazon Bedrock (`BedrockInvoke`)**: Foundation model inference permissions (`bedrock:InvokeModel`, `bedrock:InvokeModelWithResponseStream`) for `amazon.nova-lite-v1:0`, `amazon.nova-pro-v1:0`, and `amazon.titan-embed-text-v2:0` powering AI Search Planner and Converse API endpoints.
+   * **SQS Ingestion Dispatch (`IngestQueueSend`)**: Queue dispatching permissions (`sqs:SendMessage`) on `agentsys-ingest-queue` when clients invoke media processing or reprocessing routes (`/process`, `/reprocess`).
+   * **CloudWatch Custom Metrics (`CustomMetrics`)**: Publishing operational telemetry (`cloudwatch:PutMetricData`) to namespace `AgentSys`.
+   * **Health Check & Diagnostics (`HealthPings`, `HealthBucket`, `HealthTable`)**: Subsystem diagnostics for the `/health` endpoint (`sts:GetCallerIdentity`, `rekognition:ListCollections`, `transcribe:ListTranscriptionJobs`, `bedrock:GetFoundationModel`, `bedrock:GetInferenceProfile`, `s3:ListBucket` on `MediaBucket`, `dynamodb:DescribeTable` on `MetadataTable`).
 
 ---
 

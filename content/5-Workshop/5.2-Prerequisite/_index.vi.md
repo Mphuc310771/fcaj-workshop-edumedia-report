@@ -60,24 +60,27 @@ Theo chính sách mới nhất của AWS Bedrock, quy trình cấp quyền truy 
 
 ## 4. Nguyên Tắc Phân Quyền Tối Thiểu (IAM Least-Privilege Roles)
 
-Trong file SAM Template (infra/template.yaml), hệ thống tự động khởi tạo 3 Execution Role độc lập với đặc quyền tối thiểu:
+Trong SAM Template (`infra/template.yaml`), hệ thống tự động khởi tạo 3 IAM Execution Roles độc lập với đặc quyền tối thiểu tuyệt đối, tương ứng chính xác với chức năng nhiệm vụ của từng Lambda:
 
-1. **IngestFunctionRole** (agentsys-ingest):
-   * Chỉ có quyền s3:GetObject trên bucket uploads/\*.
-   * Quyền rekognition:DetectLabels và rekognition:DetectText.
-   * Quyền transcribe:StartTranscriptionJob và transcribe:GetTranscriptionJob.
-   * Quyền dynamodb:PutItem, dynamodb:UpdateItem trên bảng AgentSysMediaMetadata.
-   * Quyền tiêu thụ tin nhắn từ agentsys-ingest-queue.
-2. **AggregatorFunctionRole** (agentsys-aggregator):
-   * Tiêu thụ sự kiện từ DynamoDB Stream (GetRecords, GetShardIterator, DescribeStream).
-   * Đọc chunks metadata (BatchGetItem, GetItem, UpdateItem) trên bảng AgentSysMediaMetadata.
-   * Quyền bedrock:InvokeModel trên amazon.nova-lite-v1:0 để tổng hợp transcript và OCR.
-   * Quyền gửi tin nhắn tới AggregatorStreamDLQ.
-   * Quyền phát metric tới CloudWatch namespace AgentSys.
-3. **ApiFunctionRole** (agentsys-api):
-   * Quyền tạo s3:PutObject Presigned URL.
-   * Quyền đọc dynamodb:GetItem, dynamodb:Query (bao gồm GSI category-index), và dynamodb:DeleteItem.
-   * Quyền bedrock:InvokeModel trên các foundation models được cấp phép (Amazon Nova Lite, Titan Embeddings).
+1. **IngestFunctionRole** (`agentsys-ingest` - dòng 260-315 trong `template.yaml`):
+   * **S3 Access (`ReadMediaObjects`)**: Quyền `s3:GetObject` trên `uploads/*` để tải media thô; quyền `s3:PutObject` trên `thumbs/*` và `transcripts/*` để trích xuất ảnh thumbnail và lưu trữ toàn văn bản bóc băng Transcribe trở lại S3.
+   * **AI / ML Ingestion**: Quyền trích xuất nhãn và văn bản in/viết tay trên slide (`rekognition:DetectLabels`, `rekognition:DetectText`); quyền khởi tạo và theo dõi tiến trình bóc băng âm thanh (`transcribe:StartTranscriptionJob`, `transcribe:GetTranscriptionJob`).
+   * **DynamoDB Access (`DynamoWrite`)**: Quyền ghi và cập nhật trạng thái (`dynamodb:PutItem`, `dynamodb:GetItem`, `dynamodb:UpdateItem`, `dynamodb:Scan`, `dynamodb:Query`, `dynamodb:BatchWriteItem`, `dynamodb:DescribeTable`) trên bảng `AgentSysMediaMetadata` và GSI `category-index`.
+   * **Amazon Bedrock (`BedrockInvoke`)**: Quyền gọi suy luận mô hình nền tảng (`bedrock:InvokeModel`) trên `amazon.nova-lite-v1:0`, `amazon.nova-pro-v1:0`, và `amazon.titan-embed-text-v2:0`.
+   * **CloudWatch Custom Metrics (`CustomMetrics`)**: Quyền phát chỉ số vận hành (`cloudwatch:PutMetricData`) với điều kiện bắt buộc `cloudwatch:namespace: AgentSys`.
+   * **SQS Ingestion Event**: Quyền tiêu thụ thông điệp từ hàng đợi đệm `agentsys-ingest-queue`.
+2. **AggregatorFunctionRole** (`agentsys-aggregator` - dòng 355-402 trong `template.yaml`):
+   * **DynamoDB Streams & Table (`DynamoDBStreamAndTableAccess`)**: Quyền đọc sự kiện Stream (`dynamodb:DescribeStream`, `dynamodb:GetRecords`, `dynamodb:GetShardIterator`, `dynamodb:ListStreams`); quyền đọc/cập nhật chunks metadata tổng hợp theo key (`dynamodb:GetItem`, `dynamodb:BatchGetItem`, `dynamodb:UpdateItem`, `dynamodb:Query`, `dynamodb:Scan`, `dynamodb:DescribeTable`) trên bảng `AgentSysMediaMetadata`.
+   * **Amazon Bedrock (`BedrockInvocation`)**: Quyền gọi suy luận mô hình nền tảng (`bedrock:InvokeModel`) trên `amazon.nova-lite-v1:0` và `amazon.nova-pro-v1:0` để tổng hợp báo cáo phân tích đa phương thức từ chunks.
+   * **SQS Stream DLQ (`SQSStreamDLQAccess`)**: Quyền gửi bản ghi thất bại (`sqs:SendMessage`) vào Dead-Letter Queue `AggregatorStreamDLQ`.
+   * **CloudWatch Custom Metrics (`CustomMetrics`)**: Quyền phát chỉ số vận hành (`cloudwatch:PutMetricData`) vào namespace `AgentSys`.
+3. **ApiFunctionRole** (`agentsys-api` - dòng 435-502 trong `template.yaml`):
+   * **S3 Presigned Access (`PresignUploads`)**: Quyền tạo Presigned PUT URL tải lên trực tiếp (`uploads/*`, `direct/*`), Presigned GET URL truy xuất nội dung media và thumbnail (`thumbs/*`, `uploads/*`), và quyền `s3:DeleteObject` phục vụ xóa tài nguyên.
+   * **DynamoDB Access (`DynamoAccess`)**: Quyền CRUD siêu dữ liệu (`dynamodb:GetItem`, `dynamodb:PutItem`, `dynamodb:DeleteItem`, `dynamodb:Scan`, `dynamodb:Query`, `dynamodb:BatchWriteItem`) trên bảng `AgentSysMediaMetadata` và GSI `category-index`.
+   * **Amazon Bedrock (`BedrockInvoke`)**: Quyền gọi suy luận mô hình nền tảng (`bedrock:InvokeModel`, `bedrock:InvokeModelWithResponseStream`) trên `amazon.nova-lite-v1:0`, `amazon.nova-pro-v1:0`, và `amazon.titan-embed-text-v2:0` phục vụ endpoint AI Search Planner và hội thoại Converse API (Plan & Answer).
+   * **SQS Ingestion Dispatch (`IngestQueueSend`)**: Quyền gửi thông điệp (`sqs:SendMessage`) vào hàng đợi `agentsys-ingest-queue` khi người dùng gọi API kích hoạt xử lý hoặc tái xử lý media (`/process`, `/reprocess`).
+   * **CloudWatch Custom Metrics (`CustomMetrics`)**: Quyền phát chỉ số vận hành API (`cloudwatch:PutMetricData`) vào namespace `AgentSys`.
+   * **Health Check & Diagnostics (`HealthPings`, `HealthBucket`, `HealthTable`)**: Quyền kiểm tra trạng thái dịch vụ nền tảng tại endpoint `/health` (`sts:GetCallerIdentity`, `rekognition:ListCollections`, `transcribe:ListTranscriptionJobs`, `bedrock:GetFoundationModel`, `bedrock:GetInferenceProfile`, `s3:ListBucket` trên `MediaBucket`, `dynamodb:DescribeTable` trên `MetadataTable`).
 
 ---
 

@@ -45,6 +45,11 @@ Hệ thống tự động phát các chỉ số vận hành tùy biến (Custom 
 * **MediaIngested**: Số lượng tệp đã xử lý và nhúng vector thành công.
 * **MediaIngestFailed**: Số lượng tệp xử lý thất bại cần can thiệp.
 
+### 2.3. Phân Tích Dấu Vết Phân Tán (Distributed Tracing with AWS X-Ray)
+Toàn bộ 3 Lambda functions (`agentsys-api`, `agentsys-ingest`, `agentsys-aggregator`) được kích hoạt tính năng truy vết phân tán tự động cấp độ hạ tầng thông qua khai báo `Tracing: Active` tại khối `Globals.Function` (dòng 41 của tệp `agent_sys/infra/template.yaml`).
+* **Trace Map & Latency Breakdown**: AWS X-Ray tự động vẽ bản đồ phụ thuộc dịch vụ (Service Map), đo lường thời gian thực thi chi tiết của từng bước (cold start, SQS receive, Bedrock invocation, DynamoDB read/write, S3 presigned operations).
+* **Phát hiện Bottleneck**: Hỗ trợ cô lập nguyên nhân gây trễ hoặc lỗi 4xx/5xx ngay tại dòng mã cụ thể mà không cần can thiệp sửa đổi mã nguồn ứng dụng.
+
 ---
 
 ## 3. Thiết lập Cảnh báo Tự động (CloudWatch Alarms & SNS Topic)

@@ -33,7 +33,7 @@ In academic and professional environments, students and researchers accumulate t
 
 ### Major Inefficiencies in Existing Solutions:
 1. **Filename-based Search Failure**: Mobile uploads default to non-descriptive names (e.g., IMG_20260826_104212.jpg or Voice_001.m4a), providing zero semantic metadata.
-2. **Costly Commercial DAM Solutions**: Enterprise Digital Asset Management (DAM) platforms require 24/7 dedicated servers starting at $50–$200/month, making them impractical for students or small research teams.
+2. **Costly Commercial DAM Solutions**: Enterprise Digital Asset Management (DAM) platforms require 24/7 dedicated servers starting at \$50–\$200/month, making them impractical for students or small research teams.
 3. **Weak Vietnamese Natural Language Support**: Open-source toolkits struggle with diacritics and domain-specific terminology across Mathematics, Economics, and Philosophy.
 
 ---
@@ -46,7 +46,7 @@ In academic and professional environments, students and researchers accumulate t
 | **G2** | **Computer Vision** | Accurately extracts object labels + Vietnamese OCR text from classroom board snapshots. | Amazon Rekognition |
 | **G3** | **Speech-to-Text** | Transcribes Vietnamese speech (*vi-VN*) from audio/video into the transcript field. | Amazon Transcribe |
 | **G4** | **Hybrid Search** | Natural language queries like *"find teacher review for final exam"* accurately return relevant media items. | Amazon Bedrock, DynamoDB GSI |
-| **G5** | **Well-Architected & FinOps** | 100% Serverless (Scale-to-Zero), $0 idle cost, automated CloudWatch Alarms, and verified Cleanup runbook. | CloudWatch, IAM, SAM CLI |
+| **G5** | **Well-Architected & FinOps** | 100% Serverless (Scale-to-Zero), \$0 idle cost, automated CloudWatch Alarms, and verified Cleanup runbook. | CloudWatch, IAM, SAM CLI |
 
 ---
 
@@ -70,13 +70,13 @@ To achieve optimal performance, high availability, and **Zero Idle Cost**, AWS s
 
 | Selected AWS Service | Evaluated Alternative | Cost Optimization Criteria | High Availability (HA) | Serverless / Managed Model |
 | :--- | :--- | :--- | :--- | :--- |
-| **Amazon S3** *(Standard Storage)* | Amazon EFS / Amazon EBS | **$0.023 / GB / month**. 13x cheaper than EFS ($0.30/GB). Direct **Presigned URLs** offload client upload traffic entirely, saving 100% of compute and bandwidth costs on backend APIs. | Data durability of **99.999999999% (11 9s)**, automatically replicated across at least 3 Availability Zones (AZs) in the Region. | **Managed Object Storage**, eliminating disk volume provisioning, filesystem sizing, and storage server management. |
-| **AWS Lambda** *(Python 3.12 Runtime)* | Amazon ECS *(Fargate / EC2)* | **$0.00 idle cost (Zero Idle Cost)**. Metered strictly per millisecond and GB-second during actual event execution. 1M free requests/month under AWS Free Tier. ECS Fargate incurs continuous base charges (~$15 - $30/month/task) even with zero traffic. | Default Multi-AZ redundancy across the Region; scales instantaneously from 0 to thousands of concurrent executions without managing Auto Scaling Groups. | **Pure Serverless FaaS**, eliminating OS patching, security kernel upgrades, and container runtime daemon maintenance. |
-| **Amazon API Gateway** *(HTTP API)* | Application Load Balancer (ALB) / REST API | Low cost of **$1.00 / million requests** (>70% cheaper than REST API at $3.50/M). Zero idle hourly charges compared to ALB (~$16 - $20/month base LCU cost). | Native Multi-AZ fault tolerance with integrated AWS Shield DDoS mitigation, handling tens of thousands of requests per second. | **Serverless API Gateway**, native CORS handling, API Key authentication, and direct zero-overhead Lambda proxy integration. |
-| **Amazon DynamoDB** *(On-Demand Mode)* | Amazon RDS Aurora *(PostgreSQL / MySQL)* | **$0.00 idle cost**. Metered strictly per actual read/write request units (RRU/WRU) plus 25 GB Always Free storage. Aurora Serverless v2 requires a continuous minimum ACU allocation (~$35 - $60/month). | Automatic synchronous data replication across 3 AZs; backed by a 99.99% SLA with single-digit millisecond query latency (<10ms). | **NoSQL Serverless Database**, immune to connection pool exhaustion during Lambda scale bursts; zero schema migration downtime. |
-| **Amazon SQS & DLQ** *(Message Queue)* | Amazon Kinesis Data Streams / Apache Kafka (MSK) | **$0.40 / million requests**. 1 million requests free every month (Always Free). In contrast, Kinesis charges per Shard-hour (~$11/month/shard) and MSK requires continuous cluster broker fees (~$100+/month). | Highly resilient distributed message queue across Multi-AZ with up to 14 days message retention, absorbing traffic bursts without downstream AI throttling. | **Fully Managed Queue**, automatically batch-triggering Lambda Ingest workers and isolating corrupted payloads into Dead-Letter Queues (DLQ). |
-| **Amazon Bedrock** *(Nova Lite & Titan Embeddings V2)* | Self-hosted LLM on Amazon EC2 GPU *(G4dn / G5)* | **$0.06 / million input tokens** (Nova Lite) and **$0.02 / million input tokens** (Titan Embeddings V2). Total practical testing cost is mere pennies. Self-hosting open-source LLMs on EC2 GPU (g4dn.xlarge or g5.xlarge) costs **$380 – $750 USD/month** continuously. | Foundation models hosted on AWS high-performance GPU clusters with built-in high availability and automated inference load distribution. | **Serverless GenAI API (FaaS)**, requiring zero management of GPU hardware, CUDA drivers, vLLM containers, or inference scaling clusters. |
-| **Amazon Rekognition & Transcribe** | Custom self-trained ML models on EC2 | Pay-as-you-go per processed image ($0.001/image) and audio second ($0.0001/sec). Eliminates R&D, data labeling, model training, and continuous hosting overhead. | Purpose-built AWS AI services backed by 99.9% SLAs and automatic elastic concurrency. | **Pre-trained Managed AI Services**, natively optimized for Vietnamese speech-to-text (*vi-VN*) and high-accuracy Vietnamese OCR. |
+| **Amazon S3** *(Standard Storage)* | Amazon EFS / Amazon EBS | **\\$0.023 / GB / month**. 13x cheaper than EFS (\\$0.30/GB). Direct **Presigned URLs** offload client upload/download traffic entirely, saving 100% of compute and bandwidth costs on backend APIs. | Data durability of **99.999999999% (11 9s)** alongside **99.99% designed Availability (99.9% SLA commitment)**, automatically replicated across at least 3 Availability Zones (AZs) in the Region. | **Managed Object Storage**, eliminating disk volume provisioning, filesystem sizing, and storage server management. |
+| **AWS Lambda** *(Python 3.12 Runtime)* | Amazon ECS *(Fargate / EC2)* | **\\$0.00 idle cost (Zero Idle Cost)**. Metered strictly per millisecond and GB-second during actual event execution. 1M free requests/month under AWS Free Tier. ECS Fargate incurs continuous base charges (~\\$15 - \\$30/month/task) even with zero traffic. | Default Multi-AZ redundancy across the Region; scales instantaneously from 0 to thousands of concurrent executions without managing Auto Scaling Groups. | **Pure Serverless FaaS**, eliminating OS patching, security kernel upgrades, and container runtime daemon maintenance. |
+| **Amazon API Gateway** *(HTTP API)* | Application Load Balancer (ALB) / REST API | Low cost of **\\$1.00 / million requests** (>70% cheaper than REST API at \\$3.50/M). Zero idle hourly charges compared to ALB (~\\$16 - \\$20/month base LCU cost). | Native Multi-AZ fault tolerance; protected against L3/L4 DDoS attacks via **default AWS Shield Standard** combined with **Route Throttling** (burst and steady-state rate limits) to safeguard backend Lambdas. | **Serverless HTTP API**, native CORS handling, direct zero-overhead Lambda proxy routing. API security validation is enforced at the application tier (FastAPI `verify_api_key` dependency checking `X-API-Key` header) rather than relying on native API Gateway usage plans. |
+| **Amazon DynamoDB** *(On-Demand Mode)* | Amazon RDS Aurora *(PostgreSQL / MySQL)* | **\\$0.00 idle cost**. Metered strictly per actual read/write request units (RRU/WRU) plus 25 GB Always Free storage. Aurora Serverless v2 requires a continuous minimum ACU allocation (~\\$35 - \\$60/month). | Automatic synchronous data replication across 3 AZs; backed by a 99.99% SLA with single-digit millisecond query latency (<10ms). | **NoSQL Serverless Database**, immune to connection pool exhaustion during Lambda scale bursts; zero schema migration downtime. |
+| **Amazon SQS & DLQ** *(Message Queue)* | Amazon Kinesis Data Streams / Apache Kafka (MSK) | **\\$0.40 / million requests**. 1 million requests free every month (Always Free). In contrast, Kinesis charges per Shard-hour (~\\$11/month/shard) and MSK requires continuous cluster broker fees (~\\$100+/month). | Highly resilient distributed message queue across Multi-AZ with up to 14 days message retention, absorbing traffic bursts without downstream AI throttling. | **Fully Managed Queue**, automatically batch-triggering Lambda Ingest workers and isolating corrupted payloads into Dead-Letter Queues (DLQ). |
+| **Amazon Bedrock** *(Nova Lite & Titan Embeddings V2)* | Self-hosted LLM on Amazon EC2 GPU *(G4dn / G5)* | **\\$0.06 / million input tokens** (Nova Lite) and **\\$0.02 / million input tokens** (Titan Embeddings V2). Total practical testing cost is mere pennies. Self-hosting open-source LLMs on EC2 GPU (g4dn.xlarge or g5.xlarge) costs **\\$380 – \\$750 USD/month** continuously. | Foundation models hosted on AWS high-performance GPU clusters with built-in high availability and automated inference load distribution. | **Serverless GenAI API (FaaS)**, requiring zero management of GPU hardware, CUDA drivers, vLLM containers, or inference scaling clusters. |
+| **Amazon Rekognition & Transcribe** | Custom self-trained ML models on EC2 | Amazon Transcribe billed at official rate **\\$0.024 / minute (\\$0.0004 / second)**. Rekognition billed at \\$0.001/image. Eliminates R&D, data labeling, model training, and continuous hosting overhead. | Purpose-built AWS AI services backed by 99.9% SLAs and automatic elastic concurrency. | **Pre-trained Managed AI Services**: Transcribe natively optimized for Vietnamese speech-to-text (*vi-VN*); Rekognition handles object labeling (DetectLabels) and slide text/title extraction (DetectText) out-of-the-box without custom ML training. |
 
 ---
 
@@ -111,7 +111,7 @@ The architecture is comprehensively evaluated against the 6 pillars of the **AWS
 * **In-Memory Query Plan Cache (\_PLAN\_CACHE)**: LRU caching of parsed search plans speeds up repeated query responses by **3.7x** and saves 100% of LLM token costs.
 
 ### 4. Cost Optimization (FinOps)
-* **Scale-to-Zero Model**: Idle infrastructure costs exactly **$0.00 USD**.
+* **Scale-to-Zero Model**: Idle infrastructure costs exactly **\$0.00 USD**.
 * **Bedrock LRU Caching**: In-memory query caching eliminates token costs for recurring search queries.
 * **S3 Lifecycle Rules**: Automatic expiration for temporary files in transcripts/ after 7 days.
 
@@ -126,17 +126,17 @@ The architecture is comprehensively evaluated against the 6 pillars of the **AWS
 
 ## 6. AWS FinOps Cost Modeling & Production Workload Estimates (Region: us-east-1)
 
-The system adheres to a strict **Scale-to-Zero** FinOps model. All operational costs have been modeled and calculated using the official **AWS Pricing Calculator**:
+The system adheres to a strict **Scale-to-Zero** FinOps model. All infrastructure resources (S3, DynamoDB, Lambda, SQS, API Gateway, CloudWatch) are centrally provisioned in **AWS Region: us-east-1 (N. Virginia)**. For the Generative AI layer (Amazon Bedrock), the system leverages Cross-Region Inference Profiles with prefix `us.` (`arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/us.*`) for dynamic inference routing across US data centers while all orchestration assets remain strictly within `us-east-1`. All operational costs have been modeled and calculated using the official **AWS Pricing Calculator**:
 * **Official AWS Public Estimate:** [EduMedia AI Workload Estimate (AWS Pricing Calculator)](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
 
 ### 6.1. Unit Economics (AWS Region: us-east-1)
-* **1 Lecture Slide Image Processing:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / image** (~51 VND).
-* **1 Audio Minute Transcription:** Amazon Transcribe Standard Batch vi-VN = **$0.0060 USD / minute** (~153 VND/min current AWS Calculator rate at $0.0001/sec, or $0.0240 USD / min ceiling list price).
-* **1 Intelligent AI Query:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1,000 in + 300 out tokens) = **~$0.00178 USD / query** (~45.4 VND).
-* **AI Agent Reasoning & Intent Parsing:** Amazon Nova Lite ($0.06/1M in + $0.24/1M out tokens) acts as the autonomous Agent orchestrator parsing queries, translating Vietnamese intent, and invoking tools = **~$0.08 – $0.15 USD / month** for 2,000 queries.
-* **Amazon S3 Standard Storage:** **$0.0230 USD / GB / month** (~586.5 VND/GB). (API Requests: PUT $0.005 / 1k reqs, GET $0.0004 / 1k reqs).
+* **1 Lecture Slide Image Processing:** Amazon Rekognition DetectLabels (\$0.0010) + DetectText OCR (\$0.0010) = **\$0.0020 USD / image** (~51 VND).
+* **1 Audio Minute Transcription:** Amazon Transcribe Standard Batch vi-VN = **\$0.0240 USD / minute** (\$0.0004 USD / second official AWS rate card, equivalent to ~612 VND/min).
+* **1 Intelligent AI Query:** Amazon Titan Text Embeddings v2 (\$0.00002/1k tokens) + Amazon Bedrock Nova Pro (1,000 in + 300 out tokens) = **~\$0.00178 USD / query** (~45.4 VND).
+* **AI Agent Reasoning & Intent Parsing:** Amazon Nova Lite (\$0.06/1M in + \$0.24/1M out tokens) acts as the autonomous Agent orchestrator parsing queries, translating Vietnamese intent, and invoking tools = **~\$0.08 – \$0.15 USD / month** for 2,000 queries.
+* **Amazon S3 Standard Storage:** **\$0.0230 USD / GB / month** (~586.5 VND/GB). (API Requests: PUT \$0.005 / 1k reqs, GET \$0.0004 / 1k reqs).
 * **Amazon CloudFront Distribution:** **1 TB (1,000 GB) Data Transfer Out** and **10,000,000 requests/month** free forever (Always Free Tier).
-* **AWS Lambda (1024MB, 1.5s):** $0.20/1M requests + $0.0000166667 / GB-s (x86) or $0.0000133334 / GB-s (ARM Graviton2) = **$0.000020 / invocation**. (1M requests + 400,000 GB-s/month free forever).
+* **AWS Lambda (1024MB, 1.5s):** \$0.20/1M requests + \$0.0000166667 / GB-s (x86) or \$0.0000133334 / GB-s (ARM Graviton2) = **\$0.000020 / invocation**. (1M requests + 400,000 GB-s/month free forever).
 
 ---
 
@@ -145,14 +145,14 @@ Workload: 50 slide images, 5–10 short demo video clips (15–20 total audio mi
 
 | AWS Service | Evaluation Workload | Gross Cost (Without Free Tier) | Net Invoiced Cost (With Free Tier) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 50 images × 2 APIs = 100 calls | $0.1000 USD | **$0.0000 USD** (1,000 calls/mo Free Tier) |
-| **Amazon Transcribe** | 15–20 minutes vi-VN audio (Batch) | $0.0900 – $0.1200 USD *(Rate card: $0.36 – $0.48)* | **$0.0000 USD** (60 minutes/mo Free Tier) |
-| **Amazon Bedrock** | 100 queries Nova Pro / Nova Lite + Titan Embed | $0.1780 USD | **$0.1780 USD** *(No quantity Free Tier)* |
-| **Amazon S3** | 1 GB Standard + PUT/GET requests | $0.0240 USD | **$0.0000 USD** (5 GB Free Tier allowance) |
-| **AWS Lambda & SQS** | 2,000 invocations (1024MB, 1.5s = 3,000 GB-s) | $0.0528 USD | **$0.0000 USD** (Always Free 1M req, 400k GB-s) |
-| **Amazon DynamoDB** | On-Demand (2,000 writes + 2,000 reads) | $0.0015 USD | **$0.0015 USD** (25 GB Storage Always Free) |
-| **Amazon CloudFront** | Static Web UI distribution (< 1 GB) | $0.0425 USD | **$0.0000 USD** (Always Free 1 TB/mo) |
-| **TOTAL (POC)** | **Exchange Rate: 1 USD = 25,500 VND** | **$0.48 – $0.84 USD** *(~12,000 – 21,000 VND)* | **$0.18 USD** *(~4,500 VND - Or $0.00 with Credits)* |
+| **Amazon Rekognition** | 50 images × 2 APIs = 100 calls | \$0.1000 USD | **\$0.0000 USD** (1,000 calls/mo Free Tier) |
+| **Amazon Transcribe** | 15–20 minutes vi-VN audio (Batch) | \$0.0900 – \$0.1200 USD *(Rate card: \$0.36 – \$0.48)* | **\$0.0000 USD** (60 minutes/mo Free Tier) |
+| **Amazon Bedrock** | 100 queries Nova Pro / Nova Lite + Titan Embed | \$0.1780 USD | **\$0.1780 USD** *(No quantity Free Tier)* |
+| **Amazon S3** | 1 GB Standard + PUT/GET requests | \$0.0240 USD | **\$0.0000 USD** (5 GB Free Tier allowance) |
+| **AWS Lambda & SQS** | 2,000 invocations (1024MB, 1.5s = 3,000 GB-s) | \$0.0528 USD | **\$0.0000 USD** (Always Free 1M req, 400k GB-s) |
+| **Amazon DynamoDB** | On-Demand (2,000 writes + 2,000 reads) | \$0.0015 USD | **\$0.0015 USD** (25 GB Storage Always Free) |
+| **Amazon CloudFront** | Static Web UI distribution (< 1 GB) | \$0.0425 USD | **\$0.0000 USD** (Always Free 1 TB/mo) |
+| **TOTAL (POC)** | **Exchange Rate: 1 USD = 25,500 VND** | **\$0.48 – \$0.84 USD** *(~12,000 – 21,000 VND)* | **\$0.18 USD** *(~4,500 VND - Or \$0.00 with Credits)* |
 
 ---
 
@@ -161,21 +161,22 @@ Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries
 
 | AWS Service | Production Workload (100 - 200 Students) | Gross Cost (Without Free Tier) | Standard Production Bill (With Always Free) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 1,500 images × 2 APIs = 3,000 calls | **$3.00 USD** | **$3.00 USD** *(Year 1: $2.00)* |
-| **Amazon Transcribe** | 250 lecture minutes vi-VN | **$1.50 USD** *(Rate card ceiling: $6.00)* | **$1.50 USD** *(Rate card ceiling: $6.00)* |
-| **Amazon Bedrock** | 2,000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
-| **Amazon S3** | 20 GB Standard storage + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Year 1: $0.35)* |
-| **AWS Lambda & SQS** | 15,000 invocations (22,500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
-| **Amazon DynamoDB** | On-Demand (15,000 writes + 60,000 reads) | **$0.02 USD** | **$0.02 USD** *(< 25 GB Always Free)* |
-| **Amazon CloudFront** | 10 GB Data Transfer Out | **$0.85 USD** | **$0.00 USD** *(Always Free 1 TB/mo)* |
-| **TOTAL** | **Full System for 100 - 200 Students** | **$9.77 – $14.27 USD / month** | **$8.54 – $13.09 USD / month** |
-| **CURRENCY CONVERSION** | **Exchange Rate: 1 USD = 25,500 VND** | **~249,000 – 364,000 VND / month** | **~217,000 – 334,000 VND / month** |
-| **PER-STUDENT COST** | **Scale of 100 – 200 Students** | **1,246 – 3,639 VND / student / month** | **1,088 – 2,177 VND / student / month** |
+| **Amazon Rekognition** | 1,500 images × 2 APIs = 3,000 calls | **\$3.00 USD** | **\$3.00 USD** *(Year 1: \$2.00)* |
+| **Amazon Transcribe** | 250 lecture minutes vi-VN | **\$6.00 USD** *(Rate Card \$0.024/min)* | **\$6.00 USD** *(Baseline Calculator: \$1.50)* |
+| **Amazon Bedrock** | 2,000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **\$3.56 USD** | **\$3.56 USD** |
+| **Amazon S3** | 20 GB Standard storage + requests | **\$0.46 USD** *(+ requests: \$0.53)* | **\$0.46 USD** *(Year 1: \$0.35)* |
+| **AWS Lambda & SQS** | 15,000 invocations (22,500 GB-s) + SQS | **\$0.38 USD** | **\$0.00 USD** *(Always Free Tier)* |
+| **Amazon DynamoDB** | On-Demand (15,000 writes + 60,000 reads) | **\$0.02 USD** | **\$0.02 USD** *(< 25 GB Always Free)* |
+| **Amazon CloudFront** | 10 GB Data Transfer Out | **\$0.85 USD** | **\$0.00 USD** *(Always Free 1 TB/mo)* |
+| **TOTAL** | **Full System for 100 - 200 Students** | **\$14.27 USD / month** *(Baseline Calculator: \$9.77)* | **\$13.04 – \$13.09 USD / month** *(Baseline: \$8.54)* |
+| **CURRENCY CONVERSION** | **Exchange Rate: 1 USD = 25,500 VND** | **~364,000 VND / month** *(Baseline: ~249,000 VND)* | **~333,000 – 334,000 VND / month** *(Baseline: ~217,000 VND)* |
+| **PER-STUDENT COST** | **Scale of 100 – 200 Students** | **1,819 – 3,639 VND / student / month** | **1,663 – 3,338 VND / student / month** |
 
 > **AWS Pricing Calculator vs Rate Card Reconciliation:**
-> * On the official live [AWS Pricing Calculator Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), base monthly cost totals **$4.96 USD / month** (Rekognition $3.00, Transcribe Batch $1.50 at $0.0001/sec, S3 20GB $0.46, Lambda $0.00 Always Free).
-> * Calculated against the **Worst-Case Public Rate Card ($0.024/min for Transcribe)** plus Bedrock Inference (Nova Lite / Nova Pro + Titan Embeddings) and S3 API / CloudWatch Logs, monthly production spend ranges between **$9.77 – $14.27 USD / month**.
-> * Over **82% of operational spend resides in AI Inference**. The entire Serverless compute/storage tier (Lambda, SQS, S3, DynamoDB, CloudFront) costs under **$1.50 USD / month**, automatically scaling to $0.00 USD when idle.
+> * On the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), base monthly cost displays **4.96 USD / month** (Rekognition 3.00 USD for 3,000 images, Transcribe 1.50 USD baseline trial workload, S3 20GB 0.46 USD, Lambda 0.00 USD Always Free).
+> * Scaling up to the full production workload of **250 audio minutes/month for 100–200 students (Amazon Transcribe Standard totaling 6.00 USD)** plus Bedrock Inference (Nova Lite / Nova Pro + Titan Embeddings) and S3 API / CloudWatch Logs, monthly production spend ranges between **13.04 – 14.27 USD / month** (~**1,663 – 3,639 VND / student / month**).
+> * Over **82% of operational spend resides in AI Inference**. The entire Serverless compute/storage tier (Lambda, SQS, S3, DynamoDB, CloudFront) costs under **1.50 USD / month**, automatically scaling to 0.00 USD when idle.
+> * **Architecture Diagram vs Cost Model Reconciliation:** The architecture diagram focuses on the Backend Serverless ingestion and AI processing pipeline deployed in AWS Region us-east-1. The client-side component `React Web UI (SPA Client)` is hosted in production on Amazon S3 static website hosting fronted by **Amazon CloudFront CDN** (validated with distribution `d27yx88v3wm0yt.cloudfront.net` in section 5.6). CloudFront Data Transfer Out (DTO) is explicitly included in the financial model to reflect the complete end-to-end operational budget of the production system.
 
 ---
 
@@ -192,9 +193,9 @@ Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries
 | No | Identified Risk | Impact | Mitigation Strategy |
 | :---: | :--- | :---: | :--- |
 | **1** | **DynamoDB Vector Scan Amplification & S3 Race Conditions:** DynamoDB lacks native ANN/HNSW indices; full table scans spike RRUs exponentially. Furthermore, S3 lacks native append/lock, causing concurrent Lambda ingest workers to overwrite `index.bin`. | High | Segregated architecture: Ingestion workers store lecture metadata and raw vectors atomically into DynamoDB via `PutItem`. A scheduled compaction job or single-concurrency Lambda Indexer (`ReservedConcurrency = 1` with `If-Match ETag`) builds a consolidated binary vector index on S3. Search Lambdas cache the index in RAM checking `HeadObject` (TTL 60s), eliminating 99% of DynamoDB reads and preventing concurrent write data loss. |
-| **2** | **VPC NAT Gateway Cost Trap:** Placing Lambda inside a VPC private subnet without private RDS incurs a fixed NAT Gateway charge of $32.85 USD/month even when idle. | High | Zero-VPC design: keep Lambda outside VPC as all interactions communicate with AWS managed public APIs (S3, Bedrock, Rekognition, DynamoDB) strictly secured via IAM Least-Privilege roles and TLS 1.3 encryption. |
+| **2** | **VPC NAT Gateway Cost Trap:** Placing Lambda inside a VPC private subnet without private RDS incurs a fixed NAT Gateway charge of \$32.85 USD/month even when idle. | High | Zero-VPC design: keep Lambda outside VPC as all interactions communicate with AWS managed public APIs (S3, Bedrock, Rekognition, DynamoDB) strictly secured via IAM Least-Privilege roles and TLS 1.3 encryption. |
 | **3** | **Infinite S3-to-Lambda Triggers & SQS Retry Storms:** Recursive event loops on file generation exhausting AI API quotas. | High | Strict S3 prefix segregation (`uploads/` trigger only, writing transcripts to `transcripts/` or dedicated bucket); configure SQS Dead-Letter Queue (DLQ) with `maxReceiveCount = 3` to isolate failing messages. |
-| **4** | **Rekognition Video Cost Trap ($0.10/min) & Token Caps:** Rekognition Video is extremely costly ($0.10/min/feature = $50 for 250 mins). Moreover, Titan Multimodal Embeddings G1 only accepts text up to 128 tokens and static images, rejecting direct video inputs. | High | Intelligent Multi-Modal Tiering: Instead of expensive Rekognition Video APIs, lecture video/audio files are routed asynchronously to Amazon Transcribe for speech-to-text and text chunking (≤ 128 tokens) for Titan Text Embeddings V2; static visual inspection applies directly to document images via Rekognition Image ($0.001/image), achieving >95% cost reduction. |
-| **5** | **Lambda Synchronous Wait on Batch Transcription:** Batch transcription takes 1–3 minutes. Polling synchronously with `sleep()` inside Lambda inflates GB-sec runtime by 100x. | High | 100% Asynchronous Event-Driven Design: The Ingestion Lambda invokes `StartTranscriptionJob()` and exits immediately in 0.5s. Amazon EventBridge captures `Transcribe Job State Change (COMPLETED)` (or S3 ObjectCreated) to trigger the downstream indexing Lambda. Polling wait cost = $0.00 USD. |
-| **6** | **S3 Data Transfer Out (Egress) Spikes:** Hundreds of students streaming lecture videos from S3 via presigned URLs incur $0.09/GB egress fees beyond 100GB. | Medium | Deploy Amazon CloudFront with Origin Access Control (OAC) in front of S3, capitalizing on CloudFront's Always Free 1 TB (1,000 GB) Data Transfer Out and 10,000,000 requests/month, completely eliminating egress risks. |
+| **4** | **Rekognition Video Cost Trap (\$0.10/min) & Token Caps:** Rekognition Video is extremely costly (\$0.10/min/feature = \$50 for 250 mins). Moreover, Titan Multimodal Embeddings G1 only accepts text up to 128 tokens and static images, rejecting direct video inputs. | High | Intelligent Multi-Modal Tiering: Instead of expensive Rekognition Video APIs, lecture video/audio files are routed asynchronously to Amazon Transcribe for speech-to-text and text chunking (≤ 128 tokens) for Titan Text Embeddings V2; static visual inspection applies directly to document images via Rekognition Image (\$0.001/image), achieving >95% cost reduction. |
+| **5** | **Lambda Synchronous Wait on Batch Transcription:** Batch transcription takes 1–3 minutes. Polling synchronously with `sleep()` inside Lambda inflates GB-sec runtime by 100x. | High | 100% Asynchronous Event-Driven Design: The Ingestion Lambda invokes `StartTranscriptionJob()` and exits immediately in 0.5s. Amazon EventBridge captures `Transcribe Job State Change (COMPLETED)` (or S3 ObjectCreated) to trigger the downstream indexing Lambda. Polling wait cost = \$0.00 USD. |
+| **6** | **S3 Data Transfer Out (Egress) Spikes:** Hundreds of students streaming lecture videos from S3 via presigned URLs incur \$0.09/GB egress fees beyond 100GB. | Medium | Deploy Amazon CloudFront with Origin Access Control (OAC) in front of S3, capitalizing on CloudFront's Always Free 1 TB (1,000 GB) Data Transfer Out and 10,000,000 requests/month, completely eliminating egress risks. |
 | **7** | **DynamoDB 400KB Item Limit & SQS Empty Receives:** Lengthy transcripts exceeding DynamoDB 400KB single-item limits; redundant SQS polling costs. | Medium | Automatic S3-offloading for transcript payloads exceeding 250KB, maintaining only pointers in DynamoDB. Configure SQS Long Polling (20s) and set CloudWatch Log Retention to 7 days to eliminate silent idle billing. |

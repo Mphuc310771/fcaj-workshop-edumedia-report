@@ -45,6 +45,11 @@ Custom operational telemetry is published directly to namespace **AgentSys**:
 * **MediaIngested**: Count of successfully processed and indexed assets.
 * **MediaIngestFailed**: Count of unrecoverable failed ingestion tasks.
 
+### 2.3. Distributed Tracing with AWS X-Ray
+All 3 Lambda functions (`agentsys-api`, `agentsys-ingest`, `agentsys-aggregator`) have native infrastructure-level distributed tracing enabled via `Tracing: Active` under `Globals.Function` (line 41 of `agent_sys/infra/template.yaml`).
+* **Trace Map & Latency Breakdown**: AWS X-Ray automatically synthesizes a dynamic service map and provides granular latency breakdowns across downstream calls (SQS queuing, DynamoDB queries, S3 presigned operations, and Bedrock foundation model inference).
+* **Bottleneck Isolation**: Enables rapid troubleshooting and isolation of anomalous latency or 4xx/5xx exceptions directly down to the offending function call without requiring invasive application code alterations.
+
 ---
 
 ## 3. Automated CloudWatch Alarms & SNS Topic

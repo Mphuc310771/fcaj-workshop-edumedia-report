@@ -33,7 +33,7 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 
 ### Những bất cập lớn của giải pháp hiện tại:
 1. **Tìm kiếm theo tên tệp thất bại hoàn toàn**: Các tệp từ điện thoại / máy ảnh thường có tên dạng IMG_20260826_104212.jpg hoặc Voice_001.m4a, không chứa bất kỳ ngữ nghĩa nào về nội dung bên trong.
-2. **Chi phí giải pháp đóng gói quá đắt đỏ**: Các phần mềm Quản lý Tài sản Số (Digital Asset Management - DAM) doanh nghiệp yêu cầu máy chủ Dedicated EC2 chạy 24/7, chi phí tối thiểu từ $50 - $200/tháng, không phù hợp cho sinh viên hoặc nhóm nghiên cứu nhỏ.
+2. **Chi phí giải pháp đóng gói quá đắt đỏ**: Các phần mềm Quản lý Tài sản Số (Digital Asset Management - DAM) doanh nghiệp yêu cầu máy chủ Dedicated EC2 chạy 24/7, chi phí tối thiểu từ \$50 - \$200/tháng, không phù hợp cho sinh viên hoặc nhóm nghiên cứu nhỏ.
 3. **Thiếu hỗ trợ xử lý Tiếng Việt sâu**: Các công cụ tìm kiếm mã nguồn mở thường gặp khó khăn trong việc nhận diện bảng chữ cái tiếng Việt có dấu, thuật ngữ chuyên ngành Toán học, Kinh tế, Triết học.
 
 ---
@@ -46,7 +46,7 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 | **G2** | **Computer Vision** | Nhận diện chính xác nhãn đối tượng + Bóc tách OCR tiếng Việt từ ảnh bảng giảng đường. | Amazon Rekognition |
 | **G3** | **Speech-to-Text** | Bóc tách toàn bộ lời thoại tiếng Việt (*vi-VN*) từ file ghi âm/video ngắn vào trường transcript. | Amazon Transcribe |
 | **G4** | **Hybrid Search** | Câu truy vấn tự nhiên *"tìm đoạn thầy dặn thi cuối kỳ"* định tuyến chính xác đến tệp audio/video liên quan. | Amazon Bedrock, DynamoDB GSI |
-| **G5** | **Well-Architected & FinOps** | Mô hình 100% Serverless (Scale-to-Zero), chi phí $0 khi ở trạng thái nghỉ, có CloudWatch Alarms và Runbook Cleanup. | CloudWatch, IAM, SAM CLI |
+| **G5** | **Well-Architected & FinOps** | Mô hình 100% Serverless (Scale-to-Zero), chi phí \$0 khi ở trạng thái nghỉ, có CloudWatch Alarms và Runbook Cleanup. | CloudWatch, IAM, SAM CLI |
 
 ---
 
@@ -69,13 +69,13 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 
 | Dịch vụ AWS được chọn | Phương án thay thế cân nhắc | Tiêu chí Chi phí (Cost Optimization) | Tính sẵn sàng cao (High Availability) | Mô hình Serverless / Managed Services |
 | :--- | :--- | :--- | :--- | :--- |
-| **Amazon S3** *(Standard Storage)* | Amazon EFS / Amazon EBS | **$0.023 / GB / tháng**. Rẻ hơn 13 lần so với EFS ($0.30/GB). Hỗ trợ **Presigned URLs** cho phép client upload trực tiếp, tiết kiệm 100% băng thông và compute cho API backend. | Độ bền dữ liệu đạt **99.999999999% (11 số 9)**, tự động nhân bản đồng thời trên tối thiểu 3 Availability Zones (AZs) trong Region. | **Managed Object Storage**, không cần cấp phát trước dung lượng ổ đĩa hay quản lý máy chủ lưu trữ file. |
-| **AWS Lambda** *(Python 3.12 Runtime)* | Amazon ECS *(Fargate / EC2)* | **$0.00 chi phí nhàn rỗi (Zero Idle Cost)**. Chỉ tính tiền trên mili-giây và GB-giây thực tế khi có sự kiện. Miễn phí 1 triệu requests/tháng qua AWS Free Tier. So với ECS Fargate phải trả phí duy trì task liên tục kể cả khi không có lưu lượng (~$15 - $30/tháng). | Mặc định triển khai đa AZ trong Region; tự động scale từ 0 lên hàng nghìn concurrent executions tức thì mà không cần cấu hình Auto Scaling Group. | **Pure Serverless FaaS**, hoàn toàn không phải quản trị hệ điều hành máy chủ, vá lỗi bảo mật (OS patching) hay quản lý container daemon. |
-| **Amazon API Gateway** *(HTTP API)* | Application Load Balancer (ALB) / REST API | Đơn giá **$1.00 / triệu requests** (tiết kiệm hơn 70% so với REST API $3.50/triệu). Không tốn phí cố định theo giờ như ALB (~$16 - $20/tháng kể cả khi không có lưu lượng). | Tự động dự phòng đa vùng khả dụng, tích hợp cơ chế bảo vệ chống DDoS, chịu tải hàng chục nghìn requests/giây. | **Serverless API Gateway**, tích hợp nguyên bản cơ chế CORS, xác thực API Key và định tuyến trực tiếp vào Lambda không cần proxy trung gian. |
-| **Amazon DynamoDB** *(On-Demand Mode)* | Amazon RDS Aurora *(PostgreSQL / MySQL)* | **$0.00 duy trì khi rảnh**. Tính phí chính xác theo số lượt đọc/ghi thực tế (WRU/RRU). Tặng kèm 25 GB lưu trữ Always Free. So với RDS Aurora Serverless v2 yêu cầu duy trì mức ACU tối thiểu liên tục (~$35 - $60/tháng). | Tự động nhân bản đồng bộ dữ liệu trên 3 AZs trong Region; cam kết SLA 99.99% với độ trễ truy xuất một chữ số mili-giây (< 10ms). | **NoSQL Serverless Database**, không lo cạn kiệt connection pool khi Lambda mở rộng đột biến; không cần quản trị bảo trì schema migrations. |
-| **Amazon SQS & DLQ** *(Message Queue)* | Amazon Kinesis Data Streams / Apache Kafka (MSK) | **$0.40 / triệu requests**. Tặng 1 triệu requests miễn phí mỗi tháng (Always Free). So với Kinesis tính phí theo Shard-hour (~$11/tháng/shard) hoặc Amazon MSK (~$100+/tháng). | Hàng đợi tin cậy phân tán đa AZ, lưu trữ thông điệp bền vững tối đa 14 ngày, đệm tải an toàn chống tràn tài nguyên xử lý AI phía sau. | **Fully Managed Queue**, tự động phân phối thông điệp dạng batch cho Lambda Ingest; tự động chuyển tin nhắn lỗi vào Dead-Letter Queue (DLQ). |
-| **Amazon Bedrock** *(Nova Lite & Titan Embeddings V2)* | Tự host mô hình LLM trên Amazon EC2 GPU *(G4dn / G5)* | **$0.06 / triệu input tokens** (Nova Lite) và **$0.02 / triệu input tokens** (Titan Embeddings V2). Chi phí kiểm nghiệm thực tế chỉ vài nghìn VNĐ/tháng. Tự host mô hình trên EC2 GPU (g4dn.xlarge hoặc g5.xlarge) tiêu tốn từ **$380 – $750 USD/tháng**. | Mô hình nền tảng do AWS vận hành trên cụm tính toán AI quy mô lớn với độ sẵn sàng cao và cơ chế phân phối tải tự động. | **Serverless GenAI API (FaaS)**, không cần quản trị hạ tầng phần cứng GPU, driver CUDA, container vLLM hay cân bằng tải mô hình. |
-| **Amazon Rekognition & Transcribe** | Tự huấn luyện và triển khai mô hình ML riêng | Trả tiền theo số lượng ảnh thực tế ($0.001/ảnh) và giây âm thanh ($0.0001/giây). Chi phí cực thấp, không tốn chi phí R&D, gán nhãn và đào tạo mô hình. | Dịch vụ AI chuyên dụng đạt chuẩn SLA 99.9% của AWS, xử lý song song với tính sẵn sàng cao. | **Pre-trained Managed AI Services**, tối ưu sẵn sàng cho ngôn ngữ tiếng Việt (*vi-VN* cho giọng nói và OCR tiếng Việt chính xác cao). |
+| **Amazon S3** *(Standard Storage)* | Amazon EFS / Amazon EBS | **\\$0.023 / GB / tháng**. Rẻ hơn 13 lần so với EFS (\\$0.30/GB). Hỗ trợ **Presigned URLs** cho phép client upload/download trực tiếp, tiết kiệm 100% băng thông và compute cho API backend. | Độ bền dữ liệu đạt **99.999999999% (11 số 9)** cùng Tính sẵn sàng (Availability) thiết kế **99.99%** (cam kết SLA 99.9%), tự động nhân bản đồng thời trên tối thiểu 3 Availability Zones (AZs) trong Region. | **Managed Object Storage**, không cần cấp phát trước dung lượng ổ đĩa hay quản lý máy chủ lưu trữ file. |
+| **AWS Lambda** *(Python 3.12 Runtime)* | Amazon ECS *(Fargate / EC2)* | **\\$0.00 chi phí nhàn rỗi (Zero Idle Cost)**. Chỉ tính tiền trên mili-giây và GB-giây thực tế khi có sự kiện. Miễn phí 1 triệu requests/tháng qua AWS Free Tier. So với ECS Fargate phải trả phí duy trì task liên tục kể cả khi không có lưu lượng (~\\$15 - \\$30/tháng). | Mặc định triển khai đa AZ trong Region; tự động scale từ 0 lên hàng nghìn concurrent executions tức thì mà không cần cấu hình Auto Scaling Group. | **Pure Serverless FaaS**, hoàn toàn không phải quản trị hệ điều hành máy chủ, vá lỗi bảo mật (OS patching) hay quản lý container daemon. |
+| **Amazon API Gateway** *(HTTP API)* | Application Load Balancer (ALB) / REST API | Đơn giá **\\$1.00 / triệu requests** (tiết kiệm hơn 70% so với REST API \\$3.50/triệu). Không tốn phí cố định theo giờ như ALB (~\\$16 - \\$20/tháng kể cả khi không có lưu lượng). | Tự động dự phòng đa vùng khả dụng; bảo vệ chống tấn công DDoS L3/L4 thông qua **AWS Shield Standard mặc định** kết hợp cơ chế **Route Throttling** (giới hạn burst và steady-state rate) để bảo vệ hạ tầng backend. | **Serverless HTTP API**, tích hợp nguyên bản CORS, định tuyến trực tiếp vào Lambda. Việc xác thực bảo vệ API được thực thi an toàn tại tầng ứng dụng (FastAPI dependency `verify_api_key` kiểm tra header `X-API-Key`) thay vì phụ thuộc API Key nguyên bản của API Gateway. |
+| **Amazon DynamoDB** *(On-Demand Mode)* | Amazon RDS Aurora *(PostgreSQL / MySQL)* | **\\$0.00 duy trì khi rảnh**. Tính phí chính xác theo số lượt đọc/ghi thực tế (WRU/RRU). Tặng kèm 25 GB lưu trữ Always Free. So với RDS Aurora Serverless v2 yêu cầu duy trì mức ACU tối thiểu liên tục (~\\$35 - \\$60/tháng). | Tự động nhân bản đồng bộ dữ liệu trên 3 AZs trong Region; cam kết SLA 99.99% với độ trễ truy xuất một chữ số mili-giây (< 10ms). | **NoSQL Serverless Database**, không lo cạn kiệt connection pool khi Lambda mở rộng đột biến; không cần quản trị bảo trì schema migrations. |
+| **Amazon SQS & DLQ** *(Message Queue)* | Amazon Kinesis Data Streams / Apache Kafka (MSK) | **\\$0.40 / triệu requests**. Tặng 1 triệu requests miễn phí mỗi tháng (Always Free). So với Kinesis tính phí theo Shard-hour (~\\$11/tháng/shard) hoặc Amazon MSK (~\\$100+/tháng). | Hàng đợi tin cậy phân tán đa AZ, lưu trữ thông điệp bền vững tối đa 14 ngày, đệm tải an toàn chống tràn tài nguyên xử lý AI phía sau. | **Fully Managed Queue**, tự động phân phối thông điệp dạng batch cho Lambda Ingest; tự động chuyển tin nhắn lỗi vào Dead-Letter Queue (DLQ). |
+| **Amazon Bedrock** *(Nova Lite & Titan Embeddings V2)* | Tự host mô hình LLM trên Amazon EC2 GPU *(G4dn / G5)* | **\\$0.06 / triệu input tokens** (Nova Lite) và **\\$0.02 / triệu input tokens** (Titan Embeddings V2). Chi phí kiểm nghiệm thực tế chỉ vài nghìn VNĐ/tháng. Tự host mô hình trên EC2 GPU (g4dn.xlarge hoặc g5.xlarge) tiêu tốn từ **\\$380 – \\$750 USD/tháng**. | Mô hình nền tảng do AWS vận hành trên cụm tính toán AI quy mô lớn với độ sẵn sàng cao và cơ chế phân phối tải tự động. | **Serverless GenAI API (FaaS)**, không cần quản trị hạ tầng phần cứng GPU, driver CUDA, container vLLM hay cân bằng tải mô hình. |
+| **Amazon Rekognition & Transcribe** | Tự huấn luyện và triển khai mô hình ML riêng | Amazon Transcribe áp dụng biểu giá niêm yết chuẩn **\\$0.024 / phút (\\$0.0004 / giây)**. Rekognition tính phí \\$0.001/ảnh. Chi phí cực thấp, không tốn chi phí R&D, gán nhãn và đào tạo mô hình. | Dịch vụ AI chuyên dụng đạt chuẩn SLA 99.9% của AWS, xử lý song song với tính sẵn sàng cao. | **Pre-trained Managed AI Services**: Transcribe tối ưu sẵn sàng cho nhận diện giọng nói tiếng Việt (*vi-VN*); Rekognition thực hiện trích xuất nhãn đối tượng (DetectLabels) và nhận diện văn bản in / tiêu đề trên slide (DetectText) sẵn sàng sử dụng out-of-the-box mà không cần tự huấn luyện model. |
 
 ---
 
@@ -110,7 +110,7 @@ Kiến trúc hệ thống được rà soát và đánh giá toàn diện theo 6
 * **Bộ đệm truy vấn 2 cấp (\_PLAN\_CACHE)**: Bộ đệm kế hoạch Bedrock trong bộ nhớ RAM Lambda với thuật toán LRU (tối đa 256 mục, TTL 1 giờ), giúp tăng tốc phản hồi **3.7x** và loại bỏ 100% token Bedrock cho các câu hỏi trùng lặp.
 
 ### 4. Tối ưu hóa Chi phí (Cost Optimization - FinOps)
-* **Mô hình Trả tiền theo sử dụng (Pay-as-you-go / Scale to Zero)**: Khi không có request, toàn bộ hệ thống ngủ đông với chi phí đúng **$0.00 USD**.
+* **Mô hình Trả tiền theo sử dụng (Pay-as-you-go / Scale to Zero)**: Khi không có request, toàn bộ hệ thống ngủ đông với chi phí đúng **\$0.00 USD**.
 * **Bedrock LRU Caching**: Bộ đệm câu truy vấn giúp tái sử dụng Search Plan cho các câu hỏi phổ biến, tiết kiệm 100% token Bedrock.
 * **Vòng đời dữ liệu S3 Lifecycle**: Tự động xóa các file tạm trong transcripts/ sau 7 ngày.
 
@@ -125,17 +125,17 @@ Kiến trúc hệ thống được rà soát và đánh giá toàn diện theo 6
 
 ## 6. Bảng Phân Tích & Ước Tính Chi Phí FinOps (AWS Pricing Calculator - Region: us-east-1)
 
-Hệ thống được thiết kế theo tiêu chí **Scale-to-Zero**, toàn bộ chi phí vận hành hàng tháng được lập mô hình và đối chiếu chi tiết thông qua công cụ chính thức **AWS Pricing Calculator**:
+Hệ thống được thiết kế theo tiêu chí **Scale-to-Zero**, toàn bộ tài nguyên hạ tầng (S3, DynamoDB, Lambda, SQS, API Gateway, CloudWatch) được triển khai tập trung tại khu vực **AWS Region: us-east-1 (N. Virginia)**. Đối với tầng Generative AI (Amazon Bedrock), hệ thống tận dụng Cross-Region Inference Profile với tiền tố `us.` (`arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/us.*`) để định tuyến suy luận linh hoạt giữa các trung tâm dữ liệu tại Hoa Kỳ trong khi toàn bộ tài nguyên điều phối vẫn nằm trọn vẹn tại `us-east-1`. Toàn bộ chi phí vận hành hàng tháng được lập mô hình và đối chiếu chi tiết thông qua công cụ chính thức **AWS Pricing Calculator**:
 * **Link dự toán trực tiếp từ AWS:** [EduMedia AI Workload Estimate (AWS Pricing Calculator)](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
 
 ### 6.1. Đơn giá vi mô từng đơn vị (Unit Economics - Region: us-east-1)
-* **Xử lý 1 ảnh slide học tập:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / ảnh** (~51 VNĐ/ảnh).
-* **Xử lý 1 phút âm thanh bài giảng:** Amazon Transcribe Standard Batch vi-VN = **$0.0060 USD / phút** (~153 VNĐ/phút theo giá chuẩn AWS Calculator $0.0001/giây, hoặc $0.0240 USD / phút theo biểu giá trần niêm yết).
-* **1 lượt truy vấn AI thông minh:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1.000 in + 300 out tokens) = **~$0.00178 USD / lượt** (~45,4 VNĐ/lượt).
-* **Tầng suy luận AI Agent & dịch thuật (Reasoning & Intent Parsing):** Amazon Nova Lite ($0.06/1M input tokens + $0.24/1M output tokens) đóng vai trò Agent phân tích câu hỏi tiếng Việt, chuyển ngữ và gọi công cụ = **~$0.08 – $0.15 USD / tháng** cho 2.000 queries.
-* **Lưu trữ Amazon S3 Standard:** **$0.0230 USD / GB / tháng** (~586,5 VNĐ/GB). (Yêu cầu API: PUT $0.005 / 1k reqs, GET $0.0004 / 1k reqs).
+* **Xử lý 1 ảnh slide học tập:** Amazon Rekognition DetectLabels (\$0.0010) + DetectText OCR (\$0.0010) = **\$0.0020 USD / ảnh** (~51 VNĐ/ảnh).
+* **Xử lý 1 phút âm thanh bài giảng:** Amazon Transcribe Standard Batch vi-VN = **\$0.0240 USD / phút** (\$0.0004 USD / giây theo biểu giá niêm yết chuẩn của AWS, tương đương ~612 VNĐ/phút).
+* **1 lượt truy vấn AI thông minh:** Amazon Titan Text Embeddings v2 (\$0.00002/1k tokens) + Amazon Bedrock Nova Pro (1.000 in + 300 out tokens) = **~\$0.00178 USD / lượt** (~45,4 VNĐ/lượt).
+* **Tầng suy luận AI Agent & dịch thuật (Reasoning & Intent Parsing):** Amazon Nova Lite (\$0.06/1M input tokens + \$0.24/1M output tokens) đóng vai trò Agent phân tích câu hỏi tiếng Việt, chuyển ngữ và gọi công cụ = **~\$0.08 – \$0.15 USD / tháng** cho 2.000 queries.
+* **Lưu trữ Amazon S3 Standard:** **\$0.0230 USD / GB / tháng** (~586,5 VNĐ/GB). (Yêu cầu API: PUT \$0.005 / 1k reqs, GET \$0.0004 / 1k reqs).
 * **Phân phối nội dung Amazon CloudFront:** Miễn phí **1 TB (1.000 GB) Data Transfer Out** và **10.000.000 requests/tháng** vĩnh viễn (Always Free Tier).
-* **AWS Lambda (1024MB, 1.5s):** $0.20/1M requests + $0.0000166667 / GB-s (x86) hoặc $0.0000133334 / GB-s (ARM Graviton2) = **$0.000020 / invocation**. (Miễn phí 1M requests + 400.000 GB-s/tháng vĩnh viễn).
+* **AWS Lambda (1024MB, 1.5s):** \$0.20/1M requests + \$0.0000166667 / GB-s (x86) hoặc \$0.0000133334 / GB-s (ARM Graviton2) = **\$0.000020 / invocation**. (Miễn phí 1M requests + 400.000 GB-s/tháng vĩnh viễn).
 
 ---
 
@@ -144,14 +144,14 @@ Khối lượng kiểm thử: 50 ảnh slide, 5–10 clip video ngắn (tổng 1
 
 | Dịch vụ AWS | Khối lượng kiểm thử | Chi phí Gốc (Gross Cost - Không Free Tier) | Hóa đơn Thực tế (Net Cost - Có Free Tier) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 50 ảnh × 2 APIs = 100 API calls | $0.1000 USD | **$0.0000 USD** (Hạn mức 1.000 ảnh/tháng) |
-| **Amazon Transcribe** | 15–20 phút audio vi-VN (Batch) | $0.0900 – $0.1200 USD *(Rate card: $0.36 – $0.48)* | **$0.0000 USD** (Hạn mức 60 phút/tháng) |
-| **Amazon Bedrock** | 100 queries Nova Pro / Nova Lite + Titan Embed | $0.1780 USD | **$0.1780 USD** *(Không có Free Tier)* |
-| **Amazon S3** | 1 GB Standard + PUT/GET requests | $0.0240 USD | **$0.0000 USD** (Hạn mức 5 GB Free Tier) |
-| **AWS Lambda & SQS** | 2.000 invocations (1024MB, 1.5s = 3.000 GB-s) | $0.0528 USD | **$0.0000 USD** (Always Free 1M req, 400k GB-s) |
-| **Amazon DynamoDB** | On-Demand (2.000 writes + 2.000 reads) | $0.0015 USD | **$0.0015 USD** (25 GB Storage Always Free) |
-| **Amazon CloudFront** | Phân phối Web UI tĩnh (< 1 GB) | $0.0425 USD | **$0.0000 USD** (Always Free 1 TB/tháng) |
-| **TỔNG CỘNG (POC)** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **$0.48 – $0.84 USD** *(~12.000 – 21.000 VNĐ)* | **$0.18 USD** *(~4.500 VNĐ - Hoặc $0.00 nếu có Credit)* |
+| **Amazon Rekognition** | 50 ảnh × 2 APIs = 100 API calls | \$0.1000 USD | **\$0.0000 USD** (Hạn mức 1.000 ảnh/tháng) |
+| **Amazon Transcribe** | 15–20 phút audio vi-VN (Batch) | \$0.0900 – \$0.1200 USD *(Rate card: \$0.36 – \$0.48)* | **\$0.0000 USD** (Hạn mức 60 phút/tháng) |
+| **Amazon Bedrock** | 100 queries Nova Pro / Nova Lite + Titan Embed | \$0.1780 USD | **\$0.1780 USD** *(Không có Free Tier)* |
+| **Amazon S3** | 1 GB Standard + PUT/GET requests | \$0.0240 USD | **\$0.0000 USD** (Hạn mức 5 GB Free Tier) |
+| **AWS Lambda & SQS** | 2.000 invocations (1024MB, 1.5s = 3.000 GB-s) | \$0.0528 USD | **\$0.0000 USD** (Always Free 1M req, 400k GB-s) |
+| **Amazon DynamoDB** | On-Demand (2.000 writes + 2.000 reads) | \$0.0015 USD | **\$0.0015 USD** (25 GB Storage Always Free) |
+| **Amazon CloudFront** | Phân phối Web UI tĩnh (< 1 GB) | \$0.0425 USD | **\$0.0000 USD** (Always Free 1 TB/tháng) |
+| **TỔNG CỘNG (POC)** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **\$0.48 – \$0.84 USD** *(~12.000 – 21.000 VNĐ)* | **\$0.18 USD** *(~4.500 VNĐ - Hoặc \$0.00 nếu có Credit)* |
 
 ---
 
@@ -160,21 +160,22 @@ Khối lượng vận hành 1 tháng: 1.500 ảnh bài giảng/slide, 250 phút 
 
 | Dịch vụ AWS | Khối lượng vận hành (100 - 200 sinh viên) | Gross Cost (Không Free Tier) | Hóa đơn Chuẩn dài hạn (Áp dụng Always Free) |
 | :--- | :--- | :---: | :---: |
-| **Amazon Rekognition** | 1.500 ảnh × 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
-| **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **$1.50 USD** *(Rate Card trần: $6.00)* | **$1.50 USD** *(Rate Card trần: $6.00)* |
-| **Amazon Bedrock** | 2.000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
-| **Amazon S3** | 20 GB Standard tích lũy + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Năm đầu: $0.35)* |
-| **AWS Lambda & SQS** | 15.000 invocations (22.500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
-| **Amazon DynamoDB** | On-Demand (15.000 writes + 60.000 reads) | **$0.02 USD** | **$0.02 USD** *(Lưu trữ < 25 GB Always Free)* |
-| **Amazon CloudFront** | 10 GB Data Transfer Out | **$0.85 USD** | **$0.00 USD** *(Always Free 1 TB/tháng)* |
-| **TỔNG CỘNG** | **Toàn bộ hệ thống cho 100 - 200 Sinh viên** | **$9.77 – $14.27 USD / tháng** | **$8.54 – $13.09 USD / tháng** |
-| **QUY ĐỔI VNĐ** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **~249.000 – 364.000 VNĐ / tháng** | **~217.000 – 334.000 VNĐ / tháng** |
-| **BÌNH QUÂN / SV** | **Quy mô 100 – 200 sinh viên** | **1.246 – 3.639 VNĐ / SV / tháng** | **1.088 – 2.177 VNĐ / SV / tháng** |
+| **Amazon Rekognition** | 1.500 ảnh × 2 APIs = 3.000 calls | **\$3.00 USD** | **\$3.00 USD** *(Năm đầu: \$2.00)* |
+| **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **\$6.00 USD** *(Rate Card \$0.024/phút)* | **\$6.00 USD** *(Baseline Calculator: \$1.50)* |
+| **Amazon Bedrock** | 2.000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **\$3.56 USD** | **\$3.56 USD** |
+| **Amazon S3** | 20 GB Standard tích lũy + requests | **\$0.46 USD** *(+ requests: \$0.53)* | **\$0.46 USD** *(Năm đầu: \$0.35)* |
+| **AWS Lambda & SQS** | 15.000 invocations (22.500 GB-s) + SQS | **\$0.38 USD** | **\$0.00 USD** *(Always Free Tier)* |
+| **Amazon DynamoDB** | On-Demand (15.000 writes + 60.000 reads) | **\$0.02 USD** | **\$0.02 USD** *(Lưu trữ < 25 GB Always Free)* |
+| **Amazon CloudFront** | 10 GB Data Transfer Out | **\$0.85 USD** | **\$0.00 USD** *(Always Free 1 TB/tháng)* |
+| **TỔNG CỘNG** | **Toàn bộ hệ thống cho 100 - 200 Sinh viên** | **\$14.27 USD / tháng** *(Baseline Calculator: \$9.77)* | **\$13.04 – \$13.09 USD / tháng** *(Baseline: \$8.54)* |
+| **QUY ĐỔI VNĐ** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **~364.000 VNĐ / tháng** *(Baseline: ~249.000 VNĐ)* | **~333.000 – 334.000 VNĐ / tháng** *(Baseline: ~217.000 VNĐ)* |
+| **BÌNH QUÂN / SV** | **Quy mô 100 – 200 sinh viên** | **1.819 – 3.639 VNĐ / SV / tháng** | **1.663 – 3.338 VNĐ / SV / tháng** |
 
 > **Đối chiếu Công cụ AWS Pricing Calculator và Biểu giá Niêm yết (Rate Card):**
-> * Trên công cụ thực tế [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), tổng chi phí cơ sở là **$4.96 USD / tháng** (bao gồm Rekognition $3.00, Transcribe Batch $1.50 theo đơn giá batch $0.0001/giây, S3 20GB $0.46, Lambda $0.00 Always Free).
-> * Khi tính theo **Biểu giá Niêm yết tối đa (Worst-case Rate Card $0.024/phút cho Transcribe)** cộng thêm tầng suy luận Bedrock Nova Lite / Nova Pro ($3.56 – $4.04), S3 API requests và CloudWatch Logs, tổng ngân sách dài hạn nằm trong khoảng **$9.77 – $14.27 USD / tháng**.
-> * Hơn **82% chi phí hệ thống tập trung ở tầng AI Inference**. Toàn bộ hạ tầng Serverless (Lambda, SQS, S3, DynamoDB, CloudFront) chỉ tốn dưới **$1.50 USD / tháng**, tự động co về $0.00 USD khi ở trạng thái nghỉ.
+> * Trên công cụ [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), tổng chi phí cơ sở hiển thị **4.96 USD / tháng** (bao gồm Rekognition 3.00 USD cho 3.000 ảnh, Transcribe 1.50 USD theo cấu hình kiểm thử cơ sở, S3 20GB 0.46 USD, Lambda 0.00 USD Always Free).
+> * Khi tính theo quy mô bài giảng đầy đủ cho 100 – 200 sinh viên với **250 phút âm thanh/tháng (Amazon Transcribe Standard đạt 6.00 USD)** cộng thêm tầng suy luận Bedrock Nova Lite / Nova Pro (3.56 – 4.04 USD), S3 API requests và CloudWatch Logs, tổng ngân sách dài hạn nằm trong khoảng **13.04 – 14.27 USD / tháng** (khoảng **1.663 – 3.639 VNĐ / sinh viên / tháng**).
+> * Hơn **82% chi phí hệ thống tập trung ở tầng AI Inference**. Toàn bộ hạ tầng Serverless (Lambda, SQS, S3, DynamoDB, CloudFront) chỉ tốn dưới **1.50 USD / tháng**, tự động co về 0.00 USD khi ở trạng thái nghỉ.
+> * **Thống nhất giữa Sơ đồ Kiến trúc và Bảng Dự toán Chi phí:** Sơ đồ kiến trúc tập trung trực quan hóa luồng dữ liệu của hệ thống Backend Serverless trên AWS Cloud Region us-east-1. Thành phần Client `React Web UI (SPA Client)` ở phía người dùng thực tế được đóng gói triển khai trên Amazon S3 Static Hosting kết hợp dịch vụ mạng phân phối nội dung **Amazon CloudFront CDN** (được chứng minh vận hành thực tế tại mục 5.6 với CloudFront distribution `d27yx88v3wm0yt.cloudfront.net`). Do đó, bảng chi phí bổ sung mục CloudFront Data Transfer Out (DTO) để phản ánh đầy đủ tổng chi phí vận hành trọn gói End-to-End của giải pháp.
 
 ---
 
@@ -191,10 +192,10 @@ Khối lượng vận hành 1 tháng: 1.500 ảnh bài giảng/slide, 250 phút 
 | STT | Rủi ro kỹ thuật / vận hành | Mức độ | Phương án giảm thiểu (Mitigation Strategy) |
 | :---: | :--- | :---: | :--- |
 | **1** | **Chi phí ẩn quét Vector DynamoDB & Xung đột Ghi (Race Condition) trên S3:** DynamoDB không có ANN/HNSW nguyên bản; quét toàn bảng đẩy RRUs tăng vọt. Ngoài ra S3 không hỗ trợ lock/append, nhiều Lambda chạy song song ghi đè `index.bin` sẽ gây mất dữ liệu. | Cao | Tách biệt lưu trữ: Luồng Ingest ghi siêu dữ liệu bài giảng và vector thô vào DynamoDB (lệnh `PutItem` có tính nguyên tử). Một tiến trình gom nhóm định kỳ (Batch Compaction) hoặc Lambda Indexer duy nhất (`ReservedConcurrency = 1` + điều kiện `If-Match ETag`) tổng hợp file index nhị phân trên S3. Luồng Search tải index vào RAM cache kiểm tra `HeadObject` (TTL 60s), loại bỏ 99% chi phí đọc DynamoDB và chống xung đột ghi. |
-| **2** | **"Cạm bẫy" VPC NAT Gateway (NAT Gateway Trap):** Đặt Lambda vào VPC Private Subnet mà không có lý do sẽ kéo theo chi phí NAT Gateway cố định $32.85 USD/tháng (~837.000 VNĐ) ngay cả khi không có request. | Cao | Tuyệt đối không gắn Lambda vào VPC do hệ thống chỉ giao tiếp qua các Public APIs của AWS (S3, Bedrock, Rekognition, DynamoDB) được bảo mật nghiêm ngặt bằng IAM Least Privilege Roles và HTTPS TLS 1.3. |
+| **2** | **"Cạm bẫy" VPC NAT Gateway (NAT Gateway Trap):** Đặt Lambda vào VPC Private Subnet mà không có lý do sẽ kéo theo chi phí NAT Gateway cố định \$32.85 USD/tháng (~837.000 VNĐ) ngay cả khi không có request. | Cao | Tuyệt đối không gắn Lambda vào VPC do hệ thống chỉ giao tiếp qua các Public APIs của AWS (S3, Bedrock, Rekognition, DynamoDB) được bảo mật nghiêm ngặt bằng IAM Least Privilege Roles và HTTPS TLS 1.3. |
 | **3** | **Vòng lặp vô tận (Infinite Trigger Loop) & SQS Retry Storm:** Upload file sinh ra event kích hoạt Lambda ghi file kết quả vào cùng bucket, kích hoạt tiếp vòng lặp làm cạn kiệt ngân sách AI. | Cao | Phân tách nghiêm ngặt S3 event notification chỉ lắng nghe prefix `uploads/`, ghi kết quả sang prefix `transcripts/` hoặc bucket riêng; cấu hình SQS Dead-Letter Queue (DLQ) với `maxReceiveCount = 3` để cô lập thông điệp lỗi, chống bão retry. |
-| **4** | **"Cạm bẫy" Rekognition Video ($0.10/phút) & Giới hạn Token Bedrock:** API Rekognition Video có đơn giá rất cao ($0.10/phút/tính năng = $50 cho 250 phút), đồng thời Titan Multimodal Embeddings G1 chỉ nhận text ngắn (≤ 128 tokens) và ảnh tĩnh, không nhận video trực tiếp. | Cao | Phân luồng đa phương tiện thông minh: Thay vì dùng API Rekognition Video tốn kém, đối với file video/audio bài giảng, hệ thống định tuyến luồng âm thanh sang Amazon Transcribe bóc băng tiếng Việt và cắt nhỏ văn bản (chunking ≤ 128 tokens) trước khi tạo vector embedding bằng Titan Text Embeddings V2; phần thị giác tĩnh áp dụng riêng cho hình ảnh/tài liệu qua Rekognition Image ($0.001/ảnh) để nhận diện chữ và nhãn, tiết kiệm hơn 95% chi phí. |
-| **5** | **Lãng phí thời gian chạy Lambda khi đợi Transcribe Batch:** Amazon Transcribe Batch xử lý bất đồng bộ mất 1–3 phút cho video dài. Nếu Lambda dùng vòng lặp chờ (`sleep`), chi phí GB-sec sẽ tăng vọt gấp 100 lần. | Cao | Thiết kế bất đồng bộ 100% hướng sự kiện (Event-driven): Lambda Ingest chỉ gọi `StartTranscriptionJob()` rồi kết thúc ngay trong 0.5 giây. Khi quá trình bóc băng hoàn tất, Amazon EventBridge bắt sự kiện `Transcribe Job State Change (COMPLETED)` (hoặc S3 ObjectCreated tại output bucket) để kích hoạt Lambda bóc tách tiếp theo. Chi phí chờ đợi của hệ thống bằng $0.00 USD. |
-| **6** | **Bùng nổ chi phí băng thông S3 Data Transfer Out (Egress):** Khi hàng trăm sinh viên xem và phát lại video bài giảng từ S3 qua Presigned URL, lưu lượng vượt 100GB sẽ bị tính phí $0.09/GB. | Trung bình | Triển khai Amazon CloudFront kèm Origin Access Control (OAC) phía trước S3 media bucket để tận dụng hạn mức Always Free 1 TB (1.000 GB) Data Transfer Out và 10.000.000 requests miễn phí mỗi tháng, triệt tiêu 100% rủi ro chi phí băng thông. |
+| **4** | **"Cạm bẫy" Rekognition Video (\$0.10/phút) & Giới hạn Token Bedrock:** API Rekognition Video có đơn giá rất cao (\$0.10/phút/tính năng = \$50 cho 250 phút), đồng thời Titan Multimodal Embeddings G1 chỉ nhận text ngắn (≤ 128 tokens) và ảnh tĩnh, không nhận video trực tiếp. | Cao | Phân luồng đa phương tiện thông minh: Thay vì dùng API Rekognition Video tốn kém, đối với file video/audio bài giảng, hệ thống định tuyến luồng âm thanh sang Amazon Transcribe bóc băng tiếng Việt và cắt nhỏ văn bản (chunking ≤ 128 tokens) trước khi tạo vector embedding bằng Titan Text Embeddings V2; phần thị giác tĩnh áp dụng riêng cho hình ảnh/tài liệu qua Rekognition Image (\$0.001/ảnh) để nhận diện chữ và nhãn, tiết kiệm hơn 95% chi phí. |
+| **5** | **Lãng phí thời gian chạy Lambda khi đợi Transcribe Batch:** Amazon Transcribe Batch xử lý bất đồng bộ mất 1–3 phút cho video dài. Nếu Lambda dùng vòng lặp chờ (`sleep`), chi phí GB-sec sẽ tăng vọt gấp 100 lần. | Cao | Thiết kế bất đồng bộ 100% hướng sự kiện (Event-driven): Lambda Ingest chỉ gọi `StartTranscriptionJob()` rồi kết thúc ngay trong 0.5 giây. Khi quá trình bóc băng hoàn tất, Amazon EventBridge bắt sự kiện `Transcribe Job State Change (COMPLETED)` (hoặc S3 ObjectCreated tại output bucket) để kích hoạt Lambda bóc tách tiếp theo. Chi phí chờ đợi của hệ thống bằng \$0.00 USD. |
+| **6** | **Bùng nổ chi phí băng thông S3 Data Transfer Out (Egress):** Khi hàng trăm sinh viên xem và phát lại video bài giảng từ S3 qua Presigned URL, lưu lượng vượt 100GB sẽ bị tính phí \$0.09/GB. | Trung bình | Triển khai Amazon CloudFront kèm Origin Access Control (OAC) phía trước S3 media bucket để tận dụng hạn mức Always Free 1 TB (1.000 GB) Data Transfer Out và 10.000.000 requests miễn phí mỗi tháng, triệt tiêu 100% rủi ro chi phí băng thông. |
 | **7** | **Vượt ngưỡng giới hạn 400KB của DynamoDB Item & SQS Long Polling:** Bản ghi transcript từ các file âm thanh dài vượt quá kích thước tối đa của DynamoDB item. | Trung bình | Thiết lập cơ chế tự động chuyển bản ghi transcript > 250KB sang lưu trữ trên Amazon S3 (S3-offloading), chỉ lưu S3 URI và bản tóm tắt trích đoạn trên DynamoDB. Cấu hình SQS Long Polling (ReceiveMessageWaitTimeSeconds = 20) và CloudWatch Logs Retention = 7 ngày để tối ưu chi phí ngầm. |
 
