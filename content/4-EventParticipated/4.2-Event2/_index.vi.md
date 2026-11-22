@@ -126,7 +126,7 @@ Anh Trường phân tích chi tiết sơ đồ kiến trúc của **Market Slack
    - Kết nối hai chiều qua WebSocket an toàn, **không cần mở public IP hay mở inbound port** ra ngoài Internet, giảm thiểu tối đa bề mặt tấn công.
 3. **Response Gate (Bộ lọc phản hồi & Định tuyến mô hình):**
    - Xác định xem bot có nên trả lời tin nhắn hay giữ im lặng (tránh spam trong channel khi mọi người chào hỏi thông thường).
-   - **Tối ưu chi phí token (FinOps):** Phân luồng câu hỏi đơn giản tới model rẻ như **Claude Haiku** (~\$0.25–\$1.00/1M tokens) thay vì lạm dụng các model đắt đỏ như **Sonnet/Opus** (\$3.00–\$15.00/1M tokens).
+   - **Tối ưu chi phí token (FinOps):** Phân luồng câu hỏi đơn giản tới model rẻ như **Claude Haiku** (~$0.25–$1.00/1M tokens) thay vì lạm dụng các model đắt đỏ như **Sonnet/Opus** ($3.00–$15.00/1M tokens).
 4. **Quản lý Bộ nhớ (Memory Management):**
    - Lưu trữ toàn bộ tương tác theo thread vào Database. Mỗi lượt tương tác, bot chủ động trích xuất và tinh chỉnh lại ngữ cảnh (*refine memory*) thay vì nối chuỗi vô hạn làm tràn context window.
 5. **Cơ chế Scheduler chống sập qua restart ("A schedule had to survive a restart"):**
@@ -227,4 +227,4 @@ Tham dự sự kiện đã mang lại cho em những góc nhìn thực chiến q
 
 ---
 
-**Liên quan:** [4.1. Event 1: AWS Community Day (August 2026)](../4.1-Event1/) · [2. Bản đề xuất](../2-Proposal/) · [5. Workshop](../5-Workshop/)
+**Liên quan:** [4.1. Event 1: AWS Community Day (August 2026)](../4.1-event1/) · [2. Bản đề xuất](../../2-proposal/) · [5. Workshop](../../5-workshop/)

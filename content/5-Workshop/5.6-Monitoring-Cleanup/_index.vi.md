@@ -104,7 +104,7 @@ aws s3 rm s3://agentsys-web-181040156515 --recursive
 
 *(Hoặc dùng lệnh động tự lấy tên bucket từ CloudFormation Outputs:)*
 ```bash
-BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name agentsys --query "Stacks[0].Outputs[?OutputKey=='MediaBucketName'].OutputValue" --output text --region us-east-1)
+BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name edumedia-ai --query "Stacks[0].Outputs[?OutputKey=='MediaBucketName'].OutputValue" --output text --region us-east-1 2>/dev/null || aws cloudformation describe-stacks --stack-name agentsys --query "Stacks[0].Outputs[?OutputKey=='MediaBucketName'].OutputValue" --output text --region us-east-1)
 aws s3 rm s3://$BUCKET_NAME --recursive
 ```
 

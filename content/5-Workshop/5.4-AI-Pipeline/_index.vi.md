@@ -178,7 +178,7 @@ UPLOAD_URL=$(echo $RESPONSE | jq -r '.presigned_url // .upload_url')
 curl -X PUT -T "file_audio (1).m4a" -H "Content-Type: audio/mp4" "$UPLOAD_URL"
 
 # 2. Xem log xu ly cua Lambda Ingest qua SAM CLI
-sam logs -n IngestFunction --stack-name agentsys --tail
+sam logs -n IngestFunction --stack-name edumedia-ai --tail
 ```
 
 **Log thực tế ghi nhận trên CloudWatch:**

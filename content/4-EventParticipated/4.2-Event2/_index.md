@@ -125,7 +125,7 @@ Mr. Truong delivered a comprehensive walk-through of the **Market Slack Bot** ar
    - Establishes persistent outbound WebSocket communication, **eliminating the need for public IP addresses or inbound firewall openings**, significantly reducing attack surfaces.
 3. **Response Gate (Message Filter & Cost-Aware Routing):**
    - Evaluates whether incoming channel messages require action or silence (preventing unwanted banter replies).
-   - **FinOps Optimization:** Routes straightforward queries to lightweight models such as **Claude Haiku** (~\$0.25–\$1.00/1M tokens) instead of costlier models like **Sonnet/Opus** (\$3.00–\$15.00/1M tokens).
+   - **FinOps Optimization:** Routes straightforward queries to lightweight models such as **Claude Haiku** (~$0.25–$1.00/1M tokens) instead of costlier models like **Sonnet/Opus** ($3.00–$15.00/1M tokens).
 4. **Thread-Level Memory Management:**
    - Persists conversation context per Slack thread in a database. At each invocation turn, the bot fetches and refines state rather than appending raw unbounded text strings, preventing context window saturation.
 5. **Resilient Scheduling Engine ("A schedule had to survive a restart"):**
@@ -226,4 +226,4 @@ Attending this kick-off provided concrete technical enhancements directly applic
 
 ---
 
-**Related Content:** [4.1. Event 1: AWS Community Day (August 2026)](../4.1-Event1/) · [2. Proposal](../2-Proposal/) · [5. Workshop](../5-Workshop/)
+**Related Content:** [4.1. Event 1: AWS Community Day (August 2026)](../4.1-event1/) · [2. Proposal](../../2-proposal/) · [5. Workshop](../../5-workshop/)

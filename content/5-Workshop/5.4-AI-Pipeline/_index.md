@@ -178,7 +178,7 @@ UPLOAD_URL=$(echo $RESPONSE | jq -r '.presigned_url // .upload_url')
 curl -X PUT -T "file_audio (1).m4a" -H "Content-Type: audio/mp4" "$UPLOAD_URL"
 
 # 2. Tail Lambda Ingestion Logs in Real Time via SAM CLI
-sam logs -n IngestFunction --stack-name agentsys --tail
+sam logs -n IngestFunction --stack-name edumedia-ai --tail
 ```
 
 **CloudWatch Execution Logs:**
