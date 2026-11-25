@@ -15,7 +15,7 @@ Upon completing this workshop, you will operate an end-to-end cloud-native syste
 * Asynchronous ingestion buffering with **Amazon SQS & Dead-Letter Queue (DLQ)** triggering **AWS Lambda**.
 * Automated computer vision object detection & Vietnamese OCR via **Amazon Rekognition**; Vietnamese speech-to-text (*vi-VN*) via **Amazon Transcribe**.
 * Vector embeddings using **Amazon Bedrock (Amazon Titan Text Embeddings V2)** and persistence in **Amazon DynamoDB**.
-* Conversational Vietnamese semantic retrieval powered by **Amazon Bedrock (Nova Lite)**.
+* Conversational Vietnamese semantic retrieval powered by **Amazon Bedrock (Nova Pro / Nova Lite)**.
 * Automated observability with **Amazon CloudWatch Logs & Alarms**.
 
 ---
@@ -34,5 +34,5 @@ Upon completing this workshop, you will operate an end-to-end cloud-native syste
 
 * **Estimated Time:** 90 – 120 minutes.
 * **Target AWS Region:** us-east-1 (N. Virginia).
-* **Estimated Lab Cost:** **<$0.05 USD** (Serverless pay-per-request model; running the lab test workload incurs negligible cost).
+* **Estimated Lab Cost:** **<$0.05 USD** for minimal quick smoke tests (or **~$0.18 USD** Net for the full 100-query POC scenario in Section 5.1, **$0.00 USD** with Promotional Credits).
 * **Attached Assets:** [Official SAM Template (template.yaml)](/files/edumedia-sam-template.yaml)

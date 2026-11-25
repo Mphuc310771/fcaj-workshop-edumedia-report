@@ -15,7 +15,7 @@ Sau khi hoàn thành workshop, bạn sẽ sở hữu một hệ thống hoàn ch
 * Sự kiện tải lên được đệm qua **Amazon SQS & DLQ**, kích hoạt **AWS Lambda**.
 * Tự động nhận diện nhãn đồ vật và OCR văn bản qua **Amazon Rekognition**; bóc băng giọng nói tiếng Việt (*vi-VN*) qua **Amazon Transcribe**.
 * Trích xuất và nhúng vector ngữ nghĩa qua **Amazon Bedrock (Amazon Titan Text Embeddings V2)** và lưu trữ trên **Amazon DynamoDB**.
-* Tìm kiếm ngữ nghĩa thông minh bằng câu hỏi tiếng Việt tự nhiên qua **Amazon Bedrock (Nova Lite)**.
+* Tìm kiếm ngữ nghĩa thông minh bằng câu hỏi tiếng Việt tự nhiên qua **Amazon Bedrock (Nova Pro / Nova Lite)**.
 * Giám sát vận hành tự động qua **Amazon CloudWatch Logs & Alarms**.
 
 ---
@@ -34,5 +34,5 @@ Sau khi hoàn thành workshop, bạn sẽ sở hữu một hệ thống hoàn ch
 
 * **Thời lượng ước tính:** 90 – 120 phút.
 * **Khu vực triển khai (AWS Region):** us-east-1 (N. Virginia).
-* **Ước tính chi phí thực hành:** **<$0.05 USD** (Kiến trúc Serverless tính theo lượt dùng; với số lượng tệp lab mẫu, chi phí phát sinh hầu như không đáng kể).
+* **Ước tính chi phí thực hành:** **<$0.05 USD** cho bài test nhanh (hoặc **~$0.18 USD** Net cho trọn bộ kịch bản 100 truy vấn POC ở Mục 5.1, và **$0.00 USD** nếu tài khoản còn Promotional Credits).
 * **File đính kèm:** [SAM Template chính thức (template.yaml)](/files/edumedia-sam-template.yaml)

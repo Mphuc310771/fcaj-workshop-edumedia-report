@@ -26,7 +26,7 @@ Before delving into monitoring details and cleanup procedures, the table below m
 | **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Nova Pro Search Planner | Accurate JSON Search Plan, Hybrid vector scoring |
 | **Amazon CloudWatch** | 7 core alarms active in OK state, custom metric `MediaIngested`, structured JSON logs | CloudWatch Dashboard & Log Streams |
 | **Amazon SNS** | Topic `agentsys-alerts-topic` configured for immediate email notifications | Direct notification integration across 7 alarms |
-| **AWS Budgets & FinOps** | Configured budget threshold alerts tracking the $180 Promotional Credit allocation from FCAJ. During initial validation (while Amazon Transcribe service access was pending AWS support clearance), ingestion tests focused on Rekognition, Lambda, S3, and DynamoDB, keeping actual spend well within Free Tier and granted promotional credits | Cost threshold alerts configured against FCAJ credit limits (Proactive billing safeguard) |
+| **AWS Budgets & FinOps** | Configured budget threshold alerts tracking the $180 Promotional Credit allocation from FCAJ. While the early validation snapshot (`15-api-health.png`) captured Transcribe awaiting initial AWS support clearance, the live `1fyafawcuc.../health` endpoint now reports `HEALTHY`, keeping actual spend inside Free Tier / Credits | Cost threshold alerts configured against FCAJ credit limits (Proactive billing safeguard) |
 
 ---
 
@@ -54,17 +54,17 @@ All 3 Lambda functions (`agentsys-api`, `agentsys-ingest`, `agentsys-aggregator`
 
 ## 3. Automated CloudWatch Alarms & SNS Topic
 
-The SAM Template automatically provisions **7 core CloudWatch Alarms** connected synchronously to SNS Topic **`agentsys-alerts-topic`** for real-time alerting via email:
+The SAM Template automatically provisions **7 core CloudWatch Alarms** (`Period: 300s`) connected synchronously to SNS Topic **`agentsys-alerts-topic`** for real-time alerting via email:
 
 | Alarm Name | Monitored Metric / Service | Trigger Condition | Protection Scope |
 | :--- | :--- | :--- | :--- |
-| `agentsys-api-errors` | Lambda `Errors` (API Function) | `Errors >= 1` in 1 minute | Catches API Gateway / Lambda 5xx runtime errors |
-| `agentsys-ingest-errors` | Lambda `Errors` (Ingest Function) | `Errors >= 1` in 1 minute | Catches unhandled runtime exceptions during SQS batch ingestion |
-| `agentsys-aggregator-errors` | Lambda `Errors` (Aggregator) | `Errors >= 1` in 1 minute | Catches DynamoDB Streams / Bedrock summary failures |
-| `agentsys-ingest-failed` | Custom Metric `MediaIngestFailed` | `Count >= 1` in 1 minute | Custom alert when media processing or AI extraction fails |
-| `agentsys-ingest-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 1 minute | Alerts when malformed messages land in Ingestion DLQ after 3 retries |
-| `agentsys-aggregator-stream-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 1 minute | Alerts when DynamoDB Stream batch failures are discarded into Aggregator DLQ |
-| `agentsys-transcribe-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 1 minute | Alerts when Transcribe EventBridge state change signals a FAILED job |
+| `agentsys-api-errors` | Lambda `Errors` (API Function) | `Errors >= 1` in 5 minutes | Catches API Gateway / Lambda 5xx runtime errors |
+| `agentsys-ingest-errors` | Lambda `Errors` (Ingest Function) | `Errors >= 1` in 5 minutes | Catches unhandled runtime exceptions during SQS batch ingestion |
+| `agentsys-aggregator-errors` | Lambda `Errors` (Aggregator) | `Errors >= 1` in 5 minutes | Catches DynamoDB Streams / Bedrock summary failures |
+| `agentsys-ingest-failed` | Custom Metric `MediaIngestFailed` | `Count >= 1` in 5 minutes | Custom alert when media processing or AI extraction fails |
+| `agentsys-ingest-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 5 minutes | Alerts when malformed messages land in Ingestion DLQ after 3 retries |
+| `agentsys-aggregator-stream-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 5 minutes | Alerts when DynamoDB Stream batch failures are discarded into Aggregator DLQ |
+| `agentsys-transcribe-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` in 5 minutes | Alerts when Transcribe EventBridge state change signals a FAILED job |
 
 ### Verify All 7 Alarms on AWS Console:
 1. Open **Amazon CloudWatch Console** → Navigate to **Alarms** (Region: `us-east-1`).

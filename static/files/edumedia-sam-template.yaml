@@ -9,8 +9,8 @@ Parameters:
     Description: Value of the X-API-Key header required by the HTTP API
   BedrockModelId:
     Type: String
-    Default: amazon.nova-lite-v1:0
-    Description: Bedrock model ID. Default Nova Lite for lab cost. Claude 3.5 Sonnet also works if enabled.
+    Default: us.amazon.nova-pro-v1:0
+    Description: Bedrock model ID. Flagship Amazon Nova Pro for multi-modal reasoning and query planning.
   BedrockRegion:
     Type: String
     Default: us-east-1
@@ -309,8 +309,10 @@ Resources:
                 - bedrock:InvokeModel
               Resource:
                 - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-lite-v1:0
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-pro-v1:0
                 - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.titan-embed-text-v2:0
-                - !Sub arn:aws:bedrock:${BedrockRegion}:${AWS::AccountId}:inference-profile/*
+                - !Sub arn:aws:bedrock:*::foundation-model/*
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/*
       Events:
         FromQueue:
           Type: SQS
@@ -381,7 +383,9 @@ Resources:
                 - bedrock:InvokeModel
               Resource:
                 - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-lite-v1:0
-                - !Sub arn:aws:bedrock:${BedrockRegion}:${AWS::AccountId}:inference-profile/*
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-pro-v1:0
+                - !Sub arn:aws:bedrock:*::foundation-model/*
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/*
             - Sid: SQSStreamDLQAccess
               Effect: Allow
               Action:
@@ -459,6 +463,7 @@ Resources:
                 - rekognition:ListCollections
                 - transcribe:ListTranscriptionJobs
                 - bedrock:GetFoundationModel
+                - bedrock:GetInferenceProfile
               Resource: "*"
             - Sid: HealthBucket
               Effect: Allow
@@ -477,8 +482,10 @@ Resources:
                 - bedrock:InvokeModelWithResponseStream
               Resource:
                 - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-lite-v1:0
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-pro-v1:0
                 - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.titan-embed-text-v2:0
-                - !Sub arn:aws:bedrock:${BedrockRegion}:${AWS::AccountId}:inference-profile/*
+                - !Sub arn:aws:bedrock:*::foundation-model/*
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/*
             - Sid: CustomMetrics
               Effect: Allow
               Action:

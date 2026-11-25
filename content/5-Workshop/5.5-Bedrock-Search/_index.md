@@ -90,8 +90,8 @@ Table AgentSysMediaMetadata is configured with **GSI category-index**:
 The system deploys an interactive Web UI and production-ready backend APIs:
 
 * **Production Live Demo Web Gallery URL:** [https://d27yx88v3wm0yt.cloudfront.net](https://d27yx88v3wm0yt.cloudfront.net)
-* **Backend API Gateway Endpoint:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com`
-* **Swagger UI Documentation:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com/docs`
+* **Backend API Gateway Endpoint:** `https://1fyafawcuc.execute-api.us-east-1.amazonaws.com`
+* **Swagger UI Documentation:** `https://1fyafawcuc.execute-api.us-east-1.amazonaws.com/docs`
 
 ![Amazon CloudFront CDN Distribution for Web Frontend](/images/5-Workshop/evidence/01-cloudfront-distributions.png)
 *Figure: CloudFront distribution delivering the web gallery interface with HTTPS.*

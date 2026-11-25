@@ -90,8 +90,8 @@ Bảng AgentSysMediaMetadata được cấu hình **GSI category-index** với:
 Hệ thống triển khai giao diện Web trực quan và các API backend sẵn sàng phục vụ người dùng thực tế:
 
 * **Đường dẫn Live Demo Sản phẩm (Web Gallery Production):** [https://d27yx88v3wm0yt.cloudfront.net](https://d27yx88v3wm0yt.cloudfront.net)
-* **Backend API Gateway Endpoint:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com`
-* **Swagger UI Documentation:** `https://a9g52v1i20.execute-api.us-east-1.amazonaws.com/docs`
+* **Backend API Gateway Endpoint:** `https://1fyafawcuc.execute-api.us-east-1.amazonaws.com`
+* **Swagger UI Documentation:** `https://1fyafawcuc.execute-api.us-east-1.amazonaws.com/docs`
 
 ![Phân phối Amazon CloudFront CDN cho Web Frontend](/images/5-Workshop/evidence/01-cloudfront-distributions.png)
 *Hình: Phân phối CloudFront CDN phân phối Web Frontend với HTTPS bảo mật.*

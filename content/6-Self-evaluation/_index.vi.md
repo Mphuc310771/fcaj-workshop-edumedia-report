@@ -33,7 +33,7 @@ pre: " <b> 6. </b> "
 ## 2. Những Khó Khăn Đã Vượt Qua
 
 1. **Xử lý tác vụ ASR bất đồng bộ của Transcribe:** Ban đầu, việc đợi Transcribe hoàn thành trong hàm Lambda dễ gây timeout (120s). Tôi đã khắc phục bằng cách thiết kế kiến trúc phân tách trạng thái INDEXING → READY kết hợp SQS Buffer và EventBridge.
-2. **Tối ưu hóa chi phí Vector Embeddings:** Việc lưu trữ vector 1536 chiều trên DynamoDB làm tăng dung lượng bảng. Tôi đã áp dụng kỹ thuật **Titan Vector Subsampling** rút gọn về 256 chiều, giảm 83% chi phí lưu trữ mà vẫn giữ độ chính xác trên 98%.
+2. **Tối ưu hóa chi phí Vector Embeddings:** Việc lưu trữ vector chiều cao (1024–1536 chiều) trên DynamoDB làm tăng nhanh dung lượng item. Tôi đã áp dụng **Amazon Titan Text Embeddings V2 (`256-d native` với chuẩn hóa L2)**, giảm **75%** dung lượng so với mặc định 1024 chiều (và **83%** so với chuẩn 1536 chiều của Titan V1) mà vẫn bảo toàn chất lượng tìm kiếm ngữ nghĩa.
 3. **Kiểm soát An toàn Dữ liệu & Giới hạn 400KB DynamoDB:** Tôi đã chủ động thiết kế cơ chế Guardrails bảo vệ dữ liệu (chặn xóa file gốc với mã 403, giới hạn dung lượng upload ≤ 25MB) và cơ chế tự động chuyển transcript > 250KB sang S3 để triệt tiêu hoàn toàn rủi ro ValidationException của DynamoDB.
 
 ---
@@ -41,4 +41,4 @@ pre: " <b> 6. </b> "
 ## 3. Định Hướng Phát Triển Tiếp Theo
 
 * Xây dựng thêm CI/CD Pipeline tự động triển khai bằng **AWS CodePipeline / GitHub Actions**.
-* Đóng gói và phân phối Web Frontend qua **Amazon CloudFront + S3 Static Hosting** kết hợp xác thực người dùng bằng **Amazon Cognito**.
+* Tích hợp xác thực người dùng đa tổ chức với **Amazon Cognito** cho giao diện Web Frontend đang chạy trên Amazon CloudFront + S3, đồng thời mở rộng tìm kiếm vector sang **Amazon OpenSearch Serverless / Aurora pgvector (HNSW Index)** khi quy mô vượt hàng chục nghìn tài liệu.

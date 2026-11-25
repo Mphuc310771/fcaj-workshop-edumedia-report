@@ -26,7 +26,7 @@ Trước khi đi vào chi tiết cấu hình giám sát và dọn dẹp, bảng 
 | **Amazon Bedrock** | Titan Text Embeddings V2 (256-d) & Nova Lite / Nova Pro xử lý Search Planner | Tạo Search Plan chính xác, Hybrid Vector Match |
 | **Amazon CloudWatch** | 7 Alarms chủ động ở trạng thái OK, Metric Custom `MediaIngested`, Structured Logs | Dashboard và Log Streams đầy đủ |
 | **Amazon SNS** | Topic `agentsys-alerts-topic` sẵn sàng phát cảnh báo tức thì qua Email | SNS Topic kết nối trực tiếp 7 Alarms |
-| **AWS Budgets & FinOps** | Thiết lập ngân sách giám sát gói $180 Promotional Credits từ FCAJ. Trong giai đoạn thử nghiệm (do Amazon Transcribe đang chờ AWS Support kích hoạt subscription trên tài khoản mới), các tệp kiểm thử tập trung vào Rekognition, Lambda và DynamoDB nên chi phí tiêu hao cực thấp, nằm trọn trong hạn mức Credits được tài trợ | Cảnh báo chi phí theo ngưỡng credit FCAJ (Tránh phát sinh cước ngoài ý muốn) |
+| **AWS Budgets & FinOps** | Thiết lập ngân sách giám sát gói $180 Promotional Credits từ FCAJ. Ở ảnh kiểm thử giai đoạn đầu (`15-api-health.png`), Amazon Transcribe đang chờ AWS Support kích hoạt trên tài khoản mới; hiện tại endpoint live `1fyafawcuc.../health` đã hoạt động ở trạng thái `HEALTHY` và chi phí nằm trọn trong Free Tier / Credits | Cảnh báo chi phí theo ngưỡng credit FCAJ (Tránh phát sinh cước ngoài ý muốn) |
 
 ---
 
@@ -54,17 +54,17 @@ Toàn bộ 3 Lambda functions (`agentsys-api`, `agentsys-ingest`, `agentsys-aggr
 
 ## 3. Thiết lập Cảnh báo Tự động (CloudWatch Alarms & SNS Topic)
 
-SAM Template tự động cấu hình **7 CloudWatch Alarms** cốt lõi và kết nối đồng bộ tới SNS Topic **`agentsys-alerts-topic`** để cảnh báo thời gian thực qua email:
+SAM Template tự động cấu hình **7 CloudWatch Alarms** cốt lõi (`Period: 300s`) và kết nối đồng bộ tới SNS Topic **`agentsys-alerts-topic`** để cảnh báo thời gian thực qua email:
 
 | Tên CloudWatch Alarm | Nguồn giám sát (Metric / Service) | Điều kiện kích hoạt | Mục đích bảo vệ |
 | :--- | :--- | :--- | :--- |
-| `agentsys-api-errors` | Lambda `Errors` (API Function) | `Errors >= 1` trong 1 phút | Cảnh báo khi API Gateway / Lambda gặp lỗi 5xx |
-| `agentsys-ingest-errors` | Lambda `Errors` (Ingest Function) | `Errors >= 1` trong 1 phút | Cảnh báo lỗi unhandled exception khi xử lý SQS |
-| `agentsys-aggregator-errors` | Lambda `Errors` (Aggregator) | `Errors >= 1` trong 1 phút | Cảnh báo lỗi xử lý DynamoDB Streams hoặc Bedrock |
-| `agentsys-ingest-failed` | Custom Metric `MediaIngestFailed` | `Count >= 1` trong 1 phút | Ghi nhận tệp media bị hỏng hoặc lỗi trích xuất AI |
-| `agentsys-ingest-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 1 phút | Cảnh báo khi có tin nhắn rơi vào Ingest DLQ sau 3 lần retry |
-| `agentsys-aggregator-stream-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 1 phút | Cảnh báo sự kiện Stream bị discard vào DLQ của Aggregator |
-| `agentsys-transcribe-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 1 phút | Cảnh báo sự kiện Transcribe thất bại rơi vào DLQ |
+| `agentsys-api-errors` | Lambda `Errors` (API Function) | `Errors >= 1` trong 5 phút | Cảnh báo khi API Gateway / Lambda gặp lỗi 5xx |
+| `agentsys-ingest-errors` | Lambda `Errors` (Ingest Function) | `Errors >= 1` trong 5 phút | Cảnh báo lỗi unhandled exception khi xử lý SQS |
+| `agentsys-aggregator-errors` | Lambda `Errors` (Aggregator) | `Errors >= 1` trong 5 phút | Cảnh báo lỗi xử lý DynamoDB Streams hoặc Bedrock |
+| `agentsys-ingest-failed` | Custom Metric `MediaIngestFailed` | `Count >= 1` trong 5 phút | Ghi nhận tệp media bị hỏng hoặc lỗi trích xuất AI |
+| `agentsys-ingest-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 5 phút | Cảnh báo khi có tin nhắn rơi vào Ingest DLQ sau 3 lần retry |
+| `agentsys-aggregator-stream-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 5 phút | Cảnh báo sự kiện Stream bị discard vào DLQ của Aggregator |
+| `agentsys-transcribe-dlq` | SQS `ApproximateNumberOfMessagesVisible` | `Messages >= 1` trong 5 phút | Cảnh báo sự kiện Transcribe thất bại rơi vào DLQ |
 
 ### Xác minh 7 Alarms trên AWS Console:
 1. Mở **Amazon CloudWatch Console** → Chọn mục **Alarms** (Region: `us-east-1`).

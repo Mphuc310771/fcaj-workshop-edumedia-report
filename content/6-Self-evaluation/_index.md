@@ -33,7 +33,7 @@ pre: " <b> 6. </b> "
 ## 2. Technical Challenges Overcome
 
 1. **Handling Asynchronous Transcribe Latency**: Direct synchronous polling in Lambda risked 120s timeouts on large audio files. Resolved by architecting an asynchronous state machine (INDEXING → READY) backed by SQS buffering.
-2. **Optimizing Vector Storage Costs**: Persisting 1536-dimensional embeddings incurred higher DynamoDB table footprints. Implemented **Titan Vector Subsampling (256-d)**, cutting storage costs by 83% while maintaining >98% accuracy.
+2. **Optimizing Vector Storage Costs**: Persisting high-dimensional embeddings (1024–1536 dimensions) significantly increases DynamoDB item size. Adopted **Amazon Titan Text Embeddings V2 (`256-d native` with L2 normalization)**, cutting vector storage by **75%** versus default 1024-d (and **83%** versus Titan V1 1536-d) while preserving semantic retrieval quality.
 3. **Data Protection Guardrails & DynamoDB 400KB Item Guard**: Proactively engineered guardrails (403 forbidden on protected file deletion, 25MB upload cap) and automated S3-offloading for transcripts exceeding 250KB, eliminating DynamoDB ValidationException risks.
 
 ---
@@ -41,4 +41,4 @@ pre: " <b> 6. </b> "
 ## 3. Future Roadmap
 
 * Implement automated CI/CD deployment pipelines using **AWS CodePipeline / GitHub Actions**.
-* Deploy the React Web UI globally using **Amazon CloudFront + S3 Static Hosting** secured with **Amazon Cognito** user authentication.
+* Integrate multi-user **Amazon Cognito** authentication onto the CloudFront + S3 React Web UI and evaluate **Amazon OpenSearch Serverless / Aurora pgvector (HNSW Index)** as catalog scale grows past tens of thousands of media items.
