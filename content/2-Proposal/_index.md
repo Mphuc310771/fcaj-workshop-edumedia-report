@@ -110,7 +110,7 @@ The architecture is comprehensively evaluated against the 6 pillars of the **AWS
 * **DynamoDB 400KB Item Guard (S3-Offloading)**: Transcripts exceeding 250KB are automatically offloaded to Amazon S3 (`transcripts/raw/{file_id}.json`), storing a 15,000-character preview and S3 URI in DynamoDB to safely maintain items well below the 400KB limit while preserving instant UI access.
 
 ### 3. Performance Efficiency
-* **Vector Subsampling (Titan V2 Native 256-d)**: Configures `dimensions = 256` with L2 normalization natively on Amazon Titan Text Embeddings V2—achieving a **75% storage reduction** compared to Titan V2's default 1024 dimensions (and **83% reduction** vs Titan V1's 1536 dimensions) while preserving semantic recall.
+* **Vector Compression (Titan V2 Native 256-d)**: Configures `dimensions = 256` with L2 normalization natively on Amazon Titan Text Embeddings V2—achieving a **75% storage reduction** compared to Titan V2's default 1024 dimensions (and **83% reduction** vs Titan V1's 1536 dimensions) while preserving semantic recall.
 * **DynamoDB GSI Partitioning (`category-index`)**: GSI partition routing paired with a bounded 100-item Candidate Pool eliminates full-table scans, reducing RCU cost and latency by over 90% (<40ms).
 * **Lambda Warm-Container Reuse**: Boto3 client connections and TLS handshakes persist across warm Lambda invocations, avoiding 50–120ms reconnection overhead on every SQS message or API request.
 * **In-Memory Query Plan Cache (`_PLAN_CACHE`)**: LRU caching (max 256 entries, 1h TTL) of parsed search plans speeds up repeated query responses by **3.7x** and saves 100% of LLM token costs.

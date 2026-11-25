@@ -23,16 +23,11 @@ pre: " <b> 4.3. </b> "
 
 ---
 
-## Hình ảnh Check-in Tham Gia Sự Kiện & Lan Tỏa Cộng Đồng
+## Hình ảnh Check-in Tham Gia Sự Kiện
 
 | Toàn cảnh hội trường lầu 26 Bitexco | Check-in cá nhân rõ mặt tại sự kiện |
 | :---: | :---: |
 | ![Ảnh check-in rõ mặt trong hội trường sự kiện](/images/4-EventParticipated/4.3-Event3/checkin-phuc-1.jpg) | ![Ảnh selfie check-in cận cảnh tại sự kiện](/images/4-EventParticipated/4.3-Event3/checkin-phuc-2.jpg) |
-
-### Bài viết Recap trên Cộng đồng AWS Study Group VN
-Ngay sau buổi Meetup, em đã hệ thống lại toàn bộ kiến thức thu hoạch được từ 5 phiên thuyết trình và đăng bài viết recap chi tiết trên diễn đàn cộng đồng **AWS Study Group VN** (>50.000 thành viên) để chia sẻ cùng các bạn sinh viên và kỹ sư trong cộng đồng:
-
-![Bài viết Recap của Phúc Khang trên AWS Study Group VN](/images/4-EventParticipated/4.3-Event3/community-recap-post.png)
 
 ---
 
@@ -184,8 +179,8 @@ Buổi Meetup không chỉ đem lại những trải nghiệm thực tế sinh �
 | Bài học đúc kết từ Sự kiện | Kinh nghiệm & Kiến trúc đối chiếu | Giải pháp áp dụng thực tế vào Dự án EduMedia AI |
 | :--- | :--- | :--- |
 | **Cơ chế Guardrails & Human-in-the-loop** *(Phiên 5 - Kiro Crew)* | Thiết lập lớp rào chắn an toàn, không cho phép AI tự ý thực hiện các hành động có tính chất phá hoại hoặc xóa dữ liệu. | Em đã thiết kế bộ lọc **Demo Guardrails** cho EduMedia AI: gắn cờ is\_demo\_protected chặn xóa dữ liệu mẫu (trả về lỗi HTTP 403), giới hạn dung lượng tải lên tối đa không quá 25MB và kiểm duyệt định dạng file MIME để bảo vệ hệ thống khi mở cho giám khảo kiểm thử công khai. |
-| **Quản lý bộ nhớ phân tầng Short/Long-term** *(Phiên 4 - Bedrock AgentCore)* | Tách biệt giữa bộ nhớ hội thoại ngắn hạn theo phiên và tri thức ngữ nghĩa dài hạn để tối ưu chi phí và tránh tràn bộ nhớ. | Áp dụng vào EduMedia AI qua mô hình phân tầng: Amazon DynamoDB lưu trữ metadata hội thoại ngắn hạn kết hợp cơ chế S3-offloading tự động chuyển transcript sang S3 khi vượt 250KB; đồng thời dùng Titan Vector Subsampling (256 chiều) để lưu trữ vector tìm kiếm ngữ nghĩa dài hạn. |
-| **Rà soát an toàn kiến trúc IaC từ sớm** *(Phiên 3 - AWS Security Agent)* | Quét mã nguồn và file cấu hình hạ tầng ngay trong quy trình CI/CD để phát hiện lỗ hổng cấu hình trước khi triển khai. | Rà soát toàn bộ SAM Template của dự án để đảm bảo nguyên tắc IAM Least-Privilege: không sử dụng quyền quản trị wildcard \*, phân tách riêng rẽ vai trò IAM Role giữa Lambda xử lý tải lên (Ingest) và Lambda phục vụ truy vấn tìm kiếm (Query). |
+| **Quản lý bộ nhớ phân tầng Short/Long-term** *(Phiên 4 - Bedrock AgentCore)* | Tách biệt giữa bộ nhớ hội thoại ngắn hạn theo phiên và tri thức ngữ nghĩa dài hạn để tối ưu chi phí và tránh tràn bộ nhớ. | Áp dụng vào EduMedia AI qua mô hình phân tầng: Amazon DynamoDB lưu trữ metadata hội thoại ngắn hạn kết hợp cơ chế S3-offloading tự động chuyển transcript sang S3 khi vượt 250KB; đồng thời dùng **Amazon Titan Text Embeddings V2 (256 chiều chuẩn hóa L2)** để lưu trữ vector tìm kiếm ngữ nghĩa dài hạn. |
+| **Rà soát an toàn kiến trúc IaC từ sớm** *(Phiên 3 - AWS Security Agent)* | Quét mã nguồn và file cấu hình hạ tầng ngay trong quy trình CI/CD để phát hiện lỗ hổng cấu hình trước khi triển khai. | Rà soát toàn bộ SAM Template của dự án để đảm bảo nguyên tắc IAM Least-Privilege: không sử dụng quyền quản trị `AdministratorAccess` hay `Action: *`, phân tách riêng rẽ vai trò IAM Role giữa 3 hàm Lambda (`Ingest`, `Aggregator` và `API`). |
 | **Tư duy FinOps & Tối ưu chi phí hạ tầng** *(Phiên 1 & Phiên 2)* | Quản lý tài nguyên tập trung, tránh lãng phí cước Cross-AZ và tận dụng tối đa mô hình tính phí theo mức sử dụng thực tế. | Xây dựng EduMedia AI hoàn toàn trên nền tảng Serverless Scale-to-Zero với AWS Lambda và DynamoDB On-Demand. Khi không có người dùng truy cập, toàn bộ hệ thống tự động co về 0, giữ chi phí duy trì cố định ở mức **0.00 USD**. |
 
 ---

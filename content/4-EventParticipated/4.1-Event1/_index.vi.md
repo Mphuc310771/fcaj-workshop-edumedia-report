@@ -14,6 +14,7 @@ pre: " <b> 4.1. </b> "
 - **Địa điểm:** Văn phòng AWS Việt Nam, Tầng 26 Bitexco Financial Tower, Số 2 Hải Triều, Phường Bến Nghé, Quận 1, TP.HCM
 - **Vai trò:** Thực tập sinh tham dự
 - **Đơn vị tổ chức:** AWS First Cloud Journey (FCJ) & AWS Community
+- **Ảnh check-in cá nhân:** Xem mục [6. Hình ảnh lưu niệm & Check-in tại sự kiện](#6-hình-ảnh-lưu-niệm--check-in-tại-sự-kiện) *(lưu ý sơ ý quên tháo khẩu trang tại sự kiện đầu tiên)*
 
 ![Không gian sự kiện AWS Community Day tại Bitexco](/images/4-EventParticipated/4.1-Event1/event-room.jpg)
 
@@ -270,9 +271,10 @@ Tham dự sự kiện **AWS First Cloud AI Journey - Community Day** đã mang l
 
 ---
 
-## 6. Hình ảnh lưu niệm tại sự kiện
+## 6. Hình ảnh lưu niệm & Check-in tại sự kiện
 
-![Selfie kỷ niệm tại sự kiện](/images/4-EventParticipated/4.1-Event1/selfie.jpg)
+![Ảnh check-in cá nhân của Đỗ Trần Minh Phúc tại AWS First Cloud AI Journey Community Day](/images/4-EventParticipated/4.1-Event1/selfie.jpg)
+*Hình: Ảnh check-in cá nhân tại sự kiện ở Tầng 26 Bitexco. (Ghi chú: Đây là sự kiện đầu tiên em tham dự nên sơ ý quên tháo khẩu trang khi chụp; gương mặt đầy đủ không khẩu trang được ghi nhận rõ nét tại ảnh chân dung trang bìa và các ảnh check-in ở [Event 2](../4.2-event2/) và [Event 3](../4.3-event3/)).*
 
 ![Slide cảm ơn phiên Serverless](/images/4-EventParticipated/4.1-Event1/thanks-slide.jpg)
 

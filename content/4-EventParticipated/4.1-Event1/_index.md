@@ -14,6 +14,7 @@ pre: " <b> 4.1. </b> "
 - **Location:** AWS Vietnam Office, 26th Floor, Bitexco Financial Tower, 2 Hai Trieu Street, Ben Nghe Ward, District 1, Ho Chi Minh City
 - **Role:** Intern attendee
 - **Organized by:** AWS First Cloud Journey (FCJ) & AWS Community
+- **Personal Check-in Photo:** See Section [6. Event Check-in & Souvenir Photos](#6-event-check-in--souvenir-photos) *(note regarding wearing a mask at the first event)*
 
 ![AWS Community Day event hall at Bitexco](/images/4-EventParticipated/4.1-Event1/event-room.jpg)
 
@@ -269,9 +270,10 @@ Attending the **AWS First Cloud AI Journey - Community Day** provided high-value
 
 ---
 
-## 6. Event Photos
+## 6. Event Check-in & Souvenir Photos
 
-![Selfie at the event](/images/4-EventParticipated/4.1-Event1/selfie.jpg)
+![Personal check-in selfie of Do Tran Minh Phuc at AWS First Cloud AI Journey Community Day](/images/4-EventParticipated/4.1-Event1/selfie.jpg)
+*Figure: Personal check-in photo at 26th Floor Bitexco. (Note: As this was the very first event I attended, I inadvertently kept my mask on when taking the selfie; my full unmasked face can be cross-verified with the homepage portrait and clear-face check-in photos in [Event 2](../4.2-event2/) and [Event 3](../4.3-event3/)).*
 
 ![Serverless session closing slide](/images/4-EventParticipated/4.1-Event1/thanks-slide.jpg)
 
