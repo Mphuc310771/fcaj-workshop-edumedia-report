@@ -214,3 +214,54 @@ curl -s -X POST "$API_ENDPOINT/api/v1/media/agent/query" \
 ```
 
 *The query planner resolves the subject domain (`subject: philosophy`), queries GSI partition `study`, evaluates semantic transcript text along with OCR keywords, and ranks the audio lecture `file_audio (1).m4a` first with top relevance (`score: 1.0`), along with relevant slide note `c2157527-...jpg`.*
+
+---
+
+### 3.4. Error Handling, Guardrails & Load-Limit Validation Lab
+
+In addition to happy-path retrieval, the production endpoint (`https://1fyafawcuc.execute-api.us-east-1.amazonaws.com`) and the backend guardrail test suite (`tests/test_demo_guardrails.py`) were verified against authentication failures, invalid payloads, protected-record locks, and traffic spikes:
+
+1. **Missing or Invalid `X-API-Key` (`401 Unauthorized`):**
+```bash
+curl -i -s -X POST "$API_ENDPOINT/api/v1/media/agent/query" \
+  -H "Content-Type: application/json" \
+  -d '{"user_query": "test"}'
+```
+**HTTP Response (`HTTP/2 401`, captured from live API Gateway/FastAPI):**
+```json
+{
+  "detail": "Cần đăng nhập hoặc X-API-Key hợp lệ"
+}
+```
+
+2. **Unsupported File Format (`400 Bad Request`) & Over-Limit Upload (`413 Request Entity Too Large`):**
+- Submitting `POST /api/v1/media/upload-url` with an executable file (`malicious.exe`, `application/x-msdownload`) is rejected during MIME/extension validation (`endpoints.py`):
+```json
+{
+  "detail": "Định dạng tệp không được hỗ trợ. Vui lòng tải ảnh (JPEG, PNG, WebP), âm thanh (MP3, M4A, WAV, FLAC), hoặc video (MP4, MOV, WebM)."
+}
+```
+- Requesting a presigned URL with `size_bytes: 27262976` (26MB > `MAX_PUBLIC_UPLOAD_BYTES = 25MB`) is blocked before generating an S3 upload URL:
+```json
+{
+  "detail": "Dung lượng tệp (26MB) vượt quá giới hạn demo cho phép (tối đa 25MB)."
+}
+```
+
+3. **Public Demo Sample Protection (`403 Forbidden`):**
+Calling `DELETE /api/v1/media/{file_id}` on a record flagged with `is_demo_protected: true` without the admin override header (`x-admin-force: true`) returns HTTP `403` to prevent accidental removal of shared sample media:
+```json
+{
+  "detail": "Tệp mẫu được bảo vệ cho người dùng trải nghiệm demo (is_demo_protected: true). Không thể xóa."
+}
+```
+
+4. **Rate Limiting (`429 Too Many Requests`) & Asynchronous Overload Protection:**
+- **API Layer (`slowapi`):** The semantic query route `/api/v1/media/agent/query` (and aliases `/api/v1/agent/query`, `/api/search`) enforces **`20/minute`** per client IP (while general routes default to **`60/minute`** in `rate_limit.py`). Exceeding the quota triggers `RateLimitExceeded` (`HTTP 429`):
+```json
+{
+  "error": "Rate limit exceeded: 20 per 1 minute"
+}
+```
+- **Ingest Pipeline Layer (SQS + DLQ):** Under ingestion bursts, S3 upload events are buffered in `agentsys-ingest-queue` and throttled at **`MaximumConcurrency: 5`** on `IngestFunction` (`agentsys-ingest`). Messages failing **`maxReceiveCount: 3`** retries are isolated into **3 dedicated Dead-Letter Queues (DLQs)** monitored by **7 CloudWatch Alarms**.
+

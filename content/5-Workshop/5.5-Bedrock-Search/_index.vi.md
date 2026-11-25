@@ -214,3 +214,54 @@ curl -s -X POST "$API_ENDPOINT/api/v1/media/agent/query" \
 ```
 
 *Hệ thống tự động phát hiện ngữ cảnh môn Triết học (`subject: philosophy`), lọc bảng AgentSysMediaMetadata qua GSI `category-index`, so khớp ngữ nghĩa trên cả transcript giọng nói và văn bản OCR, trả về đúng tệp ghi âm với điểm tương đồng cao nhất (`score: 1.0`).*
+
+---
+
+### 3.4. Kiểm thử các Kịch bản Lỗi & Chốt chặn Quá tải (Error Handling, Guardrails & Rate-Limit Lab)
+
+Bên cạnh luồng truy vấn thành công, hệ thống được kiểm chứng thực tế trên endpoint production (`https://1fyafawcuc.execute-api.us-east-1.amazonaws.com`) và bộ unit test (`tests/test_demo_guardrails.py`) với các kịch bản ngoại lệ, dữ liệu không hợp lệ và giới hạn tải nhằm đảm bảo an toàn vận hành:
+
+1. **Thiếu hoặc sai `X-API-Key` (`401 Unauthorized`):**
+```bash
+curl -i -s -X POST "$API_ENDPOINT/api/v1/media/agent/query" \
+  -H "Content-Type: application/json" \
+  -d '{"user_query": "test"}'
+```
+**HTTP Response (`HTTP/2 401`, thực tế từ API Gateway/FastAPI):**
+```json
+{
+  "detail": "Cần đăng nhập hoặc X-API-Key hợp lệ"
+}
+```
+
+2. **Định dạng tệp không hợp lệ (`400 Bad Request`) & vượt ngưỡng 25MB (`413 Request Entity Too Large`):**
+- Gửi `POST /api/v1/media/upload-url` với tệp thực thi (`malicious.exe`, `application/x-msdownload`) bị từ chối ở tầng validate MIME/extension (`endpoints.py`):
+```json
+{
+  "detail": "Định dạng tệp không được hỗ trợ. Vui lòng tải ảnh (JPEG, PNG, WebP), âm thanh (MP3, M4A, WAV, FLAC), hoặc video (MP4, MOV, WebM)."
+}
+```
+- Yêu cầu Presigned URL với `size_bytes: 27262976` (26MB > ngưỡng `MAX_PUBLIC_UPLOAD_BYTES = 25MB`) bị chặn trước khi tạo link S3:
+```json
+{
+  "detail": "Dung lượng tệp (26MB) vượt quá giới hạn demo cho phép (tối đa 25MB)."
+}
+```
+
+3. **Bảo vệ dữ liệu mẫu công khai (`403 Forbidden`):**
+Gửi `DELETE /api/v1/media/{file_id}` đối với bản ghi gắn cờ `is_demo_protected: true` mà không có quyền quản trị (`x-admin-force: true`) sẽ bị từ chối để bảo vệ dữ liệu trải nghiệm chung:
+```json
+{
+  "detail": "Tệp mẫu được bảo vệ cho người dùng trải nghiệm demo (is_demo_protected: true). Không thể xóa."
+}
+```
+
+4. **Kiểm soát tần suất (`429 Too Many Requests`) & Xử lý quá tải bất đồng bộ:**
+- **API Layer (`slowapi`):** Endpoint tìm kiếm `/api/v1/media/agent/query` (và các alias `/api/v1/agent/query`, `/api/search`) giới hạn **`20/minute`** theo IP client (các endpoint còn lại mặc định **`60/minute`** trong `rate_limit.py`). Khi vượt ngưỡng, `RateLimitExceeded` handler trả về `HTTP 429`:
+```json
+{
+  "error": "Rate limit exceeded: 20 per 1 minute"
+}
+```
+- **Ingest Pipeline Layer (SQS + DLQ):** Khi tải tăng đột biến, sự kiện S3 upload được đệm qua `agentsys-ingest-queue` và điều tiết mức xử lý đồng thời của `IngestFunction` (`agentsys-ingest`) ở **`MaximumConcurrency: 5`**. Các thông điệp lỗi sau **`maxReceiveCount: 3`** lần thử lại được chuyển vào **3 Dead-Letter Queues (DLQ)** riêng biệt kèm **7 CloudWatch Alarms** giám sát lỗi thực thi và backlog hàng đợi.
+
