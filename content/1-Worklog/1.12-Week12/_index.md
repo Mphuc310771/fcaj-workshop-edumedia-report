@@ -33,4 +33,4 @@ pre: " <b> 1.12. </b> "
 ### 4. References:
 * [AWS CloudFormation Stack Deletion](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html)
 * [AWS Well-Architected Operational Excellence Pillar](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/)
-* [AWS Pricing Calculator - EduMedia AI Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
+* [AWS Pricing Calculator - EduMedia AI Estimate](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea)

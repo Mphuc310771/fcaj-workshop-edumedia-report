@@ -20,7 +20,7 @@ pre: " <b> 1.5. </b> "
 |:---:|---|:---:|:---:|---|
 | **Mon** | - Modeled AgentSys system architecture in Draw.io.<br>- Applied official AWS Architecture Icons 2026 to standardize end-to-end data flows across 5 layers. | 14/09/2026 | 14/09/2026 | [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) |
 | **Tue** | - Drafted Problem Statement, objectives, and scope.<br>- Defined clear acceptance criteria across each integrated AWS service. | 15/09/2026 | 15/09/2026 | FCAJ Proposal Guidelines |
-| **Wed** | - Calculated monthly operational expenses on AWS Pricing Calculator in us-east-1.<br>- Validated that the workload scales to 0 USD at idle. | 16/09/2026 | 16/09/2026 | [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934) |
+| **Wed** | - Calculated monthly operational expenses on AWS Pricing Calculator in us-east-1.<br>- Validated that the workload scales to 0 USD at idle. | 16/09/2026 | 16/09/2026 | [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea) |
 | **Thu** | - Authored technical analysis across 6 Well-Architected pillars: Security, Reliability, Performance, Cost, Operations, Sustainability.<br>- Documented IAM least privilege and S3 SSE-S3 configurations. | 17/09/2026 | 17/09/2026 | [AWS Well-Architected](https://aws.amazon.com/architecture/well-architected/) |
 | **Fri** | - Finalized bilingual Proposal documentation and committed files to report repository at content/2-Proposal/.<br>- Reviewed technical specifications ahead of codebase implementation. | 18/09/2026 | 18/09/2026 | Proposal Evaluation Guidelines |
 
@@ -34,4 +34,4 @@ pre: " <b> 1.5. </b> "
 ### 4. References:
 * [AWS Architecture Center & Official Icons](https://aws.amazon.com/architecture/icons/)
 * [AWS Well-Architected Framework Whitepapers](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
-* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
+* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea)

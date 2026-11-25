@@ -57,7 +57,7 @@ Hệ thống được thiết kế dựa trên tiêu chuẩn AWS Well-Architecte
 ## 4. Dự toán Chi phí Vận hành FinOps (Mô hình Workload Sản xuất & Chi phí Thực tế)
 
 Trong khuôn khổ dự án FCAJ, chi phí vận hành được tính toán theo nguyên lý **FinOps (Cloud Financial Management)** dựa trên 2 kịch bản thực tế đối chiếu qua **AWS Pricing Calculator**:
-* **Link dự toán chính thức trên AWS:** [Bảng dự toán công khai EduMedia AI](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
+* **Link dự toán chính thức trên AWS:** [Bảng dự toán công khai EduMedia AI (`us-east-1` N. Virginia)](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea)
 
 ### 4.1. Kịch bản 1: Người đọc tự triển khai thực hành Workshop (1 Tester / Self-hosted Lab)
 * **Khối lượng kiểm thử:** 50 ảnh slide học tập, 5 tệp âm thanh (20 phút bài giảng), 100 lượt truy vấn Bedrock AI, 1 GB lưu trữ S3, 2.000 invocations Lambda & DynamoDB.
@@ -65,26 +65,28 @@ Trong khuôn khổ dự án FCAJ, chi phí vận hành được tính toán theo
 * **Hóa đơn thực tế (Net Cost - khi có Free Tier):** Chỉ trả phần Bedrock On-Demand khoảng **$0.18 USD (~4.500 VNĐ)**, hoặc **$0.00 USD** nếu dùng tài khoản mới có gói tín dụng AWS Free Tier Credits.
 
 ### 4.2. Kịch bản 2: Triển khai thử nghiệm cho một lớp học (100 – 200 Sinh viên / 1 Tháng)
-Khối lượng phục vụ: 1.500 ảnh bài giảng/slide, 250 phút ghi âm bài giảng dùng chung, 2.000 lượt tra cứu Bedrock, 20 GB lưu trữ S3, 15.000 invocations Lambda, DynamoDB On-Demand, 10 GB CloudFront DTO.
+Khối lượng phục vụ: 1.500 ảnh bài giảng/slide, 250 phút ghi âm bài giảng dùng chung, 2.000 lượt tra cứu Bedrock, 20 GB lưu trữ S3 + PUT/GET requests, 15.000 invocations Lambda, 50.000 SQS messages, 15.000 HTTP API Gateway requests, DynamoDB On-Demand (15k W / 60k R), 10 GB CloudFront DTO, 2 custom metrics + 0.5 GB logs + 7 CloudWatch Alarms.
 
 | Dịch vụ AWS | Khối lượng vận hành (100 - 200 sinh viên) | Gross Cost (Không Free Tier) | Hóa đơn Chuẩn dài hạn (Áp dụng Always Free) |
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 1.500 ảnh × 2 APIs = 3.000 calls | **$3.00 USD** | **$3.00 USD** *(Năm đầu: $2.00)* |
-| **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **$6.00 USD** *(Rate Card $0.024/phút)* | **$6.00 USD** *(Baseline Calculator: $1.50)* |
-| **Amazon Bedrock** | 2.000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
-| **Amazon S3** | 20 GB Standard tích lũy + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Năm đầu: $0.35)* |
-| **AWS Lambda & SQS** | 15.000 invocations (22.500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
-| **Amazon DynamoDB** | On-Demand (15.000 writes + 60.000 reads) | **$0.02 USD** | **$0.02 USD** *(Lưu trữ < 25 GB Always Free)* |
-| **Amazon CloudFront** | 10 GB Data Transfer Out | **$0.85 USD** | **$0.00 USD** *(Always Free 1 TB/tháng)* |
-| **TỔNG CỘNG** | **Toàn bộ hệ thống cho 100 - 200 Sinh viên** | **$14.27 USD / tháng** *(Baseline Calculator: $9.77)* | **$13.04 – $13.09 USD / tháng** *(Baseline: $8.54)* |
-| **QUY ĐỔI VNĐ** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **~364.000 VNĐ / tháng** *(Baseline: ~249.000 VNĐ)* | **~333.000 – 334.000 VNĐ / tháng** *(Baseline: ~217.000 VNĐ)* |
-| **BÌNH QUÂN / SV** | **Quy mô 100 – 200 sinh viên** | **1.819 – 3.639 VNĐ / SV / tháng** | **1.663 – 3.338 VNĐ / SV / tháng** |
+| **Amazon Transcribe** | 250 phút ghi âm bài giảng vi-VN | **$6.00 USD** *(Rate Card $0.024/phút)* | **$6.00 USD** *(Calculator: $1.50)* |
+| **Amazon Bedrock** | 2.000 queries Nova Pro (2.0M in + 0.6M out) + Titan Embed V2 (2.0M) | **$3.56 USD** *(Nova Pro $3.52 + Embed $0.04)* | **$3.56 USD** |
+| **Amazon S3** | 20 GB Standard + PUT (2.000) / GET (10.000) requests | **$0.47 USD** *(Lưu trữ $0.46 + Reqs $0.01)* | **$0.47 USD** *(Năm đầu: $0.35)* |
+| **AWS Lambda & SQS** | 15.000 invocations (512MB, 1.5s) + 50.000 SQS msgs | **$0.21 USD** *(Lambda $0.19 + SQS $0.02)* | **$0.00 USD** *(Always Free: 1M Lambda + 1M SQS)* |
+| **Amazon API Gateway** | HTTP API v2 (15.000 requests/tháng) | **$0.02 USD** | **$0.02 USD** |
+| **Amazon DynamoDB** | On-Demand (15.000 writes + 60.000 reads, 0.02 GB) | **$0.02 USD** | **$0.02 USD** *(Lưu trữ < 25 GB Always Free)* |
+| **Amazon CloudFront** | 10 GB Data Transfer Out + 15.000 HTTPS reqs | **$0.85 USD** | **$0.00 USD** *(Always Free 1 TB / 10M reqs)* |
+| **Amazon CloudWatch** | 2 custom metrics ($0.60) + 0.5 GB logs ($0.25) + 7 alarms ($0.70) | **$1.55 USD** | **$0.00 USD** *(Always Free: 10 metrics / 10 alarms / 5 GB)* |
+| **TỔNG CỘNG** | **Toàn bộ hệ thống cho 100 - 200 Sinh viên** | **$15.68 USD / tháng** *(Transcribe Calculator: $11.18)* | **$13.07 USD / tháng** *(Calculator trực tiếp: $10.14; Thực thu: $8.57)* |
+| **QUY ĐỔI VNĐ** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **~400.000 VNĐ / tháng** *(Transcribe Calculator: ~285.000 VNĐ)* | **~333.000 VNĐ / tháng** *(Calculator trực tiếp: ~259.000 VNĐ; Thực thu: ~219.000 VNĐ)* |
+| **BÌNH QUÂN / SV** | **Quy mô 100 – 200 sinh viên** | **1.999 – 3.998 VNĐ / SV / tháng** | **1.666 – 3.333 VNĐ / SV / tháng** |
 
 > **Đối chiếu Công cụ AWS Pricing Calculator và Biểu giá Niêm yết (Rate Card):**
-> * Trên công cụ [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), tổng chi phí cơ sở hiển thị **4.96 USD / tháng** (bao gồm Rekognition 3.00 USD cho 3.000 ảnh, Transcribe 1.50 USD theo cấu hình kiểm thử cơ sở, S3 20GB 0.46 USD, Lambda 0.00 USD Always Free).
-> * Khi tính theo quy mô bài giảng đầy đủ cho 100 – 200 sinh viên với **250 phút âm thanh/tháng (Amazon Transcribe Standard đạt 6.00 USD)** cộng thêm tầng suy luận Bedrock Nova Lite / Nova Pro (3.56 – 4.04 USD), S3 API requests và CloudWatch Logs, tổng ngân sách dài hạn nằm trong khoảng **13.04 – 14.27 USD / tháng** (khoảng **1.663 – 3.639 VNĐ / sinh viên / tháng**).
-> * Hơn **82% chi phí hệ thống tập trung ở tầng AI Inference**. Toàn bộ hạ tầng Serverless (Lambda, SQS, S3, DynamoDB, CloudFront) chỉ tốn dưới **1.50 USD / tháng**, tự động co về 0.00 USD khi ở trạng thái nghỉ.
-> * **Thống nhất giữa Sơ đồ Kiến trúc và Bảng Dự toán Chi phí:** Sơ đồ kiến trúc phản ánh đầy đủ toàn bộ kiến trúc End-to-End từ tầng phân phối Frontend tại biên (**Amazon CloudFront CDN** kết hợp **Amazon S3 Static SPA Origin** `agentsys-web-*`, vận hành thực tế tại `d27yx88v3wm0yt.cloudfront.net` ở mục 5.5) đến toàn bộ hệ thống Backend Serverless & AI tại Region `us-east-1`, khớp 100% với các hạng mục trong bảng dự toán chi phí FinOps.
+> * Trên công cụ chính thức [AWS Pricing Calculator (`us-east-1` N. Virginia)](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea), toàn bộ **11 hạng mục thuộc 10 dịch vụ AWS** hiển thị tổng chi phí **10.14 USD / tháng** (**121.68 USD / 12 tháng**): Rekognition **$3.00**, Transcribe **$1.50**, Bedrock Nova Pro **$3.52**, Bedrock Titan Embeddings V2 **$0.04**, S3 **$0.47**, DynamoDB **$0.02**, SQS **$0.02** *(trước Free Tier)*, API Gateway **$0.02**, Lambda **$0.00**, CloudFront **$0.00** và CloudWatch **$1.55** *(trước Free Tier)*.
+> * Khi trừ khoản Always Free Tier mà mục CloudWatch & SQS trên Calculator chưa tự khấu trừ (**$1.55 + $0.02 = $1.57 USD**), hóa đơn thực tế trên biểu giá Calculator là **$8.57 USD / tháng**, hoặc **$13.07 USD / tháng** (**~1.666 – 3.333 VNĐ / sinh viên / tháng**) khi áp dụng đơn giá niêm yết chuẩn của Transcribe (**$0.024/phút = $6.00 USD**) thay cho mức **$1.50 USD** (`$0.006/phút`) trên Calculator.
+> * Khoảng **80% – 96% chi phí vận hành tập trung ở tầng AI Inference**. Khi loại trừ các API AI, toàn bộ hạ tầng Serverless (Lambda, SQS, S3, API Gateway, DynamoDB, CloudFront, CloudWatch) chỉ tốn **$0.51 USD / tháng** sau Always Free Tier và tự động co về **$0.00 USD** khi ở trạng thái nghỉ.
+> * **Thống nhất giữa Sơ đồ Kiến trúc và Bảng Dự toán Chi phí:** Sơ đồ kiến trúc phản ánh đầy đủ toàn bộ kiến trúc End-to-End từ tầng phân phối Frontend tại biên (**Amazon CloudFront CDN** kết hợp **Amazon S3 Static SPA Origin** `agentsys-web-*`, vận hành thực tế tại `d27yx88v3wm0yt.cloudfront.net` ở mục 5.5) đến toàn bộ hệ thống Backend Serverless & AI tại Region `us-east-1`, khớp 100% với các hạng mục trong bảng dự toán trên AWS Pricing Calculator.
 
 ---
 

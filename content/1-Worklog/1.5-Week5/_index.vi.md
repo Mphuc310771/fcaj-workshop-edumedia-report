@@ -20,7 +20,7 @@ pre: " <b> 1.5. </b> "
 |:---:|---|:---:|:---:|---|
 | **2** | - Thiết kế sơ đồ kiến trúc hệ thống EduMedia AI trên Draw.io.<br>- Sử dụng bộ icon AWS Architecture 2026 mới nhất, chuẩn hóa các luồng dữ liệu 5 tầng. | 14/09/2026 | 14/09/2026 | [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) |
 | **3** | - Soạn thảo các phần bối cảnh, bài toán thực tế (Problem Statement) và phạm vi triển khai.<br>- Định nghĩa rõ các tiêu chuẩn hoàn thành cho từng dịch vụ AWS. | 15/09/2026 | 15/09/2026 | Mẫu Proposal FCAJ |
-| **4** | - Lập bảng dự toán chi phí chi tiết trên AWS Pricing Calculator tại region us-east-1.<br>- Chứng minh hệ thống đạt chi phí 0 USD khi ở trạng thái nghỉ (Scale-to-Zero). | 16/09/2026 | 16/09/2026 | [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934) |
+| **4** | - Lập bảng dự toán chi phí chi tiết trên AWS Pricing Calculator tại region us-east-1.<br>- Chứng minh hệ thống đạt chi phí 0 USD khi ở trạng thái nghỉ (Scale-to-Zero). | 16/09/2026 | 16/09/2026 | [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea) |
 | **5** | - Viết phần phân tích đối chiếu 6 trụ cột AWS Well-Architected Framework: Security, Reliability, Performance, Cost, Operations, Sustainability.<br>- Bổ sung cơ chế bảo mật IAM Least Privilege và S3 SSE-S3. | 17/09/2026 | 17/09/2026 | [AWS Well-Architected](https://aws.amazon.com/architecture/well-architected/) |
 | **6** | - Hoàn thiện tài liệu Proposal song ngữ và lưu trữ vào repository báo cáo tại content/2-Proposal/.<br>- Rà soát các tiêu chí kỹ thuật chuẩn bị cho giai đoạn xây dựng mã nguồn. | 18/09/2026 | 18/09/2026 | Quy định Proposal FCAJ |
 
@@ -34,4 +34,4 @@ pre: " <b> 1.5. </b> "
 ### 4. Tài liệu tham khảo:
 * [AWS Architecture Center & Official Icons](https://aws.amazon.com/architecture/icons/)
 * [AWS Well-Architected Framework Whitepapers](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
-* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
+* [AWS Pricing Calculator - AgentSys Estimate](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea)

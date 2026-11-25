@@ -57,7 +57,7 @@ The architecture strictly adheres to AWS Well-Architected Framework principles, 
 ## 4. FinOps Cost Modeling & Production Workload Estimates (AWS Region: us-east-1)
 
 Within the FCAJ project framework, operational expenditures are engineered following **FinOps (Cloud Financial Management)** principles based on two realistic deployment scenarios modeled via the **AWS Pricing Calculator**:
-* **Official AWS Public Estimate:** [Official EduMedia AI Public Estimate](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934)
+* **Official AWS Public Estimate:** [Official EduMedia AI Public Estimate (`us-east-1` N. Virginia)](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea)
 
 ### 4.1. Scenario 1: Self-hosted Workshop & POC Evaluation (1 Tester)
 * **Evaluation Workload:** 50 slide images, 5 audio files (20 total minutes), 100 Bedrock AI queries, 1 GB S3 storage, 2,000 Lambda & DynamoDB invocations.
@@ -65,26 +65,28 @@ Within the FCAJ project framework, operational expenditures are engineered follo
 * **Net Invoiced Cost (With Free Tier):** Pay only for Bedrock On-Demand (~**$0.18 USD / ~4,500 VND**), or **$0.00 USD** if using an account eligible for AWS Free Tier Credits.
 
 ### 4.2. Scenario 2: Department Class / Study Club Workload (100 – 200 Students / Month)
-Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries, 20 GB S3 storage, 15,000 Lambda invocations, DynamoDB On-Demand, 10 GB CloudFront DTO.
+Monthly workload: 1,500 lecture slides, 250 audio minutes, 2,000 Bedrock queries, 20 GB S3 storage + PUT/GET requests, 15,000 Lambda invocations, 50,000 SQS messages, 15,000 HTTP API Gateway requests, DynamoDB On-Demand (15k W / 60k R), 10 GB CloudFront DTO, 2 custom metrics + 0.5 GB logs + 7 CloudWatch Alarms.
 
 | AWS Service | Production Workload (100 - 200 Students) | Gross Cost (Without Free Tier) | Standard Production Bill (With Always Free) |
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 1,500 images × 2 APIs = 3,000 calls | **$3.00 USD** | **$3.00 USD** *(Year 1: $2.00)* |
-| **Amazon Transcribe** | 250 lecture minutes vi-VN | **$6.00 USD** *(Rate Card $0.024/min)* | **$6.00 USD** *(Baseline Calculator: $1.50)* |
-| **Amazon Bedrock** | 2,000 queries Nova Pro / Nova Lite (1K in + 300 out) + Embed | **$3.56 USD** | **$3.56 USD** |
-| **Amazon S3** | 20 GB Standard storage + requests | **$0.46 USD** *(+ requests: $0.53)* | **$0.46 USD** *(Year 1: $0.35)* |
-| **AWS Lambda & SQS** | 15,000 invocations (22,500 GB-s) + SQS | **$0.38 USD** | **$0.00 USD** *(Always Free Tier)* |
-| **Amazon DynamoDB** | On-Demand (15,000 writes + 60,000 reads) | **$0.02 USD** | **$0.02 USD** *(< 25 GB Always Free)* |
-| **Amazon CloudFront** | 10 GB Data Transfer Out | **$0.85 USD** | **$0.00 USD** *(Always Free 1 TB/mo)* |
-| **TOTAL** | **Full System for 100 - 200 Students** | **$14.27 USD / month** *(Baseline Calculator: $9.77)* | **$13.04 – $13.09 USD / month** *(Baseline: $8.54)* |
-| **CURRENCY CONVERSION** | **Exchange Rate: 1 USD = 25,500 VND** | **~364,000 VND / month** *(Baseline: ~249,000 VND)* | **~333,000 – 334,000 VND / month** *(Baseline: ~217,000 VND)* |
-| **PER-STUDENT COST** | **Scale of 100 – 200 Students** | **1,819 – 3,639 VND / student / month** | **1,663 – 3,338 VND / student / month** |
+| **Amazon Transcribe** | 250 lecture minutes vi-VN | **$6.00 USD** *(Rate Card $0.024/min)* | **$6.00 USD** *(Calculator: $1.50)* |
+| **Amazon Bedrock** | 2,000 queries Nova Pro (2.0M in + 0.6M out) + Titan Embed V2 (2.0M) | **$3.56 USD** *(Nova Pro $3.52 + Embed $0.04)* | **$3.56 USD** |
+| **Amazon S3** | 20 GB Standard + PUT (2,000) / GET (10,000) requests | **$0.47 USD** *(Storage $0.46 + Reqs $0.01)* | **$0.47 USD** *(Year 1: $0.35)* |
+| **AWS Lambda & SQS** | 15,000 invocations (512MB, 1.5s) + 50,000 SQS msgs | **$0.21 USD** *(Lambda $0.19 + SQS $0.02)* | **$0.00 USD** *(Always Free: 1M Lambda + 1M SQS)* |
+| **Amazon API Gateway** | HTTP API v2 (15,000 requests/mo) | **$0.02 USD** | **$0.02 USD** |
+| **Amazon DynamoDB** | On-Demand (15,000 writes + 60,000 reads, 0.02 GB) | **$0.02 USD** | **$0.02 USD** *(< 25 GB Always Free)* |
+| **Amazon CloudFront** | 10 GB Data Transfer Out + 15,000 HTTPS reqs | **$0.85 USD** | **$0.00 USD** *(Always Free 1 TB / 10M reqs)* |
+| **Amazon CloudWatch** | 2 custom metrics ($0.60) + 0.5 GB logs ($0.25) + 7 alarms ($0.70) | **$1.55 USD** | **$0.00 USD** *(Always Free: 10 metrics / 10 alarms / 5 GB)* |
+| **TOTAL** | **Full System for 100 - 200 Students** | **$15.68 USD / month** *(Calculator Transcribe: $11.18)* | **$13.07 USD / month** *(Calculator Direct: $10.14; Net: $8.57)* |
+| **CURRENCY CONVERSION** | **Exchange Rate: 1 USD = 25,500 VND** | **~400,000 VND / month** *(Calculator Transcribe: ~285,000 VND)* | **~333,000 VND / month** *(Calculator Direct: ~259,000 VND; Net: ~219,000 VND)* |
+| **PER-STUDENT COST** | **Scale of 100 – 200 Students** | **1,999 – 3,998 VND / student / month** | **1,666 – 3,333 VND / student / month** |
 
 > **AWS Pricing Calculator vs Rate Card Reconciliation:**
-> * On the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=cd02bfb0db81283141c38707032c1bfdbc20a934), base monthly cost displays **4.96 USD / month** (Rekognition 3.00 USD for 3,000 images, Transcribe 1.50 USD baseline trial workload, S3 20GB 0.46 USD, Lambda 0.00 USD Always Free).
-> * Scaling up to the full production workload of **250 audio minutes/month for 100–200 students (Amazon Transcribe Standard totaling 6.00 USD)** plus Bedrock Inference (Nova Lite / Nova Pro + Titan Embeddings) and S3 API / CloudWatch Logs, monthly production spend ranges between **13.04 – 14.27 USD / month** (~**1,663 – 3,639 VND / student / month**).
-> * Over **82% of operational spend resides in AI Inference**. The entire Serverless compute/storage tier (Lambda, SQS, S3, DynamoDB, CloudFront) costs under **1.50 USD / month**, automatically scaling to 0.00 USD when idle.
-> * **Architecture Diagram vs Cost Model Reconciliation:** The architecture diagram captures the complete end-to-end production topology—spanning Frontend Edge delivery via **Amazon CloudFront CDN** backed by **Amazon S3 Static SPA Hosting** (`agentsys-web-*`, validated at `d27yx88v3wm0yt.cloudfront.net` in section 5.5) alongside the Backend Serverless ingestion and AI processing pipeline in `us-east-1`—aligning 100% with every line item modeled in the FinOps cost breakdown.
+> * On the official [AWS Pricing Calculator (`us-east-1` N. Virginia)](https://calculator.aws/#/estimate?id=ecbb5a062896472eb768e1aa807cb0a645a65aea), all **11 resource entries across 10 AWS services** total **10.14 USD / month** (**121.68 USD / 12 months**): Rekognition **$3.00**, Transcribe **$1.50**, Bedrock Nova Pro **$3.52**, Bedrock Titan Embeddings V2 **$0.04**, S3 **$0.47**, DynamoDB **$0.02**, SQS **$0.02** *(pre-Free Tier)*, API Gateway **$0.02**, Lambda **$0.00**, CloudFront **$0.00**, and CloudWatch **$1.55** *(pre-Free Tier)*.
+> * Subtracting the Always Free allowances excluded by CloudWatch & SQS sections in AWS Calculator (**$1.55 + $0.02 = $1.57 USD**) yields **$8.57 USD / month** on Calculator pricing, or **$13.07 USD / month** (**~1,666 – 3,333 VND / student / month**) when conservatively pricing 250 Transcribe minutes at the standard **$0.024/min ($6.00 USD)** rate card instead of Calculator's **$1.50 USD** (`$0.006/min`).
+> * Roughly **80% – 96% of operational spend resides in AI Inference**. Excluding AI APIs, the entire Serverless compute, queue, database, CDN, and monitoring tier totals only **$0.51 USD / month** after Always Free allowances, scaling automatically to **$0.00 USD** when idle.
+> * **Architecture Diagram vs Cost Model Reconciliation:** The architecture diagram captures the complete end-to-end production topology—spanning Frontend Edge delivery via **Amazon CloudFront CDN** backed by **Amazon S3 Static SPA Hosting** (`agentsys-web-*`, validated at `d27yx88v3wm0yt.cloudfront.net` in section 5.5) alongside the Backend Serverless ingestion and AI processing pipeline in `us-east-1`—aligning 100% with every line item modeled in the AWS Pricing Calculator estimate.
 
 ---
 
