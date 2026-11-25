@@ -10,7 +10,7 @@ pre: " <b> 3.2. </b> "
 * **Tác giả:** Đỗ Trần Minh Phúc (MSSV: 23120156 — Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM)
 * **Chương trình:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
 * **Dự án liên quan:** EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh với AWS Serverless & GenAI
-* **Kênh công bố:** [Cộng đồng AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
+* **Kênh công bố:** [Cộng đồng AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj) *(Đã gửi bài — Đang chờ quản trị viên phê duyệt)*
 {{% /notice %}}
 
 # Tối ưu truy vấn DynamoDB trong dự án EduMedia AI: Tại sao mình bỏ Scan + FilterExpression để chuyển sang GSI?
@@ -138,6 +138,9 @@ Từ trải nghiệm tối ưu này trong dự án **EduMedia AI**, bài học t
 * Với NoSQL, phải xác định rõ Access Pattern (cách giao diện truy vấn dữ liệu) ngay từ đầu để thiết kế Partition Key, Sort Key và GSI cho khớp.
 
 {{% notice tip %}}
-**Bằng chứng đăng bài trên AWS Study Group:**  
-* Bài viết đã được chia sẻ và thảo luận tại cộng đồng **AWS Study Group**: [Xem liên kết bài đăng trên Facebook](https://www.facebook.com/groups/awsstudygroupfcj)
+**Bằng chứng gửi bài trên AWS Study Group (Trạng thái Pending Approval):**  
+* Bài viết đã được gửi lên cộng đồng [AWS Study Group VN (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj) vào lúc **21:15 ngày 22/11** và hiện đang ở trạng thái **chờ quản trị viên phê duyệt** (hiển thị thanh công cụ `Chỉnh sửa | Xóa` trước khi sinh permalink công khai). *(Ghi chú: Bản nháp đăng tải vẫn dùng tên gọi ban đầu `AgentSys` tương ứng với bảng `AgentSysMediaMetadata` của dự án EduMedia AI.)*
+
+![Blog 2 - Minh chứng bài viết đang chờ phê duyệt trên AWS Study Group VN](/images/3-BlogsPosted/blog2-pending-proof.png)
+*Hình: Ảnh chụp bài viết Blog 2 đang ở trạng thái chờ quản trị viên phê duyệt trên nhóm AWS Study Group VN.*
 {{% /notice %}}

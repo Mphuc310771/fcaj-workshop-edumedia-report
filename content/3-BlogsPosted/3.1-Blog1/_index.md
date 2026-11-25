@@ -10,7 +10,7 @@ pre: " <b> 3.1. </b> "
 * **Author:** Do Tran Minh Phuc (Student ID: 23120156 — VNUHCM University of Science)
 * **Program:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
 * **Associated Project:** EduMedia AI — Multi-modal Media Retrieval System on Serverless AWS
-* **Publication Channel:** [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
+* **Publication Channel:** [AWS Study Group Community (Facebook Post)](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2328280037936955/)
 {{% /notice %}}
 
 # Serverless Media Processing in EduMedia AI: Why I Avoid Direct S3 Lambda Triggers
@@ -74,3 +74,8 @@ In serverless architectures, engineering rigor is not about wiring managed servi
 ```
 #AWS #Serverless #AmazonSQS #AWSLambda #AmazonS3 #CloudComputing #WellArchitected
 ```
+
+{{% notice tip %}}
+**Publication Evidence:**  
+* This technical article is published and publicly accessible on the **AWS Study Group** Facebook community: [View Published Post on Facebook](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2328280037936955/)
+{{% /notice %}}

@@ -10,7 +10,7 @@ pre: " <b> 3.2. </b> "
 * **Author:** Do Tran Minh Phuc (Student ID: 23120156 — VNUHCM-University of Science)
 * **Program:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
 * **Related Project:** EduMedia AI — Smart Lecture Storage & Retrieval Platform on AWS
-* **Published Community:** [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
+* **Published Community:** [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj) *(Submitted — Pending Admin Approval)*
 {{% /notice %}}
 
 # Optimizing DynamoDB Queries in EduMedia AI: Why I Ditched Scan + FilterExpression for GSI
@@ -138,6 +138,9 @@ The biggest practical lesson from building **AgentSys** with DynamoDB:
 * In NoSQL, always determine your Access Patterns upfront to design the right Partition Key, Sort Key, and GSI from day one.
 
 {{% notice tip %}}
-**Publication Evidence:**  
-* This technical article is published and discussed on the **AWS Study Group** community: [View Community Discussion on Facebook](https://www.facebook.com/groups/awsstudygroupfcj)
+**Publication Evidence (Pending Admin Approval):**  
+* This article was submitted to the [AWS Study Group VN (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj) community on **22/11 at 21:15** and is currently awaiting moderator approval (`Chỉnh sửa | Xóa` moderation controls active before public permalink generation). *(Note: The Facebook submission preview retains the working project codename `AgentSys`, finalized as `EduMedia AI` in this report.)*
+
+![Blog 2 - Pending Approval Proof on AWS Study Group VN](/images/3-BlogsPosted/blog2-pending-proof.png)
+*Figure: Submission proof of Blog 2 awaiting administrator approval in the AWS Study Group VN Facebook group.*
 {{% /notice %}}

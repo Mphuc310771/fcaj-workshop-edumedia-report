@@ -10,7 +10,7 @@ pre: " <b> 3.1. </b> "
 * **Tác giả:** Đỗ Trần Minh Phúc (MSSV: 23120156 — Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM)
 * **Chương trình:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
 * **Dự án liên quan:** EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh với AWS Serverless & GenAI
-* **Kênh công bố:** [Cộng đồng AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj)
+* **Kênh công bố:** [Cộng đồng AWS Study Group (Xem bài đăng Facebook)](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2328280037936955/)
 {{% /notice %}}
 
 # Xử lý Media Serverless trong dự án EduMedia AI: Tại sao mình không để Amazon S3 trigger trực tiếp Lambda?
@@ -75,3 +75,8 @@ Từ ca xử lý này mình thấy, làm Serverless cái "ăn tiền" không ph�
 ```
 #AWS #Serverless #AmazonSQS #AWSLambda #AmazonS3 #CloudComputing #WellArchitected
 ```
+
+{{% notice tip %}}
+**Bằng chứng đăng bài trên AWS Study Group:**  
+* Bài viết đã được duyệt và đăng tải công khai tại cộng đồng **AWS Study Group**: [Xem liên kết bài đăng trên Facebook](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2328280037936955/)
+{{% /notice %}}
