@@ -60,7 +60,7 @@ Within the FCAJ project framework, operational expenditures are engineered follo
 
 ### 4.1. Scenario 1: Self-hosted Workshop & POC Evaluation (1 Tester)
 * **Evaluation Workload:** 50 slide images, 5 audio files (20 total minutes), 100 Bedrock AI queries, 1 GB S3 storage, 2,000 Lambda & DynamoDB invocations.
-* **Gross Incurred Cost (Without Free Tier):** **$0.48 – $0.84 USD** (~12,000 – 21,000 VND for completing the entire lab).
+* **Gross Incurred Cost (Without Free Tier):** **$0.76 – $0.88 USD** (~19,400 – 22,400 VND for completing the entire lab at Transcribe's $0.024/min rate card).
 * **Net Invoiced Cost (With Free Tier):** Pay only for Bedrock On-Demand (~**$0.18 USD / ~4,500 VND**), or **$0.00 USD** if using an account eligible for AWS Free Tier Credits.
 
 ### 4.2. Scenario 2: Department Class / Study Club Workload (100 – 200 Students / Month)

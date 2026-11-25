@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 2. </b> "
 ---
 
-# Đề xuất Dự án: EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh với AWS Serverless & GenAI
+# EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh với AWS Serverless & GenAI
 
 **Sinh viên thực hiện:** Đỗ Trần Minh Phúc · Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM (HCMUS)  
 **Thời gian thực tập:** 17/08/2026 – 01/12/2026 · Công ty TNHH Amazon Web Services Vietnam (FCAJ Bootcamp)
@@ -18,12 +18,13 @@ pre: " <b> 2. </b> "
 **EduMedia AI** là nền tảng quản lý và tìm kiếm tư liệu học tập / bài giảng đa phương tiện (Slide hình ảnh, Ghi âm giọng nói, Video) ứng dụng kiến trúc **Serverless** và **Generative AI** hoàn toàn trên hạ tầng **Amazon Web Services (AWS)**.
 
 Hệ thống giải quyết triệt để bài toán tìm kiếm tệp truyền thống dựa trên tên file vô nghĩa bằng cách tự động bóc tách ngữ nghĩa đa giác quan:
-* **Amazon S3** lưu trữ đối tượng an toàn kết hợp cơ chế bảo vệ Block Public Access và SSE-S3.
-* **Amazon SQS & Dead-Letter Queue (DLQ)** đệm luồng sự kiện tải lên, đảm bảo không nghẽn và không mất dữ liệu (*Zero Data Loss*).
-* **AWS Lambda & Managed AI**: Điều phối tự động gọi **Amazon Rekognition** (nhận diện đồ vật, cảnh quan và OCR văn bản tiếng Việt) và **Amazon Transcribe** (bóc tách giọng nói tiếng Việt *vi-VN*).
-* **Amazon Bedrock (Amazon Titan & Nova Lite)**: Đóng vai trò AI Planner và Vector Engine chuyển hóa câu hỏi ngôn ngữ tự nhiên thành Search Plan tối ưu.
-* **Amazon DynamoDB**: Lưu trữ catalog metadata với chỉ mục phụ toàn cục (**GSI category-index**) phục vụ Hybrid Search (Lexical + Semantic).
-* **Amazon CloudWatch**: Giám sát toàn diện với custom metrics, log streams và hệ thống cảnh báo tự động (**Alarms**).
+* **Amazon CloudFront & Amazon S3 (Web Hosting)**: Phân phối giao diện React SPA qua HTTPS tại biên CDN kết hợp bucket tĩnh `agentsys-web-*`.
+* **Amazon S3 (Private Media Storage)**: Lưu trữ đối tượng an toàn với *Block All Public Access*, mã hóa SSE-S3 và Presigned URLs giới hạn thời gian.
+* **Amazon SQS & Dead-Letter Queue (DLQ)**: Đệm luồng sự kiện tải lên (`agentsys-ingest-queue`) cùng 3 hàng đợi lỗi DLQ, đảm bảo không nghẽn và không mất dữ liệu (*Zero Data Loss*).
+* **AWS Lambda, Amazon Rekognition & Amazon Transcribe**: Điều phối (`agentsys-ingest`, `agentsys-aggregator`) gọi **Amazon Rekognition** (nhận diện nhãn đối tượng và OCR tiếng Việt) và **Amazon Transcribe** (bóc tách giọng nói tiếng Việt *vi-VN* qua EventBridge).
+* **Amazon Bedrock (Nova Pro / Nova Lite & Titan Embeddings V2)**: Đóng vai trò AI Query Planner, tổng hợp tóm tắt phân đoạn và Vector Engine 256 chiều chuyển hóa câu hỏi ngôn ngữ tự nhiên thành kết quả xếp hạng lai.
+* **Amazon DynamoDB**: Lưu trữ catalog metadata (`AgentSysMediaMetadata`) với chỉ mục phụ toàn cục (**GSI category-index**) và DynamoDB Streams phục vụ Hybrid Search và Map-Reduce tóm tắt bài giảng.
+* **Amazon CloudWatch, Amazon SNS & AWS X-Ray**: Giám sát toàn diện với log JSON có cấu trúc, dấu vết phân tán X-Ray và hệ thống **7 CloudWatch Alarms** cảnh báo qua SNS (`agentsys-alerts-topic`).
 
 ---
 
@@ -38,15 +39,19 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 
 ---
 
-## 3. Mục tiêu dự án & Tiêu chí thành công (Goals & Success Criteria)
+## 3. Mục tiêu, Tiêu chí Thành công & Phạm vi Dự án
 
 | Mã | Mục tiêu | Tiêu chuẩn đánh giá (Pass Condition) | Dịch vụ AWS phụ trách |
 | :--- | :--- | :--- | :--- |
-| **G1** | **Ingest API** | Presigned S3 PUT + Item trong DynamoDB chuyển trạng thái READY trong < 5 giây. | S3, SQS, Lambda, DynamoDB |
+| **G1** | **Ingest API** | Presigned S3 PUT (`TTL 900s`); ảnh hoàn tất xử lý sang `READY` trong `< 5 giây` (Rekognition), âm thanh/video khởi tạo `INDEXING` bất đồng bộ và hoàn tất qua Transcribe + EventBridge. | S3, SQS, Lambda, DynamoDB, EventBridge |
 | **G2** | **Computer Vision** | Nhận diện chính xác nhãn đối tượng + Bóc tách OCR tiếng Việt từ ảnh bảng giảng đường. | Amazon Rekognition |
-| **G3** | **Speech-to-Text** | Bóc tách toàn bộ lời thoại tiếng Việt (*vi-VN*) từ file ghi âm/video ngắn vào trường transcript. | Amazon Transcribe |
+| **G3** | **Speech-to-Text** | Bóc tách toàn bộ lời thoại tiếng Việt (*vi-VN*) từ file ghi âm/video và tổng hợp tóm tắt theo phân đoạn 5–10 phút. | Amazon Transcribe, Lambda Aggregator |
 | **G4** | **Hybrid Search** | Câu truy vấn tự nhiên *"tìm đoạn thầy dặn thi cuối kỳ"* định tuyến chính xác đến tệp audio/video liên quan. | Amazon Bedrock, DynamoDB GSI |
-| **G5** | **Well-Architected & FinOps** | Mô hình 100% Serverless (Scale-to-Zero), chi phí $0 khi ở trạng thái nghỉ, có CloudWatch Alarms và Runbook Cleanup. | CloudWatch, IAM, SAM CLI |
+| **G5** | **Well-Architected & FinOps** | Mô hình 100% Serverless (Scale-to-Zero), chi phí $0 khi ở trạng thái nghỉ, có **7 CloudWatch Alarms** + SNS, AWS X-Ray và Runbook Cleanup. | CloudWatch, SNS, X-Ray, IAM, SAM CLI |
+
+### Phạm vi triển khai (Project Scope):
+* **Trong phạm vi (In-Scope - Giai đoạn PoC):** Xây dựng trọn vẹn pipeline nạp tư liệu đa phương thức bất đồng bộ (ảnh, âm thanh, video), trích xuất ngữ nghĩa AI (Rekognition, Transcribe vi-VN, Titan Text Embeddings V2 256-d, Nova Pro / Nova Lite), tìm kiếm lai kết hợp DynamoDB GSI (`category-index`, Candidate Pool giới hạn 100 bản ghi), giao diện React Web SPA trên CloudFront + S3, bộ 143 unit tests Pytest, giám sát 7 CloudWatch Alarms + X-Ray và IaC AWS SAM hoàn chỉnh.
+* **Ngoài phạm vi (Out-of-Scope - Lộ trình nâng cấp tại Mục 5.7):** Streaming nhận dạng giọng nói thời gian thực qua WebSocket, phân quyền đa tổ chức với Amazon Cognito, và cụm tìm kiếm vector chuyên dụng Amazon OpenSearch Serverless / Aurora pgvector cho quy mô trên hàng chục nghìn bản ghi.
 
 ---
 
@@ -54,14 +59,14 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 
 ![Kiến trúc Hệ thống EduMedia AI trên AWS](/images/2-Proposal/architecture.png)
 
-### Luồng xử lý dữ liệu chi tiết (Data Pipeline Workflow):
-1. **Upload & Presign Flow**: Client gửi yêu cầu lấy Presigned URL từ agentsys-api (Lambda) thông qua API Gateway (endpoint POST /api/upload-url), sau đó đẩy trực tiếp tệp lên s3://MediaBucket/uploads/ bằng phương thức HTTP PUT an toàn.
-2. **Asynchronous Ingestion Buffer**: S3 phát sự kiện s3:ObjectCreated:\* vào **Amazon SQS**. Hàng đợi buffer giữ tối đa 14 ngày và cấu hình **Dead-Letter Queue (DLQ)** với maxReceiveCount=3 để cô lập các tệp hỏng.
-3. **AI Metadata Extraction**: agentsys-ingest (Lambda) tiêu thụ batch tin nhắn từ SQS:
-   - Với tệp ảnh: Gọi đồng thời DetectLabels và DetectText (OCR) của **Amazon Rekognition**.
-   - Với tệp âm thanh/video: Khởi tạo tác vụ phân tích ngôn ngữ tiếng Việt (*vi-VN*) qua **Amazon Transcribe**.
-4. **Metadata & Embedding Aggregation**: Dữ liệu sau khi trích xuất được nhúng vector 256 chiều thông qua **Amazon Titan Text Embeddings V2** (amazon.titan-embed-text-v2:0) trên **Amazon Bedrock** và lưu vào bảng **DynamoDB**.
-5. **Intelligent Query Execution**: Khi người dùng tìm kiếm, **Amazon Bedrock (Amazon Nova Lite: amazon.nova-lite-v1:0)** phân tích câu hỏi tiếng Việt, trích xuất thực thể, danh mục và từ khóa để thực hiện truy vấn kết hợp: GSI Partition Query (category-index), lọc ứng viên (Candidate Pool cap 100 items), tính điểm tương đồng Vector Cosine (trọng số 0.6) và Tỷ lệ trùng khớp từ khóa chuẩn hóa (Normalized Keyword Overlap, trọng số 0.4).
+### Luồng xử lý dữ liệu End-to-End (Data Pipeline Workflow):
+1. **Frontend Edge & Presigned Upload Flow:** Người dùng truy cập React Web UI SPA phân phối qua **Amazon CloudFront CDN** (gắn nguồn tĩnh `agentsys-web-*` trên Amazon S3). Client gửi yêu cầu tới `agentsys-api` (Lambda) qua **Amazon API Gateway HTTP API** (route chuẩn `POST /api/v1/media/upload-url`, hỗ trợ alias `/api/upload-url`) để nhận Presigned PUT URL (`TTL 900s`), sau đó tải thẳng tệp lên bucket riêng tư `s3://MediaBucket/uploads/`.
+2. **Asynchronous Ingestion Buffer & 3 DLQs:** S3 phát sự kiện `s3:ObjectCreated:*` (chỉ trên prefix `uploads/`) vào **Amazon SQS (`agentsys-ingest-queue`)** cấu hình `ReceiveMessageWaitTimeSeconds = 10` và `maxReceiveCount = 3` để đẩy gói tin lỗi về **`agentsys-ingest-dlq`** (lưu giữ 14 ngày). Hai DLQ bổ sung (`agentsys-transcribe-dlq` và `agentsys-aggregator-stream-dlq`) bảo vệ luồng EventBridge và DynamoDB Streams.
+3. **Multimodal AI Extraction & Stream Aggregation:** `agentsys-ingest` (Lambda, `ScalingConfig: MaximumConcurrency = 5`, `BatchSize = 5`) định tuyến theo loại tệp:
+   - Với tệp ảnh: Gọi đồng thời `DetectLabels` và `DetectText` (OCR) của **Amazon Rekognition**, đồng thời sinh thumbnail (`thumbs/`).
+   - Với tệp âm thanh/video: Khởi tạo tác vụ tiếng Việt (*vi-VN*) trên **Amazon Transcribe** và nhận sự kiện hoàn tất/lỗi qua **Amazon EventBridge (`Transcribe Job State Change`)**. Bản ghi transcript > **250 KB** được tự động chuyển sang `s3://MediaBucket/transcripts/raw/{file_id}.json` (chỉ giữ bản xem trước 15.000 ký tự trên DynamoDB); các bài giảng dài được tách thành phân đoạn **5–10 phút** kích hoạt **DynamoDB Streams** sang Lambda **`agentsys-aggregator`** để tổng hợp tóm tắt.
+4. **Metadata & 256-d Vector Storage:** Nội dung trích xuất được nhúng vector chuẩn hóa L2 **256 chiều** thông qua **Amazon Titan Text Embeddings V2** (`amazon.titan-embed-text-v2:0`) trên **Amazon Bedrock** và lưu vào bảng **Amazon DynamoDB (`AgentSysMediaMetadata`)** chế độ On-Demand (`PAY_PER_REQUEST`).
+5. **Intelligent Hybrid Search & Full-Stack Observability:** Khi người dùng gửi truy vấn (`POST /api/v1/media/agent/query`), **Amazon Bedrock (`us.amazon.nova-pro-v1:0` mặc định hoặc `amazon.nova-lite-v1:0`)** phân tích ý định (tái sử dụng kế hoạch truy vấn qua `_PLAN_CACHE` LRU `256` mục, TTL `3600s`), truy vấn **GSI `category-index`** với Candidate Pool tối đa **100 bản ghi**, tính điểm kết hợp Vector Cosine Similarity (**0.6**) và Normalized Keyword Overlap (**0.4**). Toàn bộ 3 Lambda đều bật **AWS X-Ray (`Tracing: Active`)**, ghi CloudWatch Logs (lưu trữ 14 ngày) và bảo vệ bởi **7 CloudWatch Alarms** thông báo qua **Amazon SNS (`agentsys-alerts-topic`)**.
 
 ### Căn cứ Lựa chọn Dịch vụ (Service Selection Rationale):
 
@@ -70,11 +75,12 @@ Trong môi trường học tập và làm việc hiện đại, sinh viên và n
 | Dịch vụ AWS được chọn | Phương án thay thế cân nhắc | Tiêu chí Chi phí (Cost Optimization) | Tính sẵn sàng cao (High Availability) | Mô hình Serverless / Managed Services |
 | :--- | :--- | :--- | :--- | :--- |
 | **Amazon S3** *(Standard Storage)* | Amazon EFS / Amazon EBS | **$0.023 / GB / tháng**. Rẻ hơn 13 lần so với EFS ($0.30/GB). Hỗ trợ **Presigned URLs** cho phép client upload/download trực tiếp, tiết kiệm 100% băng thông và compute cho API backend. | Độ bền dữ liệu đạt **99.999999999% (11 số 9)** cùng Tính sẵn sàng (Availability) thiết kế **99.99%** (cam kết SLA 99.9%), tự động nhân bản đồng thời trên tối thiểu 3 Availability Zones (AZs) trong Region. | **Managed Object Storage**, không cần cấp phát trước dung lượng ổ đĩa hay quản lý máy chủ lưu trữ file. |
+| **Amazon CloudFront** *(Web SPA CDN)* | EC2 Reverse Proxy (Nginx) / Direct S3 Public | Tặng **1 TB Data Transfer Out & 10 triệu requests/tháng vĩnh viễn (Always Free)** để phân phối giao diện React SPA (`agentsys-web-*`), chi phí nhàn rỗi **$0.00**. | Mạng lưới Edge toàn cầu với HTTPS TLS mặc định và khả năng chịu tải tức thì không cần tự vận hành máy chủ proxy. | **Managed Edge CDN**, tách biệt tầng phân phối Web UI tĩnh khỏi các endpoint API nghiệp vụ. |
 | **AWS Lambda** *(Python 3.12 Runtime)* | Amazon ECS *(Fargate / EC2)* | **$0.00 chi phí nhàn rỗi (Zero Idle Cost)**. Chỉ tính tiền trên mili-giây và GB-giây thực tế khi có sự kiện. Miễn phí 1 triệu requests/tháng qua AWS Free Tier. So với ECS Fargate phải trả phí duy trì task liên tục kể cả khi không có lưu lượng (~$15 - $30/tháng). | Mặc định triển khai đa AZ trong Region; tự động scale từ 0 lên hàng nghìn concurrent executions tức thì mà không cần cấu hình Auto Scaling Group. | **Pure Serverless FaaS**, hoàn toàn không phải quản trị hệ điều hành máy chủ, vá lỗi bảo mật (OS patching) hay quản lý container daemon. |
 | **Amazon API Gateway** *(HTTP API)* | Application Load Balancer (ALB) / REST API | Đơn giá **$1.00 / triệu requests** (tiết kiệm hơn 70% so với REST API $3.50/triệu). Không tốn phí cố định theo giờ như ALB (~$16 - $20/tháng kể cả khi không có lưu lượng). | Tự động dự phòng đa vùng khả dụng; bảo vệ chống tấn công DDoS L3/L4 thông qua **AWS Shield Standard mặc định** kết hợp cơ chế **Route Throttling** (giới hạn burst và steady-state rate) để bảo vệ hạ tầng backend. | **Serverless HTTP API**, tích hợp nguyên bản CORS, định tuyến trực tiếp vào Lambda. Việc xác thực bảo vệ API được thực thi an toàn tại tầng ứng dụng (FastAPI dependency `verify_api_key` kiểm tra header `X-API-Key`) thay vì phụ thuộc API Key nguyên bản của API Gateway. |
 | **Amazon DynamoDB** *(On-Demand Mode)* | Amazon RDS Aurora *(PostgreSQL / MySQL)* | **$0.00 duy trì khi rảnh**. Tính phí chính xác theo số lượt đọc/ghi thực tế (WRU/RRU). Tặng kèm 25 GB lưu trữ Always Free. So với RDS Aurora Serverless v2 yêu cầu duy trì mức ACU tối thiểu liên tục (~$35 - $60/tháng). | Tự động nhân bản đồng bộ dữ liệu trên 3 AZs trong Region; cam kết SLA 99.99% với độ trễ truy xuất một chữ số mili-giây (< 10ms). | **NoSQL Serverless Database**, không lo cạn kiệt connection pool khi Lambda mở rộng đột biến; không cần quản trị bảo trì schema migrations. |
 | **Amazon SQS & DLQ** *(Message Queue)* | Amazon Kinesis Data Streams / Apache Kafka (MSK) | **$0.40 / triệu requests**. Tặng 1 triệu requests miễn phí mỗi tháng (Always Free). So với Kinesis tính phí theo Shard-hour (~$11/tháng/shard) hoặc Amazon MSK (~$100+/tháng). | Hàng đợi tin cậy phân tán đa AZ, lưu trữ thông điệp bền vững tối đa 14 ngày, đệm tải an toàn chống tràn tài nguyên xử lý AI phía sau. | **Fully Managed Queue**, tự động phân phối thông điệp dạng batch cho Lambda Ingest; tự động chuyển tin nhắn lỗi vào Dead-Letter Queue (DLQ). |
-| **Amazon Bedrock** *(Nova Lite & Titan Embeddings V2)* | Tự host mô hình LLM trên Amazon EC2 GPU *(G4dn / G5)* | **$0.06 / triệu input tokens** (Nova Lite) và **$0.02 / triệu input tokens** (Titan Embeddings V2). Chi phí kiểm nghiệm thực tế chỉ vài nghìn VNĐ/tháng. Tự host mô hình trên EC2 GPU (g4dn.xlarge hoặc g5.xlarge) tiêu tốn từ **$380 – $750 USD/tháng**. | Mô hình nền tảng do AWS vận hành trên cụm tính toán AI quy mô lớn với độ sẵn sàng cao và cơ chế phân phối tải tự động. | **Serverless GenAI API (FaaS)**, không cần quản trị hạ tầng phần cứng GPU, driver CUDA, container vLLM hay cân bằng tải mô hình. |
+| **Amazon Bedrock** *(Nova Pro / Nova Lite & Titan Embeddings V2)* | Tự host mô hình LLM trên Amazon EC2 GPU *(G4dn / G5)* | **$0.06 / triệu input tokens** (Nova Lite), **$0.02 / triệu input tokens** (Titan Embeddings V2), hỗ trợ Cross-Region Inference (`us.amazon.nova-pro-v1:0`) với chi phí thử nghiệm chỉ vài nghìn VNĐ/tháng. Tự host trên EC2 GPU (g4dn.xlarge / g5.xlarge) tốn từ **$380 – $750 USD/tháng**. | Mô hình nền tảng do AWS vận hành trên cụm tính toán AI quy mô lớn với độ sẵn sàng cao và cơ chế phân phối tải tự động. | **Serverless GenAI API (FaaS)**, không cần quản trị hạ tầng phần cứng GPU, driver CUDA, container vLLM hay cân bằng tải mô hình. |
 | **Amazon Rekognition & Transcribe** | Tự huấn luyện và triển khai mô hình ML riêng | Amazon Transcribe áp dụng biểu giá niêm yết chuẩn **$0.024 / phút ($0.0004 / giây)**. Rekognition tính phí $0.001/ảnh. Chi phí cực thấp, không tốn chi phí R&D, gán nhãn và đào tạo mô hình. | Dịch vụ AI chuyên dụng đạt chuẩn SLA 99.9% của AWS, xử lý song song với tính sẵn sàng cao. | **Pre-trained Managed AI Services**: Transcribe tối ưu sẵn sàng cho nhận diện giọng nói tiếng Việt (*vi-VN*); Rekognition thực hiện trích xuất nhãn đối tượng (DetectLabels) và nhận diện văn bản in / tiêu đề trên slide (DetectText) sẵn sàng sử dụng out-of-the-box mà không cần tự huấn luyện model. |
 
 ---
@@ -94,29 +100,29 @@ Kiến trúc hệ thống được rà soát và đánh giá toàn diện theo 6
 
 
 ### 1. Bảo mật (Security)
-* **IAM Least-Privilege**: Tách biệt hoàn toàn IAM Role của hàm Ingestion (chỉ đọc S3 uploads/, gọi Rekognition/Transcribe) và API Lambda (chỉ đọc DynamoDB GSI, gọi Bedrock).
-* **Bảo vệ lưu trữ S3**: Kích hoạt *Block All Public Access*, mã hóa tại chỗ với *SSE-S3 (AES-256)*, truy cập tệp qua *Presigned URLs* có thời hạn ngắn (15 phút).
-* **Quản lý khóa bí mật**: Không lưu trữ AWS Access Key / Secret Key trong mã nguồn. Xác thực API thông qua X-API-Key với cơ chế CloudFormation NoEcho.
+* **IAM Least-Privilege**: Tách biệt hoàn toàn IAM Role cho cả 3 hàm Lambda (`agentsys-ingest` chỉ đọc S3 `uploads/` và gọi Rekognition/Transcribe; `agentsys-aggregator` đọc DynamoDB Streams và cập nhật summary; `agentsys-api` đọc DynamoDB GSI và gọi Bedrock).
+* **Bảo vệ lưu trữ S3**: Kích hoạt *Block All Public Access*, mã hóa tại chỗ với *SSE-S3 (AES-256)*, truy cập tệp riêng tư qua *Presigned URLs* có thời hạn ngắn (`PUT: 900s / 15 phút`, `GET: 3600s / 60 phút`).
+* **Quản lý khóa bí mật**: Không lưu trữ AWS Access Key / Secret Key trong mã nguồn. Xác thực API thông qua `X-API-Key` (CloudFormation `NoEcho`) và JWT Bearer Token.
 
 ### 2. Độ tin cậy (Reliability)
-* **Bộ đệm chống sập (SQS Buffer & DLQ)**: Khi có hàng trăm tệp tải lên đồng thời, SQS đóng vai trò giảm tải (*load leveling*), ngăn ngừa quá tải Lambda Concurrency.
-* **Xử lý tệp lỗi tự động**: Các tệp hỏng hoặc lỗi định dạng được đưa vào DLQ sau 3 lần thử lại, kích hoạt CloudWatch Alarm cảnh báo quản trị viên.
-* **Cơ chế S3-Offloading chống tràn 400KB DynamoDB**: Tự động chuyển toàn văn bản ghi âm/video vượt quá 250KB sang lưu trữ an toàn trên S3 (transcripts/raw/{file_id}.json), chỉ lưu bản rút gọn (15.000 ký tự đầu) và URI tham chiếu trên DynamoDB, triệt tiêu nguy cơ lỗi ValidationException: Item size has exceeded the maximum allowed size of 400KB.
+* **Bộ đệm chống sập (SQS Buffer & 3 DLQs)**: Khi có hàng trăm tệp tải lên đồng thời, `agentsys-ingest-queue` đóng vai trò *load leveling* (`MaximumConcurrency = 5`), ngăn ngừa quá tải Lambda Concurrency.
+* **Xử lý tệp lỗi tự động**: Các sự kiện thất bại sau 3 lần thử lại được cô lập vào `agentsys-ingest-dlq`, `agentsys-transcribe-dlq` và `agentsys-aggregator-stream-dlq`, kích hoạt CloudWatch Alarm cảnh báo qua SNS.
+* **Cơ chế S3-Offloading chống tràn 400KB DynamoDB**: Tự động chuyển toàn văn bản ghi âm/video vượt quá 250KB sang lưu trữ an toàn trên S3 (`transcripts/raw/{file_id}.json`), chỉ lưu bản rút gọn (15.000 ký tự đầu) và URI tham chiếu trên DynamoDB, triệt tiêu nguy cơ lỗi `ValidationException: Item size has exceeded the maximum allowed size of 400KB`.
 
 ### 3. Hiệu năng vượt trội (Performance Efficiency)
-* **Tối ưu hóa Chiều Vector (Titan Subsampling)**: Nén vector đặc trưng từ 1536 chiều xuống **256 chiều**, giảm 83% dung lượng lưu trữ trên DynamoDB mà vẫn giữ độ chính xác trên 98%.
-* **Phân vùng DynamoDB GSI**: Sử dụng GSI category-index giúp lọc trực tiếp theo danh mục (study, videos, receipts), loại bỏ 90% chi phí Scan toàn bảng.
+* **Tối ưu hóa Chiều Vector (Titan V2 Native 256-d)**: Cấu hình trực tiếp `dimensions = 256` chuẩn hóa L2 trên Titan Text Embeddings V2 — **giảm 75% dung lượng** so với kích thước mặc định 1024 chiều của Titan V2 (và **giảm 83%** so với chuẩn 1536 chiều của Titan V1) mà vẫn giữ độ chính xác truy hồi cao.
+* **Phân vùng DynamoDB GSI (`category-index`)**: Định tuyến truy vấn trực tiếp theo danh mục kết hợp giới hạn Candidate Pool tối đa **100 bản ghi** trên RAM Lambda, loại bỏ Scan toàn bảng và hạ độ trễ xuống dưới 40ms.
 * **Tái sử dụng Lambda Warm Container**: Tái sử dụng Boto3 connection pool và TLS handshake xuyên suốt vòng đời container, tiết kiệm 50–120ms độ trễ kết nối trên mỗi thông điệp SQS hoặc lệnh gọi API.
-* **Bộ đệm truy vấn 2 cấp (\_PLAN\_CACHE)**: Bộ đệm kế hoạch Bedrock trong bộ nhớ RAM Lambda với thuật toán LRU (tối đa 256 mục, TTL 1 giờ), giúp tăng tốc phản hồi **3.7x** và loại bỏ 100% token Bedrock cho các câu hỏi trùng lặp.
+* **Bộ đệm truy vấn 2 cấp (`_PLAN_CACHE`)**: Bộ đệm kế hoạch Bedrock trong bộ nhớ RAM Lambda với thuật toán LRU (tối đa 256 mục, TTL 1 giờ), giúp tăng tốc phản hồi **3.7x** và loại bỏ 100% token Bedrock cho các câu hỏi trùng lặp.
 
 ### 4. Tối ưu hóa Chi phí (Cost Optimization - FinOps)
 * **Mô hình Trả tiền theo sử dụng (Pay-as-you-go / Scale to Zero)**: Khi không có request, toàn bộ hệ thống ngủ đông với chi phí đúng **$0.00 USD**.
 * **Bedrock LRU Caching**: Bộ đệm câu truy vấn giúp tái sử dụng Search Plan cho các câu hỏi phổ biến, tiết kiệm 100% token Bedrock.
-* **Vòng đời dữ liệu S3 Lifecycle**: Tự động xóa các file tạm trong transcripts/ sau 7 ngày.
+* **Vòng đời dữ liệu S3 Lifecycle**: Tự động xóa các file tạm trong prefix `transcripts/` sau **7 ngày** (`ExpirationInDays: 7`).
 
 ### 5. Vận hành xuất sắc (Operational Excellence)
-* **Hạ tầng dưới dạng Mã (Infrastructure as Code - IaC)**: Toàn bộ stack được định nghĩa trong **AWS SAM Template (infra/template.yaml)**, cho phép triển khai hoặc hủy bỏ môi trường chỉ với 1 câu lệnh.
-* **Khả năng quan sát (Observability)**: CloudWatch Logs ghi log có cấu trúc (JSON structured logging) và 2 Alarms quan trọng: agentsys-ingest-errors và agentsys-ingest-dlq.
+* **Hạ tầng dưới dạng Mã (Infrastructure as Code - IaC)**: Toàn bộ stack được định nghĩa trong **AWS SAM Template (`agent_sys/infra/template.yaml`)**, cho phép triển khai hoặc hủy bỏ môi trường qua `scripts/cleanup.sh` và `sam delete`.
+* **Khả năng quan sát (Observability & Tracing)**: Tất cả 3 Lambda đều bật **AWS X-Ray (`Tracing: Active`)**, ghi CloudWatch Logs dạng JSON có cấu trúc (lưu giữ **14 ngày**), phát custom metrics (`MediaIngested`, `MediaIngestFailed`) và kết nối **7 CloudWatch Alarms** (`agentsys-api-errors`, `agentsys-ingest-errors`, `agentsys-aggregator-errors`, `agentsys-ingest-failed`, `agentsys-ingest-dlq`, `agentsys-aggregator-stream-dlq`, `agentsys-transcribe-dlq`) qua SNS Topic `agentsys-alerts-topic`.
 
 ### 6. Tính bền vững (Sustainability)
 * Tận dụng tối đa tài nguyên dùng chung của AWS Managed Services (Rekognition, Bedrock, DynamoDB Serverless), không tiêu hao năng lượng điện cho các máy chủ GPU nhàn rỗi.
@@ -132,10 +138,10 @@ Hệ thống được thiết kế theo tiêu chí **Scale-to-Zero**, toàn bộ
 * **Xử lý 1 ảnh slide học tập:** Amazon Rekognition DetectLabels ($0.0010) + DetectText OCR ($0.0010) = **$0.0020 USD / ảnh** (~51 VNĐ/ảnh).
 * **Xử lý 1 phút âm thanh bài giảng:** Amazon Transcribe Standard Batch vi-VN = **$0.0240 USD / phút** ($0.0004 USD / giây theo biểu giá niêm yết chuẩn của AWS, tương đương ~612 VNĐ/phút).
 * **1 lượt truy vấn AI thông minh:** Amazon Titan Text Embeddings v2 ($0.00002/1k tokens) + Amazon Bedrock Nova Pro (1.000 in + 300 out tokens) = **~$0.00178 USD / lượt** (~45,4 VNĐ/lượt).
-* **Tầng suy luận AI Agent & dịch thuật (Reasoning & Intent Parsing):** Amazon Nova Lite ($0.06/1M input tokens + $0.24/1M output tokens) đóng vai trò Agent phân tích câu hỏi tiếng Việt, chuyển ngữ và gọi công cụ = **~$0.08 – $0.15 USD / tháng** cho 2.000 queries.
+* **Tầng suy luận AI Agent & dịch thuật (Reasoning & Intent Parsing):** Amazon Nova Lite ($0.06/1M input tokens + $0.24/1M output tokens) đóng vai trò Agent phân tích câu hỏi tiếng Việt, chuyển ngữ và tóm tắt phân đoạn = **~$0.08 – $0.15 USD / tháng** cho 2.000 queries.
 * **Lưu trữ Amazon S3 Standard:** **$0.0230 USD / GB / tháng** (~586,5 VNĐ/GB). (Yêu cầu API: PUT $0.005 / 1k reqs, GET $0.0004 / 1k reqs).
 * **Phân phối nội dung Amazon CloudFront:** Miễn phí **1 TB (1.000 GB) Data Transfer Out** và **10.000.000 requests/tháng** vĩnh viễn (Always Free Tier).
-* **AWS Lambda (1024MB, 1.5s):** $0.20/1M requests + $0.0000166667 / GB-s (x86) hoặc $0.0000133334 / GB-s (ARM Graviton2) = **$0.000020 / invocation**. (Miễn phí 1M requests + 400.000 GB-s/tháng vĩnh viễn).
+* **AWS Lambda (khung ước tính dự phòng 1024MB, 1.5s; SAM hiện triển khai 512MB):** $0.20/1M requests + $0.0000166667 / GB-s (x86) hoặc $0.0000133334 / GB-s (ARM Graviton2) = **$0.000020 / invocation**. (Miễn phí 1M requests + 400.000 GB-s/tháng vĩnh viễn).
 
 ---
 
@@ -145,13 +151,13 @@ Khối lượng kiểm thử: 50 ảnh slide, 5–10 clip video ngắn (tổng 1
 | Dịch vụ AWS | Khối lượng kiểm thử | Chi phí Gốc (Gross Cost - Không Free Tier) | Hóa đơn Thực tế (Net Cost - Có Free Tier) |
 | :--- | :--- | :---: | :---: |
 | **Amazon Rekognition** | 50 ảnh × 2 APIs = 100 API calls | $0.1000 USD | **$0.0000 USD** (Hạn mức 1.000 ảnh/tháng) |
-| **Amazon Transcribe** | 15–20 phút audio vi-VN (Batch) | $0.0900 – $0.1200 USD *(Rate card: $0.36 – $0.48)* | **$0.0000 USD** (Hạn mức 60 phút/tháng) |
+| **Amazon Transcribe** | 15–20 phút audio vi-VN (Batch × $0.024/phút) | $0.3600 – $0.4800 USD | **$0.0000 USD** (Hạn mức 60 phút/tháng) |
 | **Amazon Bedrock** | 100 queries Nova Pro / Nova Lite + Titan Embed | $0.1780 USD | **$0.1780 USD** *(Không có Free Tier)* |
 | **Amazon S3** | 1 GB Standard + PUT/GET requests | $0.0240 USD | **$0.0000 USD** (Hạn mức 5 GB Free Tier) |
-| **AWS Lambda & SQS** | 2.000 invocations (1024MB, 1.5s = 3.000 GB-s) | $0.0528 USD | **$0.0000 USD** (Always Free 1M req, 400k GB-s) |
+| **AWS Lambda & SQS** | 2.000 invocations (dự toán 1024MB, 1.5s = 3.000 GB-s) | $0.0528 USD | **$0.0000 USD** (Always Free 1M req, 400k GB-s) |
 | **Amazon DynamoDB** | On-Demand (2.000 writes + 2.000 reads) | $0.0015 USD | **$0.0015 USD** (25 GB Storage Always Free) |
 | **Amazon CloudFront** | Phân phối Web UI tĩnh (< 1 GB) | $0.0425 USD | **$0.0000 USD** (Always Free 1 TB/tháng) |
-| **TỔNG CỘNG (POC)** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **$0.48 – $0.84 USD** *(~12.000 – 21.000 VNĐ)* | **$0.18 USD** *(~4.500 VNĐ - Hoặc $0.00 nếu có Credit)* |
+| **TỔNG CỘNG (POC)** | **Tỷ giá quy đổi: 1 USD = 25.500 VNĐ** | **$0.76 – $0.88 USD** *(~19.400 – 22.400 VNĐ)* | **$0.18 USD** *(~4.500 VNĐ - Hoặc $0.00 nếu có Credit)* |
 
 ---
 
@@ -182,8 +188,8 @@ Khối lượng vận hành 1 tháng: 1.500 ảnh bài giảng/slide, 250 phút 
 ## 7. Kế hoạch Triển khai (Project Timeline)
 
 * **Giai đoạn 1 (Tháng 1 - Tuần 1 đến Tuần 4):** Phân tích yêu cầu, khảo sát AWS AI Services, khởi tạo SAM Template, thiết lập S3, SQS và kiểm thử Unit Tests.
-* **Giai đoạn 2 (Tháng 2 - Tuần 5 đến Tuần 8):** Phát triển pipeline Ingestion (Rekognition Labels/OCR + Transcribe vi-VN), thiết lập DynamoDB GSI và CloudWatch Alarms.
-* **Giai đoạn 3 (Tháng 3 - Tuần 9 đến Tuần 12):** Tích hợp Amazon Bedrock Hybrid Search, hoàn thiện Web UI React/Tailwind, tối ưu FinOps và tổng kết báo cáo Workshop.
+* **Giai đoạn 2 (Tháng 2 - Tuần 5 đến Tuần 8):** Phát triển pipeline Ingestion (Rekognition Labels/OCR + Transcribe vi-VN + EventBridge + Lambda Aggregator), thiết lập DynamoDB GSI và 7 CloudWatch Alarms.
+* **Giai đoạn 3 (Tháng 3 - Tuần 9 đến Tuần 12):** Tích hợp Amazon Bedrock Hybrid Search, hoàn thiện Web UI React/Tailwind trên CloudFront + S3, tối ưu FinOps và tổng kết báo cáo Workshop.
 
 ---
 
@@ -191,11 +197,10 @@ Khối lượng vận hành 1 tháng: 1.500 ảnh bài giảng/slide, 250 phút 
 
 | STT | Rủi ro kỹ thuật / vận hành | Mức độ | Phương án giảm thiểu (Mitigation Strategy) |
 | :---: | :--- | :---: | :--- |
-| **1** | **Chi phí ẩn quét Vector DynamoDB & Xung đột Ghi (Race Condition) trên S3:** DynamoDB không có ANN/HNSW nguyên bản; quét toàn bảng đẩy RRUs tăng vọt. Ngoài ra S3 không hỗ trợ lock/append, nhiều Lambda chạy song song ghi đè `index.bin` sẽ gây mất dữ liệu. | Cao | Tách biệt lưu trữ: Luồng Ingest ghi siêu dữ liệu bài giảng và vector thô vào DynamoDB (lệnh `PutItem` có tính nguyên tử). Một tiến trình gom nhóm định kỳ (Batch Compaction) hoặc Lambda Indexer duy nhất (`ReservedConcurrency = 1` + điều kiện `If-Match ETag`) tổng hợp file index nhị phân trên S3. Luồng Search tải index vào RAM cache kiểm tra `HeadObject` (TTL 60s), loại bỏ 99% chi phí đọc DynamoDB và chống xung đột ghi. |
-| **2** | **"Cạm bẫy" VPC NAT Gateway (NAT Gateway Trap):** Đặt Lambda vào VPC Private Subnet mà không có lý do sẽ kéo theo chi phí NAT Gateway cố định $32.85 USD/tháng (~837.000 VNĐ) ngay cả khi không có request. | Cao | Tuyệt đối không gắn Lambda vào VPC do hệ thống chỉ giao tiếp qua các Public APIs của AWS (S3, Bedrock, Rekognition, DynamoDB) được bảo mật nghiêm ngặt bằng IAM Least Privilege Roles và HTTPS TLS 1.3. |
-| **3** | **Vòng lặp vô tận (Infinite Trigger Loop) & SQS Retry Storm:** Upload file sinh ra event kích hoạt Lambda ghi file kết quả vào cùng bucket, kích hoạt tiếp vòng lặp làm cạn kiệt ngân sách AI. | Cao | Phân tách nghiêm ngặt S3 event notification chỉ lắng nghe prefix `uploads/`, ghi kết quả sang prefix `transcripts/` hoặc bucket riêng; cấu hình SQS Dead-Letter Queue (DLQ) với `maxReceiveCount = 3` để cô lập thông điệp lỗi, chống bão retry. |
-| **4** | **"Cạm bẫy" Rekognition Video ($0.10/phút) & Giới hạn Token Bedrock:** API Rekognition Video có đơn giá rất cao ($0.10/phút/tính năng = $50 cho 250 phút), đồng thời Titan Multimodal Embeddings G1 chỉ nhận text ngắn (≤ 128 tokens) và ảnh tĩnh, không nhận video trực tiếp. | Cao | Phân luồng đa phương tiện thông minh: Thay vì dùng API Rekognition Video tốn kém, đối với file video/audio bài giảng, hệ thống định tuyến luồng âm thanh sang Amazon Transcribe bóc băng tiếng Việt và cắt nhỏ văn bản (chunking ≤ 128 tokens) trước khi tạo vector embedding bằng Titan Text Embeddings V2; phần thị giác tĩnh áp dụng riêng cho hình ảnh/tài liệu qua Rekognition Image ($0.001/ảnh) để nhận diện chữ và nhãn, tiết kiệm hơn 95% chi phí. |
-| **5** | **Lãng phí thời gian chạy Lambda khi đợi Transcribe Batch:** Amazon Transcribe Batch xử lý bất đồng bộ mất 1–3 phút cho video dài. Nếu Lambda dùng vòng lặp chờ (`sleep`), chi phí GB-sec sẽ tăng vọt gấp 100 lần. | Cao | Thiết kế bất đồng bộ 100% hướng sự kiện (Event-driven): Lambda Ingest chỉ gọi `StartTranscriptionJob()` rồi kết thúc ngay trong 0.5 giây. Khi quá trình bóc băng hoàn tất, Amazon EventBridge bắt sự kiện `Transcribe Job State Change (COMPLETED)` (hoặc S3 ObjectCreated tại output bucket) để kích hoạt Lambda bóc tách tiếp theo. Chi phí chờ đợi của hệ thống bằng $0.00 USD. |
-| **6** | **Bùng nổ chi phí băng thông S3 Data Transfer Out (Egress):** Khi hàng trăm sinh viên xem và phát lại video bài giảng từ S3 qua Presigned URL, lưu lượng vượt 100GB sẽ bị tính phí $0.09/GB. | Trung bình | Triển khai Amazon CloudFront kèm Origin Access Control (OAC) phía trước S3 media bucket để tận dụng hạn mức Always Free 1 TB (1.000 GB) Data Transfer Out và 10.000.000 requests miễn phí mỗi tháng, triệt tiêu 100% rủi ro chi phí băng thông. |
-| **7** | **Vượt ngưỡng giới hạn 400KB của DynamoDB Item & SQS Long Polling:** Bản ghi transcript từ các file âm thanh dài vượt quá kích thước tối đa của DynamoDB item. | Trung bình | Thiết lập cơ chế tự động chuyển bản ghi transcript > 250KB sang lưu trữ trên Amazon S3 (S3-offloading), chỉ lưu S3 URI và bản tóm tắt trích đoạn trên DynamoDB. Cấu hình SQS Long Polling (ReceiveMessageWaitTimeSeconds = 20) và CloudWatch Logs Retention = 7 ngày để tối ưu chi phí ngầm. |
-
+| **1** | **Chi phí ẩn khi quét Vector trên DynamoDB & Lặp truy vấn Bedrock LLM:** DynamoDB không hỗ trợ chỉ mục ANN/HNSW nguyên bản; nếu thực hiện `Full Table Scan` cho mỗi câu hỏi, chi phí RCU và thời gian chạy Lambda sẽ tăng tuyến tính `O(N)`. | Cao | Áp dụng **Two-Stage Hybrid Search** thực tế: định tuyến qua **DynamoDB GSI (`category-index`)** để chỉ kéo **Candidate Pool giới hạn tối đa 100 bản ghi** (`CANDIDATE_POOL_LIMIT = 100`) về RAM Lambda tính Cosine Similarity (`0.6`) + Keyword Overlap (`0.4`), dùng **256-d Titan V2** nhỏ gọn và bộ đệm **LRU `_PLAN_CACHE` (256 mục, TTL 1 giờ)** tiết kiệm 100% token lặp lại. Với quy mô trên hàng chục nghìn bản ghi, lộ trình nâng cấp lên OpenSearch Serverless / Aurora pgvector được trình bày tại Mục 5.7. |
+| **2** | **"Cạm bẫy" VPC NAT Gateway (NAT Gateway Trap):** Đặt Lambda vào VPC Private Subnet mà không có lý do sẽ kéo theo chi phí NAT Gateway cố định $32.85 USD/tháng (~837.000 VNĐ) ngay cả khi không có request. | Cao | Tuyệt đối không gắn Lambda vào VPC do hệ thống chỉ giao tiếp qua các Public APIs của AWS (S3, Bedrock, Rekognition, DynamoDB) được bảo mật nghiêm ngặt bằng IAM Least Privilege Roles và HTTPS TLS 1.2+. |
+| **3** | **Vòng lặp vô tận (Infinite Trigger Loop) & SQS Retry Storm:** Upload file sinh ra event kích hoạt Lambda ghi file kết quả vào cùng bucket, kích hoạt tiếp vòng lặp làm cạn kiệt ngân sách AI. | Cao | Phân tách nghiêm ngặt S3 Event Notification chỉ lắng nghe prefix `uploads/`, ghi kết quả sang prefix `thumbs/` và `transcripts/`; cấu hình 3 Dead-Letter Queues (`agentsys-ingest-dlq`, `agentsys-transcribe-dlq`, `agentsys-aggregator-stream-dlq`) với `maxReceiveCount = 3` để cô lập lỗi. |
+| **4** | **"Cạm bẫy" Rekognition Video ($0.10/phút) & Bài giảng âm thanh quá dài:** API Rekognition Video có đơn giá rất cao ($0.10/phút/tính năng = $50 cho 250 phút), đồng thời file audio dài khiến quá trình tóm tắt và nhúng ngữ nghĩa mất nhiều thời gian. | Cao | Phân luồng đa phương tiện thông minh: Định tuyến file video/audio bài giảng sang **Amazon Transcribe (`vi-VN`, $0.024/phút)**; tự động tách transcript theo khoảng lặng thành các phân đoạn **5–10 phút** qua `pipeline/chunking.py` để **Lambda Aggregator** tổng hợp qua **DynamoDB Streams** và nhúng bằng **Titan Text Embeddings V2** (hỗ trợ ngữ cảnh tới 8.192 tokens, đầu ra 256-d); riêng ảnh/slide dùng **Rekognition Image ($0.001/ảnh)**, tiết kiệm hơn 95% chi phí so với Rekognition Video. |
+| **5** | **Lãng phí thời gian chạy Lambda khi đợi Transcribe Batch:** Amazon Transcribe Batch xử lý bất đồng bộ mất 1–3 phút cho video dài. Nếu Lambda dùng vòng lặp chờ (`sleep`), chi phí GB-sec sẽ tăng vọt gấp 100 lần. | Cao | Thiết kế bất đồng bộ 100% hướng sự kiện (Event-driven): `agentsys-ingest` chỉ gọi `StartTranscriptionJob()` rồi kết thúc nhanh. Khi bóc băng xong, **Amazon EventBridge** bắt sự kiện `Transcribe Job State Change (COMPLETED | FAILED)` kích hoạt bước bóc tách tiếp theo, chi phí chờ đợi bằng $0.00 USD. |
+| **6** | **Bùng nổ chi phí băng thông Egress từ S3 Hosting & Bảo mật tệp Media:** Phục vụ giao diện Web tĩnh hoặc lộ bucket media ra công cộng có thể phát sinh phí Data Transfer Out ($0.09/GB) và rủi ro rò rỉ dữ liệu. | Trung bình | Tách biệt rõ hai bucket: toàn bộ mã nguồn **React Web SPA (`agentsys-web-*`)** được phân phối qua **Amazon CloudFront CDN** tận dụng hạn mức Always Free **1 TB Data Transfer Out & 10 triệu requests/tháng**; trong khi **`MediaBucket`** bật `Block All Public Access = true` và cấp quyền upload/playback theo phiên qua **S3 Presigned URLs (`PUT: 900s / GET: 3600s`)**. |
+| **7** | **Vượt ngưỡng giới hạn 400KB của DynamoDB Item & Chi phí Logs/Polling:** Bản ghi transcript từ bài giảng dài vượt giới hạn 400KB của DynamoDB; Log không giới hạn thời gian lưu gây phình dung lượng. | Trung bình | Thiết lập cơ chế tự động chuyển bản ghi transcript > **250 KB** sang `s3://MediaBucket/transcripts/raw/{file_id}.json` (chỉ giữ bản xem trước 15.000 ký tự trên DynamoDB). Cấu hình **SQS Long Polling (`ReceiveMessageWaitTimeSeconds = 10`)**, **CloudWatch Logs Retention = 14 ngày** và **S3 Lifecycle tự xóa file tạm trong `transcripts/` sau 7 ngày**. |

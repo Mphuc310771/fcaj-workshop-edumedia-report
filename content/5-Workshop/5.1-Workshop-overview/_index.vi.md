@@ -60,7 +60,7 @@ Trong khuôn khổ dự án FCAJ, chi phí vận hành được tính toán theo
 
 ### 4.1. Kịch bản 1: Người đọc tự triển khai thực hành Workshop (1 Tester / Self-hosted Lab)
 * **Khối lượng kiểm thử:** 50 ảnh slide học tập, 5 tệp âm thanh (20 phút bài giảng), 100 lượt truy vấn Bedrock AI, 1 GB lưu trữ S3, 2.000 invocations Lambda & DynamoDB.
-* **Chi phí gốc tiêu thụ (Gross Cost - khi không có Free Tier):** **$0.48 – $0.84 USD** (~12.000 – 21.000 VNĐ cho toàn bộ bài lab).
+* **Chi phí gốc tiêu thụ (Gross Cost - khi không có Free Tier):** **$0.76 – $0.88 USD** (~19.400 – 22.400 VNĐ cho toàn bộ bài lab, tính theo đơn giá niêm yết Transcribe $0.024/phút).
 * **Hóa đơn thực tế (Net Cost - khi có Free Tier):** Chỉ trả phần Bedrock On-Demand khoảng **$0.18 USD (~4.500 VNĐ)**, hoặc **$0.00 USD** nếu dùng tài khoản mới có gói tín dụng AWS Free Tier Credits.
 
 ### 4.2. Kịch bản 2: Triển khai thử nghiệm cho một lớp học (100 – 200 Sinh viên / 1 Tháng)
