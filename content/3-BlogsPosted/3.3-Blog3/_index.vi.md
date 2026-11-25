@@ -7,7 +7,7 @@ pre: " <b> 3.3. </b> "
 ---
 
 {{% notice info %}}
-* **Tác giả:** Đỗ Trần Minh Phúc (MSSV: 23120156 — Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM)
+* **Tác giả:** Nguyễn Thanh Phúc
 * **Chương trình:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
 * **Chủ đề:** AWS CI/CD & Cost Optimization — Tối ưu Docker Layer Caching với AWS CodeBuild & Amazon ECR
 * **Kênh công bố:** [Cộng đồng AWS Study Group (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj) *(Đã gửi bài — Đang chờ quản trị viên phê duyệt)*

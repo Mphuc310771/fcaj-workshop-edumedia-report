@@ -7,7 +7,7 @@ pre: " <b> 3.3. </b> "
 ---
 
 {{% notice info %}}
-* **Author:** Do Tran Minh Phuc (Student ID: 23120156 — VNUHCM University of Science)
+* **Author:** Nguyen Thanh Phuc
 * **Program:** First Cloud AI Journey (FCAJ) 2026 — AWS Vietnam
 * **Topic Domain:** AWS CI/CD & Cost Optimization — Docker Layer Caching on AWS CodeBuild & Amazon ECR
 * **Publication Channel:** [AWS Study Group Community (Facebook)](https://www.facebook.com/groups/awsstudygroupfcj) *(Submitted — Pending Admin Approval)*
