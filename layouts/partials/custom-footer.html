@@ -25,17 +25,32 @@
 <script>
   (function () {
     var basePath = "{{ strings.TrimSuffix "/" (urls.Parse .Site.BaseURL).Path }}";
-    var navPath = window.location.pathname;
-    if (basePath && navPath.indexOf(basePath) === 0) {
-      navPath = navPath.slice(basePath.length) || "/";
+    function toNavId(rawUrl) {
+      if (!rawUrl) return "";
+      try {
+        var path = rawUrl.indexOf("http") === 0 ? new URL(rawUrl).pathname : rawUrl;
+        if (basePath && path.indexOf(basePath) === 0) {
+          path = path.slice(basePath.length) || "/";
+        }
+        return path;
+      } catch (e) {
+        return rawUrl;
+      }
     }
-    sessionStorage.setItem(navPath, "1");
+
+    sessionStorage.setItem(toNavId(window.location.pathname), "1");
 
     function markVisited() {
+      var visited = {};
+      for (var k in sessionStorage) {
+        if (sessionStorage.getItem(k) === "1") {
+          visited[toNavId(k)] = true;
+        }
+      }
       var items = document.querySelectorAll("#sidebar [data-nav-id]");
       for (var i = 0; i < items.length; i++) {
         var id = items[i].getAttribute("data-nav-id");
-        if (id && sessionStorage.getItem(id) === "1") {
+        if (id && visited[id]) {
           items[i].classList.add("visited");
         }
       }
@@ -46,6 +61,14 @@
     } else {
       markVisited();
     }
+
+    document.addEventListener("click", function (ev) {
+      var link = ev.target && ev.target.closest ? ev.target.closest("#sidebar [data-nav-id] > a") : null;
+      if (link && link.parentElement) {
+        var id = link.parentElement.getAttribute("data-nav-id");
+        if (id) sessionStorage.setItem(id, "1");
+      }
+    });
   })();
 </script>
 
