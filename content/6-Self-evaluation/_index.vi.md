@@ -15,7 +15,7 @@ pre: " <b> 6. </b> "
 | **Sinh viên** | Đỗ Trần Minh Phúc (MSSV: `23120156` — ĐH Khoa học Tự nhiên, ĐHQG-HCM) |
 | **Đơn vị thực tập** | Amazon Web Services Vietnam Co., Ltd. |
 | **Chương trình** | Workforce Bootcamp — First Cloud AI Journey (FCAJ) |
-| **Thời gian** | 17/08/2026 – 01/12/2026 (12 tuần) |
+| **Thời gian** | 17/08/2026 – 01/12/2026 |
 | **Dự án** | EduMedia AI — Hệ thống Lưu trữ & Tra cứu Bài giảng Thông minh trên AWS |
 | **Hạn nộp dự án** | 30/11/2026 |
 | **Mentor hướng dẫn** | Lữ Hoàn Thiện — Program Manager |
@@ -42,7 +42,7 @@ Trong kỳ thực tập tại **Amazon Web Services Vietnam Co., Ltd.** từ **1
 | 9 | **Tác phong chuyên nghiệp** | Giữ thái độ tôn trọng, lịch sự với Mentor, đội ngũ Admin, đồng nghiệp và tuân thủ quy định tại văn phòng Bitexco Tầng 26. | ✅ | ☐ | ☐ |
 | 10 | **Kỹ năng giải quyết vấn đề** | Xử lý triệt để vòng lặp đệ quy S3–Transcribe bằng tách prefix `uploads/` và `transcripts/`; nén vector xuống 256 chiều; tự động S3-offloading (>250KB) chống tràn 400KB DynamoDB. | ✅ | ☐ | ☐ |
 | 11 | **Đóng góp cho dự án / nhóm** | Bàn giao Web Gallery live trên CloudFront, backend FastAPI/Lambda, 7 CloudWatch Alarms + SNS, tài liệu Workshop 7 phần và bộ Guardrails bảo vệ dữ liệu (khóa xóa 403, giới hạn ≤25MB). | ✅ | ☐ | ☐ |
-| 12 | **Đánh giá chung** | Hoàn thành trọn vẹn mục tiêu kỹ thuật, Well-Architected và FinOps của kỳ thực tập 12 tuần FCAJ với sản phẩm vận hành thực tế. | ✅ | ☐ | ☐ |
+| 12 | **Đánh giá chung** | Hoàn thành trọn vẹn mục tiêu kỹ thuật, Well-Architected và FinOps của kỳ thực tập FCAJ với sản phẩm vận hành thực tế. | ✅ | ☐ | ☐ |
 
 ---
 

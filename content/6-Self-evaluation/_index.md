@@ -15,7 +15,7 @@ pre: " <b> 6. </b> "
 | **Student** | Do Tran Minh Phuc (Student ID: `23120156` — VNU-HCM University of Science) |
 | **Organization** | Amazon Web Services Vietnam Co., Ltd. |
 | **Program** | Workforce Bootcamp — First Cloud AI Journey (FCAJ) |
-| **Duration** | August 17, 2026 – December 01, 2026 (12 weeks) |
+| **Duration** | August 17, 2026 – December 01, 2026 |
 | **Project** | EduMedia AI — Smart Lecture Storage & Search Engine on AWS |
 | **Project Submission Deadline** | November 30, 2026 |
 | **Mentor** | Lữ Hoàn Thiện — Program Manager |
@@ -42,7 +42,7 @@ To objectively reflect on my internship period, I evaluate myself across the fol
 | 9 | **Professional conduct** | Maintained respectful, courteous conduct toward mentors, program administrators, fellow interns, and office property at Bitexco Floor 26. | ✅ | ☐ | ☐ |
 | 10 | **Problem-solving skills** | Eliminated S3-Transcribe recursive loops via `uploads/` vs `transcripts/` segregation; compressed vectors to 256-d; automated S3-offloading (>250KB) to prevent DynamoDB 400KB overflow. | ✅ | ☐ | ☐ |
 | 11 | **Contribution to project/team** | Delivered live CloudFront SPA, FastAPI/Lambda backend, 7 CloudWatch Alarms + SNS, 7-part hands-on workshop guide, and production data-protection guardrails (HTTP 403 lock, ≤25MB cap). | ✅ | ☐ | ☐ |
-| 12 | **Overall** | Achieved all technical, Well-Architected, and FinOps objectives of the 12-week FCAJ Workforce Bootcamp with measurable production deliverables. | ✅ | ☐ | ☐ |
+| 12 | **Overall** | Achieved all technical, Well-Architected, and FinOps objectives of the FCAJ Workforce Bootcamp with measurable production deliverables. | ✅ | ☐ | ☐ |
 
 ---
 
