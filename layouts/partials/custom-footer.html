@@ -22,3 +22,30 @@
   ga("create", "UA-158079754-2", "auto");
   ga("send", "pageview");
 </script>
+<script>
+  (function () {
+    var basePath = "{{ strings.TrimSuffix "/" (urls.Parse .Site.BaseURL).Path }}";
+    var navPath = window.location.pathname;
+    if (basePath && navPath.indexOf(basePath) === 0) {
+      navPath = navPath.slice(basePath.length) || "/";
+    }
+    sessionStorage.setItem(navPath, "1");
+
+    function markVisited() {
+      var items = document.querySelectorAll("#sidebar [data-nav-id]");
+      for (var i = 0; i < items.length; i++) {
+        var id = items[i].getAttribute("data-nav-id");
+        if (id && sessionStorage.getItem(id) === "1") {
+          items[i].classList.add("visited");
+        }
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", markVisited);
+    } else {
+      markVisited();
+    }
+  })();
+</script>
+
