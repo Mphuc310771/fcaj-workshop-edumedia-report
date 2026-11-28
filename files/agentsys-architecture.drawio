@@ -1,0 +1,446 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0">
+  <diagram id="FXrDFJ_diagram" name="Architecture">
+    <mxGraphModel dx="685" dy="384" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2040" pageHeight="950" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Top External Notification Target: Email (aligned centered above Amazon SNS at x=1862) -->
+        <mxCell id="FXrDFJ_1" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.email;" value="" vertex="1">
+          <mxGeometry height="34" width="46" x="1839" y="12" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;" value="&lt;b&gt;Email&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="80" x="1822" y="50" as="geometry" />
+        </mxCell>
+
+        <!-- Client Container (Outside AWS Cloud) -->
+        <mxCell id="FXrDFJ_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1.2;" value="" vertex="1">
+          <mxGeometry height="280" width="150" x="20" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_4" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.user;" value="" vertex="1">
+          <mxGeometry height="44" width="44" x="73" y="224" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontFamily=Helvetica;fontColor=#232F3E;" value="&lt;b&gt;Student / Researcher&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="150" x="20" y="273" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_6" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.client;" value="" vertex="1">
+          <mxGeometry height="42" width="44" x="73" y="369" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_7" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;" value="&lt;b&gt;React Web UI&lt;/b&gt;&lt;br&gt;SPA Client" vertex="1">
+          <mxGeometry height="34" width="150" x="20" y="416" as="geometry" />
+        </mxCell>
+
+        <!-- AWS Cloud Boundary (x=250..2010, spacious 80px gap from Client for clean wire labels!) -->
+        <mxCell id="FXrDFJ_8" parent="1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;strokeWidth=1.6;fillColor=none;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fontColor=#232F3E;fontFamily=Helvetica;dashed=0;" value="AWS Cloud" vertex="1">
+          <mxGeometry height="830" width="1760" x="250" y="90" as="geometry" />
+        </mxCell>
+
+        <!-- Global Edge Delivery (Inside AWS Cloud, Outside Region) -->
+        <mxCell id="FXrDFJ_cf_box" parent="FXrDFJ_8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FAF8FF;strokeColor=#8C4FFF;strokeWidth=1.2;dashed=1;verticalAlign=top;align=center;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#5B21B6;" value="&lt;b&gt;Global Edge CDN&lt;/b&gt;" vertex="1">
+          <mxGeometry height="170" width="152" x="10" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_cf_icon" parent="FXrDFJ_8" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="61" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_cf_lbl" parent="FXrDFJ_8" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon CloudFront&lt;/b&gt;&lt;br&gt;HTTPS Edge Delivery&lt;br&gt;SPA Distribution" vertex="1">
+          <mxGeometry height="46" width="152" x="10" y="195" as="geometry" />
+        </mxCell>
+
+        <!-- Global Security (Inside AWS Cloud, Outside Region) -->
+        <mxCell id="FXrDFJ_9" parent="FXrDFJ_8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B91C1C;strokeWidth=1.3;verticalAlign=top;align=center;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#B91C1C;" value="&lt;b&gt;Global Security&lt;/b&gt;" vertex="1">
+          <mxGeometry height="165" width="152" x="10" y="625" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_10" parent="FXrDFJ_8" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" value="" vertex="1">
+          <mxGeometry height="48" width="48" x="62" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_11" parent="FXrDFJ_8" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;AWS IAM&lt;/b&gt;&lt;br&gt;Scoped Execution Roles&lt;br&gt;(api · ingest · aggregator)&lt;br&gt;Least-privilege policies" vertex="1">
+          <mxGeometry height="46" width="152" x="10" y="720" as="geometry" />
+        </mxCell>
+
+        <!-- AWS Region Boundary: us-east-1 (x=450..1990) -->
+        <mxCell id="FXrDFJ_12" parent="1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12.5;fontStyle=1;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#00A4A6;strokeWidth=1.6;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=4;fontColor=#007E8A;fontFamily=Helvetica;dashed=1;dashPattern=6 4;" value="Region: us-east-1" vertex="1">
+          <mxGeometry height="780" width="1540" x="450" y="120" as="geometry" />
+        </mxCell>
+
+        <!-- Row 1 Box 1: Frontend Web Hosting (Static S3 Origin) -->
+        <mxCell id="FXrDFJ_fe_box" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F6FBF4;strokeColor=#3F8624;strokeWidth=1.2;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#2D6A1E;" value="&lt;b&gt;Frontend Web Hosting&lt;/b&gt;" vertex="1">
+          <mxGeometry height="170" width="165" x="475" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_fe_icon" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="532.5" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_fe_lbl" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon S3&lt;/b&gt;&lt;br&gt;Static SPA Origin&lt;br&gt;agentsys-web-*" vertex="1">
+          <mxGeometry height="46" width="155" x="480" y="285" as="geometry" />
+        </mxCell>
+
+        <!-- Row 1 Box 2: API & Hybrid Search -->
+        <mxCell id="FXrDFJ_13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FAF8FF;strokeColor=#8C4FFF;strokeWidth=1.2;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#5B21B6;" value="&lt;b&gt;API &amp;amp; Hybrid Search&lt;/b&gt;" vertex="1">
+          <mxGeometry height="170" width="375" x="685" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_14" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="725" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_15" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon API Gateway&lt;/b&gt;&lt;br&gt;HTTP API" vertex="1">
+          <mxGeometry height="36" width="145" x="677.5" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_16" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="930" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_17" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;AWS Lambda&lt;/b&gt;&lt;br&gt;agentsys-api (FastAPI)" vertex="1">
+          <mxGeometry height="36" width="150" x="880" y="285" as="geometry" />
+        </mxCell>
+
+        <!-- Row 1 Box 3: Generative AI (Amazon Bedrock) -->
+        <mxCell id="FXrDFJ_18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F3FAFA;strokeColor=#01A88D;strokeWidth=1.2;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#0F766E;" value="&lt;b&gt;Generative AI (Amazon Bedrock)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="170" width="405" x="1110" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_19" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="1170" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_20" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon Bedrock&lt;/b&gt;&lt;br&gt;Titan Text Embeddings V2" vertex="1">
+          <mxGeometry height="36" width="165" x="1112.5" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_21" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="1380" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_22" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon Bedrock&lt;/b&gt;&lt;br&gt;Amazon Nova Lite" vertex="1">
+          <mxGeometry height="36" width="155" x="1327.5" y="285" as="geometry" />
+        </mxCell>
+
+        <!-- Row 1 Box 4: Monitoring & Notification -->
+        <mxCell id="FXrDFJ_23" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;strokeWidth=1.2;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#232F3E;" value="&lt;b&gt;Monitoring &amp;amp; Notification&lt;/b&gt;" vertex="1">
+          <mxGeometry height="170" width="375" x="1565" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_24" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.xray;" value="" vertex="1">
+          <mxGeometry height="48" width="48" x="1590" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_25" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;AWS X-Ray&lt;/b&gt;&lt;br&gt;Distributed Tracing&lt;br&gt;(All Lambda Handlers)" vertex="1">
+          <mxGeometry height="36" width="105" x="1562" y="283" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_26" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" value="" vertex="1">
+          <mxGeometry height="48" width="48" x="1710" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_27" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon CloudWatch&lt;/b&gt;&lt;br&gt;Logs, Metrics &amp;amp; Alarms" vertex="1">
+          <mxGeometry height="36" width="135" x="1666" y="283" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_28" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sns;" value="" vertex="1">
+          <mxGeometry height="48" width="48" x="1838" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_29" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon SNS&lt;/b&gt;&lt;br&gt;agentsys-alerts-topic" vertex="1">
+          <mxGeometry height="36" width="130" x="1797" y="283" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2 Box 1: Asynchronous Media Ingestion Pipeline -->
+        <mxCell id="FXrDFJ_30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F6FBF4;strokeColor=#3F8624;strokeWidth=1.2;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#2D6A1E;" value="&lt;b&gt;Asynchronous Media Ingestion Pipeline&lt;/b&gt;" vertex="1">
+          <mxGeometry height="450" width="1040" x="475" y="435" as="geometry" />
+        </mxCell>
+        <!-- S3 Private MediaBucket (aligned vertically under Frontend S3 at center x=557.5) -->
+        <mxCell id="FXrDFJ_31" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="532.5" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_32" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon S3&lt;/b&gt;&lt;br&gt;Private MediaBucket&lt;br&gt;uploads/ · thumbs/ · transcripts/" vertex="1">
+          <mxGeometry height="48" width="160" x="477.5" y="650" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon SQS + DLQ (aligned vertically under agentsys-api at center x=955) -->
+        <mxCell id="FXrDFJ_33" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="930" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_34" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon SQS&lt;/b&gt;&lt;br&gt;agentsys-ingest-queue" vertex="1">
+          <mxGeometry height="36" width="150" x="880" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_35" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" value="" vertex="1">
+          <mxGeometry height="46" width="46" x="932" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_36" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon SQS (DLQ)&lt;/b&gt;&lt;br&gt;agentsys-ingest-dlq" vertex="1">
+          <mxGeometry height="36" width="150" x="880" y="826" as="geometry" />
+        </mxCell>
+
+        <!-- AWS Lambda agentsys-ingest + Rekognition + Transcribe (center x=1195) -->
+        <mxCell id="FXrDFJ_40" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon Rekognition&lt;/b&gt;&lt;br&gt;Labels &amp;amp; Text (OCR)" vertex="1">
+          <mxGeometry height="34" width="150" x="1120" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_39" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rekognition;" value="" vertex="1">
+          <mxGeometry height="48" width="48" x="1171" y="476" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_37" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="1170" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_38" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;AWS Lambda&lt;/b&gt;&lt;br&gt;agentsys-ingest" vertex="1">
+          <mxGeometry height="36" width="145" x="1122.5" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_41" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transcribe;" value="" vertex="1">
+          <mxGeometry height="48" width="48" x="1171" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_42" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon Transcribe&lt;/b&gt;&lt;br&gt;Speech-to-Text (vi-VN)" vertex="1">
+          <mxGeometry height="36" width="155" x="1117.5" y="828" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon EventBridge + Transcribe DLQ (center x=1410) -->
+        <mxCell id="FXrDFJ_43" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" value="" vertex="1">
+          <mxGeometry height="48" width="48" x="1386" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_44" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon EventBridge&lt;/b&gt;&lt;br&gt;Transcribe State Change" vertex="1">
+          <mxGeometry height="36" width="155" x="1332.5" y="718" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_45" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" value="" vertex="1">
+          <mxGeometry height="44" width="44" x="1388" y="795" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_46" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon SQS (DLQ)&lt;/b&gt;&lt;br&gt;agentsys-transcribe-dlq" vertex="1">
+          <mxGeometry height="34" width="155" x="1332.5" y="844" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2 Box 2: Metadata Catalog & Stream Aggregation -->
+        <mxCell id="FXrDFJ_47" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F4F7FE;strokeColor=#3B48CC;strokeWidth=1.2;dashed=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=11;fontFamily=Helvetica;fontColor=#1E3A8A;" value="&lt;b&gt;Metadata Catalog &amp;amp; Stream Aggregation&lt;/b&gt;" vertex="1">
+          <mxGeometry height="450" width="375" x="1565" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_48" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="1620" y="492" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_49" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon DynamoDB&lt;/b&gt;&lt;br&gt;AgentSysMediaMetadata&lt;br&gt;GSI: category-index" vertex="1">
+          <mxGeometry height="48" width="155" x="1567.5" y="547" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_50" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb_stream;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="1820" y="492" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_51" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;DynamoDB Streams&lt;/b&gt;&lt;br&gt;Chunk State Events" vertex="1">
+          <mxGeometry height="36" width="145" x="1772.5" y="547" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_52" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="1820" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_53" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;AWS Lambda&lt;/b&gt;&lt;br&gt;agentsys-aggregator" vertex="1">
+          <mxGeometry height="36" width="150" x="1770" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_54" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" value="" vertex="1">
+          <mxGeometry height="44" width="44" x="1823" y="795" as="geometry" />
+        </mxCell>
+        <mxCell id="FXrDFJ_55" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10.5;fontFamily=Helvetica;fontColor=#232F3E;spacingTop=0;" value="&lt;b&gt;Amazon SQS (DLQ)&lt;/b&gt;&lt;br&gt;agentsys-aggregator-stream-dlq" vertex="1">
+          <mxGeometry height="34" width="180" x="1755" y="844" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== EDGES ==================== -->
+
+        <!-- User to Client -->
+        <mxCell id="FXrDFJ_82" edge="1" parent="1" source="FXrDFJ_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6B7280;strokeWidth=1.2;dashed=1;dashPattern=3 3;endArrow=classic;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Client <-> CloudFront (HTTPS Load SPA, centered cleanly in wide x=210 corridor outside AWS Cloud!) -->
+        <mxCell id="FXrDFJ_cf_client" edge="1" parent="1" source="FXrDFJ_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.4;fontColor=#232F3E;fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.18;entryX=0;entryY=0.5;startArrow=classic;endArrow=classic;" target="FXrDFJ_cf_icon" value="HTTPS (SPA)">
+          <mxGeometry relative="1" x="-0.15" as="geometry">
+            <Array as="points">
+              <mxPoint x="208" y="377" />
+              <mxPoint x="208" y="255" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- CloudFront <-> S3 Static Web Hosting (S3 Origin, label cleanly inside x=430 gap? Wait: put S3 Origin offset cleanly inside Global/Region gap or above line!) -->
+        <mxCell id="FXrDFJ_cf_s3" edge="1" parent="1" source="FXrDFJ_cf_icon" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;startArrow=classic;endArrow=classic;" target="FXrDFJ_fe_icon" value="S3 Origin">
+          <mxGeometry relative="1" y="-12" as="geometry" />
+        </mxCell>
+
+        <!-- Client -> API Gateway (HTTPS 443, straight horizontal corridor below Row 1 boxes) -->
+        <mxCell id="FXrDFJ_56" edge="1" parent="1" source="FXrDFJ_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.4;fontColor=#232F3E;fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="FXrDFJ_14" value="HTTPS 443">
+          <mxGeometry relative="1" x="0.16" as="geometry">
+            <Array as="points">
+              <mxPoint x="662" y="390" />
+              <mxPoint x="662" y="255" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Client -> Private S3 MediaBucket (Presigned PUT / GET, centered cleanly at x=208 outside AWS Cloud!) -->
+        <mxCell id="FXrDFJ_57" edge="1" parent="1" source="FXrDFJ_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.4;fontColor=#232F3E;fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.82;entryX=0;entryY=0.5;" target="FXrDFJ_31" value="Presigned PUT / GET">
+          <mxGeometry relative="1" x="-0.15" as="geometry">
+            <Array as="points">
+              <mxPoint x="208" y="403" />
+              <mxPoint x="208" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- API Gateway <-> Lambda API -->
+        <mxCell id="FXrDFJ_58" edge="1" parent="1" source="FXrDFJ_14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;startArrow=classic;endArrow=classic;" target="FXrDFJ_16" value="Proxy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda API -> Private S3 (Presign URL, routed safely around container title "Asynchronous Media Ingestion Pipeline"!) -->
+        <mxCell id="FXrDFJ_59" edge="1" parent="1" source="FXrDFJ_17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.2;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_31" value="Presign URL">
+          <mxGeometry relative="1" x="-0.18" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="412" />
+              <mxPoint x="740" y="412" />
+              <mxPoint x="740" y="542" />
+              <mxPoint x="557.5" y="542" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Lambda API -> SQS Ingest Queue (/process · /reprocess) -->
+        <mxCell id="FXrDFJ_60" edge="1" parent="1" source="FXrDFJ_17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_33" value="/process · /reprocess">
+          <mxGeometry relative="1" x="0.22" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Lambda API <-> Titan Embeddings (Embed Query) -->
+        <mxCell id="FXrDFJ_61" edge="1" parent="1" source="FXrDFJ_16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;startArrow=classic;endArrow=classic;" target="FXrDFJ_19" value="Embed Query">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda API <-> Nova Lite (Converse API) -->
+        <mxCell id="FXrDFJ_62" edge="1" parent="1" source="FXrDFJ_16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0;entryX=0.3;entryY=0;startArrow=classic;endArrow=classic;" target="FXrDFJ_21" value="Converse API (Plan &amp;amp; Answer)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="955" y="162" />
+              <mxPoint x="1395" y="162" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S3 MediaBucket -> SQS Ingest Queue -->
+        <mxCell id="FXrDFJ_64" edge="1" parent="1" source="FXrDFJ_31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="FXrDFJ_33" value="ObjectCreated (uploads/)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- SQS Ingest Queue -> DLQ -->
+        <mxCell id="FXrDFJ_65" edge="1" parent="1" source="FXrDFJ_34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_35" value="Redrive (3x)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- SQS Ingest Queue -> Lambda Ingest -->
+        <mxCell id="FXrDFJ_66" edge="1" parent="1" source="FXrDFJ_33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="FXrDFJ_37" value="SQS Batch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda Ingest <-> Amazon Rekognition -->
+        <mxCell id="FXrDFJ_68" edge="1" parent="1" source="FXrDFJ_37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0;entryX=0.5;entryY=1;startArrow=classic;endArrow=classic;" target="FXrDFJ_39" value="DetectLabels · DetectText">
+          <mxGeometry relative="1" x="0.28" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda Ingest <-> Titan Embeddings (Embed Metadata) -->
+        <mxCell id="FXrDFJ_69" edge="1" parent="1" source="FXrDFJ_37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.2;entryX=0.75;entryY=1;startArrow=classic;endArrow=classic;" target="FXrDFJ_20" value="Embed Metadata">
+          <mxGeometry relative="1" y="-20" as="geometry">
+            <Array as="points">
+              <mxPoint x="1345" y="605" />
+              <mxPoint x="1345" y="400" />
+              <mxPoint x="1236" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Lambda Ingest -> Amazon Transcribe (Start Job) -->
+        <mxCell id="FXrDFJ_70" edge="1" parent="1" source="FXrDFJ_38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_41" value="Start Job">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon Transcribe -> EventBridge (Job State) -->
+        <mxCell id="FXrDFJ_71" edge="1" parent="1" source="FXrDFJ_41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" target="FXrDFJ_43" value="Job State">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1315" y="799" />
+              <mxPoint x="1315" y="701" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- EventBridge -> Lambda Ingest (Callback) -->
+        <mxCell id="FXrDFJ_72" edge="1" parent="1" source="FXrDFJ_43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.25;entryX=1;entryY=0.8;" target="FXrDFJ_37" value="Callback">
+          <mxGeometry relative="1" y="15" as="geometry">
+            <Array as="points">
+              <mxPoint x="1315" y="677" />
+              <mxPoint x="1315" y="635" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- EventBridge -> Transcribe DLQ (OnFailure) -->
+        <mxCell id="FXrDFJ_73" edge="1" parent="1" source="FXrDFJ_44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_45" value="OnFailure">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda Ingest -> DynamoDB (PutItem) -->
+        <mxCell id="FXrDFJ_74" edge="1" parent="1" source="FXrDFJ_37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="FXrDFJ_48" value="PutItem">
+          <mxGeometry relative="1" x="-0.25" as="geometry">
+            <Array as="points">
+              <mxPoint x="1535" y="620" />
+              <mxPoint x="1535" y="517" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- DynamoDB -> DynamoDB Streams -->
+        <mxCell id="FXrDFJ_75" edge="1" parent="1" source="FXrDFJ_48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="FXrDFJ_50" value="Stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- DynamoDB Streams -> Lambda Aggregator -->
+        <mxCell id="FXrDFJ_76" edge="1" parent="1" source="FXrDFJ_51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_52" value="Trigger">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda Aggregator -> Stream DLQ -->
+        <mxCell id="FXrDFJ_77" edge="1" parent="1" source="FXrDFJ_53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="FXrDFJ_54" value="OnFailure">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda Aggregator -> DynamoDB (Update Summary) -->
+        <mxCell id="FXrDFJ_78" edge="1" parent="1" source="FXrDFJ_52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.5;entryX=0.5;entryY=1;" target="FXrDFJ_49" value="Update Summary">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1645" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- CloudWatch -> SNS (alarm) -->
+        <mxCell id="FXrDFJ_80" edge="1" parent="1" source="FXrDFJ_26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="FXrDFJ_28" value="alarm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- SNS -> Email -->
+        <mxCell id="FXrDFJ_81" edge="1" parent="1" source="FXrDFJ_28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" target="FXrDFJ_2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== HIGH Z-ORDER EDGES (WITH JUMP ARCS) ==================== -->
+
+        <!-- Lambda API <-> DynamoDB (Query GSI enters dedicated TOP port of DynamoDB, jumps over Embed Metadata!) -->
+        <mxCell id="FXrDFJ_63" edge="1" parent="1" source="FXrDFJ_17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.3;fontColor=#232F3E;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.85;exitY=1;entryX=0.5;entryY=0;startArrow=classic;endArrow=classic;jumpStyle=arc;jumpSize=12;" target="FXrDFJ_48" value="Query GSI (category-index)">
+          <mxGeometry relative="1" x="-0.55" as="geometry">
+            <Array as="points">
+              <mxPoint x="1007.5" y="372" />
+              <mxPoint x="1645" y="372" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Lambda Ingest <-> S3 MediaBucket (GetObject / PutObject jumps over /process · /reprocess!) -->
+        <mxCell id="FXrDFJ_67" edge="1" parent="1" source="FXrDFJ_37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=0.1;exitY=0;entryX=0.9;entryY=0;startArrow=classic;endArrow=classic;jumpStyle=arc;jumpSize=12;" target="FXrDFJ_31" value="GetObject / PutObject">
+          <mxGeometry relative="1" x="-0.38" as="geometry" y="-10">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1175" y="570" />
+              <mxPoint x="577.5" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Lambda Aggregator <-> Nova Lite (Chunk Summary bidirectional, spacious right corridor x=1965, jumps over SNS->Email!) -->
+        <mxCell id="FXrDFJ_79" edge="1" parent="1" source="FXrDFJ_52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4B5563;strokeWidth=1.2;dashed=1;dashPattern=5 4;fontColor=#374151;fontSize=9.5;fontFamily=Helvetica;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.3;entryX=0.8;entryY=0;startArrow=classic;endArrow=classic;jumpStyle=arc;jumpSize=12;" target="FXrDFJ_21" value="Chunk Summary">
+          <mxGeometry relative="1" x="0.28" as="geometry">
+            <Array as="points">
+              <mxPoint x="1965" y="660" />
+              <mxPoint x="1965" y="142" />
+              <mxPoint x="1420" y="142" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

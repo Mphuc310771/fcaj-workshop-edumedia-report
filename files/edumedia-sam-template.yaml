@@ -1,0 +1,708 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: AgentSys — S3, SQS, Lambda, Rekognition, Transcribe, DynamoDB, Bedrock, CloudWatch
+
+Parameters:
+  ApiKey:
+    Type: String
+    NoEcho: true
+    Description: Value of the X-API-Key header required by the HTTP API
+  BedrockModelId:
+    Type: String
+    Default: us.amazon.nova-pro-v1:0
+    Description: Bedrock model ID. Flagship Amazon Nova Pro for multi-modal reasoning and query planning.
+  BedrockRegion:
+    Type: String
+    Default: us-east-1
+    Description: Region where the Bedrock model is enabled
+  AlertEmail:
+    Type: String
+    Default: agentsys-alerts@example.com
+    Description: >-
+      Email subscribed to agentsys-alerts-topic (destination of all 7 CloudWatch alarms).
+      SNS sends a confirmation link after deploy; the subscription stays PendingConfirmation
+      until it is clicked. Pass an empty string to deploy without a subscription.
+    AllowedPattern: '^$|^[^@\s]+@[^@\s]+\.[^@\s]+$'
+    ConstraintDescription: Must be a valid email address or an empty string.
+  FrontendOriginUrl:
+    Type: String
+    Default: "*"
+    Description: Frontend origin domain for CORS (e.g. https://my-agent.vercel.app or * for open demo)
+
+Conditions:
+  HasAlertEmail: !Not [!Equals [!Ref AlertEmail, ""]]
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Architectures: [x86_64]
+    Timeout: 60
+    MemorySize: 512
+    Tracing: Active
+    Environment:
+      Variables:
+        MEDIA_BUCKET: !Ref MediaBucket
+        METADATA_TABLE: !Ref MetadataTable
+        BEDROCK_MODEL_ID: !Ref BedrockModelId
+        BEDROCK_REGION: !Ref BedrockRegion
+        ENVIRONMENT: production
+        ADMIN_API_KEY: !Ref ApiKey
+        CLOUDWATCH_NAMESPACE: AgentSys
+        INGEST_QUEUE_URL: !Ref IngestQueue
+        ALLOWED_ORIGINS: !Ref FrontendOriginUrl
+  HttpApi:
+    CorsConfiguration:
+      AllowOrigins:
+        - http://localhost:3000
+        - http://127.0.0.1:3000
+        - http://localhost:5174
+        - http://127.0.0.1:5174
+        - http://localhost:8000
+        - http://127.0.0.1:8000
+        - !Ref FrontendOriginUrl
+      AllowHeaders:
+        - Content-Type
+        - X-API-Key
+        - Authorization
+      AllowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      MaxAge: 3000
+
+Resources:
+  IngestDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: agentsys-ingest-dlq
+      MessageRetentionPeriod: 1209600
+      SqsManagedSseEnabled: true
+
+  AggregatorStreamDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: agentsys-aggregator-stream-dlq
+      MessageRetentionPeriod: 1209600
+      SqsManagedSseEnabled: true
+
+  TranscribeEventDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: agentsys-transcribe-dlq
+      MessageRetentionPeriod: 1209600
+      SqsManagedSseEnabled: true
+
+  TranscribeEventDLQPolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref TranscribeEventDLQ
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowEventBridgeToSendToTranscribeDLQ
+            Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sqs:SendMessage
+            Resource: !GetAtt TranscribeEventDLQ.Arn
+
+  IngestQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: agentsys-ingest-queue
+      VisibilityTimeout: 720
+      MessageRetentionPeriod: 86400
+      ReceiveMessageWaitTimeSeconds: 10
+      SqsManagedSseEnabled: true
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt IngestDLQ.Arn
+        maxReceiveCount: 3
+
+  IngestQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref IngestQueue
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowS3ToSendIngestMessages
+            Effect: Allow
+            Principal:
+              Service: s3.amazonaws.com
+            Action: sqs:SendMessage
+            Resource: !GetAtt IngestQueue.Arn
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+
+  MediaBucket:
+    Type: AWS::S3::Bucket
+    DependsOn: IngestQueuePolicy
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: ["*"]
+            AllowedMethods: [GET, PUT, HEAD]
+            AllowedOrigins:
+              - http://localhost:3000
+              - http://127.0.0.1:3000
+              - http://localhost:5174
+              - http://127.0.0.1:5174
+              - http://localhost:8000
+              - http://127.0.0.1:8000
+              - !Ref FrontendOriginUrl
+            ExposedHeaders: [ETag]
+            MaxAge: 3000
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpireTempTranscripts
+            Status: Enabled
+            Prefix: transcripts/
+            ExpirationInDays: 7
+      NotificationConfiguration:
+        QueueConfigurations:
+          - Event: s3:ObjectCreated:*
+            Queue: !GetAtt IngestQueue.Arn
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: uploads/
+
+  MediaBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MediaBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowTranscribeReadUploads
+            Effect: Allow
+            Principal:
+              Service: transcribe.amazonaws.com
+            Action:
+              - s3:GetObject
+            Resource: !Sub ${MediaBucket.Arn}/uploads/*
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+          - Sid: AllowTranscribeWriteOutput
+            Effect: Allow
+            Principal:
+              Service: transcribe.amazonaws.com
+            Action:
+              - s3:PutObject
+            Resource: !Sub ${MediaBucket.Arn}/transcripts/*
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+          - Sid: AllowTranscribeBucketLocation
+            Effect: Allow
+            Principal:
+              Service: transcribe.amazonaws.com
+            Action:
+              - s3:GetBucketLocation
+            Resource: !GetAtt MediaBucket.Arn
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+
+  MetadataTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AgentSysMediaMetadata
+      BillingMode: PAY_PER_REQUEST
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      SSESpecification:
+        SSEEnabled: true
+      AttributeDefinitions:
+        - AttributeName: file_id
+          AttributeType: S
+        - AttributeName: category
+          AttributeType: S
+      KeySchema:
+        - AttributeName: file_id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: category-index
+          KeySchema:
+            - AttributeName: category
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        # PITR disabled to eliminate continuous backup storage charges in Dev/Lab (Cost Optimization Pillar); enable for enterprise production.
+        PointInTimeRecoveryEnabled: false
+
+  IngestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: agentsys-ingest
+      Handler: apps.lambda_handlers.ingest.handler
+      CodeUri: ../pack
+      Timeout: 120
+      # ReservedConcurrentExecutions omitted: new-account Lambda quota
+      # (UnreservedConcurrentExecution minimum 10) rejects reserved=2.
+      Policies:
+        - Statement:
+            - Sid: ReadMediaObjects
+              Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:PutObject
+              Resource:
+                - !Sub ${MediaBucket.Arn}/uploads/*
+                - !Sub ${MediaBucket.Arn}/transcripts/*
+                - !Sub ${MediaBucket.Arn}/thumbs/*
+            - Sid: RekognitionRead
+              Effect: Allow
+              Action:
+                - rekognition:DetectLabels
+                - rekognition:DetectText
+              Resource: "*"
+            - Sid: TranscribeJobs
+              Effect: Allow
+              Action:
+                - transcribe:StartTranscriptionJob
+                - transcribe:GetTranscriptionJob
+              Resource: "*"
+            - Sid: DynamoWrite
+              Effect: Allow
+              Action:
+                - dynamodb:PutItem
+                - dynamodb:GetItem
+                - dynamodb:UpdateItem
+                - dynamodb:Scan
+                - dynamodb:Query
+                - dynamodb:BatchWriteItem
+                # Defense-in-depth: boto3 Table resources lazy-load metadata via DescribeTable.
+                # Code no longer introspects key_schema, but a future regression must not AccessDeny.
+                - dynamodb:DescribeTable
+              Resource:
+                - !GetAtt MetadataTable.Arn
+                - !Sub ${MetadataTable.Arn}/index/category-index
+            - Sid: CustomMetrics
+              Effect: Allow
+              Action:
+                - cloudwatch:PutMetricData
+              Resource: "*"
+              Condition:
+                StringEquals:
+                  cloudwatch:namespace: AgentSys
+            - Sid: BedrockInvoke
+              Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource:
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-lite-v1:0
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-pro-v1:0
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.titan-embed-text-v2:0
+                - !Sub arn:aws:bedrock:*::foundation-model/*
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/*
+      Events:
+        FromQueue:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt IngestQueue.Arn
+            BatchSize: 5
+            MaximumBatchingWindowInSeconds: 3
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+            # Cap SQS pollers: an upload burst must not consume the account's shared
+            # (new-account, ~10) unreserved concurrency and starve ApiFunction/AggregatorFunction.
+            # Excess messages simply wait in the queue (VisibilityTimeout 720s, DLQ after 3).
+            ScalingConfig:
+              MaximumConcurrency: 5
+        TranscribeStateChange:
+          Type: EventBridgeRule
+          Properties:
+            Pattern:
+              source:
+                - aws.transcribe
+              detail-type:
+                - Transcribe Job State Change
+              detail:
+                TranscriptionJobStatus:
+                  - COMPLETED
+                  - FAILED
+            DeadLetterConfig:
+              Arn: !GetAtt TranscribeEventDLQ.Arn
+            RetryPolicy:
+              MaximumEventAgeInSeconds: 86400
+              MaximumRetryAttempts: 3
+
+  AggregatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: agentsys-aggregator
+      Handler: pipeline.aggregator_lambda.handler
+      CodeUri: ../pack
+      Timeout: 60
+      Policies:
+        - Statement:
+            - Sid: DynamoDBStreamAndTableAccess
+              Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                # Keyed chunk reads (<id>#CHUNK#000i) instead of table scans in get_file_chunks.
+                - dynamodb:BatchGetItem
+                - dynamodb:UpdateItem
+                - dynamodb:Query
+                - dynamodb:Scan
+                - dynamodb:DescribeStream
+                - dynamodb:GetRecords
+                - dynamodb:GetShardIterator
+                # Defense-in-depth (see IngestFunction.DynamoWrite).
+                - dynamodb:DescribeTable
+              Resource:
+                - !GetAtt MetadataTable.Arn
+                - !Sub ${MetadataTable.Arn}/index/*
+                - !Sub ${MetadataTable.Arn}/stream/*
+            - Sid: DynamoDBListStreamsGlobal
+              Effect: Allow
+              Action:
+                - dynamodb:ListStreams
+              Resource: "*"
+            - Sid: BedrockInvocation
+              Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource:
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-lite-v1:0
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-pro-v1:0
+                - !Sub arn:aws:bedrock:*::foundation-model/*
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/*
+            - Sid: SQSStreamDLQAccess
+              Effect: Allow
+              Action:
+                - sqs:SendMessage
+              Resource: !GetAtt AggregatorStreamDLQ.Arn
+            - Sid: CustomMetrics
+              Effect: Allow
+              Action:
+                - cloudwatch:PutMetricData
+              Resource: "*"
+              Condition:
+                StringEquals:
+                  cloudwatch:namespace: AgentSys
+      Events:
+        StreamTrigger:
+          Type: DynamoDB
+          Properties:
+            Stream: !GetAtt MetadataTable.StreamArn
+            StartingPosition: LATEST
+            BatchSize: 5
+            MaximumRetryAttempts: 3
+            BisectBatchOnFunctionError: true
+            DestinationConfig:
+              OnFailure:
+                Destination: !GetAtt AggregatorStreamDLQ.Arn
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: agentsys-api
+      Handler: apps.lambda_handlers.api.handler
+      CodeUri: ../pack
+      Timeout: 30
+      Events:
+        Proxy:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+        Root:
+          Type: HttpApi
+          Properties:
+            Path: /
+            Method: ANY
+      Policies:
+        - Statement:
+            - Sid: PresignUploads
+              Effect: Allow
+              Action:
+                - s3:PutObject
+                - s3:GetObject
+                - s3:DeleteObject
+              Resource:
+                - !Sub ${MediaBucket.Arn}/uploads/*
+                - !Sub ${MediaBucket.Arn}/thumbs/*
+                - !Sub ${MediaBucket.Arn}/direct/*
+            - Sid: DynamoAccess
+              Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:DeleteItem
+                - dynamodb:Scan
+                - dynamodb:Query
+                - dynamodb:BatchWriteItem
+              Resource:
+                - !GetAtt MetadataTable.Arn
+                - !Sub ${MetadataTable.Arn}/index/category-index
+            - Sid: HealthPings
+              Effect: Allow
+              Action:
+                - sts:GetCallerIdentity
+                - rekognition:ListCollections
+                - transcribe:ListTranscriptionJobs
+                - bedrock:GetFoundationModel
+                - bedrock:GetInferenceProfile
+              Resource: "*"
+            - Sid: HealthBucket
+              Effect: Allow
+              Action:
+                - s3:ListBucket
+              Resource: !GetAtt MediaBucket.Arn
+            - Sid: HealthTable
+              Effect: Allow
+              Action:
+                - dynamodb:DescribeTable
+              Resource: !GetAtt MetadataTable.Arn
+            - Sid: BedrockInvoke
+              Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+                - bedrock:InvokeModelWithResponseStream
+              Resource:
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-lite-v1:0
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.nova-pro-v1:0
+                - !Sub arn:aws:bedrock:${BedrockRegion}::foundation-model/amazon.titan-embed-text-v2:0
+                - !Sub arn:aws:bedrock:*::foundation-model/*
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/*
+            - Sid: CustomMetrics
+              Effect: Allow
+              Action:
+                - cloudwatch:PutMetricData
+              Resource: "*"
+              Condition:
+                StringEquals:
+                  cloudwatch:namespace: AgentSys
+            - Sid: IngestQueueSend
+              Effect: Allow
+              Action:
+                - sqs:SendMessage
+              Resource: !GetAtt IngestQueue.Arn
+
+  AgentSysAlertsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: agentsys-alerts-topic
+      DisplayName: AgentSys CloudWatch Operational Alerts
+      KmsMasterKeyId: alias/aws/sns
+
+  # Without a subscriber the 7 alarms below would fire into an empty topic. The email
+  # endpoint must confirm the SNS link once; deploy_stack.py forwards ALERT_EMAIL from .env.
+  AgentSysAlertsEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Condition: HasAlertEmail
+    Properties:
+      TopicArn: !Ref AgentSysAlertsTopic
+      Protocol: email
+      Endpoint: !Ref AlertEmail
+
+  IngestErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: agentsys-ingest-errors
+      AlarmDescription: Fires when the AgentSys ingest Lambda reports errors.
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref IngestFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AgentSysAlertsTopic
+
+  ApiErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: agentsys-api-errors
+      AlarmDescription: Fires when the AgentSys API Lambda reports errors.
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref ApiFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AgentSysAlertsTopic
+
+  IngestFailedMetricAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: agentsys-ingest-failed
+      AlarmDescription: Custom AgentSys metric when an ingest job marks FAILED.
+      Namespace: AgentSys
+      MetricName: MediaIngestFailed
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AgentSysAlertsTopic
+
+  IngestDlqAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: agentsys-ingest-dlq
+      AlarmDescription: Messages landed on the ingest dead-letter queue.
+      Namespace: AWS/SQS
+      MetricName: ApproximateNumberOfMessagesVisible
+      Dimensions:
+        - Name: QueueName
+          Value: !GetAtt IngestDLQ.QueueName
+      Statistic: Maximum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AgentSysAlertsTopic
+
+  IngestLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${IngestFunction}
+      RetentionInDays: 14
+
+  ApiLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${ApiFunction}
+      RetentionInDays: 14
+
+  AggregatorLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${AggregatorFunction}
+      RetentionInDays: 14
+
+  AggregatorErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: agentsys-aggregator-errors
+      AlarmDescription: Fires when the AgentSys aggregator Lambda reports errors.
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref AggregatorFunction
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AgentSysAlertsTopic
+
+  AggregatorStreamDlqAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: agentsys-aggregator-stream-dlq
+      AlarmDescription: Messages landed on the aggregator stream dead-letter queue.
+      Namespace: AWS/SQS
+      MetricName: ApproximateNumberOfMessagesVisible
+      Dimensions:
+        - Name: QueueName
+          Value: !GetAtt AggregatorStreamDLQ.QueueName
+      Statistic: Maximum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AgentSysAlertsTopic
+
+  TranscribeDlqAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: agentsys-transcribe-dlq
+      AlarmDescription: Messages landed on the transcribe event dead-letter queue.
+      Namespace: AWS/SQS
+      MetricName: ApproximateNumberOfMessagesVisible
+      Dimensions:
+        - Name: QueueName
+          Value: !GetAtt TranscribeEventDLQ.QueueName
+      Statistic: Maximum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AgentSysAlertsTopic
+
+Outputs:
+  ApiEndpoint:
+    Description: HTTP API base URL
+    Value: !Sub https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com
+  MediaBucketName:
+    Description: S3 bucket for media uploads
+    Value: !Ref MediaBucket
+  MetadataTableName:
+    Description: DynamoDB table for media metadata
+    Value: !Ref MetadataTable
+  IngestQueueUrl:
+    Description: SQS buffer between S3 ObjectCreated and ingest Lambda
+    Value: !Ref IngestQueue
+  IngestDlqUrl:
+    Description: Dead-letter queue for failed ingest messages
+    Value: !Ref IngestDLQ
+  TranscribeDlqUrl:
+    Description: Dead-letter queue for failed Transcribe EventBridge events
+    Value: !Ref TranscribeEventDLQ
+  IngestFunctionName:
+    Value: !Ref IngestFunction
+  ApiFunctionName:
+    Value: !Ref ApiFunction
+  IngestErrorAlarmName:
+    Value: !Ref IngestErrorAlarm
+  IngestDlqAlarmName:
+    Value: !Ref IngestDlqAlarm
+  TranscribeDlqAlarmName:
+    Value: !Ref TranscribeDlqAlarm
+  AggregatorFunctionName:
+    Value: !Ref AggregatorFunction
+  AggregatorErrorAlarmName:
+    Value: !Ref AggregatorErrorAlarm
+  AggregatorStreamDlqAlarmName:
+    Value: !Ref AggregatorStreamDlqAlarm
+  AlertsTopicArn:
+    Description: SNS topic ARN for AgentSys CloudWatch alarms
+    Value: !Ref AgentSysAlertsTopic
+  AlertEmailEndpoint:
+    Description: Email subscribed to the alerts topic (PendingConfirmation until the SNS link is clicked)
+    Value: !If [HasAlertEmail, !Ref AlertEmail, "none (AlertEmail parameter was empty)"]
